@@ -6,6 +6,7 @@ import (
 	"j/japi/jerr"
 	"j/japi/notation"
 	jschemaLib "j/schema"
+	jerrors "j/schema/errors"
 	"j/schema/kit"
 	"j/schema/notations/jschema"
 	"j/schema/notations/regex"
@@ -60,8 +61,8 @@ func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
 }
 
 func (core *JApiCore) buildUserType(name string) *jerr.JAPIError {
-	if _, ok := core.builtUserTypes[name]; ok {
-		// This user type already built, skip.
+	if _, ok := core.processedUserTypes[name]; ok {
+		// This user type already processed, skip.
 		return nil
 	}
 
@@ -77,6 +78,9 @@ func (core *JApiCore) buildUserType(name string) *jerr.JAPIError {
 		return jschemaToJAPIError(err, dd.GetValue(name))
 	}
 
+	core.processedUserTypes[name] = struct{}{}
+	alreadyAddedTypes := map[string]struct{}{}
+
 	for _, n := range tt {
 		if n != name {
 			if err := core.buildUserType(n); err != nil {
@@ -89,15 +93,26 @@ func (core *JApiCore) buildUserType(name string) *jerr.JAPIError {
 			continue
 		}
 
-		if err := currUT.AddType(n, ut); err != nil {
-			return jschemaToJAPIError(err, dd.GetValue(n))
+		if _, ok := alreadyAddedTypes[n]; !ok {
+			if err := safeAddType(currUT, n, ut); err != nil {
+				return jschemaToJAPIError(err, dd.GetValue(n))
+			}
+			alreadyAddedTypes[n] = struct{}{}
 		}
 	}
 
-	core.builtUserTypes[name] = struct{}{}
 	core.userTypes.Set(name, currUT)
 
 	return nil
+}
+
+func safeAddType(curr jschemaLib.Schema, n string, ut jschemaLib.Schema) error {
+	err := curr.AddType(n, ut)
+	var e interface{ Code() jerrors.ErrorCode }
+	if errors.As(err, &e) && e.Code() == jerrors.ErrDuplicationOfNameOfTypes {
+		err = nil
+	}
+	return err
 }
 
 func (core *JApiCore) getUsedUserTypes(ut jschemaLib.Schema) ([]string, error) {

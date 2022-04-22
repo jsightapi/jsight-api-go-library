@@ -33,15 +33,17 @@ func otherByte(b byte) byte {
 	}
 }
 
-var any = []byte("any")
-var empty = []byte("empty")
-var regex = []byte("regex")
+var (
+	anyType   = []byte("any")
+	emptyType = []byte("empty")
+	regexType = []byte("regex")
+)
 
 func (s *Scanner) isDirectiveParameterHasTypeOrAnyOrEmpty() bool {
 	for _, lex := range s.lastDirectiveParameters {
 		v := lex.Value().Unquote().TrimSquareBrackets()
 		switch {
-		case v.Equals(any), v.Equals(empty), v.IsUserTypeName():
+		case v.Equals(anyType), v.Equals(emptyType), v.IsUserTypeName():
 			return true
 		}
 	}
@@ -52,7 +54,7 @@ func (s *Scanner) isDirectiveParameterHasAnyOrEmpty() bool {
 	for _, lex := range s.lastDirectiveParameters {
 		v := lex.Value().Unquote().TrimSquareBrackets()
 		switch {
-		case v.Equals(any), v.Equals(empty):
+		case v.Equals(anyType), v.Equals(emptyType):
 			return false
 		}
 	}
@@ -62,7 +64,7 @@ func (s *Scanner) isDirectiveParameterHasAnyOrEmpty() bool {
 func (s *Scanner) isDirectiveParameterHasRegexNotation() bool {
 	for _, lex := range s.lastDirectiveParameters {
 		v := lex.Value().Unquote()
-		if v.Equals(regex) {
+		if v.Equals(regexType) {
 			return true
 		}
 	}

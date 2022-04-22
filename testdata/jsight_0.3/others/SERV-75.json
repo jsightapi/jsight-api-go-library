@@ -1,0 +1,57 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /highest-possible-card/{v}": {
+      "httpMethod": "GET",
+      "path": "/highest-possible-card/{v}",
+      "tags": [
+        "@highest-possible-card"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "v": {
+                "jsonType": "string",
+                "type": "enum",
+                "optional": false,
+                "scalarValue": "5",
+                "rules": {
+                  "enum": {
+                    "jsonType": "array",
+                    "items": [
+                      {
+                        "jsonType": "string",
+                        "scalarValue": "5"
+                      },
+                      {
+                        "jsonType": "number",
+                        "scalarValue": "5"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@highest-possible-card": {
+      "name": "@highest-possible-card",
+      "title": "/highest-possible-card",
+      "resourceMethods": {
+        "/highest-possible-card/{v}": [
+          "GET /highest-possible-card/{v}"
+        ]
+      }
+    }
+  }
+}

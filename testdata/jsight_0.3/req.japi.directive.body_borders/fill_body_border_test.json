@@ -57,11 +57,11 @@
         }
     },
     "resourceMethods": {
-        "GET /cats/{id}": {
+        "GET /cat/{id}": {
             "httpMethod": "GET",
-            "path": "/cats/{id}",
+            "path": "/cat/{id}",
             "tags": [
-                "@cats"
+                "@cat"
             ],
             "pathVariables": {
                 "schema": {
@@ -125,11 +125,11 @@
                 }
             ]
         },
-        "POST /cats/{id}": {
+        "POST /cat/{id}": {
             "httpMethod": "POST",
-            "path": "/cats/{id}",
+            "path": "/cat/{id}",
             "tags": [
-                "@cats"
+                "@cat"
             ],
             "pathVariables": {
                 "schema": {
@@ -229,11 +229,11 @@
                 }
             ]
         },
-        "DELETE /cats/{id}": {
+        "DELETE /cat/{id}": {
             "httpMethod": "DELETE",
-            "path": "/cats/{id}",
+            "path": "/cat/{id}",
             "tags": [
-                "@cats"
+                "@cat"
             ],
             "pathVariables": {
                 "schema": {
@@ -295,14 +295,14 @@
         }
     },
     "tags": {
-        "@cats": {
-            "name": "@cats",
-            "title": "/cats",
+        "@cat": {
+            "name": "@cat",
+            "title": "/cat",
             "resourceMethods": {
-                "/cats/{id}": [
-                    "GET /cats/{id}",
-                    "POST /cats/{id}",
-                    "DELETE /cats/{id}"
+                "/cat/{id}": [
+                    "GET /cat/{id}",
+                    "POST /cat/{id}",
+                    "DELETE /cat/{id}"
                 ]
             }
         }

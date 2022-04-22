@@ -14,8 +14,9 @@ type JApiCore struct {
 	// userTypes represent all user types.
 	userTypes *catalog.UserSchemas
 
-	// builtUserTypes a "set" of already build user types.
-	builtUserTypes map[string]struct{}
+	// processedUserTypes a "set" of already processed user types. Used for resolving
+	// circular dependencies between user types.
+	processedUserTypes map[string]struct{}
 
 	// representation of Api data.
 	catalog *catalog.Catalog
@@ -53,16 +54,16 @@ type JApiCore struct {
 
 func NewJApiCore(file *fs.File) *JApiCore {
 	c := &JApiCore{
-		userTypes:        &catalog.UserSchemas{},
-		builtUserTypes:   make(map[string]struct{}, 30),
-		file:             file,
-		catalog:          catalog.NewCatalog(),
-		currentDirective: nil,
-		directives:       make([]*directive.Directive, 0, 200),
-		uniqURLPath:      make(map[catalog.Path]bool, 20),
-		similarPaths:     make(map[string]string, 20),
-		rawPathVariables: make([]rawPathVariable, 0, 40),
-		macro:            make(map[string]*directive.Directive, 20),
+		userTypes:          &catalog.UserSchemas{},
+		processedUserTypes: make(map[string]struct{}, 30),
+		file:               file,
+		catalog:            catalog.NewCatalog(),
+		currentDirective:   nil,
+		directives:         make([]*directive.Directive, 0, 200),
+		uniqURLPath:        make(map[catalog.Path]bool, 20),
+		similarPaths:       make(map[string]string, 20),
+		rawPathVariables:   make([]rawPathVariable, 0, 40),
+		macro:              make(map[string]*directive.Directive, 20),
 	}
 	return c
 }

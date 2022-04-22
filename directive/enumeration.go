@@ -113,7 +113,7 @@ func (de Enumeration) IsAllowedForDirectiveContext(child Enumeration) bool {
 	switch de {
 	case Url:
 		switch child {
-		case Url, Path, Paste,
+		case Path, Paste,
 			Get, Post, Put, Patch, Delete:
 			return true
 		default:

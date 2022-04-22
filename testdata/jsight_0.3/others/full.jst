@@ -82,96 +82,97 @@ URL /users
       }
     500 @error
 
-  URL /users/{id}
-    Path # comment
+URL /users/{id}
+  Path # comment
+    {
+      "id": 1
+    }
+
+  GET // view the user in detail
+    Description
+      There may be delays when working with query
+
+
+    200 @user
+
+  PUT // change user data
+    Description
+      Before working, it is advisable to read the [instructions](www.dummy.link )
+
+    Request
       {
-        "id": 1
+        "name": "John"
       }
 
-    GET // view the user in detail
-      Description
-        There may be delays when working with query
+    200 @user // success
 
+  ### DELETE will be added ###
 
-      200 @user
+URL /users/{id}/attachments
+(
+  GET // get a list of user attachments
+    200 [@attachment]
 
-    PUT // change user data
-      Description
-        Before working, it is advisable to read the [instructions](www.dummy.link )
+  POST // add a file to the user
+    Request @attachment
+    201 @attachment
+)
 
-      Request
-        {
-          "name": "John"
-        }
+URL /users/{id}/attachments/{number}
 
-      200 @user // success
+  GET // view attachment by number
+    200 @attachment
 
-    ### DELETE will be added ###
+  DELETE // delete attachment by number
+    200 empty
 
-    URL /users/{id}/attachments
-    (
-      GET // get a list of user attachments
-        200 [@attachment]
+URL /users/{id}/tasks
+(
 
-      POST // add a file to the user
-        Request @attachment
-        201 @attachment
+  GET // task list
+    200 @task
 
-      URL /users/{id}/attachments/{number}
+  POST
+    Request [@task]
+    201 [@task]
+)
 
-        GET // view attachment by number
-          200 @attachment
+URL /users/{id}/tasks/{task:id}
 
-        DELETE // delete attachment by number
-          200 empty
-    )
+  GET
+    200 @task
 
-    URL /users/{id}/tasks
-    (
+  DELETE
+    200 empty
 
-      GET // task list
-        200 @task
+URL /users/{id}/tasks/attachments
+(
+  GET
+    200 [@attachment]
 
-      POST
-        Request [@task]
-        201 [@task]
+  POST
+    Request @attachment
+    201 @attachment
+)
 
-      URL /users/{id}/tasks/{task:id}
+URL /users/{id}/tasks/attachments/{number}
+(
+  GET
+    200 @attachment
 
-        GET
-          200 @task
+  DELETE
+    200 empty
+)
 
-        DELETE
-          200 empty
+URL /users/{id}/subtasks
+(
+  GET
+    200 [@task]
 
-        URL /users/{id}/tasks/attachments
-        (
-
-          GET
-            200 [@attachment]
-
-          POST
-            Request @attachment
-            201 @attachment
-
-          URL /users/{id}/tasks/attachments/{number}
-
-            GET
-              200 @attachment
-
-            DELETE
-              200 empty
-        )
-
-        URL /users/{id}/subtasks
-
-          GET
-            200 [@task]
-
-          POST
-            Request @task
-            201 @task
-    )
+  POST
+    Request @task
+    201 @task
+)
 
 GET /users/n/{name} // view user by name
   Path # comment after path explanation
@@ -191,20 +192,20 @@ URL /tasks
   POST
     Request @task
 
-  URL /tasks/{id}
-    GET
-      200 @task
-    PUT
-      Request @task
-      200 @task
-    PATCH
-      Request
-        {
-          "status": "in_progress" // todo enum: "new", "done"
-        }
-      200 @task
-    DELETE
-      200 any
+URL /tasks/{id}
+  GET
+    200 @task
+  PUT
+    Request @task
+    200 @task
+  PATCH
+    Request
+      {
+        "status": "in_progress" // todo enum: "new", "done"
+      }
+    200 @task
+  DELETE
+    200 any
 
 
 URL /projects
@@ -277,22 +278,16 @@ URL /test
         }
       ]
 
-URL /files
+GET /files/{id}
+  200 any
 
-  GET /files/{id}
-    200 any
+POST /files
+  201 any
 
-  POST
-    201 any
-
-
-URL /
-
-  POST /
-
-    Request
-      {
-        "id": 1
-      }
+POST /
+  Request
+    {
+      "id": 1
+    }
 
 GET /

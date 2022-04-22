@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+TYPE @testShortRecursion
+{
+  "testShortRecursion": @testShortRecursion,
+  "testLongRecursion" : @testLongRecursion,
+  "testBothRecursions": @testShortRecursion | @testLongRecursion
+}
+
+TYPE @testLongRecursion
+{
+  "testShortRecursion": @testShortRecursion
+}

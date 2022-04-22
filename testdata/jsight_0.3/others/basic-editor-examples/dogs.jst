@@ -78,7 +78,7 @@ URL /dogs/{id}
       "id": "DOG-123" // {type: "@petId"} - Dog’s id.
     }
 
-GET /dogs/{id} // Get a dog by its id.
+GET // Get a dog by its id.
   Request
     Headers
       @commonRequestHeaders
@@ -90,7 +90,7 @@ GET /dogs/{id} // Get a dog by its id.
       @dog     
   PASTE @errorResponses
 
-PUT /dogs/{id} // Update a dog.
+PUT // Update a dog.
   Request
     Headers
       @commonRequestHeaders
@@ -102,7 +102,7 @@ PUT /dogs/{id} // Update a dog.
     Body any
   PASTE @errorResponses
 
-DELETE /dogs/{id} // Delete a dog.
+DELETE // Delete a dog.
   Request
     Headers
       @commonRequestHeaders

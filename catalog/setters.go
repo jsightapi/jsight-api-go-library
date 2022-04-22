@@ -38,23 +38,29 @@ func (c *Catalog) AddInfo(d directive.Directive) error {
 	if c.Info != nil {
 		return errors.New("directive INFO gotta be only one time")
 	}
-
 	c.Info = &Info{Directive: d}
-
 	return nil
 }
 
-func (c *Catalog) AddTitle(name string) {
+func (c *Catalog) AddTitle(name string) error {
+	if c.Info.Title != "" {
+		return errors.New(jerr.NotUniqueDirective)
+	}
 	c.Info.Title = name
+	return nil
 }
 
-func (c *Catalog) AddVersion(version string) {
+func (c *Catalog) AddVersion(version string) error {
+	if c.Info.Version != "" {
+		return errors.New(jerr.NotUniqueDirective)
+	}
 	c.Info.Version = version
+	return nil
 }
 
 func (c *Catalog) AddDescriptionToInfo(text string) error {
 	if c.Info.Description != nil {
-		return errors.New("description already defined for Info description")
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.Info.Description = &text
@@ -94,7 +100,7 @@ func (c *Catalog) AddDescriptionToMethod(d directive.Directive, text string) err
 	v := c.ResourceMethods.GetValue(rk)
 
 	if v.Description != nil {
-		return fmt.Errorf("%q %s for %s", "Description", jerr.AlreadyDefined, rk.String())
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.ResourceMethods.Update(rk, func(v *ResourceMethod) *ResourceMethod {
@@ -118,7 +124,7 @@ func (c *Catalog) AddQueryToCurrentMethod(d directive.Directive, q Query) error 
 	v := c.ResourceMethods.GetValue(rk)
 
 	if v.Query != nil {
-		return fmt.Errorf("%q %s for %s", "Query", jerr.AlreadyDefined, rk.String())
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.ResourceMethods.Update(rk, func(v *ResourceMethod) *ResourceMethod {
@@ -197,6 +203,10 @@ func (c *Catalog) AddResponseHeaders(s Schema, d directive.Directive) error {
 	i := len(v.Responses) - 1
 	if i == -1 {
 		return fmt.Errorf("%s for %q", jerr.ResponsesIsEmpty, rk.String())
+	}
+
+	if v.Responses[i].Headers != nil {
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.ResourceMethods.Update(rk, func(v *ResourceMethod) *ResourceMethod {
@@ -342,7 +352,7 @@ func (c *Catalog) AddRequestBody(s Schema, f SerializeFormat, d directive.Direct
 	}
 
 	if v.Request.HTTPRequestBody != nil {
-		return fmt.Errorf("%q %s for %s", "Body", jerr.AlreadyDefined, rk.String())
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.ResourceMethods.Update(rk, func(v *ResourceMethod) *ResourceMethod {
@@ -370,7 +380,7 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 	}
 
 	if v.Request.HTTPRequestHeaders != nil {
-		return fmt.Errorf("%q %s for %s", "Body", jerr.AlreadyDefined, rk.String())
+		return errors.New(jerr.NotUniqueDirective)
 	}
 
 	c.ResourceMethods.Update(rk, func(v *ResourceMethod) *ResourceMethod {

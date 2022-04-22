@@ -26,17 +26,17 @@ URL /cats/{id}
       "id": "CAT-123" // {type: "@petId"} - Cat’s id.
     }
 
-GET /cats/{id} // Get a cat by its id.
+GET // Get a cat by its id.
   200 @cat     // Returns a cat.
   404 empty    // Cat not found.
 
-PUT /cats/{id} // Update a cat.
+PUT // Update a cat.
   Request @cat
   200 @cat     // Returns an updated cat.
   404 empty    // A cat is not found.
   409 @error   // Some error.
 
-PATCH /cats/{id} // Update a cat’s status.
+PATCH // Update a cat’s status.
   Request
     {
       "status": "relaxing" // New status of the cat.
@@ -45,7 +45,7 @@ PATCH /cats/{id} // Update a cat’s status.
   409 @error // Some error.
   404 empty  // A cat is not found.
 
-DELETE /cats/{id} // Delete a cat.
+DELETE // Delete a cat.
 
 #----------------- /cats/{id}/friends/{friendId} ---------
 

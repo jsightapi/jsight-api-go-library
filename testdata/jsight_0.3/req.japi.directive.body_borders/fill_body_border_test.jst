@@ -33,7 +33,7 @@ URL /cat/{id}
         }
     )
 
-    GET /cats/{id} // annotation of GET method
+    GET // annotation of GET method
     (
         Description
         (
@@ -49,13 +49,6 @@ URL /cat/{id}
             }
         )
 
-        Path
-        (
-            {
-              "id": 12 // property annotation
-            }
-        )
-
         200
         (
             Body jsight
@@ -65,7 +58,7 @@ URL /cat/{id}
         )
     )
 
-    POST /cats/{id}
+    POST
     (
         Request
         (
@@ -96,7 +89,7 @@ URL /cat/{id}
         400 any
     )
 
-    DELETE /cats/{id}
+    DELETE
     (
         200
         (

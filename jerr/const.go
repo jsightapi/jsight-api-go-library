@@ -9,7 +9,7 @@ const (
 	ResourceNotFound                                    = "resource not found"
 	ResponsesIsEmpty                                    = "responses is empty"
 	RequestIsEmpty                                      = "request is empty"
-	AlreadyDefined                                      = "already defined"
+	NotUniqueDirective                                  = "not a unique directive"
 	IncorrectParameter                                  = "incorrect parameter"
 	BodyMustBeObject                                    = "body must be object"
 	IsNotHTTPRequestMethod                              = "directive is not a HTTP request method"

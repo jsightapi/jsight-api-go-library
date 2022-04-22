@@ -111,7 +111,9 @@ func (core JApiCore) addTitle(d *directive.Directive) *jerr.JAPIError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	core.catalog.AddTitle(d.Parameter("Title"))
+	if err := core.catalog.AddTitle(d.Parameter("Title")); err != nil {
+		return d.KeywordError(err.Error())
+	}
 	return nil
 }
 
@@ -122,7 +124,9 @@ func (core JApiCore) addVersion(d *directive.Directive) *jerr.JAPIError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	core.catalog.AddVersion(d.Parameter("Version"))
+	if err := core.catalog.AddVersion(d.Parameter("Version")); err != nil {
+		return d.KeywordError(err.Error())
+	}
 	return nil
 }
 

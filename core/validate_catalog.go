@@ -24,10 +24,6 @@ func (core *JApiCore) validateCatalog() *jerr.JAPIError {
 		return err
 	}
 
-	// if err := core.validatePathVariables(); err != nil {
-	// 	return err
-	// }
-
 	return core.validateUsedUserTypes()
 }
 
@@ -156,10 +152,3 @@ func (core *JApiCore) validateHeaders() *jerr.JAPIError {
 	}
 	return nil
 }
-
-// func (core *JApiCore) validatePathVariables() *jerr.JAPIError {
-// 	for kv := range core.catalog.ResourceMethods.Iterate() {
-// 		kv.Value.PathVariables
-// 	}
-// 	return nil
-// }

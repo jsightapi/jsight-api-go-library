@@ -66,7 +66,7 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JAPIErr
 	if len(core.rawPathVariables) != 0 {
 		prevParent := core.rawPathVariables[len(core.rawPathVariables)-1].parentDirective
 		if prevParent.Equal(parentDirective) {
-			return d.KeywordError("not a unique Path directive")
+			return d.KeywordError(jerr.NotUniqueDirective)
 		}
 	}
 

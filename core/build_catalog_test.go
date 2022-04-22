@@ -39,9 +39,9 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 	}
 
 	core := JApiCore{
-		userTypes:      &catalog.UserSchemas{},
-		builtUserTypes: map[string]struct{}{},
-		catalog:        c,
+		userTypes:          &catalog.UserSchemas{},
+		processedUserTypes: map[string]struct{}{},
+		catalog:            c,
 	}
 
 	err := core.compileUserTypes()
