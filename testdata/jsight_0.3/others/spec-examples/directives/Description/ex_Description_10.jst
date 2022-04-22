@@ -1,0 +1,20 @@
+JSIGHT 0.3
+
+URL /users
+
+  GET // Get a list of users
+  POST // Create a new user
+
+  GET /users/{id} // View user by ID
+  PUT /users/{id} // Update the entire user
+  PATCH /users/{id} // Update partial user data or change its state
+  DELETE /users/{id} // Delete a user
+
+TYPE @user // User model
+  {
+    "id": 121, // user id
+    "name": "John Smith", // user name
+    "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+    "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+  }
+

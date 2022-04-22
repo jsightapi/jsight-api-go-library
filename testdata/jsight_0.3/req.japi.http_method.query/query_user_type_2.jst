@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+GET /pets
+  Query "page=1&per_page=50" htmlFormEncoded
+    @standardQuery
+
+  200 any
+
+TYPE @standardQuery
+{
+  "page": 1,
+  "per_page": 10
+}

@@ -1,0 +1,38 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /cats": {
+      "httpMethod": "POST",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "123"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "POST /cats"
+        ]
+      }
+    }
+  }
+}

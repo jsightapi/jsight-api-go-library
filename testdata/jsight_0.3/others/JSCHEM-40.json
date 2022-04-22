@@ -1,0 +1,45 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@testRequiredFieldsMarks": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "optional3": {
+              "jsonType": "array",
+              "type": "array",
+              "optional": true,
+              "rules": {
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              },
+              "items": [
+                {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": true,
+                  "scalarValue": "optionalItem1"
+                },
+                {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": true,
+                  "scalarValue": "optionalItem2"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

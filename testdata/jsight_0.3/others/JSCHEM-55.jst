@@ -1,0 +1,32 @@
+JSIGHT 0.3
+
+TYPE @rule
+{
+  "properties" : { // {additionalProperties: "@ruleNameEnum", optional: true}
+    @ruleNameEnum : @rule
+  }
+}
+
+TYPE @ruleNameEnum
+  "minLength" /* {enum: [
+                    "type",
+                    "optional",
+                    "nullable",
+                    "min",
+                    "max",
+                    "exclusiveMinimum",
+                    "exclusiveMaximum",
+                    "precision",
+                    "minLength",
+                    "maxLength",
+                    "regexp",
+                    "minItems",
+                    "maxItems",
+                    "or",
+                    "additionalProperties",
+                    "const",
+                    "serializeFormat",
+                    "serializedType",
+                    "enum",
+                    "allOf"
+                  ]} */

@@ -1,0 +1,80 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cat": {
+      "httpMethod": "GET",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "300",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "301",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "GET /cat"
+        ]
+      }
+    }
+  }
+}

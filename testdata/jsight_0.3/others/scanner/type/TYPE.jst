@@ -1,0 +1,51 @@
+TYPE @user
+  {
+    "name": "John",
+    "TYPE": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user # comment
+  {
+    "name": "John",
+    "TYPE": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user //
+  {
+    "name": "John",
+    "TYPE": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user // # comment
+  {
+    "name": "John",
+    "type": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user // explanation some
+  {
+    "name": "John",
+    "type": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user // explanation some # comment
+  {
+    "name": "John",
+    "type": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }
+
+TYPE @user // explanation some # comment
+  ###
+  comment
+  ###
+  {
+    "name": "John",
+    "type": "user", // {enum: ["user", "admin"]}
+    "age": 20
+  }

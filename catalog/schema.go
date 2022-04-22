@@ -1,0 +1,406 @@
+package catalog
+
+import (
+	"encoding/json"
+	"fmt"
+	"j/japi/notation"
+	jschemaLib "j/schema"
+	"j/schema/bytes"
+	"j/schema/notations/jschema"
+	"strconv"
+	"strings"
+	"sync"
+)
+
+// Schema represent a user defined schema.
+type Schema struct {
+	// Notation used notation for this schema.
+	Notation notation.SchemaNotation
+
+	// JSight notation specific fields.
+
+	// ContentJSight a JSight schema.
+	ContentJSight *SchemaContentJSight
+	// UsedUserTypes a list of used user types.
+	UsedUserTypes *StringSet
+	// UserUserTypes a list of used user enums.
+	UsedUserEnums *StringSet
+
+	// Regexp notation specific fields.
+
+	// ContentRegexp a regular expression.
+	ContentRegexp string
+}
+
+func NewRegexSchema(regexStr bytes.Bytes) Schema {
+	s := NewSchema(notation.SchemaNotationRegex)
+	s.ContentRegexp = strings.TrimPrefix(regexStr.String(), "/")
+	s.ContentRegexp = strings.TrimSuffix(s.ContentRegexp, "/")
+	return s
+}
+
+func NewSchema(n notation.SchemaNotation) Schema {
+	return Schema{
+		Notation:      n,
+		UsedUserTypes: &StringSet{},
+		UsedUserEnums: &StringSet{},
+	}
+}
+
+// StringSet a set of strings.
+// gen:Set
+type StringSet struct {
+	data  map[string]struct{}
+	order []string
+	mx    sync.RWMutex
+}
+
+// UnmarshalSchema unmarshal a schema from the given slice of bytes.
+// Marshaled schema shouldn't contain any trailing symbols.
+func UnmarshalSchema(name string, b []byte, userTypes *UserSchemas) (_ Schema, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(error); ok {
+				err = e
+			} else {
+				panic(r)
+			}
+		}
+	}()
+
+	s := jschema.New(name, b)
+
+	for kv := range userTypes.Iterate() {
+		if err := s.AddType(kv.Key, kv.Value); err != nil {
+			return Schema{}, err
+		}
+	}
+
+	n, err := s.GetAST()
+	if err != nil {
+		return Schema{}, err
+	}
+
+	return unmarshalSchema(n), nil
+}
+
+func unmarshalSchema(n jschemaLib.ASTNode) Schema {
+	s := NewSchema(notation.SchemaNotationJSight)
+	s.ContentJSight = astNodeToJsightContent(n, s.UsedUserTypes, s.UsedUserEnums)
+	return s
+}
+
+func astNodeToJsightContent(
+	node jschemaLib.ASTNode,
+	usedUserTypes, usedUserEnums *StringSet,
+) *SchemaContentJSight {
+	rules := collectJSightContentRules(node, usedUserTypes)
+
+	var isOptional bool
+	if r, ok := rules.Get("optional"); ok {
+		var err error
+		isOptional, err = strconv.ParseBool(r.ScalarValue)
+		if err != nil {
+			// Normally this shouldn't happen.
+			panic(err)
+		}
+	}
+
+	return &SchemaContentJSight{
+		IsKeyShortcut: node.IsKeyShortcut,
+		JsonType:      node.JSONType,
+		Type:          node.SchemaType,
+		Optional:      isOptional,
+		ScalarValue:   node.Value,
+		InheritedFrom: "", // Will be filled during catalog compilation.
+		Note:          Annotation(node.Comment),
+		Rules:         rules,
+		Properties:    collectJSightContentProperties(node, usedUserTypes, usedUserEnums),
+		Items:         collectJSightContentItems(node, usedUserTypes, usedUserEnums),
+	}
+}
+
+func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet) *Rules {
+	rr := &Rules{}
+
+	if node.Rules.Len() == 0 {
+		return rr
+	}
+
+	for kv := range node.Rules.Iterate() {
+		switch kv.Key {
+		case "type":
+			if kv.Value.Value[0] == '@' {
+				usedUserTypes.Add(kv.Value.Value)
+			}
+			if kv.Value.Source == jschemaLib.RuleASTNodeSourceGenerated {
+				continue
+			}
+
+		case "allOf":
+			if kv.Value.Value != "" {
+				usedUserTypes.Add(kv.Value.Value)
+			}
+
+			for _, i := range kv.Value.Items {
+				usedUserTypes.Add(i.Value)
+			}
+
+		case "or":
+			for _, i := range kv.Value.Items {
+				var userType string
+				if i.Value != "" {
+					userType = i.Value
+				} else {
+					v, ok := i.Properties.Get("type")
+					if ok {
+						userType = v.Value
+					} else {
+						userType = node.SchemaType
+					}
+				}
+
+				if userType[0] != '@' {
+					continue
+				}
+
+				usedUserTypes.Add(userType)
+			}
+
+			if kv.Value.Source == jschemaLib.RuleASTNodeSourceGenerated {
+				continue
+			}
+		}
+		rr.Set(kv.Key, astNodeToSchemaRule(kv.Value))
+	}
+
+	return rr
+}
+
+func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
+	properties := &Rules{}
+	if node.Properties.Len() > 0 {
+		for kv := range node.Properties.Iterate() {
+			properties.Set(kv.Key, astNodeToSchemaRule(kv.Value))
+		}
+	}
+
+	var items []Rule
+	if len(node.Items) > 0 {
+		items = make([]Rule, 0, len(node.Items))
+		for _, n := range node.Items {
+			items = append(items, astNodeToSchemaRule(n))
+		}
+	}
+
+	return Rule{
+		JsonType:    node.JSONType,
+		ScalarValue: node.Value,
+		Note:        node.Comment,
+		Properties:  properties,
+		Items:       items,
+	}
+}
+
+func collectJSightContentProperties(
+	node jschemaLib.ASTNode,
+	usedUserTypes, usedUserEnums *StringSet,
+) *Properties {
+	pp := &Properties{}
+	if node.Properties.Len() > 0 {
+		for kv := range node.Properties.Iterate() {
+			pp.Set(kv.Key, astNodeToJsightContent(kv.Value, usedUserTypes, usedUserEnums))
+
+			if kv.Value.IsKeyShortcut {
+				usedUserTypes.Add(kv.Key)
+			}
+		}
+	}
+	return pp
+}
+
+func collectJSightContentItems(
+	node jschemaLib.ASTNode,
+	usedUserTypes, usedUserEnums *StringSet,
+) []*SchemaContentJSight {
+	var ii []*SchemaContentJSight
+	if len(node.Items) > 0 {
+		ii = make([]*SchemaContentJSight, 0, len(node.Items))
+		for _, n := range node.Items {
+			an := astNodeToJsightContent(n, usedUserTypes, usedUserEnums)
+			an.Optional = true
+			ii = append(ii, an)
+		}
+	}
+	return ii
+}
+
+func (schema Schema) MarshalJSON() ([]byte, error) {
+	data := struct {
+		Notation      notation.SchemaNotation `json:"notation"`
+		Content       interface{}             `json:"content,omitempty"`
+		UsedUserTypes []string                `json:"usedUserTypes,omitempty"`
+		UsedUserEnums []string                `json:"usedUserEnums,omitempty"`
+		Example       string                  `json:"example,omitempty"`
+	}{
+		Notation: schema.Notation,
+	}
+
+	switch schema.Notation {
+	case notation.SchemaNotationJSight:
+		data.Content = schema.ContentJSight
+		if schema.UsedUserTypes != nil && schema.UsedUserTypes.Len() > 0 {
+			data.UsedUserTypes = schema.UsedUserTypes.Data()
+		}
+		if schema.UsedUserEnums != nil && schema.UsedUserEnums.Len() > 0 {
+			data.UsedUserEnums = schema.UsedUserEnums.Data()
+		}
+		// TODO data.Example = ...
+
+	case notation.SchemaNotationRegex:
+		data.Content = schema.ContentRegexp
+
+	case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
+		// nothing
+
+	default:
+		return []byte{}, fmt.Errorf(`invalid schema notation "%s"`, schema.Notation)
+	}
+
+	return json.Marshal(data)
+}
+
+type SchemaContentJSight struct {
+	// IsKeyShortcut indicates that this is an object property which is described
+	// by user defined type.
+	IsKeyShortcut bool
+
+	// JsonType a JSON type.
+	JsonType string
+
+	// Type a JSight type.
+	Type string
+
+	// Optional indicates that this schema item is option or not.
+	Optional bool
+
+	// ScalarValue contains scalar value from the example.
+	// Make sense only for scalar types like string, integer, and etc.
+	ScalarValue string
+
+	// InheritedFrom a user defined type from which this property is inherited.
+	InheritedFrom string
+
+	// Note a user note.
+	Note string
+
+	// Rules a list of attached rules.
+	Rules *Rules
+
+	// Properties represent available object properties.
+	// Make sense only when Type is "object".
+	Properties *Properties
+
+	// Items represent available array items.
+	// Make sense only when Type is "array".
+	Items []*SchemaContentJSight
+}
+
+var (
+	_ json.Marshaler = SchemaContentJSight{}
+	_ json.Marshaler = &SchemaContentJSight{}
+)
+
+func (c SchemaContentJSight) MarshalJSON() (b []byte, err error) {
+	switch c.JsonType {
+	case jschemaLib.JSONTypeObject:
+		b, err = c.marshalJSONObject()
+
+	case jschemaLib.JSONTypeArray:
+		b, err = c.marshalJSONArray()
+
+	default:
+		b, err = c.marshalJSONLiteral()
+	}
+	return b, err
+}
+
+func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
+	var data struct {
+		IsKeyShortcut bool        `json:"isKeyShortcut,omitempty"`
+		JsonType      string      `json:"jsonType,omitempty"`
+		Type          string      `json:"type,omitempty"`
+		Optional      bool        `json:"optional"`
+		InheritedFrom string      `json:"inheritedFrom,omitempty"`
+		Note          string      `json:"note,omitempty"`
+		Rules         *Rules      `json:"rules,omitempty"`
+		Properties    *Properties `json:"properties,omitempty"`
+	}
+
+	data.IsKeyShortcut = c.IsKeyShortcut
+	data.JsonType = c.JsonType
+	data.Type = c.Type
+	data.Optional = c.Optional
+	data.InheritedFrom = c.InheritedFrom
+	data.Note = c.Note
+	if c.Rules != nil && c.Rules.Len() > 0 {
+		data.Rules = c.Rules
+	}
+	if c.Properties != nil && c.Properties.Len() > 0 {
+		data.Properties = c.Properties
+	}
+
+	return json.Marshal(data)
+}
+
+func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
+	var data struct {
+		IsKeyShortcut bool                   `json:"isKeyShortcut,omitempty"`
+		JsonType      string                 `json:"jsonType,omitempty"`
+		Type          string                 `json:"type,omitempty"`
+		Optional      bool                   `json:"optional"`
+		InheritedFrom string                 `json:"inheritedFrom,omitempty"`
+		Note          string                 `json:"note,omitempty"`
+		Rules         *Rules                 `json:"rules,omitempty"`
+		Items         []*SchemaContentJSight `json:"items,omitempty"`
+	}
+
+	data.IsKeyShortcut = c.IsKeyShortcut
+	data.JsonType = c.JsonType
+	data.Type = c.Type
+	data.Optional = c.Optional
+	data.InheritedFrom = c.InheritedFrom
+	data.Note = c.Note
+	if c.Rules != nil && c.Rules.Len() > 0 {
+		data.Rules = c.Rules
+	}
+	data.Items = c.Items
+
+	return json.Marshal(data)
+}
+
+func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
+	var data struct {
+		IsKeyShortcut bool   `json:"isKeyShortcut,omitempty"`
+		JsonType      string `json:"jsonType,omitempty"`
+		Type          string `json:"type,omitempty"`
+		Optional      bool   `json:"optional"`
+		ScalarValue   string `json:"scalarValue"`
+		InheritedFrom string `json:"inheritedFrom,omitempty"`
+		Note          string `json:"note,omitempty"`
+		Rules         *Rules `json:"rules,omitempty"`
+	}
+
+	data.IsKeyShortcut = c.IsKeyShortcut
+	data.JsonType = c.JsonType
+	data.Type = c.Type
+	data.Optional = c.Optional
+	data.ScalarValue = c.ScalarValue
+	data.InheritedFrom = c.InheritedFrom
+	data.Note = c.Note
+	if c.Rules != nil && c.Rules.Len() > 0 {
+		data.Rules = c.Rules
+	}
+
+	return json.Marshal(data)
+}

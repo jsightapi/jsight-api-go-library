@@ -1,0 +1,65 @@
+JSIGHT 0.3
+
+# Types
+TYPE @user
+    {
+      "id": 121, // user id
+      "name": "John Smith", // user name
+      "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+      "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+    }
+
+# /users
+
+  GET /{id} // Get user data by his ID
+
+    200 @user
+
+  POST /{id} // - Change user data with a specific id
+    Path
+    {
+      "id": 1 // id
+    }
+
+    Request @user
+    200 @user
+
+  GET / // Viewing a list of users
+
+    Query "?page=1&perPage=20&filter=[name:\"%John%\"]"
+      {
+        "page": 1, // {optional: true} - page number, default 0
+        "perPage": 20, // {optional: true} - the number of users per page, by default 20
+        "filter": { // {optional: true}
+          "name": "John" // {maxLength: 100}
+        }
+      }
+
+    200
+      {
+        "pageItems": [
+          @user
+        ],
+        "pageInfo": {
+          "page": 1,
+          "perPage": 20,
+          "totalPages": 12,
+          "totalItems": 223
+        }
+      }
+
+  POST / // Creating a user
+    Request
+      {
+        "name": "John Smith",
+        "salary": 220,
+        "photo": "http://photo.ru/img/2312311.jpg"
+      }
+    200 @user
+
+  DELETE /{id} // Deleting a user by id
+    200
+      {
+        "id": 121,
+        "deleted": true
+      }

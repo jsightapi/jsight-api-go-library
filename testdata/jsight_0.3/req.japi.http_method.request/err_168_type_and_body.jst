@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "id"  : 12,
+        "name": "Tom"
+    }
+
+POST /cats
+    Request @cat # ERROR: you cannot use type and body at the same time
+        {
+            "id" : 12,
+            "name" : "Tom"
+        }

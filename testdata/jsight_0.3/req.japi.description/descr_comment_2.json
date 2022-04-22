@@ -1,0 +1,25 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /": {
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "description": "###\ncomment block\n###\n  Super puper duper resource\n  can get, post, put, patch, delete 7"
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "GET /"
+        ]
+      }
+    }
+  }
+}

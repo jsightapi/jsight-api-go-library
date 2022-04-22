@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+TYPE @catHeader
+    {
+        "Content-Type": "application/json"
+    }
+
+GET /cat
+    200
+        Headers
+            @catHeader
+
+        Body regex
+            /.*/

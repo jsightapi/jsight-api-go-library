@@ -1,0 +1,26 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cats": {
+      "httpMethod": "GET",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "description": "**My** _documentation_ [link](https://jsight.io)\n\n* list item 1\n* list item 2"
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "GET /cats"
+        ]
+      }
+    }
+  }
+}
+

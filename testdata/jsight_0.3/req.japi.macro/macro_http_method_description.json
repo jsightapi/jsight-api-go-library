@@ -1,0 +1,25 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cat": {
+      "httpMethod": "GET",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "description": "The API of social network for cats."
+    }
+  },
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "GET /cat"
+        ]
+      }
+    }
+  }
+}

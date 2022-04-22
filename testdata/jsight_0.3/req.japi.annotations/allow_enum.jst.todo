@@ -1,0 +1,12 @@
+ENUM @animalEnum // annotation
+	[
+		// Pets
+		"CAT", // Cat
+		"DOG", // Dog
+		"PIG", // Pig
+
+		// Wild animals
+		"WOLF", // Wolf
+		"LION", // Lion
+		"TIGER" // Tiger
+	]

@@ -1,0 +1,8 @@
+JSIGHT 0.3
+
+TYPE @testWrongRules
+{
+  "decimal": 1.23 /* {type: "decimal", precision: 2,
+                            minLength: 0,
+                }*/
+}

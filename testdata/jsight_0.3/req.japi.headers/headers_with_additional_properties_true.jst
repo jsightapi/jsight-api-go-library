@@ -1,0 +1,19 @@
+JSIGHT 0.3
+
+GET /cats
+    200
+        Headers
+        { // {additionalProperties: true}
+            "X-Header": { // {additionalProperties: true}
+                "key": "value"
+            }
+        }
+
+        Body
+        { // {additionalProperties: true}
+            "id": 4,
+            "name": "Tom",
+            "Extra": { // {additionalProperties: true}
+                "key": "value"
+            }
+        }

@@ -1,0 +1,36 @@
+URL /users
+
+  GET
+  POST
+
+  GET /users/{name}
+
+  URL /users/{id}
+
+    GET
+    PUT
+
+    URL /users/{id}/attachments
+    (
+
+      GET
+      POST
+
+      URL /users/{id}/attachments/{number}
+
+        GET
+        DELETE
+    )
+
+    URL /users/{id}/tasks
+    (
+      GET
+      POST
+
+      URL /users/{id}/tasks/{taskId}
+
+        GET
+        DELETE
+    )
+
+    URL /users/{id}/friends

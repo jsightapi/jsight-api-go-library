@@ -1,0 +1,146 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@rule": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "properties": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": true,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "@ruleNameEnum"
+                },
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              },
+              "properties": {
+                "@ruleNameEnum": {
+                  "isKeyShortcut": true,
+                  "jsonType": "shortcut",
+                  "type": "@rule",
+                  "optional": false,
+                  "scalarValue": "@rule"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@rule",
+          "@ruleNameEnum"
+        ]
+      }
+    },
+    "@ruleNameEnum": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "enum",
+          "optional": false,
+          "scalarValue": "minLength",
+          "rules": {
+            "enum": {
+              "jsonType": "array",
+              "items": [
+                {
+                  "jsonType": "string",
+                  "scalarValue": "type"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "optional"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "nullable"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "min"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "max"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "exclusiveMinimum"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "exclusiveMaximum"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "precision"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "minLength"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "maxLength"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "regexp"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "minItems"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "maxItems"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "or"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "additionalProperties"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "const"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "serializeFormat"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "serializedType"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "enum"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "allOf"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

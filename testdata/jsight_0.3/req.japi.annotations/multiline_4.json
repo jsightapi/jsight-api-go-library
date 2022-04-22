@@ -1,0 +1,50 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /dogs": {
+      "httpMethod": "GET",
+      "path": "/dogs",
+      "tags": [
+        "@dogs"
+      ],
+      "query": {
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "canHunt": {
+                "jsonType": "boolean",
+                "type": "boolean",
+                "optional": true,
+                "scalarValue": "true",
+                "note": "Filter by hunting ability.",
+                "rules": {
+                  "optional": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@dogs": {
+      "name": "@dogs",
+      "title": "/dogs",
+      "resourceMethods": {
+        "/dogs": [
+          "GET /dogs"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+JSIGHT 0.3
+
+TYPE @level1
+{
+  "level1Field1": 1,
+  "level1Field2": 1
+}
+
+TYPE @level2
+{ // {allOf: "@level1"}
+  "level2Field1": 2,
+  "level2Field2": 2
+}
+
+TYPE @level3
+{ // {allOf: "@level2"}
+  "level3Field1": 3,
+  "level3Field2": 3
+}

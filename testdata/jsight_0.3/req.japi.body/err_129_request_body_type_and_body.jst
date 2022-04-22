@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "id" : 1,
+        "name" : "Tom"
+    }
+
+POST /cats
+    Request
+        Body @cat
+            {
+                "id" : 1,
+                "name" : "Tom"
+            }

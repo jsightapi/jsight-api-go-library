@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+URL /cats/{id}
+    Path
+        {
+            "id": 12
+        }
+
+GET /cats/{id}/friends
+    Path
+        {
+            "id": 12 # ERROR: The requirements for THE PATH PARAMETER `id` have already been specified earlier.
+        }

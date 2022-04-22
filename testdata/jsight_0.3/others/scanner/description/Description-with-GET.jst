@@ -1,0 +1,19 @@
+TYPE @user
+{
+  "id": 2,
+  "name": "John"
+}
+
+URL /users
+  GET
+  POST
+  
+URL /users/{id}
+    
+    GET // view the user in detail
+      Description
+        View the user **important**
+        * one
+        * two
+
+      200 @user

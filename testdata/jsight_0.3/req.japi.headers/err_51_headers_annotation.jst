@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+GET /cat
+    200 // annotation
+        Headers // ann # ERROR: annotation in Header is not allowed
+        {
+            "Content-Type": "application/json"
+        }
+        Body
+        {
+          "a" : 1
+        }

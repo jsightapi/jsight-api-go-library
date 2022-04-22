@@ -1,0 +1,305 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@additionalProperties": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "enabled": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "disabled": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "string": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "string"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "integer": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "integer"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "float": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "float"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "decimal": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "decimal"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "boolean": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "boolean"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "object": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "object"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "array": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "array"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "null": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "null"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "email": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "email"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "uri": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "uri"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "uuid": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "uuid"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "date": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "date"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "datetime": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "datetime"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "enum": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "enum"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "mixed": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "mixed"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "any": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "any"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            },
+            "userType": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "@cat"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "false"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

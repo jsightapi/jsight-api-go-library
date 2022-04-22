@@ -1,0 +1,29 @@
+JSIGHT 0.3
+
+TYPE @userRule
+{
+  "annotation" : "A brief description of the named rule",
+  "description": "Description of the named rule",
+  "links"      : [
+    @link,
+    @link
+  ]
+}
+
+TYPE @link
+{
+  "type": "response.body", // {type: "@linkTypeEnum"}
+  "address": "1"
+}
+
+TYPE @linkTypeEnum // Where can the link lead to
+"resource.response.headers" /* {enum: [
+                                  "server.baseUrl",
+                                  "resource.path",
+                                  "resource.query",
+                                  "resource.request.headers",
+                                  "resource.request.body",
+                                  "resource.response.headers",
+                                  "resource.response.body",
+                                  "type"
+                                ]}*/

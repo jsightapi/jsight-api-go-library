@@ -1,0 +1,37 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /catsName": {
+      "httpMethod": "GET",
+      "path": "/catsName",
+      "tags": [
+        "@catsName"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "body-explanation",
+          "body": {
+            "format": "plainString",
+            "schema": {
+              "notation": "regex",
+              "content": ".*"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@catsName": {
+      "name": "@catsName",
+      "title": "/catsName",
+      "resourceMethods": {
+        "/catsName": [
+          "GET /catsName"
+        ]
+      }
+    }
+  }
+}

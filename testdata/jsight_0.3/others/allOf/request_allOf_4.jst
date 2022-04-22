@@ -1,0 +1,20 @@
+JSIGHT 0.3
+
+GET /admin
+    Request
+        @admin
+
+TYPE @admin
+    { // {allOf: ["@user", "@item"]}
+        "status": "admin"
+    }
+
+TYPE @user
+    {
+        "name": "Max"
+    }
+
+TYPE @item
+    {
+        "id": 1
+    }

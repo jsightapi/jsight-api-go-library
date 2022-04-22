@@ -1,0 +1,11 @@
+JSIGHT 0.3
+
+URL /cats
+  GET /cats/{id}
+    200
+
+GET /cats/{id} # ERROR!!! This HTTP method with this specified PATH has already been declared earlier
+  200
+
+DELETE /cats/{id} # There is no error
+  200

@@ -1,0 +1,11 @@
+JSIGHT 0.3
+
+GET "/cat"         # located in the ROOT CONTEXT
+
+URL "/cats"
+
+  GET "/cats/{id}" # located in the CONTEXT of `URL /cats`
+
+URL /dogs          # located in the ROOT CONTEXT
+
+  GET /dogs/{kind}

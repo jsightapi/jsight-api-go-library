@@ -1,0 +1,32 @@
+{
+    "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+    "userTypes": {
+        "@cat": {
+            "schema": {
+                "notation": "jsight",
+                "content": {
+                    "jsonType": "object",
+                    "type": "object",
+                    "optional": false,
+                    "properties": {
+                        "id": {
+                            "jsonType": "number",
+                            "type": "integer",
+                            "optional": false,
+                            "scalarValue": "1",
+                            "rules": {
+                                "min": {
+                                    "jsonType": "number",
+                                    "scalarValue": "1"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "resourceMethods": {},
+    "tags": {}
+}

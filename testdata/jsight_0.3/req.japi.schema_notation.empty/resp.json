@@ -1,0 +1,35 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cats": {
+      "httpMethod": "GET",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "GET /cats"
+        ]
+      }
+    }
+  }
+}

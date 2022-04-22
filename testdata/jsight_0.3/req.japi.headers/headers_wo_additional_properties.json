@@ -1,0 +1,92 @@
+{
+    "jdocExchangeFileSchemaVersion": "0.3.0",
+    "jsight": "0.3",
+    "resourceMethods": {
+        "GET /cats": {
+            "httpMethod": "GET",
+            "path": "/cats",
+            "tags": [
+                "@cats"
+            ],
+            "responses": [
+                {
+                    "code": "200",
+                    "headers": {
+                        "schema": {
+                            "notation": "jsight",
+                            "content": {
+                                "jsonType": "object",
+                                "type": "object",
+                                "optional": false,
+                                "properties": {
+                                    "X-Header": {
+                                        "jsonType": "object",
+                                        "type": "object",
+                                        "optional": false,
+                                        "properties": {
+                                            "header-property": {
+                                                "jsonType": "number",
+                                                "type": "integer",
+                                                "optional": false,
+                                                "scalarValue": "123"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "body": {
+                        "format": "json",
+                        "schema": {
+                            "notation": "jsight",
+                            "content": {
+                                "jsonType": "object",
+                                "type": "object",
+                                "optional": false,
+                                "properties": {
+                                    "Extra": {
+                                        "jsonType": "object",
+                                        "type": "object",
+                                        "optional": false,
+                                        "properties": {
+                                            "body-property": {
+                                                "jsonType": "number",
+                                                "type": "integer",
+                                                "optional": false,
+                                                "scalarValue": "123"
+                                            }
+                                        }
+                                    },
+                                    "id": {
+                                        "jsonType": "number",
+                                        "type": "integer",
+                                        "optional": false,
+                                        "scalarValue": "4"
+                                    },
+                                    "name": {
+                                        "jsonType": "string",
+                                        "type": "string",
+                                        "optional": false,
+                                        "scalarValue": "Kittys"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "tags": {
+        "@cats": {
+            "name": "@cats",
+            "title": "/cats",
+            "resourceMethods": {
+                "/cats": [
+                    "GET /cats"
+                ]
+            }
+        }
+    }
+}

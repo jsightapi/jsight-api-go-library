@@ -1,0 +1,10 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "id"  : 12,
+        "name": "Tom"
+    }
+
+POST /cats/{id}
+    200 @cat jsight # ERROR: unallowable Type and SchemaNotation parameter together

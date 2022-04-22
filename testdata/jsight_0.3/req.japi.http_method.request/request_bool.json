@@ -1,0 +1,38 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /": {
+      "httpMethod": "POST",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "boolean",
+              "type": "boolean",
+              "optional": false,
+              "scalarValue": "true"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "POST /"
+        ]
+      }
+    }
+  }
+}

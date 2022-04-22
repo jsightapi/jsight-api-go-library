@@ -1,0 +1,59 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@n": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "a": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "1"
+            }
+          }
+        }
+      }
+    },
+    "@m": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "b": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "1"
+            }
+          }
+        }
+      }
+    },
+    "@nm": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "shortcut",
+          "type": "mixed",
+          "optional": false,
+          "scalarValue": "@n | @m"
+        },
+        "usedUserTypes": [
+          "@n",
+          "@m"
+        ]
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+MACRO @http_response_code
+(
+    200 any
+    300 any
+    400 any
+)
+
+GET /cat
+    PASTE @http_response_code
+
+POST /cat
+    PASTE @http_response_code

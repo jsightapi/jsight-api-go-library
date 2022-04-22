@@ -1,0 +1,25 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@dogId": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "DOG-123",
+          "rules": {
+            "regex": {
+              "jsonType": "string",
+              "scalarValue": "DOG"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

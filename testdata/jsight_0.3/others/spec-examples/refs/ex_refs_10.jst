@@ -1,0 +1,47 @@
+JSIGHT 0.3
+
+TYPE @attachment
+  {
+    "name": "somefile.txt",
+    "size": 100500,
+    "link": "http://files.test.com/somefile.txt"
+  }
+
+TYPE @user
+  {
+    "id": 121, // user id
+    "name": "John Smith", // user name
+    "attachments": [
+      @attachment // user files
+    ]
+  }
+
+URL /users
+
+  GET // Viewing a list of users
+
+    Query page=1&perPage=20
+      {
+        "page": 1, // {optional: true} - page number, default 0
+        "perPage": 20 // {optional: true} - the number of users per page, by default 20
+      }
+    200
+      {
+        "pageItems": [
+          @user
+        ],
+        "pageInfo": {
+          "page": 1,
+          "perPage": 20,
+          "totalPages": 12
+        }
+      }
+
+  GET /users/{id} // Viewing a user by id
+    200 @user
+
+  GET /users/{id}/friends
+    200 [@user]
+
+
+

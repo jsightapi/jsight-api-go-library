@@ -1,0 +1,41 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /": {
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "str"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "GET /"
+        ]
+      }
+    }
+  }
+}

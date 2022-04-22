@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+MACRO @query
+(
+    Query "page=1"
+        {
+          "page": 1
+        }
+)
+
+GET /cats
+    PASTE @query

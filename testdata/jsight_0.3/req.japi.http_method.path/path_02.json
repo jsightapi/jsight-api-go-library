@@ -1,0 +1,48 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /pet/{pet}/{id}": {
+      "httpMethod": "GET",
+      "path": "/pet/{pet}/{id}",
+      "tags": [
+        "@pet"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "1"
+              },
+              "pet": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "cat"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@pet": {
+      "name": "@pet",
+      "title": "/pet",
+      "resourceMethods": {
+        "/pet/{pet}/{id}": [
+          "GET /pet/{pet}/{id}"
+        ]
+      }
+    }
+  }
+}

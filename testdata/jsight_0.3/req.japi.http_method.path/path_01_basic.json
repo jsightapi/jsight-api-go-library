@@ -1,0 +1,42 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /users/{id}": {
+      "httpMethod": "GET",
+      "path": "/users/{id}",
+      "tags": [
+        "@users"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "1"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@users": {
+      "name": "@users",
+      "title": "/users",
+      "resourceMethods": {
+        "/users/{id}": [
+          "GET /users/{id}"
+        ]
+      }
+    }
+  }
+}

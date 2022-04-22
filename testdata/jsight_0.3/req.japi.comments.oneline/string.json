@@ -1,0 +1,56 @@
+{
+    "jdocExchangeFileSchemaVersion": "0.3.0",
+    "jsight": "0.3",
+    "resourceMethods": {
+        "GET /special": {
+            "httpMethod": "GET",
+            "path": "/special",
+            "tags": [
+                "@special"
+            ],
+            "responses": [
+                {
+                    "code": "200",
+                    "body": {
+                        "format": "json",
+                        "schema": {
+                            "notation": "jsight",
+                            "content": {
+                                "jsonType": "string",
+                                "type": "enum",
+                                "optional": false,
+                                "scalarValue": "some # string",
+                                "rules": {
+                                    "enum": {
+                                        "jsonType": "array",
+                                        "items": [
+                                            {
+                                                "jsonType": "string",
+                                                "scalarValue": "some # string"
+                                            },
+                                            {
+                                                "jsonType": "string",
+                                                "scalarValue": "other ### string"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "tags": {
+        "@special": {
+            "name": "@special",
+            "title": "/special",
+            "resourceMethods": {
+                "/special": [
+                    "GET /special"
+                ]
+            }
+        }
+    }
+}

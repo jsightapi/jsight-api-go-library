@@ -1,0 +1,17 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "id": 1,
+        "catName": "Tom"
+    }
+
+TYPE @dog
+    {
+        "id": 1,
+        "dogName": "Tim"
+    }
+
+URL /{id}
+    Path
+        @cat | @dog

@@ -1,0 +1,14 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@t": {
+      "schema": {
+        "notation": "regex",
+        "content": "reg\\/"
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

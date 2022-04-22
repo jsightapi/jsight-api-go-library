@@ -1,0 +1,34 @@
+{
+	"jdocExchangeFileSchemaVersion": "0.3.0",
+	"jsight": "0.3",
+	"servers": {
+		"@CATS_API_SERVER": {
+			"annotation": "Server catsbook.com API",
+			"baseUrl": "https://{env}.catsbook.com/api/{version}/{locale}/"
+		},
+		"@DOGS_API_SERVER": {
+			"annotation": "dog server",
+			"baseUrl": "https://dogsbook.com/api/"
+		}
+	},
+	"resourceMethods": {
+		"GET /": {
+			"httpMethod": "GET",
+			"path": "/",
+			"tags": [
+				"@_"
+			]
+		}
+	},
+	"tags": {
+		"@_": {
+			"name": "@_",
+			"title": "/",
+			"resourceMethods": {
+				"/": [
+					"GET /"
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,64 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@regex": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "section0",
+          "rules": {
+            "regex": {
+              "jsonType": "string",
+              "scalarValue": "section[0-9]"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /list/{section}/": {
+      "httpMethod": "GET",
+      "path": "/list/{section}/",
+      "tags": [
+        "@list"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "section": {
+                "jsonType": "shortcut",
+                "type": "@regex",
+                "optional": false,
+                "scalarValue": "@regex"
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@regex"
+          ]
+        }
+      }
+    }
+  },
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "resourceMethods": {
+        "/list/{section}/": [
+          "GET /list/{section}/"
+        ]
+      }
+    }
+  }
+}

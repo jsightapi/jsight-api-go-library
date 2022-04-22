@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+GET /cats/{name}
+
+GET /cats/{name}/friend
+    Path
+        {
+            "name": @catObject
+        }
+
+TYPE @catObject
+    {
+        "name": "Tom"
+    }

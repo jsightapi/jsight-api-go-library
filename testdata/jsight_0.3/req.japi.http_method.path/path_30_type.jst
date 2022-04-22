@@ -1,0 +1,10 @@
+JSIGHT 0.3
+
+TYPE @catName
+    "Tom" // {minLength: 3}
+
+GET /cats/{name}
+    Path
+    {
+        "name": "Tom" // {type: "@catName"}
+    }

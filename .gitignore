@@ -1,0 +1,12 @@
+.idea
+*.iml
+/testdata/_*
+*.exe
+/build
+/vendor
+
+coverage.out
+
+# packr generated files
+*-packr.go
+/packrd

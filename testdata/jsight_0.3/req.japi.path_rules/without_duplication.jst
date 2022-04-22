@@ -1,0 +1,16 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "name": "Tom"
+    }
+
+URL /cats/{id}
+    GET
+        200 @cat
+
+    POST /cats/{id}
+        Request
+            @cat
+
+        200 any

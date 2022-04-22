@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+GET /cats // Get a page with cats of the right size.
+
+    Query "page=1&per_page=50&filter[size]=XXL"
+
+        {
+            "page": 1,
+            "per_page": 50,  // {optional: true}
+            "filter": {     // {optional: true}
+                "size": "XXL", // {optional: true} - Filter by cat size.
+                "age" : 12    // {optional: true} - Filter by age of the cat.
+            }
+        }

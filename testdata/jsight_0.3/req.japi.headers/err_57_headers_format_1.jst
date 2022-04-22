@@ -1,0 +1,8 @@
+JSIGHT 0.3
+
+GET /cat
+    200
+        Headers
+            /.*/ # ERROR: must be jsight schema
+        Body regex
+            /.*/

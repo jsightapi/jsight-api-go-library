@@ -1,0 +1,44 @@
+ENUM @sex
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex # comment after enum
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex //
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex // # comment after enum
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex // enum-explanation
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex // enum-explanation #comment after enum explanation
+  [
+    "male",
+    "female"
+  ]
+
+ENUM @sex // enum-explanation #comment after enum explanation
+  ###
+  comment block
+  ###
+  [
+    "male",
+    "female"
+  ]

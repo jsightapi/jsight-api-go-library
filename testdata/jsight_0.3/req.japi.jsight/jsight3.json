@@ -1,0 +1,71 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@user": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "TYPE": {
+              "jsonType": "string",
+              "type": "enum",
+              "optional": false,
+              "scalarValue": "user",
+              "rules": {
+                "enum": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "user"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "admin"
+                    }
+                  ]
+                }
+              }
+            },
+            "age": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "20"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "John"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /": {
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ]
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "GET /"
+        ]
+      }
+    }
+  }
+}

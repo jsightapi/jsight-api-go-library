@@ -1,0 +1,56 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cat": {
+      "httpMethod": "GET",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    },
+    "POST /cat": {
+      "httpMethod": "POST",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    },
+    "PUT /cat": {
+      "httpMethod": "PUT",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    },
+    "PATCH /cat": {
+      "httpMethod": "PATCH",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    },
+    "DELETE /cat": {
+      "httpMethod": "DELETE",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    }
+  },
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "GET /cat",
+          "POST /cat",
+          "PUT /cat",
+          "PATCH /cat",
+          "DELETE /cat"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@catName": {
+      "annotation": "ann",
+      "schema": {
+        "notation": "regex",
+        "content": "[a-z]+"
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

@@ -1,0 +1,62 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /scalar/mixed": {
+      "httpMethod": "POST",
+      "path": "/scalar/mixed",
+      "tags": [
+        "@scalar"
+      ],
+      "query": {
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "string",
+            "type": "mixed",
+            "optional": false,
+            "scalarValue": "A",
+            "note": "Scalar mixed.",
+            "rules": {
+              "or": {
+                "jsonType": "array",
+                "items": [
+                  {
+                    "jsonType": "object",
+                    "properties": {
+                      "type": {
+                        "jsonType": "string",
+                        "scalarValue": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "jsonType": "object",
+                    "properties": {
+                      "type": {
+                        "jsonType": "string",
+                        "scalarValue": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@scalar": {
+      "name": "@scalar",
+      "title": "/scalar",
+      "resourceMethods": {
+        "/scalar/mixed": [
+          "POST /scalar/mixed"
+        ]
+      }
+    }
+  }
+}

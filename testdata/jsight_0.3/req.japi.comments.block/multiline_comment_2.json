@@ -1,0 +1,12 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "servers": {
+    "@CATS_API_SERVER": {
+      "annotation": "Main server catsbook.com API.",
+      "baseUrl": "https://catsbook.com/api"
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

@@ -1,0 +1,42 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "DELETE /api": {
+      "httpMethod": "DELETE",
+      "path": "/api",
+      "tags": [
+        "@api"
+      ]
+    },
+    "GET /api/cats": {
+      "httpMethod": "GET",
+      "path": "/api/cats",
+      "tags": [
+        "@api"
+      ]
+    },
+    "POST /api": {
+      "httpMethod": "POST",
+      "path": "/api",
+      "tags": [
+        "@api"
+      ]
+    }
+  },
+  "tags": {
+    "@api": {
+      "name": "@api",
+      "title": "/api",
+      "resourceMethods": {
+        "/api": [
+          "POST /api",
+          "DELETE /api"
+        ],
+        "/api/cats": [
+          "GET /api/cats"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@catName": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "Tom",
+          "rules": {
+            "minLength": {
+              "jsonType": "number",
+              "scalarValue": "3"
+            }
+          }
+        }
+      }
+    },
+    "@dogName": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "Bo",
+          "rules": {
+            "minLength": {
+              "jsonType": "number",
+              "scalarValue": "2"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /cats/{name}": {
+      "httpMethod": "GET",
+      "path": "/cats/{name}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "name": {
+                "jsonType": "shortcut",
+                "type": "mixed",
+                "optional": false,
+                "scalarValue": "@catName | @dogName"
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@catName",
+            "@dogName"
+          ]
+        }
+      }
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats/{name}": [
+          "GET /cats/{name}"
+        ]
+      }
+    }
+  }
+}

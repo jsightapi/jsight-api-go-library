@@ -1,0 +1,813 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "info": {
+    "title": "Pigs REST API"
+  },
+  "userTypes": {
+    "@pet": {
+      "annotation": "A pet.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "shortcut",
+              "type": "@petId",
+              "optional": false,
+              "scalarValue": "@petId"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            },
+            "type": {
+              "jsonType": "string",
+              "type": "enum",
+              "optional": false,
+              "scalarValue": "PIG",
+              "rules": {
+                "enum": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              }
+            },
+            "age": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "10",
+              "rules": {
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "0"
+                },
+                "max": {
+                  "jsonType": "number",
+                  "scalarValue": "99"
+                }
+              }
+            },
+            "email": {
+              "jsonType": "string",
+              "type": "email",
+              "optional": false,
+              "scalarValue": "tom@pets.com",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "email"
+                }
+              }
+            },
+            "uri": {
+              "jsonType": "string",
+              "type": "uri",
+              "optional": false,
+              "scalarValue": "http://tom.pets.com",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uri"
+                }
+              }
+            },
+            "birthday": {
+              "jsonType": "string",
+              "type": "date",
+              "optional": false,
+              "scalarValue": "2012-01-03",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "date"
+                }
+              }
+            },
+            "uuid": {
+              "jsonType": "string",
+              "type": "uuid",
+              "optional": false,
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@petId"
+        ]
+      }
+    },
+    "@pig": {
+      "annotation": "A pig.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "rules": {
+            "allOf": {
+              "jsonType": "string",
+              "scalarValue": "@pet"
+            }
+          },
+          "properties": {
+            "temperature": {
+              "jsonType": "number",
+              "type": "decimal",
+              "optional": false,
+              "scalarValue": "35.6",
+              "rules": {
+                "precision": {
+                  "jsonType": "number",
+                  "scalarValue": "1"
+                },
+                "nullable": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            },
+            "pigSize": {
+              "jsonType": "string",
+              "type": "@pigSize",
+              "optional": false,
+              "scalarValue": "S",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "@pigSize"
+                }
+              }
+            },
+            "lastWashTime": {
+              "jsonType": "string",
+              "type": "datetime",
+              "optional": false,
+              "scalarValue": "2021-01-02T15:04:05+03:00",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "datetime"
+                }
+              }
+            },
+            "additionalData": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "string",
+                  "scalarValue": "string"
+                }
+              },
+              "properties": {
+                "key": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "value"
+                }
+              }
+            },
+            "id": {
+              "jsonType": "shortcut",
+              "type": "@petId",
+              "optional": false,
+              "scalarValue": "@petId",
+              "inheritedFrom": "@pet"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom",
+              "inheritedFrom": "@pet"
+            },
+            "type": {
+              "jsonType": "string",
+              "type": "enum",
+              "optional": false,
+              "scalarValue": "PIG",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "enum": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              }
+            },
+            "age": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "10",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "0"
+                },
+                "max": {
+                  "jsonType": "number",
+                  "scalarValue": "99"
+                }
+              }
+            },
+            "email": {
+              "jsonType": "string",
+              "type": "email",
+              "optional": false,
+              "scalarValue": "tom@pets.com",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "email"
+                }
+              }
+            },
+            "uri": {
+              "jsonType": "string",
+              "type": "uri",
+              "optional": false,
+              "scalarValue": "http://tom.pets.com",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uri"
+                }
+              }
+            },
+            "birthday": {
+              "jsonType": "string",
+              "type": "date",
+              "optional": false,
+              "scalarValue": "2012-01-03",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "date"
+                }
+              }
+            },
+            "uuid": {
+              "jsonType": "string",
+              "type": "uuid",
+              "optional": false,
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@pet",
+          "@pigSize"
+        ]
+      }
+    },
+    "@pigSize": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "enum",
+          "optional": false,
+          "scalarValue": "S",
+          "rules": {
+            "enum": {
+              "jsonType": "array",
+              "items": [
+                {
+                  "jsonType": "string",
+                  "scalarValue": "XXS"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "XS"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "S"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "M"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "L"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "XL"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "XXL"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "@petId": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "GOAT-12345",
+          "rules": {
+            "regex": {
+              "jsonType": "string",
+              "scalarValue": "^[A-Z]+-\\d+$"
+            },
+            "minLength": {
+              "jsonType": "number",
+              "scalarValue": "3"
+            },
+            "maxLength": {
+              "jsonType": "number",
+              "scalarValue": "255"
+            }
+          }
+        }
+      }
+    },
+    "@petName": {
+      "schema": {
+        "notation": "regex",
+        "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$"
+      }
+    },
+    "@error": {
+      "annotation": "A common error response.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "code": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "12"
+            },
+            "message": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Something bad had happened on the server..."
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /pigs": {
+      "httpMethod": "GET",
+      "path": "/pigs",
+      "tags": [
+        "@pigs"
+      ],
+      "annotation": "Get the list of all pigs.",
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "List of pigs.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "array",
+                "type": "array",
+                "optional": false,
+                "items": [
+                  {
+                    "jsonType": "shortcut",
+                    "type": "@pig",
+                    "optional": true,
+                    "scalarValue": "@pig"
+                  }
+                ]
+              },
+              "usedUserTypes": [
+                "@pig"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "POST /pigs": {
+      "httpMethod": "POST",
+      "path": "/pigs",
+      "tags": [
+        "@pigs"
+      ],
+      "annotation": "Create a new pig.",
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@pig",
+              "optional": false,
+              "scalarValue": "@pig"
+            },
+            "usedUserTypes": [
+              "@pig"
+            ]
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Pig created.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@pig",
+                "optional": false,
+                "scalarValue": "@pig"
+              },
+              "usedUserTypes": [
+                "@pig"
+              ]
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Pig not created.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "GET /pigs/{id}": {
+      "httpMethod": "GET",
+      "path": "/pigs/{id}",
+      "tags": [
+        "@pigs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "string",
+                "type": "@petId",
+                "optional": false,
+                "scalarValue": "PIG-123",
+                "note": "A pig’s id.",
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "@petId"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Get a pig by its id.",
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "A pig.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@pig",
+                "optional": false,
+                "scalarValue": "@pig"
+              },
+              "usedUserTypes": [
+                "@pig"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "Pig not found.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "PUT /pigs/{id}": {
+      "httpMethod": "PUT",
+      "path": "/pigs/{id}",
+      "tags": [
+        "@pigs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "string",
+                "type": "@petId",
+                "optional": false,
+                "scalarValue": "PIG-123",
+                "note": "A pig’s id.",
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "@petId"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Change a pig by its id.",
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@pig",
+              "optional": false,
+              "scalarValue": "@pig"
+            },
+            "usedUserTypes": [
+              "@pig"
+            ]
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Pig updated.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@pig",
+                "optional": false,
+                "scalarValue": "@pig"
+              },
+              "usedUserTypes": [
+                "@pig"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "Pig not found.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DELETE /pigs/{id}": {
+      "httpMethod": "DELETE",
+      "path": "/pigs/{id}",
+      "tags": [
+        "@pigs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "string",
+                "type": "@petId",
+                "optional": false,
+                "scalarValue": "PIG-123",
+                "note": "A pig’s id.",
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "@petId"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Delete a pig by its id.",
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Success.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "Pig not found.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@pigs": {
+      "name": "@pigs",
+      "title": "/pigs",
+      "resourceMethods": {
+        "/pigs": [
+          "GET /pigs",
+          "POST /pigs"
+        ],
+        "/pigs/{id}": [
+          "GET /pigs/{id}",
+          "PUT /pigs/{id}",
+          "DELETE /pigs/{id}"
+        ]
+      }
+    }
+  }
+}

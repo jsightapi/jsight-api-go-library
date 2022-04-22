@@ -1,0 +1,82 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /cats": {
+      "httpMethod": "POST",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "array",
+              "type": "array",
+              "optional": false,
+              "items": [
+                {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": true,
+                  "scalarValue": "sinus"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "GET /cat": {
+      "httpMethod": "GET",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "array",
+              "type": "array",
+              "optional": false,
+              "items": [
+                {
+                  "jsonType": "number",
+                  "type": "integer",
+                  "optional": true,
+                  "scalarValue": "1"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "POST /cats"
+        ]
+      }
+    },
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "GET /cat"
+        ]
+      }
+    }
+  }
+}

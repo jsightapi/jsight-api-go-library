@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+GET /list
+    Query
+        { // {allOf: "@pager"}
+            "section": "abc"
+        }
+
+TYPE @pager
+    {
+      "page": 1,
+      "per_page": 50 // {optional: true}
+    }

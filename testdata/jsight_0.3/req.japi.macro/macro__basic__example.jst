@@ -1,0 +1,39 @@
+JSIGHT 0.3
+
+MACRO @header
+(
+    Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+)
+
+MACRO @http_errors
+(
+    PASTE @http_errors_3xx
+    PASTE @http_errors_4xx
+)
+
+MACRO @http_errors_3xx
+(
+    300 any
+    301 any
+)
+
+MACRO @http_errors_4xx
+(
+    400 any
+    404 any
+    409 any
+)
+
+GET /cat
+    200 any
+    PASTE @http_errors
+        PASTE @header
+
+GET /dog
+    200 any
+    PASTE @http_errors
+        PASTE @header

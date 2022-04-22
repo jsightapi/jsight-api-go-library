@@ -1,0 +1,53 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "DELETE /cats/{id}": {
+      "httpMethod": "DELETE",
+      "path": "/cats/{id}",
+      "tags": ["@cats"],
+      "annotation": "Remove the cat."
+    },
+    "GET /cats/{id}": {
+      "httpMethod": "GET",
+      "path": "/cats/{id}",
+      "tags": ["@cats"],
+      "annotation": "Get a cat."
+    },
+    "PATCH /cats/{id}": {
+      "httpMethod": "PATCH",
+      "path": "/cats/{id}",
+      "tags": ["@cats"],
+      "annotation": "Change the status of the cat."
+    },
+    "POST /cats": {
+      "httpMethod": "POST",
+      "path": "/cats",
+      "tags": ["@cats"],
+      "annotation": "Create a new cat."
+    },
+    "PUT /cats/{id}": {
+      "httpMethod": "PUT",
+      "path": "/cats/{id}",
+      "tags": ["@cats"],
+      "annotation": "Update the whole cat."
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "POST /cats"
+        ],
+        "/cats/{id}": [
+          "GET /cats/{id}",
+          "PUT /cats/{id}",
+          "PATCH /cats/{id}",
+          "DELETE /cats/{id}"
+        ]
+      }
+    }
+  }
+}

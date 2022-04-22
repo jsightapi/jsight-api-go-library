@@ -1,0 +1,35 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /api": {
+      "httpMethod": "GET",
+      "path": "/api",
+      "tags": [
+        "@api"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@api": {
+      "name": "@api",
+      "title": "/api",
+      "resourceMethods": {
+        "/api": [
+          "GET /api"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@cat": {
+      "annotation": "A cat.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "topFriends": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "additionalProperties": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              },
+              "properties": {
+                "@petName": {
+                  "isKeyShortcut": true,
+                  "jsonType": "shortcut",
+                  "type": "mixed",
+                  "optional": false,
+                  "scalarValue": "@cat | @pig"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@cat",
+          "@pig",
+          "@petName"
+        ]
+      }
+    },
+    "@pig": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            }
+          }
+        }
+      }
+    },
+    "@petName": {
+      "schema": {
+        "notation": "regex",
+        "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$"
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

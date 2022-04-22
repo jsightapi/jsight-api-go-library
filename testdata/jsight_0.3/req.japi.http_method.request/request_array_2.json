@@ -1,0 +1,74 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@cat": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "12"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "POST /cats": {
+      "httpMethod": "POST",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "array",
+              "type": "array",
+              "optional": false,
+              "items": [
+                {
+                  "jsonType": "shortcut",
+                  "type": "@cat",
+                  "optional": true,
+                  "scalarValue": "@cat"
+                }
+              ]
+            },
+            "usedUserTypes": [
+              "@cat"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats": [
+          "POST /cats"
+        ]
+      }
+    }
+  }
+}

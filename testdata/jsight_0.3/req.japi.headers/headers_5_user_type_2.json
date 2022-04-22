@@ -1,0 +1,84 @@
+{
+	"jdocExchangeFileSchemaVersion": "0.3.0",
+	"jsight": "0.3",
+	"userTypes": {
+		"@commonHeader": {
+			"schema": {
+				"notation": "jsight",
+				"content": {
+					"jsonType": "object",
+					"type": "object",
+					"optional": false,
+					"properties": {
+						"Content-Type": {
+							"jsonType": "string",
+							"type": "string",
+							"optional": false,
+							"scalarValue": "application/json"
+						}
+					}
+				}
+			}
+		},
+		"@catHeader": {
+			"schema": {
+				"notation": "jsight",
+				"content": {
+					"jsonType": "shortcut",
+					"type": "@commonHeader",
+					"optional": false,
+					"scalarValue": "@commonHeader"
+				},
+				"usedUserTypes": [
+					"@commonHeader"
+				]
+			}
+		}
+	},
+	"resourceMethods": {
+		"GET /cat": {
+			"httpMethod": "GET",
+			"path": "/cat",
+			"tags": [
+				"@cat"
+			],
+			"responses": [
+				{
+					"code": "200",
+					"headers": {
+						"schema": {
+							"notation": "jsight",
+							"content": {
+								"jsonType": "shortcut",
+								"type": "@catHeader",
+								"optional": false,
+								"scalarValue": "@catHeader"
+							},
+							"usedUserTypes": [
+								"@catHeader"
+							]
+						}
+					},
+					"body": {
+						"format": "plainString",
+						"schema": {
+							"notation": "regex",
+							"content": ".*"
+						}
+					}
+				}
+			]
+		}
+	},
+	"tags": {
+		"@cat": {
+			"name": "@cat",
+			"title": "/cat",
+			"resourceMethods": {
+				"/cat": [
+					"GET /cat"
+				]
+			}
+		}
+	}
+}

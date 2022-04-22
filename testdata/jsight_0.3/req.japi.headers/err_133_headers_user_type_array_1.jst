@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+TYPE @catHeader
+    [ # ERROR: must be object
+        "Content-Type"
+    ]
+
+GET /cat
+    200
+        Headers
+            @catHeader
+
+        Body regex
+            /.*/

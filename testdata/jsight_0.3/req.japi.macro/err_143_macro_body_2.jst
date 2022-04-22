@@ -1,0 +1,19 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "name": "Tom"
+    }
+
+MACRO @body
+(
+    Body
+        @cat
+)
+
+POST /cat
+    Request
+        PASTE @body
+
+    200 @cat # ERROR: parameters are unacceptable, according to the Body directive
+        PASTE @body

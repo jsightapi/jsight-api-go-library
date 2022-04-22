@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+MACRO @common_headers
+(
+    Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+)
+
+GET /cat
+    200 any
+        PASTE @common_headers

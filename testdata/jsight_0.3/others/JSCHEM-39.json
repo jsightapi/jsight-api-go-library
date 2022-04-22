@@ -1,0 +1,49 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /arrayOfEverything": {
+      "httpMethod": "POST",
+      "path": "/arrayOfEverything",
+      "tags": [
+        "@arrayOfEverything"
+      ],
+      "query": {
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "decimalField": {
+                "jsonType": "number",
+                "type": "decimal",
+                "optional": false,
+                "scalarValue": "1.23",
+                "rules": {
+                  "precision": {
+                    "jsonType": "number",
+                    "scalarValue": "2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@arrayOfEverything": {
+      "name": "@arrayOfEverything",
+      "title": "/arrayOfEverything",
+      "resourceMethods": {
+        "/arrayOfEverything": [
+          "POST /arrayOfEverything"
+        ]
+      }
+    }
+  }
+}

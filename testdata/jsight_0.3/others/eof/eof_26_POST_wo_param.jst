@@ -1,0 +1,45 @@
+JSIGHT 0.3
+
+INFO 
+    Title "Catsbook API" 
+    Version 1.0 
+    Description 
+        API cats social
+        network.
+
+SERVER @CATS_API_SERVER // Main server catsbook.com API. 
+    BaseUrl "https://catsbook.com/api/{locale}/" 
+
+TYPE @cat
+    {
+        "id"  : 12,
+        "name": "Tom"
+    }
+
+URL /cat/{id}
+    Path 
+        {
+          "id": 12 // property annotation
+        }
+
+    GET /cats/{id} // annotation of GET method
+        Description 
+            With this method you can get
+            list of all cats that are registered
+            on Catsbook.
+
+        Query "param=str"
+            {
+              "param": "str"
+            }
+
+        Path
+            {
+              "id": 12 // property annotation
+            }
+
+        200
+            Body jsight 
+                @cat 
+
+    POST

@@ -1,0 +1,96 @@
+{
+    "jdocExchangeFileSchemaVersion": "0.3.0",
+    "jsight": "0.3",
+    "resourceMethods": {
+        "GET /cats": {
+            "httpMethod": "GET",
+            "path": "/cats",
+            "tags": [
+                "@cats"
+            ],
+            "annotation": "Get a page with cats of the right size.",
+            "query": {
+                "example": "page=1\u0026per_page=50\u0026filter[size]=XXL",
+                "format": "htmlFormEncoded",
+                "schema": {
+                    "notation": "jsight",
+                    "content": {
+                        "jsonType": "object",
+                        "type": "object",
+                        "optional": false,
+                        "properties": {
+                            "page": {
+                                "jsonType": "number",
+                                "type": "integer",
+                                "optional": false,
+                                "scalarValue": "1"
+                            },
+                            "per_page": {
+                                "jsonType": "number",
+                                "type": "integer",
+                                "optional": true,
+                                "scalarValue": "50",
+                                "rules": {
+                                    "optional": {
+                                        "jsonType": "boolean",
+                                        "scalarValue": "true"
+                                    }
+                                }
+                            },
+                            "filter": {
+                                "jsonType": "object",
+                                "type": "object",
+                                "optional": true,
+                                "rules": {
+                                    "optional": {
+                                        "jsonType": "boolean",
+                                        "scalarValue": "true"
+                                    }
+                                },
+                                "properties": {
+                                    "size": {
+                                        "jsonType": "string",
+                                        "type": "string",
+                                        "optional": true,
+                                        "scalarValue": "XXL",
+                                        "note": "Filter by cat size.",
+                                        "rules": {
+                                            "optional": {
+                                                "jsonType": "boolean",
+                                                "scalarValue": "true"
+                                            }
+                                        }
+                                    },
+                                    "age": {
+                                        "jsonType": "number",
+                                        "type": "integer",
+                                        "optional": true,
+                                        "scalarValue": "12",
+                                        "note": "Filter by age of the cat.",
+                                        "rules": {
+                                            "optional": {
+                                                "jsonType": "boolean",
+                                                "scalarValue": "true"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": {
+        "@cats": {
+            "name": "@cats",
+            "title": "/cats",
+            "resourceMethods": {
+                "/cats": [
+                    "GET /cats"
+                ]
+            }
+        }
+    }
+}

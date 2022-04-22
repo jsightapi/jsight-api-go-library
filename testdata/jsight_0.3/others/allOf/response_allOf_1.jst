@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+GET /admin
+    200
+        { // {allOf: "@user"}
+            "status": "admin"
+        }
+
+TYPE @user
+    {
+        "id": 1,
+        "name": "Max"
+    }

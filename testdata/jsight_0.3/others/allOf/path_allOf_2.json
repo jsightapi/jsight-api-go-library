@@ -1,0 +1,110 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@section": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "rules": {
+            "allOf": {
+              "jsonType": "string",
+              "scalarValue": "@mode"
+            }
+          },
+          "properties": {
+            "mode": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "xyz",
+              "inheritedFrom": "@mode"
+            },
+            "section": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "abc"
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@mode"
+        ]
+      }
+    },
+    "@mode": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "mode": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "xyz"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /list/{section}/{mode}/{id}": {
+      "httpMethod": "GET",
+      "path": "/list/{section}/{mode}/{id}",
+      "tags": [
+        "@list"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "1"
+              },
+              "mode": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "xyz",
+                "inheritedFrom": "@section"
+              },
+              "section": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "abc",
+                "inheritedFrom": "@section"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "resourceMethods": {
+        "/list/{section}/{mode}/{id}": [
+          "GET /list/{section}/{mode}/{id}"
+        ]
+      }
+    }
+  }
+}

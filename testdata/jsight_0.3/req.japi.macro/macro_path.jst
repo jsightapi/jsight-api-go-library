@@ -1,0 +1,17 @@
+JSIGHT 0.3
+
+MACRO @path
+(
+    Path
+        {
+            "id": 12 // Cat identifier.
+        }
+)
+
+GET /cats/{id}
+    PASTE @path
+
+URL /cat/{id}
+    PASTE @path
+
+    POST

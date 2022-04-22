@@ -1,0 +1,104 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cats/{id}": {
+      "httpMethod": "GET",
+      "path": "/cats/{id}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "12",
+                "rules": {
+                  "min": {
+                    "jsonType": "number",
+                    "scalarValue": "0"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    },
+    "GET /cats/{id}/friends": {
+      "httpMethod": "GET",
+      "path": "/cats/{id}/friends",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "12",
+                "rules": {
+                  "min": {
+                    "jsonType": "number",
+                    "scalarValue": "0"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats/{id}": [
+          "GET /cats/{id}"
+        ],
+        "/cats/{id}/friends": [
+          "GET /cats/{id}/friends"
+        ]
+      }
+    }
+  }
+}

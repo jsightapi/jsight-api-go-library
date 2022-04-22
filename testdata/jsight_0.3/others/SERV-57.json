@@ -1,0 +1,1205 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "info": {
+    "title": "Dogs REST API",
+    "version": "1.0",
+    "description": "## Overview\n\nThe Pets REST API allows you to manage your dogs.\n\nPowered by [JSight](http://jsight.io)©."
+  },
+  "servers": {
+    "@prod": {
+      "annotation": "Production server.",
+      "baseUrl": "https://pets.com/api/1.0"
+    },
+    "@test": {
+      "annotation": "Test server.",
+      "baseUrl": "https://192.168.0.100/1.0"
+    }
+  },
+  "userTypes": {
+    "@pet": {
+      "annotation": "A pet.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "shortcut",
+              "type": "@petId",
+              "optional": false,
+              "scalarValue": "@petId"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            },
+            "type": {
+              "jsonType": "string",
+              "type": "enum",
+              "optional": false,
+              "scalarValue": "PIG",
+              "rules": {
+                "enum": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              }
+            },
+            "age": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "10",
+              "rules": {
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "0"
+                },
+                "max": {
+                  "jsonType": "number",
+                  "scalarValue": "99"
+                }
+              }
+            },
+            "email": {
+              "jsonType": "string",
+              "type": "email",
+              "optional": false,
+              "scalarValue": "tom@pets.com",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "email"
+                }
+              }
+            },
+            "uri": {
+              "jsonType": "string",
+              "type": "uri",
+              "optional": false,
+              "scalarValue": "http://tom.pets.com",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uri"
+                }
+              }
+            },
+            "birthday": {
+              "jsonType": "string",
+              "type": "date",
+              "optional": false,
+              "scalarValue": "2012-01-03",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "date"
+                }
+              }
+            },
+            "uuid": {
+              "jsonType": "string",
+              "type": "uuid",
+              "optional": false,
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@petId"
+        ]
+      }
+    },
+    "@dog": {
+      "annotation": "A dog.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "rules": {
+            "allOf": {
+              "jsonType": "string",
+              "scalarValue": "@pet"
+            }
+          },
+          "properties": {
+            "friendIds": {
+              "jsonType": "array",
+              "type": "array",
+              "optional": false,
+              "note": "Only dog ids are allowed.",
+              "items": [
+                {
+                  "jsonType": "shortcut",
+                  "type": "@petId",
+                  "optional": true,
+                  "scalarValue": "@petId"
+                }
+              ]
+            },
+            "isDangerous": {
+              "jsonType": "boolean",
+              "type": "boolean",
+              "optional": false,
+              "scalarValue": "false"
+            },
+            "legacyId": {
+              "jsonType": "number",
+              "type": "mixed",
+              "optional": true,
+              "scalarValue": "1",
+              "rules": {
+                "or": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "object",
+                      "properties": {
+                        "type": {
+                          "jsonType": "string",
+                          "scalarValue": "integer"
+                        },
+                        "min": {
+                          "jsonType": "number",
+                          "scalarValue": "0"
+                        },
+                        "exclusiveMinimum": {
+                          "jsonType": "boolean",
+                          "scalarValue": "true"
+                        }
+                      }
+                    },
+                    {
+                      "jsonType": "object",
+                      "properties": {
+                        "type": {
+                          "jsonType": "string",
+                          "scalarValue": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            },
+            "additionalData": {
+              "jsonType": "object",
+              "type": "any",
+              "optional": false,
+              "note": "Field for legacy.",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "any"
+                }
+              }
+            },
+            "id": {
+              "jsonType": "shortcut",
+              "type": "@petId",
+              "optional": false,
+              "scalarValue": "@petId",
+              "inheritedFrom": "@pet"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom",
+              "inheritedFrom": "@pet"
+            },
+            "type": {
+              "jsonType": "string",
+              "type": "enum",
+              "optional": false,
+              "scalarValue": "PIG",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "enum": {
+                  "jsonType": "array",
+                  "items": [
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "jsonType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              }
+            },
+            "age": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "10",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "0"
+                },
+                "max": {
+                  "jsonType": "number",
+                  "scalarValue": "99"
+                }
+              }
+            },
+            "email": {
+              "jsonType": "string",
+              "type": "email",
+              "optional": false,
+              "scalarValue": "tom@pets.com",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "email"
+                }
+              }
+            },
+            "uri": {
+              "jsonType": "string",
+              "type": "uri",
+              "optional": false,
+              "scalarValue": "http://tom.pets.com",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uri"
+                }
+              }
+            },
+            "birthday": {
+              "jsonType": "string",
+              "type": "date",
+              "optional": false,
+              "scalarValue": "2012-01-03",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "date"
+                }
+              }
+            },
+            "uuid": {
+              "jsonType": "string",
+              "type": "uuid",
+              "optional": false,
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "inheritedFrom": "@pet",
+              "rules": {
+                "type": {
+                  "jsonType": "string",
+                  "scalarValue": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@pet",
+          "@petId"
+        ]
+      }
+    },
+    "@petId": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "GOAT-12345",
+          "rules": {
+            "regex": {
+              "jsonType": "string",
+              "scalarValue": "^[A-Z]+-\\d+$"
+            },
+            "minLength": {
+              "jsonType": "number",
+              "scalarValue": "3"
+            },
+            "maxLength": {
+              "jsonType": "number",
+              "scalarValue": "255"
+            }
+          }
+        }
+      }
+    },
+    "@error": {
+      "annotation": "A common error response.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "code": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "12"
+            },
+            "message": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Something bad had happened on server..."
+            }
+          }
+        }
+      }
+    },
+    "@commonRequestHeaders": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "rules": {
+            "allOf": {
+              "jsonType": "array",
+              "items": [
+                {
+                  "jsonType": "string",
+                  "scalarValue": "@contentTypeHeader"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "@authHeader"
+                }
+              ]
+            }
+          },
+          "properties": {
+            "Content-Type": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "application/json",
+              "inheritedFrom": "@contentTypeHeader",
+              "rules": {
+                "const": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            },
+            "Authorization": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+              "inheritedFrom": "@authHeader",
+              "rules": {
+                "regex": {
+                  "jsonType": "string",
+                  "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@contentTypeHeader",
+          "@authHeader"
+        ]
+      }
+    },
+    "@commonResponseHeaders": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "rules": {
+            "allOf": {
+              "jsonType": "string",
+              "scalarValue": "@contentTypeHeader"
+            }
+          },
+          "properties": {
+            "Content-Type": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "application/json",
+              "inheritedFrom": "@contentTypeHeader",
+              "rules": {
+                "const": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            }
+          }
+        },
+        "usedUserTypes": [
+          "@contentTypeHeader"
+        ]
+      }
+    },
+    "@contentTypeHeader": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "Content-Type": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "application/json",
+              "rules": {
+                "const": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "@authHeader": {
+      "annotation": "Authorization header.",
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "Authorization": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+              "rules": {
+                "regex": {
+                  "jsonType": "string",
+                  "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "@pageQuery": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "page": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": true,
+              "scalarValue": "1",
+              "note": "1 by default.",
+              "rules": {
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                },
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "1"
+                }
+              }
+            },
+            "pageSize": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": true,
+              "scalarValue": "30",
+              "note": "30 by default.",
+              "rules": {
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                },
+                "min": {
+                  "jsonType": "number",
+                  "scalarValue": "10"
+                },
+                "max": {
+                  "jsonType": "number",
+                  "scalarValue": "100"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /dogs": {
+      "httpMethod": "GET",
+      "path": "/dogs",
+      "tags": [
+        "@dogs"
+      ],
+      "annotation": "Get the paged list of all dogs.",
+      "query": {
+        "example": "page=1\u0026pageSize=30\u0026filter[age]=12",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "rules": {
+              "allOf": {
+                "jsonType": "string",
+                "scalarValue": "@pageQuery"
+              }
+            },
+            "properties": {
+              "filter": {
+                "jsonType": "object",
+                "type": "object",
+                "optional": true,
+                "rules": {
+                  "optional": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  }
+                },
+                "properties": {
+                  "size": {
+                    "jsonType": "string",
+                    "type": "enum",
+                    "optional": true,
+                    "scalarValue": "S",
+                    "note": "Filter by dog's size.",
+                    "rules": {
+                      "optional": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      },
+                      "enum": {
+                        "jsonType": "array",
+                        "items": [
+                          {
+                            "jsonType": "string",
+                            "scalarValue": "S"
+                          },
+                          {
+                            "jsonType": "string",
+                            "scalarValue": "L"
+                          },
+                          {
+                            "jsonType": "string",
+                            "scalarValue": "M"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "age": {
+                    "jsonType": "number",
+                    "type": "integer",
+                    "optional": true,
+                    "scalarValue": "12",
+                    "note": "Filter by dog's age.",
+                    "rules": {
+                      "optional": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      },
+                      "min": {
+                        "jsonType": "number",
+                        "scalarValue": "0"
+                      }
+                    }
+                  }
+                }
+              },
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": true,
+                "scalarValue": "1",
+                "inheritedFrom": "@pageQuery",
+                "note": "1 by default.",
+                "rules": {
+                  "optional": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  "min": {
+                    "jsonType": "number",
+                    "scalarValue": "1"
+                  }
+                }
+              },
+              "pageSize": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": true,
+                "scalarValue": "30",
+                "inheritedFrom": "@pageQuery",
+                "note": "30 by default.",
+                "rules": {
+                  "optional": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  "min": {
+                    "jsonType": "number",
+                    "scalarValue": "10"
+                  },
+                  "max": {
+                    "jsonType": "number",
+                    "scalarValue": "100"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@pageQuery"
+          ]
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@commonRequestHeaders",
+              "optional": false,
+              "scalarValue": "@commonRequestHeaders"
+            },
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Returns a page of dogs.",
+          "headers": {
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@commonResponseHeaders",
+                "optional": false,
+                "scalarValue": "@commonResponseHeaders"
+              },
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "object",
+                "type": "object",
+                "optional": false,
+                "properties": {
+                  "items": {
+                    "jsonType": "array",
+                    "type": "array",
+                    "optional": false,
+                    "items": [
+                      {
+                        "jsonType": "shortcut",
+                        "type": "@dog",
+                        "optional": true,
+                        "scalarValue": "@dog"
+                      }
+                    ]
+                  },
+                  "page": {
+                    "jsonType": "number",
+                    "type": "integer",
+                    "optional": false,
+                    "scalarValue": "1"
+                  },
+                  "pageSize": {
+                    "jsonType": "number",
+                    "type": "integer",
+                    "optional": false,
+                    "scalarValue": "30"
+                  }
+                }
+              },
+              "usedUserTypes": [
+                "@dog"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "A requested page was not found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorised.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    },
+    "POST /dogs": {
+      "httpMethod": "POST",
+      "path": "/dogs",
+      "tags": [
+        "@dogs"
+      ],
+      "annotation": "Create a new dog.",
+      "description": "### Limitations\n\n- Accounts are limited to 25 new dogs\n  within a 24 hour period.",
+      "request": {
+        "headers": {
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "rules": {
+                "allOf": {
+                  "jsonType": "string",
+                  "scalarValue": "@commonRequestHeaders"
+                }
+              },
+              "properties": {
+                "X-header": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "Some additional header"
+                },
+                "Content-Type": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "application/json",
+                  "inheritedFrom": "@commonRequestHeaders",
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  }
+                },
+                "Authorization": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "inheritedFrom": "@commonRequestHeaders",
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                    }
+                  }
+                }
+              }
+            },
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@dog",
+              "optional": false,
+              "scalarValue": "@dog"
+            },
+            "usedUserTypes": [
+              "@dog"
+            ]
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Success.",
+          "headers": {
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "object",
+                "type": "object",
+                "optional": false,
+                "properties": {
+                  "X-header": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "optional": false,
+                    "scalarValue": "Some additional header"
+                  }
+                }
+              }
+            }
+          },
+          "body": {
+            "format": "plainString",
+            "schema": {
+              "notation": "regex",
+              "content": "^OK$"
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorised.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    },
+    "GET /dogs/{id}": {
+      "httpMethod": "GET",
+      "path": "/dogs/{id}",
+      "tags": [
+        "@dogs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "string",
+                "type": "@petId",
+                "optional": false,
+                "scalarValue": "DOG-123",
+                "note": "Dog's id.",
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "@petId"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Get a dog by its id.",
+      "request": {
+        "headers": {
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@commonRequestHeaders",
+              "optional": false,
+              "scalarValue": "@commonRequestHeaders"
+            },
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Return a dog.",
+          "headers": {
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@commonResponseHeaders",
+                "optional": false,
+                "scalarValue": "@commonResponseHeaders"
+              },
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@dog",
+                "optional": false,
+                "scalarValue": "@dog"
+              },
+              "usedUserTypes": [
+                "@dog"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "A dog is not found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorised.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    },
+    "DELETE /dogs/{id}": {
+      "httpMethod": "DELETE",
+      "path": "/dogs/{id}",
+      "tags": [
+        "@dogs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "string",
+                "type": "@petId",
+                "optional": false,
+                "scalarValue": "DOG-123",
+                "note": "Dog's id.",
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "@petId"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Delete a dog.",
+      "request": {
+        "headers": {
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "@commonRequestHeaders",
+              "optional": false,
+              "scalarValue": "@commonRequestHeaders"
+            },
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "OK.",
+          "headers": {
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@commonResponseHeaders",
+                "optional": false,
+                "scalarValue": "@commonResponseHeaders"
+              },
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "OK",
+                "rules": {
+                  "const": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "A dog is not found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@error",
+                "optional": false,
+                "scalarValue": "@error"
+              },
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorised.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@dogs": {
+      "name": "@dogs",
+      "title": "/dogs",
+      "resourceMethods": {
+        "/dogs": [
+          "GET /dogs",
+          "POST /dogs"
+        ],
+        "/dogs/{id}": [
+          "GET /dogs/{id}",
+          "DELETE /dogs/{id}"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@testRuleOrStandardTypes": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "mixed",
+          "optional": false,
+          "scalarValue": "A",
+          "rules": {
+            "or": {
+              "jsonType": "array",
+              "items": [
+                {
+                  "jsonType": "string",
+                  "scalarValue": "string"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "integer"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

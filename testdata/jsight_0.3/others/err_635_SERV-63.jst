@@ -1,0 +1,42 @@
+JSIGHT 0.3
+
+TYPE @cat // A cat.
+{
+  "status": "relaxing",
+  "bestFriend": @cat,
+  "topFriends": { // {additionalProperties: true}
+    @petName: @cat | @pig
+  },
+  "topEnemies": [ // {maxItems: 10}
+    @dog
+  ]
+}
+
+TYPE @dog // A dog.
+{
+  "friendIds": [ // Only dog ids are allowed.
+    @petId
+  ],
+  "isDangerous": false,
+  "legacyId": 1, /* {or: [
+                        {type: "integer", min: 0, exclusiveMinimum: true},
+                        {type: "string"}
+                      ],
+                      optional: true
+                    } */
+  "additionalData": {} // {type: "any"} - Field for legacy.
+}
+
+
+TYPE @pig // A pig.
+{ // {allOf: "@pet"}
+  "temperature" : 35.6, // {precision: 1, nullable: true}
+  "pigSize"     : "S",  // {type: "@pigSize"}
+  "lastWashTime": "2021-01-02T15:04:05+03:00", // {type: "datetime"}
+  "additionalData": {  // {additionalProperties: "string"}
+    "key": "value"
+  }
+}
+
+TYPE @petName regex
+  /^[A-Z][a-z]*( [A-Z][a-z]*)*$/

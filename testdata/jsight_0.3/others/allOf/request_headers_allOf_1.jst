@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+GET /admin
+    Request
+        Headers
+            { // {allOf: "@auth"}
+                "Content-Type": "application/json" // {const: true}
+            }
+
+        Body any
+
+TYPE @auth
+    {
+        "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=" // {const: true}
+    }

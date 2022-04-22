@@ -1,0 +1,13 @@
+JSIGHT 0.3
+
+MACRO @enum
+(
+    ENUM @catName
+        ["Tom", "Tim"]
+)
+
+PASTE @enum
+
+GET /catName
+    200
+        @catName

@@ -1,0 +1,304 @@
+###
+multiline comment
+###
+
+JSIGHT 0.3 ###
+           multiline comment
+           ###
+
+###
+multiline comment
+###
+
+INFO ###
+    multiline comment
+    ###
+
+    ###
+    multiline comment
+    ###
+    Title "Catsbook API" ###
+                            multiline comment
+                            ###
+
+    ###
+    multiline comment
+    ###
+    Version 1.0 ###
+                multiline comment
+                ###
+
+    ###
+    multiline comment
+    ###
+    Description ### multiline comment ###
+        API cats social
+        network.
+
+SERVER @CATS_API_SERVER // Main server catsbook.com API. ### comment
+
+    ###
+    multiline comment
+    ###
+    BaseUrl "https://catsbook.com/api/{locale}/" ###
+                                                    multiline comment
+                                                    ###
+
+###
+multiline comment
+###
+TYPE @cat   ###
+            multiline comment
+            ###
+
+###
+multiline comment
+###
+    {
+        "id"  : 12,
+        "name": "Tom"
+    }
+
+###
+multiline comment
+###
+URL /cat/{id}   ###
+                multiline comment
+                ###
+
+    ###
+    multiline comment
+    ###
+    Path    ###
+            multiline comment
+            ###
+
+        ###
+        multiline comment
+        ###
+        {
+          "id": 12 // property annotation
+        }
+
+    ###
+    multiline comment
+    ###
+    GET /cats/{id} // annotation of GET method  # comment
+
+        ###
+        multiline comment
+        ###
+        Description ### multiline comment ###
+            With this method you can get
+            list of all cats that are registered
+            on Catsbook.
+
+        Query "param=str"   ###
+                            multiline comment
+                            ###
+            ###
+            multiline comment
+            ###
+            {
+              "param": "str"
+            }
+
+        ###
+        multiline comment
+        ###
+        Path    ###
+                multiline comment
+                ###
+
+            ###
+            multiline comment
+            ###
+            {
+              "id": 12 // property annotation
+            }
+
+        ###
+        multiline comment
+        ###
+        200     ###
+                multiline comment
+                ###
+
+             ###
+            multiline comment
+            ###
+            Body jsight ###
+                        multiline comment
+                        ###
+
+                ###
+                multiline comment
+                ###
+                @cat    ###
+                        multiline comment
+                        ###
+
+    ###
+    multiline comment
+    ###
+    POST /cats/{id} ###
+                    multiline comment
+                    ###
+
+        ###
+        multiline comment
+        ###
+        Request ###
+                multiline comment
+                ###
+
+            ###
+            multiline comment
+            ###
+            Body    ###
+                    multiline comment
+                    ###
+
+                ###
+                multiline comment
+                ###
+                { ###
+                    multiline comment
+                    ###
+
+                    ###
+                    multiline comment
+                    ###
+                    "id": 1,    ###
+                                multiline comment
+                                ###
+
+                    ###
+                    multiline comment
+                    ###
+                    "name": "Tom"   ###
+                                    multiline comment
+                                    ###
+
+                    ###
+                    multiline comment
+                    ###
+
+                }   ###
+                    multiline comment
+                    ###
+
+        ###
+        multiline comment
+        ###
+        200 // annotation of 200 response   ## comment
+
+            ###
+            multiline comment
+            ###
+            Headers ###
+                    multiline comment
+                    ###
+
+                ###
+                multiline comment
+                ###
+                {   ###
+                    multiline comment
+                    ###
+
+                    ###
+                    multiline comment
+                    ###
+                    "Content-Type": "application/json" // {const: true} ###
+                                                                        multiline comment
+                                                                        ###
+                    ###
+                    multiline comment
+                    ###
+
+                }   ###
+                    multiline comment
+                    ###
+
+            ###
+            multiline comment
+            ###
+            Body    ###
+                    multiline comment
+                    ###
+
+                ###
+                multiline comment
+                ###
+                "ok"    ###
+                        multiline comment
+                        ###
+
+        ###
+        multiline comment
+        ###
+        400 any ###
+                multiline comment
+                ###
+
+    ###
+    multiline comment
+    ###
+    DELETE /cats/{id}   ###
+                        multiline comment
+                        ###
+
+        ###
+        multiline comment
+        ###
+        200 ###
+            multiline comment
+            ###
+
+            ###
+            multiline comment
+            ###
+            Body @cat   ###
+                        multiline comment
+                        ###
+
+        ###
+        multiline comment
+        ###
+        400 @err    ###
+                    multiline comment
+                    ###
+
+###
+multiline comment
+###
+TYPE @err   ###
+            multiline comment
+            ###
+
+    ###
+    multiline comment
+    ###
+    {   ###
+        multiline comment
+        ###
+
+        ###
+        multiline comment
+        ###
+        "error"  : "str"    ###
+                            multiline comment
+                            ###
+
+        ###
+        multiline comment
+        ###
+
+    }   ###
+        multiline comment
+        ###
+
+###
+multiline comment
+###

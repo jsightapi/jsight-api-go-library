@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+GET /cats/{id}/{name}
+    Path
+        {} // {allOf: ["@pathVars1", "@pathVars2"]}
+
+TYPE @pathVars1
+    {
+        "id": 1
+    }
+
+TYPE @pathVars2
+    {
+        "name": "Tom"
+    }

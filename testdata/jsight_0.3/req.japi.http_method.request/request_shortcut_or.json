@@ -1,0 +1,66 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@cat": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "number",
+          "type": "integer",
+          "optional": false,
+          "scalarValue": "12"
+        }
+      }
+    },
+    "@dog": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "string",
+          "optional": false,
+          "scalarValue": "funtic"
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "PUT /": {
+      "httpMethod": "PUT",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "shortcut",
+              "type": "mixed",
+              "optional": false,
+              "scalarValue": "@dog | @cat"
+            },
+            "usedUserTypes": [
+              "@dog",
+              "@cat"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "PUT /"
+        ]
+      }
+    }
+  }
+}

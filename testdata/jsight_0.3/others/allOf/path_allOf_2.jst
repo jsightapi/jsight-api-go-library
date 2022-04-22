@@ -1,0 +1,17 @@
+JSIGHT 0.3
+
+GET /list/{section}/{mode}/{id}
+    Path
+        { // {allOf: "@section"}
+            "id": 1
+        }
+
+TYPE @section
+    { // {allOf: "@mode"}
+        "section": "abc"
+    }
+
+TYPE @mode
+    {
+        "mode": "xyz"
+    }

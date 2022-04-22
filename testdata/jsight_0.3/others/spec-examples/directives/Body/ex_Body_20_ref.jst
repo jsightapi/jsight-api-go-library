@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+POST /users // Change user data
+
+  Request @user
+
+TYPE @user
+  {
+    "id": 121, // user id
+    "name": "John Smith", // user name
+    "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+    "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+  }
+

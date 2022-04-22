@@ -1,0 +1,125 @@
+JSIGHT 0.3
+
+TYPE @user
+    {
+      "id": 121, // user id
+      "name": "John Smith", // user name
+      "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+      "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+    }
+
+TYPE @friends
+    [
+        {
+          "id": 121, // user id
+          "name": "John Smith" // user name
+        }
+    ]
+
+TYPE @order
+    {
+        "id": 1
+    }
+
+URL /users 
+
+  GET // Viewing a list of users
+
+    Query "page=1&perPage=20&filter=[name:\"%John%\"]"
+      {
+        "page": 1, // {optional: true} - page number, default 0
+        "perPage": 20, // {optional: true} - the number of users per page, by default 20
+        "filter": { // {optional: true}
+          "name": "John" // {maxLength: 100}
+        }
+      }
+    200
+      {
+        "pageItems": [
+          @user
+        ],
+        "pageInfo": {
+          "page": 1,
+          "perPage": 20,
+          "totalPages": 12,
+          "totalItems": 223
+        }
+      }
+
+  POST // Creating a user
+    Request
+      {
+        "name": "John Smith",
+        "salary": 220,
+        "photo": "http://photo.ru/img/2312311.jpg"
+      }
+
+    200 @user
+
+  URL /users/{id}
+
+    Path
+      {
+        "id": 12 // {min: 1}
+      }
+
+    GET // Get user data by his ID
+      200 @user
+
+    POST // Change user data with a specific id
+      Request @user
+      200 @user
+
+    DELETE // Deleting a user by id
+      200
+        {
+          "id": 121,
+          "deleted": true
+        }
+
+    URL /users/{id}/friends
+
+      GET
+        200 @friends
+
+      POST
+        Request any
+        200 any
+
+      URL /users/{id}/friends/{friend:id}
+
+        Path
+        {
+          "friend:id": 4
+        }
+
+        GET
+          200
+          {
+            "id": 4,
+            "name": "Alice"
+          }
+
+    URL /users/{id}/attachments
+
+      GET
+        200 any
+
+      POST
+        Request
+          {
+            "content": "7asdf9adf"
+          }
+        200 any
+
+  URL /users/uploadProfiles
+
+    GET
+
+URL /orders
+
+  GET /orders/attachments/{id}
+
+    200 @order
+
+  POST

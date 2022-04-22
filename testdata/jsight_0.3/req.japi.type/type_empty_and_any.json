@@ -1,0 +1,92 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@cat0": {
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@cat1": {
+      "annotation": "annotation",
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@cat2": {
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@cat3": {
+      "annotation": "annotation",
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@cat4": {
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@cat5": {
+      "annotation": "annotation with",
+      "schema": {
+        "notation": "empty"
+      }
+    },
+    "@dog0": {
+      "schema": {
+        "notation": "any"
+      }
+    },
+    "@dog1": {
+      "annotation": "comment",
+      "schema": {
+        "notation": "any"
+      }
+    },
+    "@dog2": {
+      "schema": {
+        "notation": "any"
+      }
+    },
+    "@dog3": {
+      "annotation": "annotation",
+      "schema": {
+        "notation": "any"
+      }
+    },
+    "@dog4": {
+      "schema": {
+        "notation": "any"
+      }
+    },
+    "@dog5": {
+      "annotation": "annotation with",
+      "schema": {
+        "notation": "any"
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /": {
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ]
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "GET /"
+        ]
+      }
+    }
+  }
+}

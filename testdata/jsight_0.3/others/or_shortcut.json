@@ -1,0 +1,120 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@dog": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "DOG-123"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Doggie"
+            }
+          }
+        }
+      }
+    },
+    "@pig": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "PIG-123"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Naf Naf"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /cats/{id}": {
+      "httpMethod": "GET",
+      "path": "/cats/{id}",
+      "tags": [
+        "@cats"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "object",
+                "type": "object",
+                "optional": false,
+                "properties": {
+                  "enemy": {
+                    "jsonType": "shortcut",
+                    "type": "mixed",
+                    "optional": false,
+                    "scalarValue": "@dog | @pig"
+                  },
+                  "id": {
+                    "jsonType": "number",
+                    "type": "integer",
+                    "optional": false,
+                    "scalarValue": "1"
+                  },
+                  "name": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "optional": true,
+                    "scalarValue": "Tom",
+                    "rules": {
+                      "optional": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    }
+                  }
+                }
+              },
+              "usedUserTypes": [
+                "@dog",
+                "@pig"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats/{id}": [
+          "GET /cats/{id}"
+        ]
+      }
+    }
+  }
+}

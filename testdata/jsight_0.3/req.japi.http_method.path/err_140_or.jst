@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+TYPE @catName
+    "Tom" // {minLength: 3}
+
+TYPE @dogObj
+    {
+        "dog": "Bo" // {minLength: 2}
+    }
+
+GET /cats/{name}
+    Path
+    {
+        "name": "Tom" // {or: ["@catName", "@dogObj"]}
+    }

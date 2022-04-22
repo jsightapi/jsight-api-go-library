@@ -1,0 +1,16 @@
+JSIGHT 0.3
+
+URL /dogs
+
+    GET
+        Query
+            {
+                "page": 1, // {optional: true} - Page number.
+                "canHunt": true /* {
+                        type: "boolean",
+                        optional: true
+                    }
+                    - Filter by hunting ability. */
+                }
+
+    200 any

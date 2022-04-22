@@ -1,0 +1,29 @@
+JSIGHT 0.3
+
+TYPE @profile
+{
+  "age": 25,
+  "sex": "male"
+}
+
+URL /users
+
+  POST
+
+    Request
+    {
+      "name": "John",
+      "salary": 1.5,
+      "profile": @profile
+    }
+
+    201
+    {
+      "id": 1,
+      "name": "John",
+      "salary": 1.5,
+      "profile": @profile
+     
+    }
+
+    500 any

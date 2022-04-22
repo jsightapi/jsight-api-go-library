@@ -1,0 +1,310 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "info": {
+    "title": "Catsbook API",
+    "version": "1.0",
+    "description": "API cats social\nnetwork."
+  },
+  "servers": {
+    "@CATS_API_SERVER": {
+      "annotation": "Main server catsbook.com API.",
+      "baseUrl": "https://catsbook.com/api/{locale}/"
+    }
+  },
+  "userTypes": {
+    "@cat": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "id": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "12"
+            },
+            "name": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            }
+          }
+        }
+      }
+    },
+    "@err": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "error": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "str"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /cats/{id}": {
+      "httpMethod": "GET",
+      "path": "/cats/{id}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "12",
+                "note": "property annotation"
+              }
+            }
+          }
+        }
+      },
+      "annotation": "annotation of GET method",
+      "description": "With this method you can get\nlist of all cats that are registered\non Catsbook.",
+      "query": {
+        "example": "param=str",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "param": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "str"
+              }
+            }
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@cat",
+                "optional": false,
+                "scalarValue": "@cat"
+              },
+              "usedUserTypes": [
+                "@cat"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "POST /cats/{id}": {
+      "httpMethod": "POST",
+      "path": "/cats/{id}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "12",
+                "note": "property annotation"
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "properties": {
+                "id": {
+                  "jsonType": "number",
+                  "type": "integer",
+                  "optional": false,
+                  "scalarValue": "1"
+                },
+                "name": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "Tom"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "annotation of 200 response",
+          "headers": {
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "object",
+                "type": "object",
+                "optional": false,
+                "properties": {
+                  "Content-Type": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "optional": false,
+                    "scalarValue": "application/json",
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "ok"
+              }
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ]
+    },
+    "DELETE /cats/{id}": {
+      "httpMethod": "DELETE",
+      "path": "/cats/{id}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "12",
+                "note": "property annotation"
+              }
+            }
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@cat",
+                "optional": false,
+                "scalarValue": "@cat"
+              },
+              "usedUserTypes": [
+                "@cat"
+              ]
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "shortcut",
+                "type": "@err",
+                "optional": false,
+                "scalarValue": "@err"
+              },
+              "usedUserTypes": [
+                "@err"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats/{id}": [
+          "GET /cats/{id}",
+          "POST /cats/{id}",
+          "DELETE /cats/{id}"
+        ]
+      }
+    }
+  }
+}

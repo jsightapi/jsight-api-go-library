@@ -1,0 +1,10 @@
+JSIGHT 0.3
+
+GET /list/{section}/
+    Path
+        {
+            "section": @regex
+        }
+
+TYPE @regex
+    "section0" // {regex: "section[0-9]"}

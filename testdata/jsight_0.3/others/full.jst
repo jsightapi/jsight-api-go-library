@@ -1,0 +1,298 @@
+# Test
+
+JSIGHT 0.3
+
+TYPE @error // standard error
+  {
+    "code": 1,
+    "text": "some error text"
+  }
+
+TYPE @user
+# todo after enum in JSC: link type to userType
+  {
+    "id": 1,
+    "name": "John",
+    "type": "user",
+    "salary": 1.5
+  }
+
+TYPE @profile
+  {
+    "sex": "male", // {enum: ["male", "female"]}
+    "age": 20
+  }
+
+TYPE @task
+  {
+    "name": "taskName",
+    "estimate": 120,
+    "description": "Testing the implementation of **all** features [JSight](jsight.io)"
+  }
+
+TYPE @attachment
+  {
+    "size": 120,
+    "name": "filename.jpg",
+    "description": "",
+    "number": 321321
+  }
+
+
+ENUM @userType
+  [
+    "user",
+    "admin"
+  ]
+
+URL /users
+  GET // View users
+
+    Query "sex=male&age=25" htmlFormEncoded
+        {
+          "name": "John",
+          "age": 20,
+          "tags": ["tag1", "tag2"],
+          "positions": [
+            1, 2, 3
+          ]
+        }
+
+      200 [@user]
+
+      422 any
+
+
+  POST // Create a user
+
+    Request # comment after body explanation
+      # comment before body
+      {
+        "name": "John", // {minLength: 2} - please provide real name
+        "salary": 1.5,
+        "profile": @profile
+      }
+
+    201 @user
+    422
+      {
+        "code": 1,
+        "field": "name",
+        "error": "must be at leas 5 letters long"
+      }
+    500 @error
+
+  URL /users/{id}
+    Path # comment
+      {
+        "id": 1
+      }
+
+    GET // view the user in detail
+      Description
+        There may be delays when working with query
+
+
+      200 @user
+
+    PUT // change user data
+      Description
+        Before working, it is advisable to read the [instructions](www.dummy.link )
+
+      Request
+        {
+          "name": "John"
+        }
+
+      200 @user // success
+
+    ### DELETE will be added ###
+
+    URL /users/{id}/attachments
+    (
+      GET // get a list of user attachments
+        200 [@attachment]
+
+      POST // add a file to the user
+        Request @attachment
+        201 @attachment
+
+      URL /users/{id}/attachments/{number}
+
+        GET // view attachment by number
+          200 @attachment
+
+        DELETE // delete attachment by number
+          200 empty
+    )
+
+    URL /users/{id}/tasks
+    (
+
+      GET // task list
+        200 @task
+
+      POST
+        Request [@task]
+        201 [@task]
+
+      URL /users/{id}/tasks/{task:id}
+
+        GET
+          200 @task
+
+        DELETE
+          200 empty
+
+        URL /users/{id}/tasks/attachments
+        (
+
+          GET
+            200 [@attachment]
+
+          POST
+            Request @attachment
+            201 @attachment
+
+          URL /users/{id}/tasks/attachments/{number}
+
+            GET
+              200 @attachment
+
+            DELETE
+              200 empty
+        )
+
+        URL /users/{id}/subtasks
+
+          GET
+            200 [@task]
+
+          POST
+            Request @task
+            201 @task
+    )
+
+GET /users/n/{name} // view user by name
+  Path # comment after path explanation
+    ###
+    comment block
+    ###
+    {"name": "John Snow"}
+
+DELETE /users/{id} // Delete a user ### checking the clumsy entry ###
+  200 empty
+
+
+URL /tasks
+
+  GET
+    200 [@task]
+  POST
+    Request @task
+
+  URL /tasks/{id}
+    GET
+      200 @task
+    PUT
+      Request @task
+      200 @task
+    PATCH
+      Request
+        {
+          "status": "in_progress" // todo enum: "new", "done"
+        }
+      200 @task
+    DELETE
+      200 any
+
+
+URL /projects
+
+  GET
+  Query htmlFormEncoded
+    {
+      "key": "PROJECT-1",
+      "manager": "username"
+    }
+
+  200
+    [{
+      "key": "PROJECT-1",
+      "name": "JAPI",
+      "manager": "username",
+      "tasks": 120,
+      "created": "2018-05-02"
+    }]
+
+  POST
+    Request
+      {
+        "name": "JApI",
+        "manager": "username"
+      }
+
+    200
+        {
+          "key": "PROJECT-1",
+          "name": "JAPI",
+          "manager": "username",
+          "tasks": 120,
+          "created": "2018-05-02"
+        }
+
+
+  GET /projects/{key}
+    200
+    {
+      "key": "PROJECT-1",
+      "name": "JAPI",
+      "manager": "username",
+      "tasks": 120,
+      "created": "2018-05-02"
+    }
+
+URL /special
+  GET
+    200
+      "some string" // {enum: ["some string", "other string"]}
+
+
+  POST
+    Request
+      "some string" // {enum: ["some string", "other string"]}
+
+  PUT
+    200 any
+
+URL /test
+  GET
+    200 any
+
+  POST
+    Request
+      [
+        {
+          "id": 1
+        }
+      ]
+
+URL /files
+
+  GET /files/{id}
+    200 any
+
+  POST
+    201 any
+
+
+URL /
+
+  POST /
+
+    Request
+      {
+        "id": 1
+      }
+
+GET /

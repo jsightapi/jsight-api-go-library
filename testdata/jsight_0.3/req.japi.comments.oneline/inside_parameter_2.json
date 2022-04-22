@@ -1,0 +1,40 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /cat#dog": {
+      "httpMethod": "GET",
+      "path": "/cat#dog",
+      "tags": [
+        "@cat_23dog"
+      ]
+    },
+    "POST /cat": {
+      "httpMethod": "POST",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ]
+    }
+  },
+  "tags": {
+    "@cat_23dog": {
+      "name": "@cat_23dog",
+      "title": "/cat#dog",
+      "resourceMethods": {
+        "/cat#dog": [
+          "GET /cat#dog"
+        ]
+      }
+    },
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "POST /cat"
+        ]
+      }
+    }
+  }
+}

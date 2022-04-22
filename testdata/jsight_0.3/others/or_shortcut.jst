@@ -1,0 +1,21 @@
+JSIGHT 0.3
+
+GET /cats/{id}
+    200
+    {
+        "id": 1,
+        "name": "Tom", // {optional: true}
+        "enemy": @dog | @pig
+    }
+
+TYPE @dog
+{
+    "id": "DOG-123",
+    "name": "Doggie"
+}
+
+TYPE @pig
+{
+    "id": "PIG-123",
+    "name": "Naf Naf"
+}

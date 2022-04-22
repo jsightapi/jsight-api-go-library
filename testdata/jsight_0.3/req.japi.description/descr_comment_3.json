@@ -1,0 +1,41 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "GET /": {
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "description": "      API of Catsbook.\n\n# header"
+    },
+    "GET /user": {
+      "httpMethod": "GET",
+      "path": "/user",
+      "tags": [
+        "@user"
+      ]
+    }
+  },
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "resourceMethods": {
+        "/": [
+          "GET /"
+        ]
+      }
+    },
+    "@user": {
+      "name": "@user",
+      "title": "/user",
+      "resourceMethods": {
+        "/user": [
+          "GET /user"
+        ]
+      }
+    }
+  }
+}

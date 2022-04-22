@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+GET /list/{section}/{id}
+    Path
+        { // {allOf: "@section"}
+            "id": 1
+        }
+
+TYPE @section
+    {
+        "section": "abc"
+    }

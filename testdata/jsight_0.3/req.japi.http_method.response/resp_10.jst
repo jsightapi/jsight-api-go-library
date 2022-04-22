@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "cat": "Name"
+    }
+
+TYPE @dog
+    {
+        "dog": "Name"
+    }
+
+GET /
+    200 @cat
+    200 @dog

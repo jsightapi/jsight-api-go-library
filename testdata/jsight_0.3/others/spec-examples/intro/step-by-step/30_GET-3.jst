@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+GET /users/{id} // Get user data by his ID
+
+  200
+    {
+      "id": 121,
+      "name": "John Smith",
+      "salary": 220.23, // {type: "decimal", precision: 2, optional: true}
+      "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true}
+    }
+

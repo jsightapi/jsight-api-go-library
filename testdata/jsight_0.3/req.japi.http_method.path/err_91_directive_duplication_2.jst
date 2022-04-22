@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+URL /{first}/{second}
+    Path
+        {
+            "first": 1
+        }
+
+    Path # ERROR: duplication of the directive
+        {
+            "second": 1
+        }

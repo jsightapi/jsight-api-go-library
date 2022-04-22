@@ -1,0 +1,35 @@
+JSIGHT 0.3
+
+GET /users
+GET /users/{id}
+
+ Path
+    {
+      "id": "1"
+    }
+
+
+GET /users/{id}/friends
+
+GET /users/n/{name}
+
+ Path
+    {
+      "name": "Sarah"
+    }
+
+GET /users/n/{name}/{age}
+   Path
+      {
+        "age": 25
+      }
+
+
+GET /users/admins
+GET /users/admin/best
+
+GET /users/{id}/attachments/{name}/links/{position}
+   Path
+      {
+        "position": "2"
+      }

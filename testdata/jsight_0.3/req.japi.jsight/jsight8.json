@@ -1,0 +1,56 @@
+{
+    "jdocExchangeFileSchemaVersion": "0.3.0",
+    "jsight": "0.3",
+    "userTypes": {
+        "@dog": {
+            "schema": {
+                "notation": "jsight",
+                "content": {
+                    "jsonType": "object",
+                    "type": "object",
+                    "optional": false,
+                    "properties": {
+                        "id": {
+                            "jsonType": "string",
+                            "type": "string",
+                            "optional": false,
+                            "scalarValue": "DOG-123"
+                        },
+                        "name": {
+                            "jsonType": "string",
+                            "type": "string",
+                            "optional": false,
+                            "scalarValue": "Doggie"
+                        },
+                        "birt_day": {
+                            "jsonType": "string",
+                            "type": "date",
+                            "optional": false,
+                            "scalarValue": "2021-01-08",
+                            "rules": {
+                                "type": {
+                                    "jsonType": "string",
+                                    "scalarValue": "date"
+                                }
+                            }
+                        },
+                        "created_at": {
+                            "jsonType": "string",
+                            "type": "datetime",
+                            "optional": false,
+                            "scalarValue": "2021-01-08T12:50:45Z",
+                            "rules": {
+                                "type": {
+                                    "jsonType": "string",
+                                    "scalarValue": "datetime"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "resourceMethods": {},
+    "tags": {}
+}

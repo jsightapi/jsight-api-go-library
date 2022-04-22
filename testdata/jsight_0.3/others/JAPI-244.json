@@ -1,0 +1,100 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@dog": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "ok": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "ok"
+            }
+          }
+        }
+      }
+    },
+    "@pig": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "ok": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "ok"
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /cats/enemies": {
+      "httpMethod": "GET",
+      "path": "/cats/enemies",
+      "tags": [
+        "@cats"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "notation": "jsight",
+              "content": {
+                "jsonType": "array",
+                "type": "array",
+                "optional": false,
+                "rules": {
+                  "type": {
+                    "jsonType": "string",
+                    "scalarValue": "array"
+                  },
+                  "maxItems": {
+                    "jsonType": "number",
+                    "scalarValue": "100"
+                  }
+                },
+                "items": [
+                  {
+                    "jsonType": "shortcut",
+                    "type": "mixed",
+                    "optional": true,
+                    "scalarValue": "@dog | @pig"
+                  }
+                ]
+              },
+              "usedUserTypes": [
+                "@dog",
+                "@pig"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "resourceMethods": {
+        "/cats/enemies": [
+          "GET /cats/enemies"
+        ]
+      }
+    }
+  }
+}

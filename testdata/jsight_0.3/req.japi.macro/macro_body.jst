@@ -1,0 +1,15 @@
+JSIGHT 0.3
+
+MACRO @body
+(
+    Body
+        {
+            "name": "Tom"
+        }
+)
+
+POST /cat
+    Request
+        PASTE @body
+    200
+        PASTE @body

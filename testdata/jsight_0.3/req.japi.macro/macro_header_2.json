@@ -1,0 +1,74 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "resourceMethods": {
+    "POST /cat": {
+      "httpMethod": "POST",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "request": {
+        "headers": {
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "object",
+              "type": "object",
+              "optional": false,
+              "properties": {
+                "Authorization": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  }
+                },
+                "Content-Type": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "optional": false,
+                  "scalarValue": "application/json",
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "notation": "jsight",
+            "content": {
+              "jsonType": "string",
+              "type": "string",
+              "optional": false,
+              "scalarValue": "Tom"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "resourceMethods": {
+        "/cat": [
+          "POST /cat"
+        ]
+      }
+    }
+  }
+}

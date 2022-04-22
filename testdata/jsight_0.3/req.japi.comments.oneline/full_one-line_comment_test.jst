@@ -1,0 +1,133 @@
+# comment
+
+JSIGHT 0.3 # comment
+
+# comment
+
+INFO # comment
+
+    # comment
+    Title "Catsbook API" # comment
+
+    # comment
+    Version 1.0 # comment
+
+    # comment
+    Description # comment
+        API cats social
+        network.
+
+SERVER @CATS_API_SERVER // Main server catsbook.com API. # comment
+
+    # comment
+    BaseUrl "https://catsbook.com/api/{locale}/" # comment
+
+# comment
+TYPE @cat # comment
+    # comment
+    {
+        "id"  : 12,
+        "name": "Tom"
+    }
+
+# comment
+URL /cat/{id} # comment
+
+    # comment
+    Path # comment
+        # comment
+        {
+          "id": 12 // property annotation
+        }
+
+    # comment
+    GET /cats/{id} // annotation of GET method # comment
+
+        # comment
+        Description # comment
+            With this method you can get
+            list of all cats that are registered
+            on Catsbook.
+
+        Query "param=str" # comment
+            # comment
+            {
+              "param": "str"
+            }
+
+        # comment
+        Path # comment
+            # comment
+            {
+              "id": 12 // property annotation
+            }
+
+        # comment
+        200  # comment
+
+             # comment
+            Body jsight # comment
+
+                # comment
+                @cat # comment
+
+    # comment
+    POST /cats/{id} # comment
+
+        # comment
+        Request # comment
+
+            # comment
+            Body # comment
+
+                # comment
+                { # comment
+                    # comment
+                    "id": 1, # comment
+                    # comment
+                    "name": "Tom" # comment
+                    # comment
+                } # comment
+
+        # comment
+        200 // annotation of 200 response # comment
+
+            # comment
+            Headers # comment
+                # comment
+                { # comment
+                    # comment
+                    "Content-Type": "application/json" // {const: true} # comment
+                    # comment
+                } # comment
+
+            # comment
+            Body # comment
+                # comment
+                "ok" # comment
+
+        # comment
+        400 any # comment
+
+    # comment
+    DELETE /cats/{id} # comment
+
+        # comment
+        200 # comment
+
+            # comment
+            Body @cat # comment
+
+        # comment
+        400 @err # comment
+
+# comment
+TYPE @err # comment
+    # comment
+    { # comment
+        # comment
+        "error"  : "str" # comment
+        # comment
+    } # comment
+
+# comment

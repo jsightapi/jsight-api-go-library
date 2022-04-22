@@ -1,0 +1,104 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@pager": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "object",
+          "type": "object",
+          "optional": false,
+          "properties": {
+            "page": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": false,
+              "scalarValue": "1"
+            },
+            "per_page": {
+              "jsonType": "number",
+              "type": "integer",
+              "optional": true,
+              "scalarValue": "50",
+              "rules": {
+                "optional": {
+                  "jsonType": "boolean",
+                  "scalarValue": "true"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /list": {
+      "httpMethod": "GET",
+      "path": "/list",
+      "tags": [
+        "@list"
+      ],
+      "query": {
+        "format": "htmlFormEncoded",
+        "schema": {
+          "notation": "jsight",
+          "content": {
+            "jsonType": "object",
+            "type": "object",
+            "optional": false,
+            "rules": {
+              "allOf": {
+                "jsonType": "string",
+                "scalarValue": "@pager"
+              }
+            },
+            "properties": {
+              "section": {
+                "jsonType": "string",
+                "type": "string",
+                "optional": false,
+                "scalarValue": "abc"
+              },
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": false,
+                "scalarValue": "1",
+                "inheritedFrom": "@pager"
+              },
+              "per_page": {
+                "jsonType": "number",
+                "type": "integer",
+                "optional": true,
+                "scalarValue": "50",
+                "inheritedFrom": "@pager",
+                "rules": {
+                  "optional": {
+                    "jsonType": "boolean",
+                    "scalarValue": "true"
+                  }
+                }
+              }
+            }
+          },
+          "usedUserTypes": [
+            "@pager"
+          ]
+        }
+      }
+    }
+  },
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "resourceMethods": {
+        "/list": [
+          "GET /list"
+        ]
+      }
+    }
+  }
+}

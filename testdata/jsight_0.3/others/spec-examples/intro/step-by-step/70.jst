@@ -1,0 +1,42 @@
+JSIGHT 0.3
+
+TYPE @user
+    {
+      "id": 121, // user id
+      "name": "John Smith", // user name
+      "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+      "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+    }
+
+URL /users
+
+  GET // Viewing a list of users
+    200
+      [
+        @user
+      ]
+
+  POST // Creating a user
+    Request
+      {
+        "name": "John Smith",
+        "salary": 220,
+        "photo": "http://photo.ru/img/2312311.jpg"
+      }
+    200 @user
+
+  GET /users/{id} // Get user data by his ID
+
+    200 @user
+
+  POST /users/{id} // Change user data with a specific id
+
+    Request @user
+    200 @user
+
+  DELETE /users/{id} // Deleting a user by id
+    200
+      {
+        "id": 121,
+        "deleted": true
+      }

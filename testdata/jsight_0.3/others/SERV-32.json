@@ -1,0 +1,46 @@
+{
+  "jdocExchangeFileSchemaVersion": "0.3.0",
+  "jsight": "0.3",
+  "userTypes": {
+    "@animalType": {
+      "schema": {
+        "notation": "jsight",
+        "content": {
+          "jsonType": "string",
+          "type": "enum",
+          "optional": false,
+          "scalarValue": "cat",
+          "rules": {
+            "enum": {
+              "jsonType": "array",
+              "items": [
+                {
+                  "jsonType": "string",
+                  "scalarValue": "cat",
+                  "note": "The cat"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "dog",
+                  "note": "The dog"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "pig",
+                  "note": "The pig"
+                },
+                {
+                  "jsonType": "string",
+                  "scalarValue": "frog",
+                  "note": "The frog"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "resourceMethods": {},
+  "tags": {}
+}

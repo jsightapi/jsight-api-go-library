@@ -1,0 +1,12 @@
+JSIGHT 0.3
+
+TYPE @cat
+    {
+        "id": 1,
+        "name": "Tom"
+    }
+
+POST /cats/{id}
+    200 jsight
+        Body jsight
+            @cat

@@ -1,0 +1,10 @@
+JSIGHT 0.3
+
+TYPE @pathVars
+    {
+        "name": "Tom"
+    }
+
+GET /cats/{name}
+    Path
+        {} // {allOf: "@pathVars"}

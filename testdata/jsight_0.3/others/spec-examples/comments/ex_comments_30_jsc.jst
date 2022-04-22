@@ -1,0 +1,39 @@
+JSIGHT 0.3
+
+URL /users
+
+  GET /users/{id} // Get user data by his ID
+    200 @user
+
+  POST /users/{id} // Change user data with a specific id
+    Request @user
+
+    200 @user
+
+#  GET /users/{name} // Get user data by name
+
+###
+  PUT /users/{id} // Change partial user data
+    Body
+      {
+        "name": "John Smith", // {optional: true} - user name
+        "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+        "photo": "http://photo.ru/img/2312311.jpg" // {type: "uri", optional: true} - link to the user's avatar
+      }
+###
+
+TYPE @user
+  {
+    "id": 121, // user id
+    "name": "John Smith", // user name
+    "salary": 220.23, // {type: "decimal", precision: 2, optional: true} - user's salary
+    "photo": "http://photo.ru/img/2312311.jpg", // {type: "uri", optional: true} - link to the user's avatar
+#    "address" {},
+    "avatar": "http://photo.ru/img/23123123.jpg"
+###
+    "timetable": {},
+    "partner": 32 // id
+    "birthday": "20.02.1988"
+###
+  }
+
