@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"go/ast"
 	"path/filepath"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // unsafeOrderedMapGenerator generator will search for `// gen:UnsafeOrderedMap`
@@ -93,27 +96,20 @@ func (m *{{ .Name }}) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to dead lock.
-// Use {{ .Name }}.Map when you have to update value.
-func (m *{{ .Name }}) Iterate() <-chan {{ .Name }}Item {
-	ch := make(chan {{ .Name }}Item)
-	go func() {
-		for _, k := range m.order {
-			ch <- {{ .Name }}Item{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *UserSchemas) Each(fn each{{ .CapitalizedName }}Func) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
 
+type each{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }}) error
+
 // Map iterates and changes values in the map.
-func (m *{{ .Name }}) Map(fn map{{ .Name }}Func) error {
+func (m *{{ .Name }}) Map(fn map{{ .CapitalizedName }}Func) error {
 	for _, k := range m.order {
 		v, err := fn(k, m.data[k])
 		if err != nil {
@@ -124,7 +120,7 @@ func (m *{{ .Name }}) Map(fn map{{ .Name }}Func) error {
 	return nil
 }
 
-type map{{ .Name }}Func = func(k {{ .KeyType }}, v {{ .ValueType }}) ({{ .ValueType }}, error)
+type map{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }}) ({{ .ValueType }}, error)
 
 // {{ .Name }}Item represent single data from the {{ .Name }}.
 type {{ .Name }}Item struct {
@@ -215,9 +211,10 @@ func (g unsafeOrderedMapGenerator) collectOrderMap(
 	}
 
 	om := orderedMap{
-		Name:        spec.Name.Name,
-		PkgName:     pkgName,
-		UsedImports: map[string]struct{}{},
+		Name:            spec.Name.Name,
+		CapitalizedName: cases.Title(language.English, cases.NoLower).String(spec.Name.Name),
+		PkgName:         pkgName,
+		UsedImports:     map[string]struct{}{},
 	}
 
 	if err := g.collectUsedTypes(dataField, orderField, &om); err != nil {

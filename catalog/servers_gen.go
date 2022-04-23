@@ -91,46 +91,51 @@ func (m *Servers) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use Servers.Map when you have to update value.
-func (m *Servers) Iterate() <-chan ServersItem {
-	ch := make(chan ServersItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
-
-		for _, k := range m.order {
-			ch <- ServersItem{
+// Find finds first matched item from the map.
+func (m *Servers) Find(fn findServersFunc) (ServersItem, bool) {
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return ServersItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return ServersItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *Servers) IterateReverse() <-chan ServersItem {
-	ch := make(chan ServersItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findServersFunc = func(k string, v *Server) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- ServersItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *Servers) Each(fn eachServersFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *Servers) EachReverse(fn eachServersFunc) error {
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachServersFunc = func(k string, v *Server) error
+
+func (m *Servers) EachSafe(fn eachSafeServersFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeServersFunc = func(k string, v *Server)
 
 // Map iterates and changes values in the map.
 func (m *Servers) Map(fn mapServersFunc) error {

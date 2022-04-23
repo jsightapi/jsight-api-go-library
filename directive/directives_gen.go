@@ -24,6 +24,21 @@ func (m *Directives) Set(k string, v *Directive) {
 	m.data[k] = v
 }
 
+// SetToTop do the same as Set, but new key will be placed on top of the order
+// map.
+func (m *Directives) SetToTop(k string, v *Directive) {
+	m.mx.Lock()
+	defer m.mx.Unlock()
+
+	if m.data == nil {
+		m.data = map[string]*Directive{}
+	}
+	if !m.has(k) {
+		m.order = append([]string{k}, m.order...)
+	}
+	m.data[k] = v
+}
+
 // Update updates a value with specified key.
 func (m *Directives) Update(k string, fn func(v *Directive) *Directive) {
 	m.mx.Lock()
@@ -76,27 +91,51 @@ func (m *Directives) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to dead lock.
-// Use Directives.Map when you have to update value.
-func (m *Directives) Iterate() <-chan DirectivesItem {
-	ch := make(chan DirectivesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
-
-		for _, k := range m.order {
-			ch <- DirectivesItem{
+// Find finds first matched item from the map.
+func (m *Directives) Find(fn findDirectivesFunc) (DirectivesItem, bool) {
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return DirectivesItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return DirectivesItem{}, false
 }
+
+type findDirectivesFunc = func(k string, v *Directive) bool
+
+// Each iterates and perform given function on each item in the map.
+func (m *Directives) Each(fn eachDirectivesFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *Directives) EachReverse(fn eachDirectivesFunc) error {
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachDirectivesFunc = func(k string, v *Directive) error
+
+func (m *Directives) EachSafe(fn eachSafeDirectivesFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeDirectivesFunc = func(k string, v *Directive)
 
 // Map iterates and changes values in the map.
 func (m *Directives) Map(fn mapDirectivesFunc) error {

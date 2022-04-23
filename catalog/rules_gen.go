@@ -91,46 +91,51 @@ func (m *Rules) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use Rules.Map when you have to update value.
-func (m *Rules) Iterate() <-chan RulesItem {
-	ch := make(chan RulesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
-
-		for _, k := range m.order {
-			ch <- RulesItem{
+// Find finds first matched item from the map.
+func (m *Rules) Find(fn findRulesFunc) (RulesItem, bool) {
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return RulesItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return RulesItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *Rules) IterateReverse() <-chan RulesItem {
-	ch := make(chan RulesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findRulesFunc = func(k string, v Rule) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- RulesItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *Rules) Each(fn eachRulesFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *Rules) EachReverse(fn eachRulesFunc) error {
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachRulesFunc = func(k string, v Rule) error
+
+func (m *Rules) EachSafe(fn eachSafeRulesFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeRulesFunc = func(k string, v Rule)
 
 // Map iterates and changes values in the map.
 func (m *Rules) Map(fn mapRulesFunc) error {

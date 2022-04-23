@@ -56,24 +56,17 @@ func (m *UserSchemas) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to dead lock.
-// Use UserSchemas.Map when you have to update value.
-func (m *UserSchemas) Iterate() <-chan UserSchemasItem {
-	ch := make(chan UserSchemasItem)
-	go func() {
-		for _, k := range m.order {
-			ch <- UserSchemasItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *UserSchemas) Each(fn eachUserSchemasFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+type eachUserSchemasFunc = func(k string, v jschema.Schema) error
 
 // Map iterates and changes values in the map.
 func (m *UserSchemas) Map(fn mapUserSchemasFunc) error {

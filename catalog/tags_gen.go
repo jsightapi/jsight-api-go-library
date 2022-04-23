@@ -91,46 +91,51 @@ func (m *Tags) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use Tags.Map when you have to update value.
-func (m *Tags) Iterate() <-chan TagsItem {
-	ch := make(chan TagsItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
-
-		for _, k := range m.order {
-			ch <- TagsItem{
+// Find finds first matched item from the map.
+func (m *Tags) Find(fn findTagsFunc) (TagsItem, bool) {
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return TagsItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return TagsItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *Tags) IterateReverse() <-chan TagsItem {
-	ch := make(chan TagsItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findTagsFunc = func(k TagName, v *Tag) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- TagsItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *Tags) Each(fn eachTagsFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *Tags) EachReverse(fn eachTagsFunc) error {
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachTagsFunc = func(k TagName, v *Tag) error
+
+func (m *Tags) EachSafe(fn eachSafeTagsFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeTagsFunc = func(k TagName, v *Tag)
 
 // Map iterates and changes values in the map.
 func (m *Tags) Map(fn mapTagsFunc) error {

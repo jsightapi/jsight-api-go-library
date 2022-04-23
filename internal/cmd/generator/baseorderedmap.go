@@ -13,11 +13,12 @@ type baseOrderedMapGenerator struct {
 }
 
 type orderedMap struct {
-	Name        string
-	PkgName     string
-	KeyType     string
-	ValueType   string
-	UsedImports map[string]struct{}
+	Name            string
+	CapitalizedName string
+	PkgName         string
+	KeyType         string
+	ValueType       string
+	UsedImports     map[string]struct{}
 }
 
 func (baseOrderedMapGenerator) collectUsedTypes(data, order *ast.Field, m *orderedMap) error {

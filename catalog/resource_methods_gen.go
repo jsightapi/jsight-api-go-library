@@ -91,46 +91,51 @@ func (m *ResourceMethods) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use ResourceMethods.Map when you have to update value.
-func (m *ResourceMethods) Iterate() <-chan ResourceMethodsItem {
-	ch := make(chan ResourceMethodsItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
-
-		for _, k := range m.order {
-			ch <- ResourceMethodsItem{
+// Find finds first matched item from the map.
+func (m *ResourceMethods) Find(fn findResourceMethodsFunc) (ResourceMethodsItem, bool) {
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return ResourceMethodsItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return ResourceMethodsItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *ResourceMethods) IterateReverse() <-chan ResourceMethodsItem {
-	ch := make(chan ResourceMethodsItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- ResourceMethodsItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *ResourceMethods) Each(fn eachResourceMethodsFunc) error {
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *ResourceMethods) EachReverse(fn eachResourceMethodsFunc) error {
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod) error
+
+func (m *ResourceMethods) EachSafe(fn eachSafeResourceMethodsFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod)
 
 // Map iterates and changes values in the map.
 func (m *ResourceMethods) Map(fn mapResourceMethodsFunc) error {

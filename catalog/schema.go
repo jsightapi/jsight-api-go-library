@@ -70,10 +70,11 @@ func UnmarshalSchema(name string, b []byte, userTypes *UserSchemas) (_ Schema, e
 
 	s := jschema.New(name, b)
 
-	for kv := range userTypes.Iterate() {
-		if err := s.AddType(kv.Key, kv.Value); err != nil {
-			return Schema{}, err
-		}
+	err = userTypes.Each(func(k string, v jschemaLib.Schema) error {
+		return s.AddType(k, v)
+	})
+	if err != nil {
+		return Schema{}, err
 	}
 
 	n, err := s.GetAST()
@@ -127,27 +128,27 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 		return rr
 	}
 
-	for kv := range node.Rules.Iterate() {
-		switch kv.Key {
+	node.Rules.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
+		switch k {
 		case "type":
-			if kv.Value.Value[0] == '@' {
-				usedUserTypes.Add(kv.Value.Value)
+			if v.Value[0] == '@' {
+				usedUserTypes.Add(v.Value)
 			}
-			if kv.Value.Source == jschemaLib.RuleASTNodeSourceGenerated {
-				continue
+			if v.Source == jschemaLib.RuleASTNodeSourceGenerated {
+				return
 			}
 
 		case "allOf":
-			if kv.Value.Value != "" {
-				usedUserTypes.Add(kv.Value.Value)
+			if v.Value != "" {
+				usedUserTypes.Add(v.Value)
 			}
 
-			for _, i := range kv.Value.Items {
+			for _, i := range v.Items {
 				usedUserTypes.Add(i.Value)
 			}
 
 		case "or":
-			for _, i := range kv.Value.Items {
+			for _, i := range v.Items {
 				var userType string
 				if i.Value != "" {
 					userType = i.Value
@@ -167,12 +168,12 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 				usedUserTypes.Add(userType)
 			}
 
-			if kv.Value.Source == jschemaLib.RuleASTNodeSourceGenerated {
-				continue
+			if v.Source == jschemaLib.RuleASTNodeSourceGenerated {
+				return
 			}
 		}
-		rr.Set(kv.Key, astNodeToSchemaRule(kv.Value))
-	}
+		rr.Set(k, astNodeToSchemaRule(v))
+	})
 
 	return rr
 }
@@ -180,9 +181,9 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
 	properties := &Rules{}
 	if node.Properties.Len() > 0 {
-		for kv := range node.Properties.Iterate() {
-			properties.Set(kv.Key, astNodeToSchemaRule(kv.Value))
-		}
+		node.Properties.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
+			properties.Set(k, astNodeToSchemaRule(v))
+		})
 	}
 
 	var items []Rule
@@ -208,13 +209,13 @@ func collectJSightContentProperties(
 ) *Properties {
 	pp := &Properties{}
 	if node.Properties.Len() > 0 {
-		for kv := range node.Properties.Iterate() {
-			pp.Set(kv.Key, astNodeToJsightContent(kv.Value, usedUserTypes, usedUserEnums))
+		node.Properties.EachSafe(func(k string, v jschemaLib.ASTNode) {
+			pp.Set(k, astNodeToJsightContent(v, usedUserTypes, usedUserEnums))
 
-			if kv.Value.IsKeyShortcut {
-				usedUserTypes.Add(kv.Key)
+			if v.IsKeyShortcut {
+				usedUserTypes.Add(k)
 			}
-		}
+		})
 	}
 	return pp
 }

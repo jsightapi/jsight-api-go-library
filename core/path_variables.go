@@ -50,17 +50,17 @@ func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, used
 			}
 		}
 	} else {
-		for kv := range sc.Rules.Iterate() {
-			switch kv.Key {
+		err := sc.Rules.Each(func(k string, v catalog.Rule) error {
+			switch k {
 			case "type":
-				if kv.Value.ScalarValue[0] == '@' {
-					if err := core.appendUsedUserType(usedUserTypes, kv.Value.ScalarValue); err != nil {
+				if v.ScalarValue[0] == '@' {
+					if err := core.appendUsedUserType(usedUserTypes, v.ScalarValue); err != nil {
 						return err
 					}
 				}
 
 			case "or":
-				for _, i := range kv.Value.Items {
+				for _, i := range v.Items {
 					var userType string
 					if i.ScalarValue != "" {
 						userType = i.ScalarValue
@@ -73,6 +73,10 @@ func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, used
 					}
 				}
 			}
+			return nil
+		})
+		if err != nil {
+			return err
 		}
 	}
 
