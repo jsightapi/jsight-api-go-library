@@ -52,7 +52,7 @@ type JApiCore struct {
 }
 
 func NewJApiCore(file *fs.File) *JApiCore {
-	c := &JApiCore{
+	return &JApiCore{
 		userTypes:          &catalog.UserSchemas{},
 		processedUserTypes: make(map[string]struct{}, 30),
 		file:               file,
@@ -64,7 +64,6 @@ func NewJApiCore(file *fs.File) *JApiCore {
 		rawPathVariables:   make([]rawPathVariable, 0, 40),
 		macro:              make(map[string]*directive.Directive, 20),
 	}
-	return c
 }
 
 // Main internal method of Core. Only when done, core is ready to handle data validation or doc rendering.

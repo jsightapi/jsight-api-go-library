@@ -35,8 +35,9 @@ func readPanicFree(filename string) (f *fs.File, err error) {
 }
 
 func NewJapiFromBytes(b bytes.Bytes) JApi {
-	f := fs.NewFile("root", b)
-	return JApi{core.NewJApiCore(f)}
+	return JApi{
+		core.NewJApiCore(fs.NewFile("root", b)),
+	}
 }
 
 // ValidateJAPI validates .jst file

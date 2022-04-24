@@ -3,7 +3,7 @@ package kit
 import "testing"
 
 func BenchmarkJApi_ValidateJAPI(b *testing.B) {
-	japi := NewJapiFromBytes([]byte(`
+	content := []byte(`
 JSIGHT 0.3
 
 TYPE @type1
@@ -2002,12 +2002,16 @@ TYPE @type997
 {}
 TYPE @type998
 {}
-`))
+`)
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		japi := NewJapiFromBytes(content)
+		b.StartTimer()
+
 		_ = japi.ValidateJAPI()
 	}
 }
