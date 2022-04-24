@@ -225,7 +225,7 @@ func (core *JApiCore) addURL(d *directive.Directive) *jerr.JAPIError {
 		return d.KeywordError(fmt.Sprintf("non-unique path %q in the URL directive", p))
 	}
 
-	core.uniqURLPath[p] = true
+	core.uniqURLPath[p] = struct{}{}
 
 	return nil
 }

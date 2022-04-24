@@ -40,7 +40,7 @@ type JApiCore struct {
 	directivesWithPastes []*directive.Directive
 
 	// uniqURLPath used for checking the uniqueness URL paths.
-	uniqURLPath map[catalog.Path]bool
+	uniqURLPath map[catalog.Path]struct{}
 
 	// similarPaths to check the forbidding of "similar" paths.
 	similarPaths map[string]string
@@ -60,7 +60,7 @@ func NewJApiCore(file *fs.File) *JApiCore {
 		catalog:            catalog.NewCatalog(),
 		currentDirective:   nil,
 		directives:         make([]*directive.Directive, 0, 200),
-		uniqURLPath:        make(map[catalog.Path]bool, 20),
+		uniqURLPath:        make(map[catalog.Path]struct{}, 20),
 		similarPaths:       make(map[string]string, 20),
 		rawPathVariables:   make([]rawPathVariable, 0, 40),
 		macro:              make(map[string]*directive.Directive, 20),
