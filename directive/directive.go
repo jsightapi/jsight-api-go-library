@@ -6,15 +6,21 @@ import (
 
 // Directive represents all info about some Directive
 type Directive struct {
-	type_              Enumeration
-	Annotation         string
-	Keyword            string // only for Responses (have multiple keywords), for others should match type.
-	HasExplicitContext bool   // true if directive's context is opened explicitly with parentheses.
-	parameter          map[string]string
-	keywordCoords      Coords
-	BodyCoords         Coords
-	Parent             *Directive
-	Children           []*Directive
+	Annotation string
+
+	// Keyword only for Responses (have multiple keywords), for others should match
+	// type.
+	Keyword       string
+	parameter     map[string]string
+	keywordCoords Coords
+	BodyCoords    Coords
+	Parent        *Directive
+	Children      []*Directive
+
+	type_ Enumeration
+
+	// HasExplicitContext true if directive's context is opened explicitly with parentheses.
+	HasExplicitContext bool
 }
 
 func (d Directive) String() string {

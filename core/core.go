@@ -11,12 +11,20 @@ import (
 // JApiCore the Brain and heart of jApi. Collects lexemes from scanner, validates document logic and structure,
 // builds catalog, renders documentation
 type JApiCore struct {
+	// builtUserTypes a "set" of already build user types.
+	processedUserTypes map[string]struct{}
+
+	// uniqURLPath used for checking the uniqueness URL paths.
+	uniqURLPath map[catalog.Path]struct{}
+
+	// similarPaths to check the forbidding of "similar" paths.
+	similarPaths map[string]string
+
+	// macro contains list of all project macros.
+	macro map[string]*directive.Directive
+
 	// userTypes represent all user types.
 	userTypes *catalog.UserSchemas
-
-	// processedUserTypes a "set" of already processed user types. Used for resolving
-	// circular dependencies between user types.
-	processedUserTypes map[string]struct{}
 
 	// representation of Api data.
 	catalog *catalog.Catalog
@@ -33,23 +41,14 @@ type JApiCore struct {
 	// to accumulate directive data pieces from scanner.
 	currentDirective *directive.Directive
 
+	// rawPathVariables contains properties of the Path directive.
+	rawPathVariables []rawPathVariable
+
 	// directives from loaded from project.
 	directives []*directive.Directive
 
 	// directives after processing the MACRO and PASTE directives.
 	directivesWithPastes []*directive.Directive
-
-	// uniqURLPath used for checking the uniqueness URL paths.
-	uniqURLPath map[catalog.Path]struct{}
-
-	// similarPaths to check the forbidding of "similar" paths.
-	similarPaths map[string]string
-
-	// rawPathVariables contains properties of the Path directive.
-	rawPathVariables []rawPathVariable
-
-	// macro contains list of all project macros.
-	macro map[string]*directive.Directive
 }
 
 func NewJApiCore(file *fs.File) *JApiCore {

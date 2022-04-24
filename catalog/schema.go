@@ -238,11 +238,11 @@ func collectJSightContentItems(
 
 func (schema Schema) MarshalJSON() ([]byte, error) {
 	data := struct {
-		Notation      notation.SchemaNotation `json:"notation"`
 		Content       interface{}             `json:"content,omitempty"`
+		Example       string                  `json:"example,omitempty"`
+		Notation      notation.SchemaNotation `json:"notation"`
 		UsedUserTypes []string                `json:"usedUserTypes,omitempty"`
 		UsedUserEnums []string                `json:"usedUserEnums,omitempty"`
-		Example       string                  `json:"example,omitempty"`
 	}{
 		Notation: schema.Notation,
 	}
@@ -272,18 +272,11 @@ func (schema Schema) MarshalJSON() ([]byte, error) {
 }
 
 type SchemaContentJSight struct {
-	// IsKeyShortcut indicates that this is an object property which is described
-	// by user defined type.
-	IsKeyShortcut bool
-
 	// JsonType a JSON type.
 	JsonType string
 
 	// Type a JSight type.
 	Type string
-
-	// Optional indicates that this schema item is option or not.
-	Optional bool
 
 	// ScalarValue contains scalar value from the example.
 	// Make sense only for scalar types like string, integer, and etc.
@@ -305,6 +298,13 @@ type SchemaContentJSight struct {
 	// Items represent available array items.
 	// Make sense only when Type is "array".
 	Items []*SchemaContentJSight
+
+	// IsKeyShortcut indicates that this is an object property which is described
+	// by user defined type.
+	IsKeyShortcut bool
+
+	// Optional indicates that this schema item is option or not.
+	Optional bool
 }
 
 var (
@@ -328,14 +328,14 @@ func (c SchemaContentJSight) MarshalJSON() (b []byte, err error) {
 
 func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	var data struct {
-		IsKeyShortcut bool        `json:"isKeyShortcut,omitempty"`
-		JsonType      string      `json:"jsonType,omitempty"`
-		Type          string      `json:"type,omitempty"`
-		Optional      bool        `json:"optional"`
-		InheritedFrom string      `json:"inheritedFrom,omitempty"`
-		Note          string      `json:"note,omitempty"`
 		Rules         *Rules      `json:"rules,omitempty"`
 		Properties    *Properties `json:"properties,omitempty"`
+		JsonType      string      `json:"jsonType,omitempty"`
+		Type          string      `json:"type,omitempty"`
+		InheritedFrom string      `json:"inheritedFrom,omitempty"`
+		Note          string      `json:"note,omitempty"`
+		IsKeyShortcut bool        `json:"isKeyShortcut,omitempty"`
+		Optional      bool        `json:"optional"`
 	}
 
 	data.IsKeyShortcut = c.IsKeyShortcut
@@ -356,14 +356,14 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 
 func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	var data struct {
-		IsKeyShortcut bool                   `json:"isKeyShortcut,omitempty"`
+		Rules         *Rules                 `json:"rules,omitempty"`
 		JsonType      string                 `json:"jsonType,omitempty"`
 		Type          string                 `json:"type,omitempty"`
-		Optional      bool                   `json:"optional"`
 		InheritedFrom string                 `json:"inheritedFrom,omitempty"`
 		Note          string                 `json:"note,omitempty"`
-		Rules         *Rules                 `json:"rules,omitempty"`
 		Items         []*SchemaContentJSight `json:"items,omitempty"`
+		IsKeyShortcut bool                   `json:"isKeyShortcut,omitempty"`
+		Optional      bool                   `json:"optional"`
 	}
 
 	data.IsKeyShortcut = c.IsKeyShortcut
@@ -382,14 +382,14 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 
 func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 	var data struct {
-		IsKeyShortcut bool   `json:"isKeyShortcut,omitempty"`
+		Rules         *Rules `json:"rules,omitempty"`
 		JsonType      string `json:"jsonType,omitempty"`
 		Type          string `json:"type,omitempty"`
-		Optional      bool   `json:"optional"`
 		ScalarValue   string `json:"scalarValue"`
 		InheritedFrom string `json:"inheritedFrom,omitempty"`
 		Note          string `json:"note,omitempty"`
-		Rules         *Rules `json:"rules,omitempty"`
+		IsKeyShortcut bool   `json:"isKeyShortcut,omitempty"`
+		Optional      bool   `json:"optional"`
 	}
 
 	data.IsKeyShortcut = c.IsKeyShortcut

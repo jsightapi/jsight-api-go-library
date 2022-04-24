@@ -6,11 +6,11 @@ import (
 )
 
 type Tag struct {
+	ResourceMethods *TagResourceMethods
+	Children        *Tags
 	Name            TagName
 	Title           string
 	Description     string
-	ResourceMethods *TagResourceMethods
-	Children        *Tags
 }
 
 var _ json.Marshaler = &Tags{}
@@ -50,11 +50,11 @@ func (t *Tag) appendResourceMethodId(r ResourceMethodId) {
 
 func (t *Tag) MarshalJSON() ([]byte, error) {
 	var data struct {
+		ResourceMethods *TagResourceMethods `json:"resourceMethods"`
+		Children        *Tags               `json:"children,omitempty"`
 		Name            TagName             `json:"name"`
 		Title           string              `json:"title"`
 		Description     string              `json:"description,omitempty"`
-		ResourceMethods *TagResourceMethods `json:"resourceMethods"`
-		Children        *Tags               `json:"children,omitempty"`
 	}
 
 	data.Name = t.Name

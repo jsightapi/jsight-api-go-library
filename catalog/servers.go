@@ -6,9 +6,9 @@ import (
 )
 
 type Server struct {
+	BaseUrlVariables *baseUrlVariables `json:"baseUrlVariables,omitempty"`
 	Annotation       string            `json:"annotation,omitempty"`
 	BaseUrl          string            `json:"baseUrl"`
-	BaseUrlVariables *baseUrlVariables `json:"baseUrlVariables,omitempty"`
 }
 
 type baseUrlVariables struct {

@@ -9,15 +9,24 @@ import (
 type stepFunc func(*Scanner, byte) *jerr.JAPIError
 
 type Scanner struct {
-	data                    bytes.Bytes
-	file                    *fs.File
+	data bytes.Bytes
+	file *fs.File
+
+	// step a function, that will be evaluated for next byte.
+	step stepFunc
+
+	// stepStack keeping previous step when going into comments to return to when
+	// comment is done.
+	stepStack stepFuncStack
+
+	// finds gather beginnings or ends of lexemes during steps.
+	finds []LexemeEvent
+
+	// stack to keep the beginning of a lexeme until ending is found.
+	stack                   eventStack
+	lastDirectiveParameters []*Lexeme
 	curIndex                bytes.Index
 	dataSize                bytes.Index
-	step                    stepFunc      // function, that will be evaluated for next byte
-	stepStack               stepFuncStack // keeping previous step when going into comments to return to when comment is done
-	finds                   []LexemeEvent // gather beginnings or ends of lexemes during steps
-	stack                   eventStack    // to keep the beginning of a lexeme until ending is found
-	lastDirectiveParameters []*Lexeme
 }
 
 func NewJApiScanner(file *fs.File) *Scanner {

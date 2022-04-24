@@ -6,8 +6,8 @@ import (
 )
 
 type rawPathVariable struct {
-	pathDirective   directive.Directive // to detect and display an error
-	parentDirective directive.Directive
 	schema          catalog.Schema
 	parameters      []PathParameter
+	pathDirective   directive.Directive // to detect and display an error
+	parentDirective directive.Directive
 }

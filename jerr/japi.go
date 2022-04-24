@@ -6,8 +6,8 @@ import (
 )
 
 type JAPIError struct {
-	Location
 	Msg string
+	Location
 }
 
 func NewJAPIError(msg string, f *fs.File, i bytes.Index) *JAPIError {

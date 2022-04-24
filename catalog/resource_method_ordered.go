@@ -6,8 +6,8 @@ import (
 )
 
 type Resource struct {
-	Key ResourceMethodId
 	Val *ResourceMethod
+	Key ResourceMethodId
 }
 
 type OrderedResources []Resource

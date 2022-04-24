@@ -17,8 +17,6 @@ const JDocExchangeFileSchemaVersion = "0.3.0"
 type Catalog struct {
 	rawUserTypes *directive.Directives
 
-	JSightVersion string
-
 	// Info represent "INFO" directive structure.
 	Info *Info
 
@@ -31,6 +29,8 @@ type Catalog struct {
 	ResourceMethods *ResourceMethods
 
 	Tags *Tags
+
+	JSightVersion string
 }
 
 var _ json.Marshaler = &Catalog{}
@@ -67,13 +67,13 @@ func (*Catalog) Read(coords directive.Coords) bytes.Bytes {
 
 func (c *Catalog) MarshalJSON() ([]byte, error) {
 	var data struct {
-		JDocExchangeFileSchemaVersion string           `json:"jdocExchangeFileSchemaVersion"`
-		JSightVersion                 string           `json:"jsight"`
 		Info                          *Info            `json:"info,omitempty"`
 		Servers                       *Servers         `json:"servers,omitempty"`
 		UserTypes                     *UserTypes       `json:"userTypes,omitempty"`
 		ResourceMethods               *ResourceMethods `json:"resourceMethods"`
 		Tags                          *Tags            `json:"tags"`
+		JDocExchangeFileSchemaVersion string           `json:"jdocExchangeFileSchemaVersion"`
+		JSightVersion                 string           `json:"jsight"`
 	}
 
 	data.JDocExchangeFileSchemaVersion = JDocExchangeFileSchemaVersion
