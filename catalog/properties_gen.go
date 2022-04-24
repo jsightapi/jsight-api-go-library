@@ -93,6 +93,9 @@ func (m *Properties) Len() int {
 
 // Find finds first matched item from the map.
 func (m *Properties) Find(fn findPropertiesFunc) (PropertiesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return PropertiesItem{
@@ -108,6 +111,9 @@ type findPropertiesFunc = func(k string, v *SchemaContentJSight) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *Properties) Each(fn eachPropertiesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *Properties) Each(fn eachPropertiesFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *Properties) EachReverse(fn eachPropertiesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *Properties) EachReverse(fn eachPropertiesFunc) error {
 type eachPropertiesFunc = func(k string, v *SchemaContentJSight) error
 
 func (m *Properties) EachSafe(fn eachSafePropertiesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

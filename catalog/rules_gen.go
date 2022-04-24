@@ -93,6 +93,9 @@ func (m *Rules) Len() int {
 
 // Find finds first matched item from the map.
 func (m *Rules) Find(fn findRulesFunc) (RulesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return RulesItem{
@@ -108,6 +111,9 @@ type findRulesFunc = func(k string, v Rule) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *Rules) Each(fn eachRulesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *Rules) Each(fn eachRulesFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *Rules) EachReverse(fn eachRulesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *Rules) EachReverse(fn eachRulesFunc) error {
 type eachRulesFunc = func(k string, v Rule) error
 
 func (m *Rules) EachSafe(fn eachSafeRulesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

@@ -93,6 +93,9 @@ func (m *TagResourceMethods) Len() int {
 
 // Find finds first matched item from the map.
 func (m *TagResourceMethods) Find(fn findTagResourceMethodsFunc) (TagResourceMethodsItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return TagResourceMethodsItem{
@@ -108,6 +111,9 @@ type findTagResourceMethodsFunc = func(k Path, v *ResourceMethodIdList) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *TagResourceMethods) Each(fn eachTagResourceMethodsFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *TagResourceMethods) Each(fn eachTagResourceMethodsFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *TagResourceMethods) EachReverse(fn eachTagResourceMethodsFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *TagResourceMethods) EachReverse(fn eachTagResourceMethodsFunc) error {
 type eachTagResourceMethodsFunc = func(k Path, v *ResourceMethodIdList) error
 
 func (m *TagResourceMethods) EachSafe(fn eachSafeTagResourceMethodsFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

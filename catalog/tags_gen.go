@@ -93,6 +93,9 @@ func (m *Tags) Len() int {
 
 // Find finds first matched item from the map.
 func (m *Tags) Find(fn findTagsFunc) (TagsItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return TagsItem{
@@ -108,6 +111,9 @@ type findTagsFunc = func(k TagName, v *Tag) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *Tags) Each(fn eachTagsFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *Tags) Each(fn eachTagsFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *Tags) EachReverse(fn eachTagsFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *Tags) EachReverse(fn eachTagsFunc) error {
 type eachTagsFunc = func(k TagName, v *Tag) error
 
 func (m *Tags) EachSafe(fn eachSafeTagsFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

@@ -93,6 +93,9 @@ func (m *Directives) Len() int {
 
 // Find finds first matched item from the map.
 func (m *Directives) Find(fn findDirectivesFunc) (DirectivesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return DirectivesItem{
@@ -108,6 +111,9 @@ type findDirectivesFunc = func(k string, v *Directive) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *Directives) Each(fn eachDirectivesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *Directives) Each(fn eachDirectivesFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *Directives) EachReverse(fn eachDirectivesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *Directives) EachReverse(fn eachDirectivesFunc) error {
 type eachDirectivesFunc = func(k string, v *Directive) error
 
 func (m *Directives) EachSafe(fn eachSafeDirectivesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

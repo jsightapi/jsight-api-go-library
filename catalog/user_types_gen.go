@@ -93,6 +93,9 @@ func (m *UserTypes) Len() int {
 
 // Find finds first matched item from the map.
 func (m *UserTypes) Find(fn findUserTypesFunc) (UserTypesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return UserTypesItem{
@@ -108,6 +111,9 @@ type findUserTypesFunc = func(k string, v *UserType) bool
 
 // Each iterates and perform given function on each item in the map.
 func (m *UserTypes) Each(fn eachUserTypesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -118,6 +124,9 @@ func (m *UserTypes) Each(fn eachUserTypesFunc) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *UserTypes) EachReverse(fn eachUserTypesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -130,6 +139,9 @@ func (m *UserTypes) EachReverse(fn eachUserTypesFunc) error {
 type eachUserTypesFunc = func(k string, v *UserType) error
 
 func (m *UserTypes) EachSafe(fn eachSafeUserTypesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}

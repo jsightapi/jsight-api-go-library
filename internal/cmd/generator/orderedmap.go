@@ -134,6 +134,9 @@ func (m *{{ .Name }}) Len() int {
 
 // Find finds first matched item from the map.
 func (m *{{ .Name }}) Find(fn find{{ .CapitalizedName }}Func) ({{ .Name }}Item, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
 			return {{ .Name }}Item{
@@ -149,6 +152,9 @@ type find{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }})
 
 // Each iterates and perform given function on each item in the map.
 func (m *{{ .Name }}) Each(fn each{{ .CapitalizedName }}Func) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		if err := fn(k, m.data[k]); err != nil {
 			return err
@@ -159,6 +165,9 @@ func (m *{{ .Name }}) Each(fn each{{ .CapitalizedName }}Func) error {
 
 // EachReverse act almost the same as Each but in reverse order.
 func (m *{{ .Name }}) EachReverse(fn each{{ .CapitalizedName }}Func) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for i := len(m.order) - 1; i >= 0; i-- {
 		k := m.order[i]
 		if err := fn(k, m.data[k]); err != nil {
@@ -171,6 +180,9 @@ func (m *{{ .Name }}) EachReverse(fn each{{ .CapitalizedName }}Func) error {
 type each{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }}) error
 
 func (m *{{ .Name }}) EachSafe(fn eachSafe{{ .CapitalizedName }}Func) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
 	for _, k := range m.order {
 		fn(k, m.data[k])
 	}
