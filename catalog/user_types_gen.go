@@ -91,46 +91,63 @@ func (m *UserTypes) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use UserTypes.Map when you have to update value.
-func (m *UserTypes) Iterate() <-chan UserTypesItem {
-	ch := make(chan UserTypesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+// Find finds first matched item from the map.
+func (m *UserTypes) Find(fn findUserTypesFunc) (UserTypesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
 
-		for _, k := range m.order {
-			ch <- UserTypesItem{
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return UserTypesItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return UserTypesItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *UserTypes) IterateReverse() <-chan UserTypesItem {
-	ch := make(chan UserTypesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findUserTypesFunc = func(k string, v *UserType) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- UserTypesItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *UserTypes) Each(fn eachUserTypesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *UserTypes) EachReverse(fn eachUserTypesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachUserTypesFunc = func(k string, v *UserType) error
+
+func (m *UserTypes) EachSafe(fn eachSafeUserTypesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeUserTypesFunc = func(k string, v *UserType)
 
 // Map iterates and changes values in the map.
 func (m *UserTypes) Map(fn mapUserTypesFunc) error {

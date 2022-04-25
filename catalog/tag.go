@@ -6,23 +6,23 @@ import (
 )
 
 type Tag struct {
+	ResourceMethods *TagResourceMethods
+	Children        *Tags
 	Name            TagName
 	Title           string
 	Description     string
-	ResourceMethods *TagResourceMethods
-	Children        *Tags
 }
 
 var _ json.Marshaler = &Tags{}
 
 func newEmptyTag(r ResourceMethodId) *Tag {
-	t := Tag{
+	title := tagTitle(r.path.String())
+	return &Tag{
 		ResourceMethods: &TagResourceMethods{},
 		Children:        &Tags{},
+		Title:           title,
+		Name:            tagName(title),
 	}
-	t.Title = tagTitle(r.path.String())
-	t.Name = tagName(t.Title)
-	return &t
 }
 
 func tagTitle(path string) string {
@@ -50,11 +50,11 @@ func (t *Tag) appendResourceMethodId(r ResourceMethodId) {
 
 func (t *Tag) MarshalJSON() ([]byte, error) {
 	var data struct {
+		ResourceMethods *TagResourceMethods `json:"resourceMethods"`
+		Children        *Tags               `json:"children,omitempty"`
 		Name            TagName             `json:"name"`
 		Title           string              `json:"title"`
 		Description     string              `json:"description,omitempty"`
-		ResourceMethods *TagResourceMethods `json:"resourceMethods"`
-		Children        *Tags               `json:"children,omitempty"`
 	}
 
 	data.Name = t.Name

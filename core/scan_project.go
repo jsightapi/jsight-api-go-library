@@ -32,7 +32,7 @@ func (core *JApiCore) scanProject() *jerr.JAPIError {
 
 func (core *JApiCore) setScanner(file *fs.File) {
 	core.scanner = scanner.NewJApiScanner(file)
-	core.scanner.SetCurrentIndex(file.Position())
+	core.scanner.SetCurrentIndex(0)
 }
 
 // simply decides which function to call based on lexeme type

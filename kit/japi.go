@@ -35,8 +35,9 @@ func readPanicFree(filename string) (f *fs.File, err error) {
 }
 
 func NewJapiFromBytes(b bytes.Bytes) JApi {
-	f := fs.NewFile("root", b)
-	return JApi{core.NewJApiCore(f)}
+	return JApi{
+		core.NewJApiCore(fs.NewFile("root", b)),
+	}
 }
 
 // ValidateJAPI validates .jst file
@@ -45,8 +46,7 @@ func (j *JApi) ValidateJAPI() *jerr.JAPIError {
 }
 
 func (j JApi) ToJson() ([]byte, error) {
-	c := j.core.Catalog()
-	return c.ToJson()
+	return j.core.Catalog().ToJson()
 }
 
 func (j JApi) Title() string {
@@ -57,6 +57,5 @@ func (j JApi) Title() string {
 }
 
 func (j JApi) ToJsonIndent() ([]byte, error) {
-	c := j.core.Catalog()
-	return c.ToJsonIndent()
+	return j.core.Catalog().ToJsonIndent()
 }

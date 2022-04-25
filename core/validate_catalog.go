@@ -35,25 +35,30 @@ func (core *JApiCore) validateInfo() *jerr.JAPIError {
 }
 
 func (core *JApiCore) validateUsedUserTypes() *jerr.JAPIError {
-	for ku := range core.catalog.UserTypes.Iterate() {
-		u := ku.Value
-		if err := core.findUserTypes(u.Schema.UsedUserTypes); err != nil {
-			return u.Directive.BodyError(err.Error())
+	err := core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
+		if err := core.findUserTypes(v.Schema.UsedUserTypes); err != nil {
+			return v.Directive.BodyError(err.Error())
 		}
+		return nil
+	})
+	if err != nil {
+		return adoptError(err)
 	}
 
-	for ks := range core.catalog.Servers.Iterate() {
-		s := ks.Value
-		if s.BaseUrlVariables != nil && s.BaseUrlVariables.Schema != nil {
-			if err := core.findUserTypes(s.BaseUrlVariables.Schema.UsedUserTypes); err != nil {
-				return s.BaseUrlVariables.Directive.BodyError(err.Error())
+	err = core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
+		s := v.BaseUrlVariables
+		if s != nil && s.Schema != nil {
+			if err := core.findUserTypes(s.Schema.UsedUserTypes); err != nil {
+				return s.Directive.BodyError(err.Error())
 			}
 		}
+		return nil
+	})
+	if err != nil {
+		return adoptError(err)
 	}
 
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		v := kv.Value
-
+	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
 		if v.Query != nil && v.Query.Schema != nil {
 			if err := core.findUserTypes(v.Query.Schema.UsedUserTypes); err != nil {
 				return v.Query.Directive.BodyError(err.Error())
@@ -87,8 +92,8 @@ func (core *JApiCore) validateUsedUserTypes() *jerr.JAPIError {
 				}
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 // findUserTypes returns an error if a user type cannot be found
@@ -102,24 +107,24 @@ func (core *JApiCore) findUserTypes(uu *catalog.StringSet) error {
 }
 
 func (core *JApiCore) validateRequestBody() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		r := kv.Value
-		if r.Request != nil && r.Request.HTTPRequestBody == nil {
-			return r.Request.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, kv.Key.String()))
+	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		r := v.Request
+		if r != nil && r.HTTPRequestBody == nil {
+			return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) validateResponseBody() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		for _, response := range kv.Value.Responses {
+	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		for _, response := range v.Responses {
 			if response.Body == nil {
-				return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, kv.Key.String(), response.Code))
+				return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, k.String(), response.Code))
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
@@ -137,18 +142,16 @@ func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
 }
 
 func (core *JApiCore) validateHeaders() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		resourceMethod := kv.Value
-
-		request := resourceMethod.Request
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		request := v.Request
 		if request != nil && request.HTTPRequestHeaders != nil && !core.isJsightCastToObject(request.HTTPRequestHeaders.Schema) {
-			return resourceMethod.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)
+			return v.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)
 		}
-		for _, response := range resourceMethod.Responses {
+		for _, response := range v.Responses {
 			if response.Headers != nil && !core.isJsightCastToObject(response.Headers.Schema) {
 				return response.Headers.Directive.BodyError(jerr.BodyMustBeObject)
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }

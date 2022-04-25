@@ -91,46 +91,63 @@ func (m *Properties) Len() int {
 	return len(m.data)
 }
 
-// Iterate iterates over map key/values.
-// Will block in case of slow consumer.
-// Should be used only for read only operations. Attempt to change something
-// inside loop will lead to deadlock.
-// Use Properties.Map when you have to update value.
-func (m *Properties) Iterate() <-chan PropertiesItem {
-	ch := make(chan PropertiesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+// Find finds first matched item from the map.
+func (m *Properties) Find(fn findPropertiesFunc) (PropertiesItem, bool) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
 
-		for _, k := range m.order {
-			ch <- PropertiesItem{
+	for _, k := range m.order {
+		if fn(k, m.data[k]) {
+			return PropertiesItem{
 				Key:   k,
 				Value: m.data[k],
-			}
+			}, true
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return PropertiesItem{}, false
 }
 
-// IterateReverse do the same as Iterate but in reverse order.
-func (m *Properties) IterateReverse() <-chan PropertiesItem {
-	ch := make(chan PropertiesItem)
-	go func() {
-		m.mx.RLock()
-		defer m.mx.RUnlock()
+type findPropertiesFunc = func(k string, v *SchemaContentJSight) bool
 
-		for i := len(m.order) - 1; i >= 0; i-- {
-			k := m.order[i]
-			ch <- PropertiesItem{
-				Key:   k,
-				Value: m.data[k],
-			}
+// Each iterates and perform given function on each item in the map.
+func (m *Properties) Each(fn eachPropertiesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for _, k := range m.order {
+		if err := fn(k, m.data[k]); err != nil {
+			return err
 		}
-		close(ch)
-	}()
-	return ch
+	}
+	return nil
 }
+
+// EachReverse act almost the same as Each but in reverse order.
+func (m *Properties) EachReverse(fn eachPropertiesFunc) error {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for i := len(m.order) - 1; i >= 0; i-- {
+		k := m.order[i]
+		if err := fn(k, m.data[k]); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type eachPropertiesFunc = func(k string, v *SchemaContentJSight) error
+
+func (m *Properties) EachSafe(fn eachSafePropertiesFunc) {
+	m.mx.RLock()
+	defer m.mx.RUnlock()
+
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafePropertiesFunc = func(k string, v *SchemaContentJSight)
 
 // Map iterates and changes values in the map.
 func (m *Properties) Map(fn mapPropertiesFunc) error {

@@ -2,6 +2,7 @@ package core
 
 import (
 	"errors"
+	"fmt"
 	"j/japi/directive"
 	"j/japi/jerr"
 	"j/japi/notation"
@@ -30,34 +31,79 @@ func (core *JApiCore) compileUserTypes() *jerr.JAPIError {
 		return err
 	}
 
-	for kv := range core.userTypes.Iterate() {
-		if err := core.chekUserType(kv.Key); err != nil {
-			return err
-		}
-	}
-	return nil
+	err := core.userTypes.Each(func(k string, _ jschemaLib.Schema) error {
+		return core.checkUserType(k)
+	})
+	return adoptError(err)
 }
 
 func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
-	for kv := range core.catalog.GetRawUserTypes().Iterate() {
-		switch notation.SchemaNotation(kv.Value.Parameter("SchemaNotation")) {
+	core.Catalog().GetRawUserTypes().EachSafe(func(k string, v *directive.Directive) {
+		switch notation.SchemaNotation(v.Parameter("SchemaNotation")) {
 		case "", notation.SchemaNotationJSight:
-			if kv.Value.BodyCoords.IsSet() {
-				core.userTypes.Set(kv.Key, jschema.New(kv.Key, kv.Value.BodyCoords.Read()))
+			if v.BodyCoords.IsSet() {
+				core.userTypes.Set(k, jschema.New(k, v.BodyCoords.Read()))
 			}
 		case notation.SchemaNotationRegex:
-			core.userTypes.Set(kv.Key, regex.New(kv.Key, kv.Value.BodyCoords.Read()))
+			core.userTypes.Set(k, regex.New(k, v.BodyCoords.Read()))
 		default:
 			// nothing
 		}
+	})
+
+	err := core.userTypes.Each(func(k string, v jschemaLib.Schema) error {
+		if _, ok := core.processedUserTypes[k]; ok {
+			// This user type already built, skip.
+			return nil
+		}
+
+		dd := core.catalog.GetRawUserTypes()
+
+		tt, err := core.getUsedUserTypes(v)
+		if err != nil {
+			return jschemaToJAPIError(err, dd.GetValue(k))
+		}
+
+		alreadyAddedTypes := map[string]struct{}{}
+
+		for _, n := range tt {
+			if n != k {
+				if err := core.buildUserType(n); err != nil {
+					return err
+				}
+			}
+
+			ut := core.userTypes.GetValue(n)
+			if ut == nil {
+				continue
+			}
+
+			if _, ok := alreadyAddedTypes[n]; !ok {
+				if err := safeAddType(v, n, ut); err != nil {
+					return jschemaToJAPIError(err, dd.GetValue(n))
+				}
+				alreadyAddedTypes[n] = struct{}{}
+			}
+		}
+
+		core.processedUserTypes[k] = struct{}{}
+		core.userTypes.Set(k, v)
+
+		return nil
+	})
+	return adoptError(err)
+}
+
+func adoptError(err error) (e *jerr.JAPIError) {
+	if err == nil {
+		return nil
 	}
 
-	for kv := range core.userTypes.Iterate() {
-		if err := core.buildUserType(kv.Key); err != nil {
-			return err
-		}
+	if errors.As(err, &e) {
+		return e
 	}
-	return nil
+
+	panic(fmt.Sprintf("Invalid error was given: %#v", err))
 }
 
 func (core *JApiCore) buildUserType(name string) *jerr.JAPIError {
@@ -159,7 +205,7 @@ func (core *JApiCore) fetchUsedUserTypes(
 	return nil
 }
 
-func (core *JApiCore) chekUserType(name string) *jerr.JAPIError {
+func (core *JApiCore) checkUserType(name string) *jerr.JAPIError {
 	err := core.userTypes.GetValue(name).Check()
 	if err == nil {
 		return nil
@@ -172,7 +218,7 @@ func (core *JApiCore) chekUserType(name string) *jerr.JAPIError {
 	}
 
 	if e.IncorrectUserType() != "" && e.IncorrectUserType() != name {
-		return core.chekUserType(e.IncorrectUserType())
+		return core.checkUserType(e.IncorrectUserType())
 	}
 
 	return d.BodyErrorIndex(e.Message(), e.Position())

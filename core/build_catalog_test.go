@@ -1,6 +1,7 @@
 package core
 
 import (
+	jschema "j/schema"
 	"j/schema/bytes"
 	"j/schema/fs"
 	"testing"
@@ -47,7 +48,8 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 	err := core.compileUserTypes()
 	require.Nil(t, err)
 
-	for kv := range core.userTypes.Iterate() {
-		require.NoErrorf(t, kv.Value.Check(), "Check %q user type", kv.Key)
-	}
+	_ = core.userTypes.Each(func(k string, v jschema.Schema) error {
+		require.NoErrorf(t, v.Check(), "Check %q user type", k)
+		return nil
+	})
 }

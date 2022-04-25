@@ -1,7 +1,6 @@
 package catalog
 
 type ResourceMethod struct {
-	HttpMethod    Method         `json:"httpMethod"`
 	Path          Path           `json:"path"`
 	Tags          []TagName      `json:"tags"`
 	PathVariables *PathVariables `json:"pathVariables,omitempty"`
@@ -10,6 +9,7 @@ type ResourceMethod struct {
 	Query         *Query         `json:"query,omitempty"`
 	Request       *HTTPRequest   `json:"request,omitempty"`
 	Responses     []HTTPResponse `json:"responses,omitempty"`
+	HttpMethod    Method         `json:"httpMethod"`
 }
 
 func initResourceMethod(path Path, method Method, annotation string, tn TagName) ResourceMethod {

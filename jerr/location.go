@@ -7,9 +7,9 @@ import (
 
 type Location struct {
 	file  *fs.File
+	quote string
 	index bytes.Index
 	line  bytes.Index
-	quote string
 }
 
 // NewLocation a bit optimized version of getting all info

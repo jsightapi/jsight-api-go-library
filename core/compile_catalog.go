@@ -81,11 +81,11 @@ func checkPathSchema(s catalog.Schema) error {
 		return errors.New("an empty object in the Path directive")
 	}
 
-	for kv := range s.ContentJSight.Properties.Iterate() {
-		switch kv.Value.JsonType {
-		case objectStr, arrayStr:
-			return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", kv.Key)
-		}
+	kv, ok := s.ContentJSight.Properties.Find(func(_ string, v *catalog.SchemaContentJSight) bool {
+		return v.JsonType == objectStr || v.JsonType == arrayStr
+	})
+	if ok {
+		return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", kv.Key)
 	}
 
 	return nil
@@ -150,9 +150,9 @@ func (*JApiCore) propertiesToMap(pp *catalog.Properties) map[string]*catalog.Sch
 	}
 
 	res := make(map[string]*catalog.SchemaContentJSight, pp.Len())
-	for kv := range pp.Iterate() {
-		res[kv.Key] = kv.Value
-	}
+	pp.EachSafe(func(k string, v *catalog.SchemaContentJSight) {
+		res[k] = v
+	})
 	return res
 }
 
@@ -216,28 +216,26 @@ func (core *JApiCore) ProcessAllOf() *jerr.JAPIError {
 }
 
 func (core *JApiCore) processUserTypes() *jerr.JAPIError {
-	for kv := range core.catalog.UserTypes.Iterate() {
-		ut := kv.Value
-		if ut.Schema.Notation == notation.SchemaNotationJSight {
-			if err := core.processSchemaContentJSightAllOf(ut.Schema.ContentJSight, ut.Schema.UsedUserTypes); err != nil {
-				return ut.Directive.BodyError(err.Error())
-			}
-		}
-	}
-	return nil
-}
-
-func (core *JApiCore) processBaseUrlAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.Servers.Iterate() {
-		s := kv.Value
-		if s.BaseUrlVariables != nil && s.BaseUrlVariables.Schema != nil && s.BaseUrlVariables.Schema.Notation == notation.SchemaNotationJSight {
-			v := s.BaseUrlVariables
+	return adoptError(core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
+		if v.Schema.Notation == notation.SchemaNotationJSight {
 			if err := core.processSchemaContentJSightAllOf(v.Schema.ContentJSight, v.Schema.UsedUserTypes); err != nil {
 				return v.Directive.BodyError(err.Error())
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
+}
+
+func (core *JApiCore) processBaseUrlAllOf() *jerr.JAPIError {
+	return adoptError(core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
+		s := v.BaseUrlVariables
+		if s != nil && s.Schema != nil && s.Schema.Notation == notation.SchemaNotationJSight {
+			if err := core.processSchemaContentJSightAllOf(s.Schema.ContentJSight, s.Schema.UsedUserTypes); err != nil {
+				return s.Directive.BodyError(err.Error())
+			}
+		}
+		return nil
+	}))
 }
 
 func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JAPIError {
@@ -252,46 +250,46 @@ func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JAPIError {
 }
 
 func (core *JApiCore) processQueryAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		q := kv.Value.Query
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		q := v.Query
 		if q != nil && q.Schema != nil && q.Schema.Notation == notation.SchemaNotationJSight {
 			if err := core.processSchemaContentJSightAllOf(q.Schema.ContentJSight, q.Schema.UsedUserTypes); err != nil {
 				return q.Directive.BodyError(err.Error())
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) processRequestHeaderAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		r := kv.Value.Request
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		r := v.Request
 		if r != nil && r.HTTPRequestHeaders != nil && r.HTTPRequestHeaders.Schema != nil && r.HTTPRequestHeaders.Schema.Notation == notation.SchemaNotationJSight {
 			h := r.HTTPRequestHeaders
 			if err := core.processSchemaContentJSightAllOf(h.Schema.ContentJSight, h.Schema.UsedUserTypes); err != nil {
 				return r.HTTPRequestHeaders.Directive.BodyError(err.Error())
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) processRequestAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		r := kv.Value.Request
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		r := v.Request
 		if r != nil && r.HTTPRequestBody != nil && r.HTTPRequestBody.Schema != nil && r.HTTPRequestBody.Schema.Notation == notation.SchemaNotationJSight {
 			b := r.HTTPRequestBody
 			if err := core.processSchemaContentJSightAllOf(b.Schema.ContentJSight, b.Schema.UsedUserTypes); err != nil {
 				return r.HTTPRequestBody.Directive.BodyError(err.Error())
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) processResponseHeaderAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		for _, resp := range kv.Value.Responses {
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		for _, resp := range v.Responses {
 			h := resp.Headers
 			if h != nil && h.Schema != nil && h.Schema.Notation == notation.SchemaNotationJSight {
 				if err := core.processSchemaContentJSightAllOf(h.Schema.ContentJSight, h.Schema.UsedUserTypes); err != nil {
@@ -299,13 +297,13 @@ func (core *JApiCore) processResponseHeaderAllOf() *jerr.JAPIError {
 				}
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) processResponseAllOf() *jerr.JAPIError {
-	for kv := range core.catalog.ResourceMethods.Iterate() {
-		for _, resp := range kv.Value.Responses {
+	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+		for _, resp := range v.Responses {
 			b := resp.Body
 			if b != nil && b.Schema != nil && b.Schema.Notation == notation.SchemaNotationJSight {
 				if err := core.processSchemaContentJSightAllOf(b.Schema.ContentJSight, b.Schema.UsedUserTypes); err != nil {
@@ -313,8 +311,8 @@ func (core *JApiCore) processResponseAllOf() *jerr.JAPIError {
 				}
 			}
 		}
-	}
-	return nil
+		return nil
+	}))
 }
 
 func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJSight, uut *catalog.StringSet) error {
@@ -322,10 +320,11 @@ func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJ
 		return nil
 	}
 
-	for kv := range sc.Properties.Iterate() {
-		if err := core.processSchemaContentJSightAllOf(kv.Value, uut); err != nil {
-			return err
-		}
+	err := sc.Properties.Each(func(_ string, v *catalog.SchemaContentJSight) error {
+		return core.processSchemaContentJSightAllOf(v, uut)
+	})
+	if err != nil {
+		return err
 	}
 
 	if rule, ok := sc.Rules.Get("allOf"); ok {
@@ -359,17 +358,16 @@ func (core *JApiCore) inheritPropertiesFromUserType(sc *catalog.SchemaContentJSi
 		sc.Properties = &catalog.Properties{}
 	}
 
-	for kv := range ut.Schema.ContentJSight.Properties.IterateReverse() {
-		if sc.Properties.Has(kv.Key) {
-			return fmt.Errorf(`it is not allowed to override the "%s" property from the user type "%s"`, kv.Key, userTypeName)
+	return ut.Schema.ContentJSight.Properties.EachReverse(func(k string, v *catalog.SchemaContentJSight) error {
+		if sc.Properties.Has(k) {
+			return fmt.Errorf(`it is not allowed to override the "%s" property from the user type "%s"`, k, userTypeName)
 		}
-		vv := *kv.Value
+		vv := *v
 		if vv.InheritedFrom == "" {
 			uut.Add(userTypeName)
 		}
 		vv.InheritedFrom = userTypeName
-		sc.Properties.SetToTop(kv.Key, &vv)
-	}
-
-	return nil
+		sc.Properties.SetToTop(k, &vv)
+		return nil
+	})
 }

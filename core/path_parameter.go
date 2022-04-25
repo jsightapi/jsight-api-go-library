@@ -71,12 +71,12 @@ func duplicatedPathParameters(p []PathParameter) string {
 	if len(p) <= 1 {
 		return ""
 	}
-	uniq := map[string]bool{}
+	uniq := map[string]struct{}{}
 	for _, pp := range p {
 		if _, ok := uniq[pp.parameter]; ok {
 			return pp.parameter
 		}
-		uniq[pp.parameter] = true
+		uniq[pp.parameter] = struct{}{}
 	}
 	return ""
 }
