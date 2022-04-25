@@ -46,8 +46,7 @@ func (j *JApi) ValidateJAPI() *jerr.JAPIError {
 }
 
 func (j JApi) ToJson() ([]byte, error) {
-	c := j.core.Catalog()
-	return c.ToJson()
+	return j.core.Catalog().ToJson()
 }
 
 func (j JApi) Title() string {
@@ -58,6 +57,5 @@ func (j JApi) Title() string {
 }
 
 func (j JApi) ToJsonIndent() ([]byte, error) {
-	c := j.core.Catalog()
-	return c.ToJsonIndent()
+	return j.core.Catalog().ToJsonIndent()
 }

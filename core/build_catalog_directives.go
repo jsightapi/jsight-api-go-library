@@ -76,16 +76,18 @@ func (core *JApiCore) addDirective(d *directive.Directive) *jerr.JAPIError {
 }
 
 func (core JApiCore) addJSight(d *directive.Directive) *jerr.JAPIError {
-	if !d.HasParameter("Version") {
+	version := d.Parameter("Version")
+	if version == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Version"))
 	}
-	if d.Parameter("Version") != lastJSightVersion {
+
+	if version != lastJSightVersion {
 		return d.KeywordError("unsupported version of JSIGHT")
 	}
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	if err := core.catalog.AddJSight(d.Parameter("Version")); err != nil {
+	if err := core.catalog.AddJSight(version); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
@@ -105,26 +107,28 @@ func (core JApiCore) addInfo(d *directive.Directive) *jerr.JAPIError {
 }
 
 func (core JApiCore) addTitle(d *directive.Directive) *jerr.JAPIError {
-	if d.Parameter("Title") == "" {
+	title := d.Parameter("Title")
+	if title == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Title"))
 	}
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	if err := core.catalog.AddTitle(d.Parameter("Title")); err != nil {
+	if err := core.catalog.AddTitle(title); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
 func (core JApiCore) addVersion(d *directive.Directive) *jerr.JAPIError {
-	if d.Parameter("Version") == "" {
+	version := d.Parameter("Version")
+	if version == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Version"))
 	}
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	if err := core.catalog.AddVersion(d.Parameter("Version")); err != nil {
+	if err := core.catalog.AddVersion(version); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
@@ -168,17 +172,19 @@ func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text strin
 }
 
 func (core JApiCore) addServer(d *directive.Directive) *jerr.JAPIError {
-	if d.Parameter("Name") == "" {
+	name := d.Parameter("Name")
+	if name == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
 	}
-	if err := core.catalog.AddServer(d.Parameter("Name"), d.Annotation); err != nil {
+	if err := core.catalog.AddServer(name, d.Annotation); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
 func (core JApiCore) addBaseUrl(d *directive.Directive) *jerr.JAPIError {
-	if d.Parameter("Path") == "" {
+	path := d.Parameter("Path")
+	if path == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Path"))
 	}
 	if d.Annotation != "" {
@@ -186,7 +192,7 @@ func (core JApiCore) addBaseUrl(d *directive.Directive) *jerr.JAPIError {
 	}
 
 	server := d.Parent
-	if err := core.catalog.AddBaseUrl(server.Parameter("Name"), d.Parameter("Path")); err != nil {
+	if err := core.catalog.AddBaseUrl(server.Parameter("Name"), path); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
@@ -263,14 +269,14 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JAPIError {
 
 	q := catalog.NewQuery(*d)
 
-	if d.HasParameter("Format") {
-		q.Format = d.Parameter("Format")
-	} else {
+	q.Format = d.Parameter("Format")
+	if q.Format == "" {
 		q.Format = "htmlFormEncoded"
 	}
 
-	if d.HasParameter("QueryExample") {
-		q.Example = d.Parameter("QueryExample")
+	example := d.Parameter("QueryExample")
+	if example != "" {
+		q.Example = example
 	}
 
 	s, err := catalog.UnmarshalSchema("", d.BodyCoords.Read(), core.userTypes)
@@ -296,11 +302,14 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JAPIError {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
 
-	if d.HasParameter("SchemaNotation") && d.HasParameter("Type") {
+	schemaNotation := d.Parameter("SchemaNotation")
+	typ := d.Parameter("Type")
+
+	if schemaNotation != "" && typ != "" {
 		return d.KeywordError(jerr.CannotUseTheTypeAndSchemaNotationParametersTogether)
 	}
 
-	sn, err := notation.NewSchemaNotation(d.Parameter("SchemaNotation"))
+	sn, err := notation.NewSchemaNotation(schemaNotation)
 	if err != nil {
 		return d.KeywordError(err.Error())
 	}
@@ -319,12 +328,12 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JAPIError {
 	var s catalog.Schema
 
 	switch {
-	case sn == notation.SchemaNotationJSight && d.Parameter("Type") != "" && !d.BodyCoords.IsSet():
-		name := d.Parameter("Type")
-		if s, err = catalog.UnmarshalSchema(name, bytes.Bytes(name), core.userTypes); err == nil {
+	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
+		if s, err = catalog.UnmarshalSchema(typ, bytes.Bytes(typ), core.userTypes); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
-	case sn == notation.SchemaNotationJSight && d.Parameter("Type") == "" && d.BodyCoords.IsSet():
+
+	case sn == notation.SchemaNotationJSight && typ == "" && d.BodyCoords.IsSet():
 		if s, err = catalog.UnmarshalSchema("", d.BodyCoords.Read(), core.userTypes); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
@@ -332,12 +341,15 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JAPIError {
 		if errors.As(err, &e) {
 			return d.BodyErrorIndex(e.Message(), e.Position())
 		}
-	case sn == notation.SchemaNotationRegex && d.Parameter("Type") == "" && d.BodyCoords.IsSet():
+
+	case sn == notation.SchemaNotationRegex && typ == "" && d.BodyCoords.IsSet():
 		s = catalog.NewRegexSchema(d.BodyCoords.Read())
 		err = core.catalog.AddRequestBody(s, bodyFormat, *d)
+
 	case (sn == notation.SchemaNotationAny || sn == notation.SchemaNotationEmpty) && !d.BodyCoords.IsSet():
 		s = catalog.NewSchema(sn)
 		err = core.catalog.AddRequestBody(s, bodyFormat, *d)
+
 	case d.Type() == directive.Body:
 		err = errors.New("incorrect request")
 	}
@@ -350,11 +362,14 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JAPIError {
 }
 
 func (core JApiCore) addResponse(d *directive.Directive) *jerr.JAPIError {
-	if d.HasParameter("SchemaNotation") && d.HasParameter("Type") {
+	schemaNotationParam := d.Parameter("SchemaNotation")
+	typeParam := d.Parameter("Type")
+
+	if schemaNotationParam != "" && typeParam != "" {
 		return d.KeywordError(jerr.CannotUseTheTypeAndSchemaNotationParametersTogether)
 	}
 
-	schemaNotation, err := notation.NewSchemaNotation(d.Parameter("SchemaNotation"))
+	schemaNotation, err := notation.NewSchemaNotation(schemaNotationParam)
 	if err != nil {
 		return d.KeywordError(err.Error())
 	}
@@ -366,7 +381,7 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JAPIError {
 
 	if d.Type() == directive.Body {
 		d1 := d.Parent
-		if d1.Type() == directive.HTTPResponseCode && d.Parameter("Type") != "" && d1.Parameter("Type") != "" {
+		if d1.Type() == directive.HTTPResponseCode && typeParam != "" && d1.Parameter("Type") != "" {
 			return d.KeywordError("You cannot specify User Type in the response directive if it has a child Body directive.")
 		}
 	}
@@ -380,22 +395,20 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JAPIError {
 	var je *jerr.JAPIError
 
 	switch {
-	case d.Parameter("Type") != "":
-		typeName := d.Parameter("Type")
-		je = core.catalog.AddResponseBody(typeName, bytes.Bytes(typeName), bodyFormat, schemaNotation, *d, core.userTypes)
+	case typeParam != "":
+		je = core.catalog.AddResponseBody(typeParam, bytes.Bytes(typeParam), bodyFormat, schemaNotation, *d, core.userTypes)
+
 	case d.BodyCoords.IsSet():
 		je = core.catalog.AddResponseBody("", d.BodyCoords.Read(), bodyFormat, schemaNotation, *d, core.userTypes)
+
 	case schemaNotation.IsAnyOrEmpty():
 		je = core.catalog.AddResponseBody("", bytes.Bytes{}, bodyFormat, schemaNotation, *d, core.userTypes)
+
 	case d.Type() == directive.Body:
 		je = d.KeywordError("body is empty")
 	}
 
-	if je != nil {
-		return je
-	}
-
-	return nil
+	return je
 }
 
 func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JAPIError {

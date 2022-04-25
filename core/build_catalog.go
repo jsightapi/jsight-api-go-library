@@ -32,7 +32,7 @@ func (core *JApiCore) compileUserTypes() *jerr.JAPIError {
 	}
 
 	err := core.userTypes.Each(func(k string, _ jschemaLib.Schema) error {
-		return core.chekUserType(k)
+		return core.checkUserType(k)
 	})
 	return adoptError(err)
 }
@@ -52,7 +52,7 @@ func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
 	})
 
 	err := core.userTypes.Each(func(k string, v jschemaLib.Schema) error {
-		if _, ok := core.builtUserTypes[k]; ok {
+		if _, ok := core.processedUserTypes[k]; ok {
 			// This user type already built, skip.
 			return nil
 		}
@@ -63,6 +63,8 @@ func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
 		if err != nil {
 			return jschemaToJAPIError(err, dd.GetValue(k))
 		}
+
+		alreadyAddedTypes := map[string]struct{}{}
 
 		for _, n := range tt {
 			if n != k {
@@ -76,12 +78,15 @@ func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
 				continue
 			}
 
-			if err := v.AddType(n, ut); err != nil {
-				return jschemaToJAPIError(err, dd.GetValue(n))
+			if _, ok := alreadyAddedTypes[n]; !ok {
+				if err := safeAddType(v, n, ut); err != nil {
+					return jschemaToJAPIError(err, dd.GetValue(n))
+				}
+				alreadyAddedTypes[n] = struct{}{}
 			}
 		}
 
-		core.builtUserTypes[k] = struct{}{}
+		core.processedUserTypes[k] = struct{}{}
 		core.userTypes.Set(k, v)
 
 		return nil
@@ -200,7 +205,7 @@ func (core *JApiCore) fetchUsedUserTypes(
 	return nil
 }
 
-func (core *JApiCore) chekUserType(name string) *jerr.JAPIError {
+func (core *JApiCore) checkUserType(name string) *jerr.JAPIError {
 	err := core.userTypes.GetValue(name).Check()
 	if err == nil {
 		return nil
@@ -213,7 +218,7 @@ func (core *JApiCore) chekUserType(name string) *jerr.JAPIError {
 	}
 
 	if e.IncorrectUserType() != "" && e.IncorrectUserType() != name {
-		return core.chekUserType(e.IncorrectUserType())
+		return core.checkUserType(e.IncorrectUserType())
 	}
 
 	return d.BodyErrorIndex(e.Message(), e.Position())

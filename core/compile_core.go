@@ -37,10 +37,11 @@ func (core *JApiCore) checkMacroForRecursion() *jerr.JAPIError {
 
 func findPaste(macroName string, d *directive.Directive) *jerr.JAPIError {
 	if d.Type() == directive.Paste {
-		if d.Parameter("Name") == "" {
+		switch d.Parameter("Name") {
+		case "":
 			return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
-		}
-		if d.Parameter("Name") == macroName {
+
+		case macroName:
 			return d.KeywordError("recursion is prohibited")
 		}
 	} else if d.Children != nil {

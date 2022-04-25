@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_annotation(t *testing.T) {
+func TestAnnotation(t *testing.T) {
 	tests := []struct {
 		name string
 		want string
@@ -40,5 +40,13 @@ func Test_annotation(t *testing.T) {
 				t.Errorf("Annotation() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func BenchmarkAnnotation(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		Annotation(" \n\n\tall  \n\n \n\n \t\t  together  \n\n\t")
 	}
 }

@@ -2,7 +2,20 @@ package catalog
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
+
+func Test_newEmptyTag(t *testing.T) {
+	tag := newEmptyTag(ResourceMethodId{
+		path: "/foo/bar",
+	})
+
+	assert.Equal(t, &TagResourceMethods{}, tag.ResourceMethods)
+	assert.Equal(t, &Tags{}, tag.Children)
+	assert.Equal(t, "/foo", tag.Title)
+	assert.Equal(t, TagName("@foo"), tag.Name)
+}
 
 func Test_tagTitle(t *testing.T) {
 	tests := []struct {

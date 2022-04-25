@@ -9,9 +9,11 @@ import (
 func (d Directive) Path() (string, error) {
 	var path string
 
-	if d.Type() == Url { //nolint:gocritic
+	switch {
+	case d.Type() == Url:
 		path = d.Parameter("Path")
-	} else if d.Type().IsHTTPRequestMethod() { //nolint:revive
+
+	case d.Type().IsHTTPRequestMethod():
 		path = d.Parameter("Path")
 		if path == "" {
 			if d.Parent == nil {
@@ -19,7 +21,8 @@ func (d Directive) Path() (string, error) {
 			}
 			return d.Parent.Path() // Parent is the URL directive
 		}
-	} else {
+
+	default:
 		if d.Parent == nil {
 			return "", errors.New(jerr.PathNotFound)
 		}

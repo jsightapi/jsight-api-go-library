@@ -39,11 +39,6 @@ func (d Directive) HasAnyParameters() bool {
 	return len(d.parameter) != 0
 }
 
-func (d Directive) HasParameter(k string) bool {
-	_, ok := d.parameter[k]
-	return ok
-}
-
 func (d Directive) Parameter(k string) string {
 	if v, ok := d.parameter[k]; ok {
 		return v

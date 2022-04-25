@@ -16,13 +16,13 @@ type Tag struct {
 var _ json.Marshaler = &Tags{}
 
 func newEmptyTag(r ResourceMethodId) *Tag {
-	t := Tag{
+	title := tagTitle(r.path.String())
+	return &Tag{
 		ResourceMethods: &TagResourceMethods{},
 		Children:        &Tags{},
+		Title:           title,
+		Name:            tagName(title),
 	}
-	t.Title = tagTitle(r.path.String())
-	t.Name = tagName(t.Title)
-	return &t
 }
 
 func tagTitle(path string) string {

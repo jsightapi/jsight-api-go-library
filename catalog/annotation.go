@@ -6,6 +6,7 @@ import (
 )
 
 func Annotation(s string) string {
-	space := regexp.MustCompile(`\s+`)
-	return space.ReplaceAllString(strings.TrimSpace(s), " ")
+	return annotationReplacer.ReplaceAllString(strings.TrimSpace(s), " ")
 }
+
+var annotationReplacer = regexp.MustCompile(`\s+`)
