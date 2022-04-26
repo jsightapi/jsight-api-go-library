@@ -1,6 +1,8 @@
 package notation
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestNewSchemaNotation(t *testing.T) {
 	tests := []struct {

@@ -1,7 +1,7 @@
 package jerr
 
 import (
-	"j/schema/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
 func DetectNewLineSymbol(content bytes.Bytes) byte {

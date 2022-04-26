@@ -1,15 +1,15 @@
 package core
 
 import (
-	jschema "j/schema"
-	"j/schema/bytes"
-	"j/schema/fs"
 	"testing"
 
-	"j/japi/catalog"
-	"j/japi/directive"
-
+	jschema "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/stretchr/testify/require"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 func TestJApiCore_compileUserTypes(t *testing.T) {

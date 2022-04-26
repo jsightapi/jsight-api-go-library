@@ -2,7 +2,8 @@ package scanner
 
 import (
 	"fmt"
-	"j/japi/jerr"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func stateRegex(s *Scanner, c byte) *jerr.JAPIError {

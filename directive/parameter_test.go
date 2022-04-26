@@ -1,9 +1,10 @@
 package directive
 
 import (
-	"j/schema/bytes"
 	"reflect"
 	"testing"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
 func Test_unescapeParameter(t *testing.T) {

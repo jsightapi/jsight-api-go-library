@@ -2,7 +2,8 @@ package catalog
 
 import (
 	"fmt"
-	"j/japi/notation"
+
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 type SerializeFormat string

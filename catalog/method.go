@@ -2,8 +2,9 @@ package catalog
 
 import (
 	"errors"
-	"j/japi/directive"
-	"j/japi/jerr"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 type Method uint8

@@ -1,11 +1,12 @@
 package core
 
 import (
-	"j/japi/catalog"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/scanner"
-	"j/schema/fs"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/scanner"
 )
 
 // JApiCore the Brain and heart of jApi. Collects lexemes from scanner, validates document logic and structure,

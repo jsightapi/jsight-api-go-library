@@ -2,10 +2,12 @@ package scanner
 
 import (
 	"encoding/json"
-	"j/japi/jerr"
-	"j/schema/bytes"
-	"j/schema/fs"
-	"j/schema/kit"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func stateE(s *Scanner, c byte) *jerr.JAPIError {

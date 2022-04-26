@@ -1,6 +1,8 @@
 package scanner
 
-import "j/japi/jerr"
+import (
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+)
 
 // stateParameterOrAnnotation scans the parameters of directives, and its annotation
 func stateParameterOrAnnotation(s *Scanner, c byte) *jerr.JAPIError {

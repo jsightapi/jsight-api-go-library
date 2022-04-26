@@ -1,7 +1,7 @@
 package catalog
 
 import (
-	"j/japi/directive"
+	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 type ResourceMethodId struct {

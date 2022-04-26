@@ -3,9 +3,11 @@ package directive
 import (
 	by "bytes"
 	"fmt"
-	"j/japi/jerr"
-	"j/japi/notation"
-	"j/schema/bytes"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func unescapeParameter(b bytes.Bytes) bytes.Bytes {

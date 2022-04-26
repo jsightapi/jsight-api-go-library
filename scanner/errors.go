@@ -2,9 +2,11 @@ package scanner
 
 import (
 	"fmt"
-	"j/japi/jerr"
-	"j/schema/bytes"
 	"unicode/utf8"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func (s Scanner) japiError(msg string, i bytes.Index) *jerr.JAPIError {

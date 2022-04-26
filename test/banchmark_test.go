@@ -1,9 +1,10 @@
 package test
 
 import (
-	"j/japi/kit"
 	"path/filepath"
 	"testing"
+
+	"github.com/jsightapi/jsight-api-go-library/kit"
 )
 
 func BenchmarkJAPI(b *testing.B) {

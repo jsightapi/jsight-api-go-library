@@ -3,10 +3,11 @@ package core
 import (
 	"errors"
 	"fmt"
-	"j/japi/catalog"
-	"j/japi/jerr"
-	"j/japi/notation"
 	"strings"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func (core *JApiCore) compileCatalog() *jerr.JAPIError {

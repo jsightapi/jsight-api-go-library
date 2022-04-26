@@ -2,9 +2,10 @@ package directive
 
 import (
 	"errors"
-	"j/schema/bytes"
 	"strings"
 	"sync"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
 type Enumeration int

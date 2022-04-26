@@ -1,8 +1,8 @@
 package core
 
 import (
-	"j/japi/catalog"
-	"j/japi/directive"
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 type rawPathVariable struct {

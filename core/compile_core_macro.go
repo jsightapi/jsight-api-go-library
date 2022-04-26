@@ -2,8 +2,9 @@ package core
 
 import (
 	"fmt"
-	"j/japi/directive"
-	"j/japi/jerr"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func (core *JApiCore) collectMacro() *jerr.JAPIError {

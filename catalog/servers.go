@@ -1,8 +1,9 @@
 package catalog
 
 import (
-	"j/japi/directive"
 	"sync"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 type Server struct {

@@ -1,6 +1,8 @@
 package scanner
 
-import "j/japi/jerr"
+import (
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+)
 
 // scanner goes into comment mode
 func (s *Scanner) startComment() *jerr.JAPIError {

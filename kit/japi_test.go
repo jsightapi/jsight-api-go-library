@@ -1,6 +1,8 @@
 package kit
 
-import "testing"
+import (
+	"testing"
+)
 
 func BenchmarkJApi_ValidateJAPI(b *testing.B) {
 	content := []byte(`

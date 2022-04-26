@@ -3,14 +3,15 @@ package scanner
 import (
 	"fmt"
 	iofs "io/fs"
-	"j/japi/test"
-	"j/schema/fs"
-	"j/schema/reader"
 	"path"
 	"path/filepath"
 	"testing"
 
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/reader"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/jsightapi/jsight-api-go-library/test"
 )
 
 func TestScanner_successes(t *testing.T) {

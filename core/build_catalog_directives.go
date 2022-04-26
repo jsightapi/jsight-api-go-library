@@ -3,12 +3,14 @@ package core
 import (
 	"errors"
 	"fmt"
-	"j/japi/catalog"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/notation"
-	"j/schema/bytes"
-	"j/schema/kit"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func (core *JApiCore) addDirectives() *jerr.JAPIError {

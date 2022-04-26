@@ -1,8 +1,8 @@
 package core
 
 import (
-	"j/japi/catalog"
-	"j/japi/jerr"
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 // ValidateJAPI should be used to check if .jst file is valid according to specification

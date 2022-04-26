@@ -1,7 +1,7 @@
 package catalog
 
 import (
-	"j/schema"
+	jschema "github.com/jsightapi/jsight-schema-go-library"
 )
 
 // UserSchemas represent available user type's schemas.

@@ -3,14 +3,16 @@ package core
 import (
 	"errors"
 	"fmt"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/notation"
-	jschemaLib "j/schema"
-	jerrors "j/schema/errors"
-	"j/schema/kit"
-	"j/schema/notations/jschema"
-	"j/schema/notations/regex"
+
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	jerrors "github.com/jsightapi/jsight-schema-go-library/errors"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+	"github.com/jsightapi/jsight-schema-go-library/notations/regex"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func (core *JApiCore) buildCatalog() *jerr.JAPIError {

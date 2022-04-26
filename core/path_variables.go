@@ -2,11 +2,12 @@ package core
 
 import (
 	"fmt"
-	"j/japi/catalog"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/notation"
 	"strings"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 type prop struct {

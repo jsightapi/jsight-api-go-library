@@ -2,11 +2,13 @@ package kit
 
 import (
 	"fmt"
-	"j/japi/core"
-	"j/japi/jerr"
-	"j/schema/bytes"
-	"j/schema/fs"
-	"j/schema/reader"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/reader"
+
+	"github.com/jsightapi/jsight-api-go-library/core"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 // JApi is an interface-level wrapper for JApiCore

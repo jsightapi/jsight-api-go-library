@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // Tags represent available tags.
 // gen:OrderedMap

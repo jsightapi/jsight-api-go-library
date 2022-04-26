@@ -2,8 +2,9 @@ package core
 
 import (
 	"fmt"
-	"j/japi/catalog"
 	"strings"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
 )
 
 type PathParameter struct {

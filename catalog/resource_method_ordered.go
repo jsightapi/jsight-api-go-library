@@ -1,7 +1,7 @@
 package catalog
 
 import (
-	dd "bytes"
+	"bytes"
 	"encoding/json"
 )
 
@@ -13,7 +13,7 @@ type Resource struct {
 type OrderedResources []Resource
 
 func (oo OrderedResources) MarshalJSON() ([]byte, error) {
-	var buf dd.Buffer
+	var buf bytes.Buffer
 	buf.WriteRune('{')
 
 	for i, kv := range oo {

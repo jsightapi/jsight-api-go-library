@@ -1,8 +1,9 @@
 package directive
 
 import (
-	"j/japi/jerr"
-	"j/schema/bytes"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
 // TODO error interface as parameter functions. Wrap error.
