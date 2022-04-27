@@ -1,7 +1,7 @@
 package core
 
 import (
-	"j/japi/jerr"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func (core *JApiCore) processCurrentDirective() *jerr.JAPIError {

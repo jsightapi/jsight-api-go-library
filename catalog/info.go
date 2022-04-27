@@ -1,6 +1,8 @@
 package catalog
 
-import "j/japi/directive"
+import (
+	"github.com/jsightapi/jsight-api-go-library/directive"
+)
 
 // Info general info about api
 type Info struct {

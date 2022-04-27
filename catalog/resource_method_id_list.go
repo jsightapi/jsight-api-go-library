@@ -1,6 +1,8 @@
 package catalog
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type ResourceMethodIdList struct {
 	list []ResourceMethodId

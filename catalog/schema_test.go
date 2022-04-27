@@ -1,12 +1,13 @@
 package catalog
 
 import (
-	"j/japi/notation"
-	jschema2 "j/schema/notations/jschema"
 	"testing"
 
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func TestUnmarshalSchema(t *testing.T) {
@@ -663,7 +664,7 @@ func TestUnmarshalSchema(t *testing.T) {
 			t.Run(b, func(t *testing.T) {
 				tt := &UserSchemas{}
 				for n, p := range c.userTypes {
-					tt.Set(n, jschema2.New(n, []byte(p)))
+					tt.Set(n, jschema.New(n, []byte(p)))
 				}
 				actual, err := UnmarshalSchema("foo", []byte(b), tt)
 				require.NoError(t, err)

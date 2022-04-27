@@ -1,6 +1,8 @@
 package catalog
 
-import "j/japi/directive"
+import (
+	"github.com/jsightapi/jsight-api-go-library/directive"
+)
 
 type Query struct {
 	Example   string              `json:"example,omitempty"`

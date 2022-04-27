@@ -1,12 +1,14 @@
 package test
 
 import (
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"j/japi/core"
-	"j/schema/reader"
 	"path/filepath"
 	"testing"
+
+	"github.com/jsightapi/jsight-schema-go-library/reader"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
+	"github.com/jsightapi/jsight-api-go-library/core"
 )
 
 func TestGetAllTypesSchemas(t *testing.T) {

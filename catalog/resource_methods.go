@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // ResourceMethods represent available resource methods.
 // gen:OrderedMap

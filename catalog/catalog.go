@@ -2,8 +2,10 @@ package catalog
 
 import (
 	"encoding/json"
-	"j/japi/directive"
-	"j/schema/bytes"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 const JDocExchangeFileSchemaVersion = "0.3.0"

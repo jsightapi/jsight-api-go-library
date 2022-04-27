@@ -1,10 +1,11 @@
 package scanner
 
 import (
-	"j/japi/jerr"
-	"j/schema/bytes"
-	"j/schema/fs"
-	"j/schema/kit"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 // Pass rest of the file to jsc scanner to find out where jschema ends

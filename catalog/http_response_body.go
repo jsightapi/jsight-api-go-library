@@ -2,11 +2,13 @@ package catalog
 
 import (
 	"errors"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/notation"
-	"j/schema/bytes"
-	"j/schema/kit"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 type HTTPResponseBody struct {

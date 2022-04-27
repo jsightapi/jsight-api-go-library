@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // Properties represent JSight object properties.
 // gen:OrderedMap

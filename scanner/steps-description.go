@@ -1,8 +1,8 @@
 package scanner
 
 import (
-	"j/japi/directive"
-	"j/japi/jerr"
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func stateDe(s *Scanner, c byte) *jerr.JAPIError {

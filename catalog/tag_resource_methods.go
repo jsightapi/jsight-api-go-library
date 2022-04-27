@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // TagResourceMethods represent available resource methods for the tag.
 // gen:OrderedMap

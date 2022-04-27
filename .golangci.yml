@@ -109,6 +109,9 @@ linters-settings:
   gofmt:
     simplify: false
 
+  goimports:
+    local-prefixes: github.com/jsightapi/jsight-api-go-library
+
   gosimple:
     go: "1.17"
     checks:
@@ -307,14 +310,16 @@ linters:
     # Checks is file header matches to pattern.
     - goheader
 
+    - goimports
+
     # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod.
     - gomoddirectives
 
-    # Inspects source code for security problems.
-    - gosec
-
     # Linter that specializes in simplifying a code.
     - gosimple
+
+    # Inspects source code for security problems.
+    - gosec
 
     - govet
 

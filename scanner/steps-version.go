@@ -1,6 +1,8 @@
 package scanner
 
-import "j/japi/jerr"
+import (
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+)
 
 func stateV(s *Scanner, c byte) *jerr.JAPIError {
 	switch c {

@@ -1,6 +1,8 @@
 package scanner //nolint:dupl
 
-import "j/japi/jerr"
+import (
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+)
 
 func stateJ(s *Scanner, c byte) *jerr.JAPIError {
 	switch c {

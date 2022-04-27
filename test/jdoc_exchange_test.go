@@ -1,13 +1,15 @@
 package test
 
 import (
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"io/ioutil"
-	"j/japi/kit"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
+	"github.com/jsightapi/jsight-api-go-library/kit"
 )
 
 func TestJDocExchange(t *testing.T) {

@@ -3,13 +3,15 @@ package catalog
 import (
 	"encoding/json"
 	"fmt"
-	"j/japi/notation"
-	jschemaLib "j/schema"
-	"j/schema/bytes"
-	"j/schema/notations/jschema"
 	"strconv"
 	"strings"
 	"sync"
+
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 // Schema represent a user defined schema.

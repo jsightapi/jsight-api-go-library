@@ -1,6 +1,8 @@
 package notation
 
-import "errors"
+import (
+	"errors"
+)
 
 // SchemaNotation represent available schema notations.
 type SchemaNotation string

@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // Rules represent JSight rules.
 // gen:OrderedMap

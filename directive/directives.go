@@ -1,6 +1,8 @@
 package directive
 
-import "sync"
+import (
+	"sync"
+)
 
 // Directives represent available directives.
 // gen:OrderedMap

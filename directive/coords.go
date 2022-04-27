@@ -2,8 +2,9 @@ package directive
 
 import (
 	"fmt"
-	"j/schema/bytes"
-	"j/schema/fs"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
 )
 
 type Coords struct {

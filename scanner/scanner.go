@@ -1,9 +1,10 @@
 package scanner
 
 import (
-	"j/japi/jerr"
-	"j/schema/bytes"
-	"j/schema/fs"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 type stepFunc func(*Scanner, byte) *jerr.JAPIError

@@ -3,11 +3,13 @@ package catalog
 import (
 	"errors"
 	"fmt"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/japi/notation"
-	"j/schema/bytes"
-	"j/schema/kit"
+
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 // tag returns a Tag from the collection, or creates a new one and adds it to the collection

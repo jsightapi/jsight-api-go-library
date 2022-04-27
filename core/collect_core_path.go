@@ -2,10 +2,12 @@ package core
 
 import (
 	"errors"
-	"j/japi/catalog"
-	"j/japi/directive"
-	"j/japi/jerr"
-	"j/schema/kit"
+
+	"github.com/jsightapi/jsight-schema-go-library/kit"
+
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JAPIError {

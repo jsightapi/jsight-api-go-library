@@ -1,8 +1,9 @@
 package test
 
 import (
-	"j/schema/test"
 	"path/filepath"
+
+	"github.com/jsightapi/jsight-schema-go-library/test"
 )
 
 func GetTestDataDir() string {

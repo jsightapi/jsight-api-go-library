@@ -1,7 +1,7 @@
 package scanner
 
 import (
-	"j/schema/bytes"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
 type LexemeEvent struct {

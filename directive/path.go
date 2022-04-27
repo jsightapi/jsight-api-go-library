@@ -2,8 +2,9 @@ package directive
 
 import (
 	"errors"
-	"j/japi/jerr"
 	"strings"
+
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
 func (d Directive) Path() (string, error) {

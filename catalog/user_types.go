@@ -1,6 +1,8 @@
 package catalog
 
-import "sync"
+import (
+	"sync"
+)
 
 // UserTypes represent available user types.
 // gen:OrderedMap
