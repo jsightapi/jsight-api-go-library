@@ -1,0 +1,49 @@
+JSIGHT 0.3
+
+TYPE @cat // A cat.
+{ // {allOf: "@pet"}
+  "id"                 : "CAT-123" // {type: "@catId"} - Cat’s id.
+}
+
+TYPE @pet
+{ // {allOf: "@animal"}
+  "passportNumber": 1234123212, /* {or: [
+                                    {type: "integer"},
+                                    {type: "string" , minLength: 10, maxLength: 10}
+                                 ]} */
+  "name"          : "Thomas the Great",
+  "email"         : "thomas@catsbook.com",             // {type: "email"}
+  "website"       : "http://www.thomas-the-great.com", // {type: "uri", nullable: true}
+  # One pet can have several owners.
+  "owners"        : [ // Owners
+    {                 // Owner
+      "id"   : "550e8400-e29b-41d4-a716-446655440000", // {type: "uuid"} - Owners id. # Some text comment.
+      "name" : "John"
+    }
+  ]
+}
+
+TYPE @animal
+{
+  "type"       : @animalType,
+  "moodStatus" : "happy", // {type: "enum", enum: ["happy", "gloomy"]}
+  ###
+    `age` is calculated by `birthday`.
+  ###
+  "age"        : 12,  // {min:    0, max: 600}
+  "weight"     : 2.5, /* {min:    0, exclusiveMinimum: true,
+                          max: 6000, exclusiveMaximum: false} */
+  "birthday"   : "2006-01-02" // {type: "date"}
+}
+
+TYPE @catId regex
+  /CAT-\d+/
+
+TYPE @animalType jsight
+  "cat" /* {enum: [
+            "cat",
+            "dog",
+            "pig",
+            "frog"
+          ]}
+        */
