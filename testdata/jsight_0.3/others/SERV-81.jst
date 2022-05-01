@@ -1,0 +1,21 @@
+JSIGHT 0.3
+
+TYPE @t1
+{ // {allOf: ["@1", "@2"]}
+}
+
+TYPE @t2
+{ // {allOf: ["@2", "@1"]}
+}
+
+TYPE @1
+{
+  "1-field1": 1,
+  "1-field2": 1
+}
+
+TYPE @2
+{
+  "2-field1": 2,
+  "2-field2": 2
+}

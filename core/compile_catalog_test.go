@@ -4,6 +4,7 @@ import (
 	"strings"
 	"testing"
 
+	jschema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/stretchr/testify/assert"
@@ -169,4 +170,376 @@ func TestCore_getPropertiesNames(t *testing.T) {
 			assert.ElementsMatch(t, split(c.expected), split(actual))
 		})
 	}
+}
+
+func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
+	t.Run("positive", func(t *testing.T) {
+		cc := map[string]struct {
+			core               *JApiCore
+			given              *catalog.SchemaContentJSight
+			expectedUUT        *catalog.StringSet
+			expectedProperties *catalog.Properties
+		}{
+			"not object": {
+				NewJApiCore(fs.NewFile("", []byte(`{}`))),
+				&catalog.SchemaContentJSight{
+					JsonType: "string",
+				},
+				catalog.NewStringSet(),
+				nil,
+			},
+
+			"without allOf": {
+				NewJApiCore(fs.NewFile("", []byte(`{}`))),
+				&catalog.SchemaContentJSight{
+					JsonType:   jschema.JSONTypeObject,
+					Properties: &catalog.Properties{},
+					Rules:      &catalog.Rules{},
+				},
+				catalog.NewStringSet(),
+				catalog.NewProperties(nil, nil),
+			},
+
+			"with allOf, single": {
+				&JApiCore{
+					catalog: func() *catalog.Catalog {
+						c := catalog.NewCatalog()
+						c.UserTypes.Set("@foo", &catalog.UserType{
+							Schema: catalog.Schema{
+								ContentJSight: &catalog.SchemaContentJSight{
+									JsonType: jschema.JSONTypeObject,
+									Properties: catalog.NewProperties(
+										map[string]*catalog.SchemaContentJSight{
+											"foo": {},
+											"bar": {},
+										},
+										[]string{"foo", "bar"},
+									),
+								},
+							},
+						})
+						return c
+					}(),
+				},
+				&catalog.SchemaContentJSight{
+					JsonType:   jschema.JSONTypeObject,
+					Properties: &catalog.Properties{},
+					Rules: catalog.NewRules(
+						map[string]catalog.Rule{
+							"allOf": {
+								JsonType:    jschema.JSONTypeString,
+								ScalarValue: "@foo",
+								Properties:  &catalog.Rules{},
+							},
+						},
+						[]string{"allOf"},
+					),
+				},
+				catalog.NewStringSet("@foo"),
+				catalog.NewProperties(
+					map[string]*catalog.SchemaContentJSight{
+						"foo": {
+							InheritedFrom: "@foo",
+						},
+						"bar": {
+							InheritedFrom: "@foo",
+						},
+					},
+					[]string{"foo", "bar"},
+				),
+			},
+
+			"with allOf, array": {
+				&JApiCore{
+					catalog: func() *catalog.Catalog {
+						c := catalog.NewCatalog()
+						c.UserTypes.Set("@foo", &catalog.UserType{
+							Schema: catalog.Schema{
+								ContentJSight: &catalog.SchemaContentJSight{
+									JsonType: jschema.JSONTypeObject,
+									Properties: catalog.NewProperties(
+										map[string]*catalog.SchemaContentJSight{
+											"foo1": {},
+											"foo2": {},
+										},
+										[]string{"foo1", "foo2"},
+									),
+								},
+							},
+						})
+						c.UserTypes.Set("@bar", &catalog.UserType{
+							Schema: catalog.Schema{
+								ContentJSight: &catalog.SchemaContentJSight{
+									JsonType: jschema.JSONTypeObject,
+									Properties: catalog.NewProperties(
+										map[string]*catalog.SchemaContentJSight{
+											"bar1": {},
+											"bar2": {},
+										},
+										[]string{"bar1", "bar2"},
+									),
+								},
+							},
+						})
+						return c
+					}(),
+				},
+				&catalog.SchemaContentJSight{
+					JsonType:   jschema.JSONTypeObject,
+					Properties: &catalog.Properties{},
+					Rules: catalog.NewRules(
+						map[string]catalog.Rule{
+							"allOf": {
+								JsonType:   jschema.JSONTypeArray,
+								Properties: &catalog.Rules{},
+								Items: []catalog.Rule{
+									{
+										JsonType:    jschema.JSONTypeString,
+										ScalarValue: "@foo",
+										Properties:  &catalog.Rules{},
+									},
+									{
+										JsonType:    jschema.JSONTypeString,
+										ScalarValue: "@bar",
+										Properties:  &catalog.Rules{},
+									},
+								},
+							},
+						},
+						[]string{"allOf"},
+					),
+				},
+				catalog.NewStringSet("@bar", "@foo"),
+				catalog.NewProperties(
+					map[string]*catalog.SchemaContentJSight{
+						"foo1": {
+							InheritedFrom: "@foo",
+						},
+						"foo2": {
+							InheritedFrom: "@foo",
+						},
+						"bar1": {
+							InheritedFrom: "@bar",
+						},
+						"bar2": {
+							InheritedFrom: "@bar",
+						},
+					},
+					[]string{"foo1", "foo2", "bar1", "bar2"},
+				),
+			},
+		}
+
+		for n, c := range cc {
+			t.Run(n, func(t *testing.T) {
+				uut := catalog.NewStringSet()
+
+				err := c.core.processSchemaContentJSightAllOf(c.given, uut)
+				require.NoError(t, err)
+
+				assert.Equal(t, c.expectedUUT, uut)
+				assert.Equal(t, c.expectedProperties, c.given.Properties)
+			})
+		}
+	})
+
+	t.Run("negative", func(t *testing.T) {
+		assert.Panics(t, func() {
+			var core *JApiCore
+
+			core.processSchemaContentJSightAllOf(nil, nil)
+		})
+	})
+}
+
+func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
+	t.Run("positive", func(t *testing.T) {
+		cc := map[string]struct {
+			given              *catalog.SchemaContentJSight
+			expectedUUT        *catalog.StringSet
+			expectedProperties *catalog.Properties
+		}{
+			"sc.properties is nil": {
+				&catalog.SchemaContentJSight{},
+				catalog.NewStringSet("foo"),
+				catalog.NewProperties(
+					map[string]*catalog.SchemaContentJSight{
+						"bar": {
+							InheritedFrom: "foo",
+						},
+					},
+					[]string{"bar"},
+				),
+			},
+
+			"sc.properties isn't nil": {
+				&catalog.SchemaContentJSight{
+					Properties: catalog.NewProperties(
+						map[string]*catalog.SchemaContentJSight{
+							"fizz": {},
+							"buzz": {},
+						},
+						[]string{"fizz", "buzz"},
+					),
+				},
+				catalog.NewStringSet("foo"),
+				catalog.NewProperties(
+					map[string]*catalog.SchemaContentJSight{
+						"bar": {
+							InheritedFrom: "foo",
+						},
+						"fizz": {},
+						"buzz": {},
+					},
+					[]string{"bar", "fizz", "buzz"},
+				),
+			},
+		}
+
+		for n, c := range cc {
+			t.Run(n, func(t *testing.T) {
+				core := &JApiCore{
+					catalog: catalog.NewCatalog(),
+				}
+				core.catalog.UserTypes.Set("foo", &catalog.UserType{
+					Schema: catalog.Schema{
+						ContentJSight: &catalog.SchemaContentJSight{
+							JsonType: jschema.JSONTypeObject,
+							Properties: catalog.NewProperties(
+								map[string]*catalog.SchemaContentJSight{
+									"bar": {},
+								},
+								[]string{"bar"},
+							),
+						},
+					},
+				})
+				uut := &catalog.StringSet{}
+
+				err := core.inheritPropertiesFromUserType(c.given, uut, "foo")
+				require.NoError(t, err)
+
+				assert.Equal(t, c.expectedUUT, uut)
+				assert.Equal(t, c.expectedProperties, c.given.Properties)
+			})
+		}
+	})
+
+	t.Run("negative", func(t *testing.T) {
+		cc := map[string]*JApiCore{
+			`the user type "foo" not found`: {
+				catalog: catalog.NewCatalog(),
+			},
+
+			`the user type "foo" is not an object`: {
+				catalog: func() *catalog.Catalog {
+					c := catalog.NewCatalog()
+					c.UserTypes.Set("foo", &catalog.UserType{
+						Schema: catalog.Schema{
+							ContentJSight: &catalog.SchemaContentJSight{
+								JsonType: jschema.JSONTypeString,
+							},
+						},
+					})
+					return c
+				}(),
+			},
+		}
+
+		for expected, core := range cc {
+			t.Run(expected, func(t *testing.T) {
+				err := core.inheritPropertiesFromUserType(nil, nil, "foo")
+				assert.EqualError(t, err, expected)
+			})
+		}
+
+		t.Run("property already set", func(t *testing.T) {
+			core := &JApiCore{
+				catalog: catalog.NewCatalog(),
+			}
+			core.catalog.UserTypes.Set("foo", &catalog.UserType{
+				Schema: catalog.Schema{
+					ContentJSight: &catalog.SchemaContentJSight{
+						JsonType: jschema.JSONTypeObject,
+						Properties: catalog.NewProperties(
+							map[string]*catalog.SchemaContentJSight{
+								"bar": {},
+							},
+							[]string{"bar"},
+						),
+					},
+				},
+			})
+			err := core.inheritPropertiesFromUserType(
+				&catalog.SchemaContentJSight{
+					Properties: catalog.NewProperties(
+						map[string]*catalog.SchemaContentJSight{
+							"bar": {},
+						},
+						[]string{"bar"},
+					),
+				},
+				&catalog.StringSet{},
+				"foo",
+			)
+			assert.EqualError(t, err, `it is not allowed to override the "bar" property from the user type "foo"`) //nolint:lll
+		})
+
+		t.Run("core is nil", func(t *testing.T) {
+			assert.Panics(t, func() {
+				var core *JApiCore
+				core.inheritPropertiesFromUserType(
+					&catalog.SchemaContentJSight{},
+					&catalog.StringSet{},
+					"foo",
+				)
+			})
+		})
+
+		t.Run("sc is nil", func(t *testing.T) {
+			assert.Panics(t, func() {
+				core := &JApiCore{
+					catalog: catalog.NewCatalog(),
+				}
+				core.catalog.UserTypes.Set("foo", &catalog.UserType{
+					Schema: catalog.Schema{
+						ContentJSight: &catalog.SchemaContentJSight{
+							JsonType: jschema.JSONTypeObject,
+						},
+					},
+				})
+				core.inheritPropertiesFromUserType(
+					nil,
+					&catalog.StringSet{},
+					"foo",
+				)
+			})
+		})
+
+		t.Run("uut is nil", func(t *testing.T) {
+			assert.Panics(t, func() {
+				core := &JApiCore{
+					catalog: catalog.NewCatalog(),
+				}
+				core.catalog.UserTypes.Set("foo", &catalog.UserType{
+					Schema: catalog.Schema{
+						ContentJSight: &catalog.SchemaContentJSight{
+							JsonType: jschema.JSONTypeObject,
+							Properties: catalog.NewProperties(
+								map[string]*catalog.SchemaContentJSight{
+									"foo": {},
+								},
+								[]string{"foo"},
+							),
+						},
+					},
+				})
+				core.inheritPropertiesFromUserType(
+					&catalog.SchemaContentJSight{},
+					nil,
+					"foo",
+				)
+			})
+		})
+	})
 }
