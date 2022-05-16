@@ -3,7 +3,7 @@ module github.com/jsightapi/jsight-api-go-library
 go 1.18
 
 require (
-	github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220516153619-eafb74c2b7d1
+	github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220516160123-eeb2d9c43160
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/text v0.3.7
 )
