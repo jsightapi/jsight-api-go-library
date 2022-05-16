@@ -2,6 +2,8 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220504105936-2fa7a1c7e47d h1:ssR6ghtJgoal6beZGQ8axPmBoy3rvJ6j/UzYVNZm+PU=
 github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220504105936-2fa7a1c7e47d/go.mod h1:DhVaDHosRwijwgTxEAw8u3fw1zN6U1W/2bak371mSv8=
+github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220516153619-eafb74c2b7d1 h1:1PzC/ZmqpwpIJ8t7gseyHQbco6xAWGn78XL9y7+jTpw=
+github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220516153619-eafb74c2b7d1/go.mod h1:HHIlJFhZh1CIZYIihnZwun0oJ+XTTt3Hb0FWw/DyGRg=
 github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb h1:w1g9wNDIE/pHSTmAaUhv4TZQuPBS6GV3mMz5hkgziIU=
 github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb/go.mod h1:5ELEyG+X8f+meRWHuqUOewBOhvHkl7M76pdGEansxW4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
