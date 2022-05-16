@@ -64,7 +64,7 @@ func (g baseOrderedMapGenerator) fillImports(om *orderedMap, imports map[string]
 	if pkg := g.getTypePackage(om.ValueType); pkg != "" {
 		p, ok := imports[pkg]
 		if !ok {
-			return fmt.Errorf("failed to find import for type %q", om.ValueType)
+			return fmt.Errorf("failed to find value's import for type %q", om.ValueType)
 		}
 		om.UsedImports[p] = struct{}{}
 	}
@@ -72,7 +72,7 @@ func (g baseOrderedMapGenerator) fillImports(om *orderedMap, imports map[string]
 	if pkg := g.getTypePackage(om.KeyType); pkg != "" {
 		p, ok := imports[pkg]
 		if !ok {
-			return fmt.Errorf("failed to find import for type %q", om.KeyType)
+			return fmt.Errorf("failed to find key's import for type %q", om.KeyType)
 		}
 		om.UsedImports[p] = struct{}{}
 	}
@@ -86,7 +86,7 @@ func (baseOrderedMapGenerator) getTypePackage(t string) string {
 	}
 
 	conversationMap := map[string]string{
-		"jschema": "schema",
+		"jschema": "jsight-schema-go-library",
 	}
 
 	if p, ok := conversationMap[parts[0]]; ok {

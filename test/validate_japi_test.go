@@ -82,7 +82,7 @@ func requireNewJapi(t *testing.T, filename string) kit.JApi {
 	return j
 }
 
-func assertValidateJapi(t *testing.T, j kit.JApi) *jerr.JAPIError {
+func assertValidateJapi(t *testing.T, j kit.JApi) *jerr.JApiError {
 	je := j.ValidateJAPI()
 	if je != nil {
 		t.Log("ValidateJAPI should NOT return an error")
@@ -90,7 +90,7 @@ func assertValidateJapi(t *testing.T, j kit.JApi) *jerr.JAPIError {
 	return je
 }
 
-func requireValidateJapiError(t *testing.T, j kit.JApi) *jerr.JAPIError {
+func requireValidateJapiError(t *testing.T, j kit.JApi) *jerr.JApiError {
 	je := j.ValidateJAPI()
 	require.NotNil(t, je, "ValidateJAPI should return an error")
 	return je
@@ -122,7 +122,7 @@ func getExpectedError(filename string) (string, error) {
 	return strings.TrimSpace(string(c)), nil
 }
 
-func logJAPIError(t *testing.T, e *jerr.JAPIError) {
+func logJAPIError(t *testing.T, e *jerr.JApiError) {
 	t.Log("Got:")
 	t.Log("- Line: " + strconv.Itoa(int(e.Line())))
 	t.Log("- Index: " + strconv.Itoa(int(e.Index())))
@@ -141,7 +141,7 @@ func jstFilenames(dir string) []string {
 
 			base := filepath.Base(path)
 
-			if info.IsDir() && (base == ".unused" || base == "scanner") {
+			if info.IsDir() && (base == ".unused" || base == "scanner" || base == "mixins") {
 				return filepath.SkipDir
 			}
 
