@@ -46,7 +46,7 @@ workflows:
 
       - common/go-lint:
           <<: *common-params
-          golangci-lint-version: 1.44.2 # temp until lint is fixed or go is updated
+          golangci-lint-version: 1.46.1
 
 
   feature-qa:
