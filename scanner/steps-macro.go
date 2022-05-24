@@ -4,16 +4,6 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func stateM(s *Scanner, c byte) *jerr.JAPIError {
-	switch c {
-	case 'A':
-		s.step = stateMA
-		return nil
-	default:
-		return s.japiErrorUnexpectedChar("in keyword MACRO", "u")
-	}
-}
-
 func stateMA(s *Scanner, c byte) *jerr.JAPIError {
 	switch c {
 	case 'C':

@@ -1,0 +1,16 @@
+JSIGHT 0.3
+
+URL /api/rpc
+  Protocol json-rpc-2.0
+
+  Method createCat
+    Params
+      {
+        "cat": @cat
+      }
+    Result
+      {
+        "id": 1
+      }
+
+  Protocol json-rpc-2.0 # ERROR: directive is duplicated

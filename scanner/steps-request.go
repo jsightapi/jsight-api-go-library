@@ -4,26 +4,6 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func stateR(s *Scanner, c byte) *jerr.JAPIError {
-	switch c {
-	case 'e':
-		s.step = stateRe
-		return nil
-	default:
-		return s.japiErrorUnexpectedChar("in keyword Request", "e")
-	}
-}
-
-func stateRe(s *Scanner, c byte) *jerr.JAPIError {
-	switch c {
-	case 'q':
-		s.step = stateReq
-		return nil
-	default:
-		return s.japiErrorUnexpectedChar("in keyword Request", "q")
-	}
-}
-
 func stateReq(s *Scanner, c byte) *jerr.JAPIError {
 	switch c {
 	case 'u':

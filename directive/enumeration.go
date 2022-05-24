@@ -34,6 +34,10 @@ const (
 	Enum
 	Macro
 	Paste
+	Protocol
+	Method
+	Params
+	Result
 )
 
 var (
@@ -61,6 +65,10 @@ var (
 		"ENUM",
 		"MACRO",
 		"PASTE",
+		"Protocol",
+		"Method",
+		"Params",
+		"Result",
 	}
 	eeOnce sync.Once
 	ee     map[string]Enumeration
@@ -114,7 +122,7 @@ func (de Enumeration) IsAllowedForDirectiveContext(child Enumeration) bool {
 	switch de {
 	case Url:
 		switch child {
-		case Path, Paste,
+		case Path, Paste, Protocol, Method,
 			Get, Post, Put, Patch, Delete:
 			return true
 		default:
@@ -157,6 +165,14 @@ func (de Enumeration) IsAllowedForDirectiveContext(child Enumeration) bool {
 		switch child {
 		case Info, Title, Version, Description, Server, BaseUrl, Url, Get, Post, Put, Patch, Delete, Body,
 			Request, HTTPResponseCode, Path, Headers, Query, Type, Enum, Paste:
+			return true
+		default:
+			return false
+		}
+
+	case Method:
+		switch child {
+		case Params, Result, Description:
 			return true
 		default:
 			return false

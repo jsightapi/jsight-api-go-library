@@ -70,6 +70,8 @@ func (core *JApiCore) addDirective(d *directive.Directive) *jerr.JAPIError {
 		return core.addHeaders(d)
 	case directive.Body:
 		return core.addBody(d)
+	case directive.Protocol:
+		return core.addProtocol(d)
 	// case directive.Enum:
 	// 	return core.addEnum(d)
 	default: // Path
@@ -154,6 +156,8 @@ func (core JApiCore) addDescription(d *directive.Directive) *jerr.JAPIError {
 		return core.addInfoDescription(d, text)
 	case directive.Get, directive.Post, directive.Put, directive.Patch, directive.Delete:
 		return core.addHTTPMethodDescription(d, text)
+	case directive.Method:
+		return core.addMethodDescription(d, text)
 	default:
 		return d.KeywordError("wrong description context")
 	}
@@ -170,6 +174,11 @@ func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text strin
 	if err := core.catalog.AddDescriptionToMethod(*d, text); err != nil {
 		return d.KeywordError(err.Error())
 	}
+	return nil
+}
+
+func (core JApiCore) addMethodDescription(d *directive.Directive, text string) *jerr.JAPIError {
+	// TODO
 	return nil
 }
 
@@ -462,4 +471,20 @@ func (core JApiCore) addBody(d *directive.Directive) *jerr.JAPIError {
 	default:
 		return nil
 	}
+}
+
+func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JAPIError {
+	if d.Annotation != "" {
+		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
+	}
+
+	if d.Parameter("Protocol") != "json-rpc-2.0" {
+		return d.KeywordError("the parameter value should be \"json-rpc-2.0\"")
+	}
+
+	if err := core.catalog.AddProtocol(*d); err != nil {
+		return d.KeywordError(err.Error())
+	}
+
+	return nil
 }

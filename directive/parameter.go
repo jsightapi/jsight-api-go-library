@@ -89,6 +89,12 @@ func (d *Directive) AppendParameter(b bytes.Bytes) error {
 			err = fmt.Errorf("%s %q", jerr.IncorrectParameter, s)
 		}
 
+	case Protocol:
+		err = d.SetParameter("Protocol", s)
+
+	case Method:
+		err = d.SetParameter("Method", s)
+
 	default:
 		err = fmt.Errorf("%s %q", jerr.IncorrectParameter, s)
 	}
