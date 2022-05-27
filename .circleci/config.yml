@@ -31,11 +31,11 @@ parameters:
 
 
 workflows:
-  branches-qa:
-    when:
-      matches:
-        pattern: (rc/.*|dev|main)
-        value: << pipeline.git.branch >>
+  qa:
+    # when:
+      # matches:
+        # pattern: (rc/.*|dev|main)
+        # value: << pipeline.git.branch >>
     jobs:
       - common/go-test: &common-params
           context: online-editor-development
@@ -46,25 +46,25 @@ workflows:
 
       - common/go-lint:
           <<: *common-params
-          golangci-lint-version: 1.46.2
+          # golangci-lint-version: 1.46.2
 
 
-  feature-qa:
-    when:
-      not:
-        matches:
-          pattern: (rc/.*|dev|main)
-          value: << pipeline.git.branch >>
-    jobs:
-      - common/go-test:
-          <<: *common-params
-          # pre-steps:
-            # - checkout-schema:
-                # branch: dev # for feature branches we use dev jschema branch
+  # feature-qa:
+  #   when:
+  #     not:
+  #       matches:
+  #         pattern: (rc/.*|dev|main)
+  #         value: << pipeline.git.branch >>
+  #   jobs:
+  #     - common/go-test:
+  #         <<: *common-params
+  #         # pre-steps:
+  #           # - checkout-schema:
+  #               # branch: dev # for feature branches we use dev jschema branch
 
-      - common/go-lint:
-          <<: *common-params
-          # pre-steps:
-            # - checkout-schema:
-                # branch: dev # for feature branches we use dev jschema branch
-          golangci-lint-version: 1.46.2 # temp until lint is fixed or go is updated
+  #     - common/go-lint:
+  #         <<: *common-params
+  #         # pre-steps:
+  #           # - checkout-schema:
+  #               # branch: dev # for feature branches we use dev jschema branch
+  #         golangci-lint-version: 1.46.2 # temp until lint is fixed or go is updated
