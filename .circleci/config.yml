@@ -1,33 +1,33 @@
 version: 2.1
 orbs:
-  common: jsight/common-ci@1.2.10
+  common: jsight/common-ci@1.3.5
 
 
 parameters:
   go-version:
     type: string
     default: '1.18'
-  jschema-branch:
-    type: string
-    default: dev
+  # jschema-branch:
+  #   type: string
+  #   default: dev
 
 
-commands:
-  checkout-schema:
-    parameters:
-      branch:
-        type: string
-        default: dev
-    steps:
-      - run:
-          name: Checkout jschema as dependency
-          command: |
-            mkdir ../schema
-            cd ../schema
-            git clone -b << parameters.branch >> --depth 1 \
-              https://${GITHUB_TOKEN}@github.com/jsightapi/jsight-schema-go-library.git .
-            git branch --show-current
-            git show -s
+# commands:
+#   checkout-schema:
+#     parameters:
+#       branch:
+#         type: string
+#         default: dev
+#     steps:
+#       - run:
+#           name: Checkout jschema as dependency
+#           command: |
+#             mkdir ../schema
+#             cd ../schema
+#             git clone -b << parameters.branch >> --depth 1 \
+#               https://${GITHUB_TOKEN}@github.com/jsightapi/jsight-schema-go-library.git .
+#             git branch --show-current
+#             git show -s
 
 
 workflows:
@@ -40,9 +40,9 @@ workflows:
       - common/go-test: &common-params
           context: online-editor-development
           go-version: << pipeline.parameters.go-version >>
-          pre-steps:
-            - checkout-schema:
-                branch: << pipeline.git.branch >> # for common branches we use matching jschema branch
+          # pre-steps:
+            # - checkout-schema:
+                # branch: << pipeline.git.branch >> # for common branches we use matching jschema branch
 
       - common/go-lint:
           <<: *common-params
@@ -58,13 +58,13 @@ workflows:
     jobs:
       - common/go-test:
           <<: *common-params
-          pre-steps:
-            - checkout-schema:
-                branch: dev # for feature branches we use dev jschema branch
+          # pre-steps:
+            # - checkout-schema:
+                # branch: dev # for feature branches we use dev jschema branch
 
       - common/go-lint:
           <<: *common-params
-          pre-steps:
-            - checkout-schema:
-                branch: dev # for feature branches we use dev jschema branch
+          # pre-steps:
+            # - checkout-schema:
+                # branch: dev # for feature branches we use dev jschema branch
           golangci-lint-version: 1.46.2 # temp until lint is fixed or go is updated
