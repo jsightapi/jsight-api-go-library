@@ -1,0 +1,16 @@
+JSIGHT 0.3
+
+TYPE @cat
+{}
+
+TYPE @dog /* A dog. */
+{ // {allOf: "@pet"}
+}
+
+TYPE @pet
+{
+    "passportNumber": 1234123212 /* {or: [
+                                            {type: "integer"},
+                                            {type: "string"}
+                                 ]} */
+}
