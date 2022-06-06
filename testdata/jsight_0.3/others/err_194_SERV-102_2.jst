@@ -1,0 +1,20 @@
+JSIGHT 0.3
+
+URL /cats/{id}
+(
+  Path
+  {
+    "id": @catId, // Cat’s id.
+    "list": @catList // List of cats.
+  }
+
+  DELETE // Delete a cat.
+)
+
+TYPE @catId regex
+  /CAT-\d+/
+
+TYPE @catList
+[
+  @cat
+]
