@@ -1,0 +1,19 @@
+JSIGHT 0.3
+
+TYPE @cat // A cat.
+{ // {allOf: "@pet"}
+  "friends"            : @catList  // {optional: true} # here we check recursive types.
+}
+
+TYPE @pet
+{
+  "passportNumber": 1234123212 /* {or: [
+                                    {type: "integer"},
+                                    {type: "string" , minLength: 10, maxLength: 10}
+                                 ]} */
+}
+
+TYPE @catList
+[
+  @cat
+]
