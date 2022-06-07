@@ -1,0 +1,155 @@
+{
+    "userTypes": {
+        "@cat": {
+            "annotation": "A cat.",
+            "schema": {
+                "content": {
+                    "rules": {
+                        "allOf": {
+                            "jsonType": "string",
+                            "scalarValue": "@pet"
+                        }
+                    },
+                    "properties": {
+                        "passportNumber": {
+                            "rules": {
+                                "or": {
+                                    "jsonType": "array",
+                                    "items": [
+                                        {
+                                            "jsonType": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "jsonType": "string",
+                                                    "scalarValue": "integer"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "jsonType": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "jsonType": "string",
+                                                    "scalarValue": "string"
+                                                },
+                                                "minLength": {
+                                                    "jsonType": "number",
+                                                    "scalarValue": "10"
+                                                },
+                                                "maxLength": {
+                                                    "jsonType": "number",
+                                                    "scalarValue": "10"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "jsonType": "number",
+                            "type": "mixed",
+                            "scalarValue": "1234123212",
+                            "inheritedFrom": "@pet",
+                            "optional": false
+                        },
+                        "friends": {
+                            "rules": {
+                                "optional": {
+                                    "jsonType": "boolean",
+                                    "scalarValue": "true"
+                                }
+                            },
+                            "jsonType": "shortcut",
+                            "type": "@catList",
+                            "scalarValue": "@catList",
+                            "optional": true
+                        }
+                    },
+                    "jsonType": "object",
+                    "type": "object",
+                    "optional": false
+                },
+                "notation": "jsight",
+                "usedUserTypes": [
+                    "@pet",
+                    "@catList"
+                ]
+            }
+        },
+        "@pet": {
+            "schema": {
+                "content": {
+                    "properties": {
+                        "passportNumber": {
+                            "rules": {
+                                "or": {
+                                    "jsonType": "array",
+                                    "items": [
+                                        {
+                                            "jsonType": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "jsonType": "string",
+                                                    "scalarValue": "integer"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "jsonType": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "jsonType": "string",
+                                                    "scalarValue": "string"
+                                                },
+                                                "minLength": {
+                                                    "jsonType": "number",
+                                                    "scalarValue": "10"
+                                                },
+                                                "maxLength": {
+                                                    "jsonType": "number",
+                                                    "scalarValue": "10"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "jsonType": "number",
+                            "type": "mixed",
+                            "scalarValue": "1234123212",
+                            "optional": false
+                        }
+                    },
+                    "jsonType": "object",
+                    "type": "object",
+                    "optional": false
+                },
+                "notation": "jsight"
+            }
+        },
+        "@catList": {
+            "schema": {
+                "content": {
+                    "jsonType": "array",
+                    "type": "array",
+                    "items": [
+                        {
+                            "jsonType": "shortcut",
+                            "type": "@cat",
+                            "scalarValue": "@cat",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false
+                },
+                "notation": "jsight",
+                "usedUserTypes": [
+                    "@cat"
+                ]
+            }
+        }
+    },
+    "resourceMethods": {},
+    "tags": {},
+    "jdocExchangeFileSchemaVersion": "1.0.0",
+    "jsight": "0.3"
+}
