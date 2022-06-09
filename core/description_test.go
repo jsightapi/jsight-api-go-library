@@ -132,3 +132,38 @@ func Test_descriptionTrimBrackets(t *testing.T) {
 		})
 	}
 }
+
+func Test_splitLines(t *testing.T) {
+	tests := []struct {
+		name string
+		arg  []byte
+		want [][]byte
+	}{
+		{
+			"LF",
+			[]byte("\naaa\nbbb\n\nccc\n"),
+			[][]byte{[]byte(""), []byte("aaa"), []byte("bbb"), []byte(""), []byte("ccc"), []byte("")},
+		},
+		{
+			"CRLF",
+			[]byte("\r\naaa\r\nbbb\r\n\r\nccc\r\n"),
+			[][]byte{[]byte(""), []byte("aaa"), []byte("bbb"), []byte(""), []byte("ccc"), []byte("")},
+		},
+		{
+			"CR",
+			[]byte("\raaa\rbbb\r\rccc\r"),
+			[][]byte{[]byte(""), []byte("aaa"), []byte("bbb"), []byte(""), []byte("ccc"), []byte("")},
+		},
+		{
+			"MIXED",
+			[]byte("\raaa\nbbb\r\n\r\nccc\n"),
+			[][]byte{[]byte(""), []byte("aaa"), []byte("bbb"), []byte(""), []byte("ccc"), []byte("")},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			x := splitLines(tt.arg)
+			assert.Equalf(t, tt.want, x, "splitLines(%v)", tt.arg)
+		})
+	}
+}
