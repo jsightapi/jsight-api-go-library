@@ -30,7 +30,12 @@ const (
 
 func (e LexemeEventType) IsBeginning() bool {
 	switch e {
-	case KeywordBegin, AnnotationBegin, SchemaBegin, TextBegin, JsonArrayBegin, ParameterBegin:
+	case KeywordBegin,
+		ParameterBegin,
+		AnnotationBegin,
+		SchemaBegin,
+		JsonArrayBegin,
+		TextBegin:
 		return true
 	default:
 		return false
@@ -39,7 +44,12 @@ func (e LexemeEventType) IsBeginning() bool {
 
 func (e LexemeEventType) IsEnding() bool {
 	switch e {
-	case KeywordEnd, AnnotationEnd, SchemaEnd, TextEnd, JsonArrayEnd, ParameterEnd:
+	case KeywordEnd,
+		ParameterEnd,
+		AnnotationEnd,
+		SchemaEnd,
+		JsonArrayEnd,
+		TextEnd:
 		return true
 	default:
 		return false
@@ -56,38 +66,27 @@ func (e LexemeEventType) IsSingle() bool {
 }
 
 func (e LexemeEventType) String() string {
-	switch e {
-	case KeywordBegin:
-		return "keyword-begin"
-	case KeywordEnd:
-		return "keyword-end"
-	case AnnotationBegin:
-		return "annotation-begin"
-	case AnnotationEnd:
-		return "annotation-end"
-	case SchemaBegin:
-		return "schema-begin"
-	case SchemaEnd:
-		return "schema-end"
-	case JsonArrayBegin:
-		return "array-begin"
-	case JsonArrayEnd:
-		return "array-end"
-	case TextBegin:
-		return "text-begin"
-	case TextEnd:
-		return "text-end"
-	case ContextOpen:
-		return "context-open"
-	case ContextCloseSign:
-		return "context-close"
-	case ParameterBegin:
-		return "property-begin"
-	case ParameterEnd:
-		return "property-end"
-	default:
-		return "Unknown-lexeme-event-type"
+	if s, ok := lexemeEventTypeStringMap[e]; ok {
+		return s
 	}
+	return "Unknown-lexeme-event-type"
+}
+
+var lexemeEventTypeStringMap = map[LexemeEventType]string{
+	KeywordBegin:    "keyword-begin",
+	KeywordEnd:      "keyword-end",
+	ParameterBegin:  "property-begin",
+	ParameterEnd:    "property-end",
+	AnnotationBegin: "annotation-begin",
+	AnnotationEnd:   "annotation-end",
+	SchemaBegin:     "schema-begin",
+	SchemaEnd:       "schema-end",
+	JsonArrayBegin:  "array-begin",
+	JsonArrayEnd:    "array-end",
+	TextBegin:       "text-begin",
+	TextEnd:         "text-end",
+	ContextOpen:     "context-open",
+	ContextClose:    "context-close",
 }
 
 func (e LexemeEventType) ToLexemeType() LexemeType {
@@ -112,28 +111,3 @@ func (e LexemeEventType) ToLexemeType() LexemeType {
 		panic("Unknown lexeme event type")
 	}
 }
-
-// func (e LexemeEventType) ClosingPair() LexemeEventType {
-// 	switch e {
-// 	case KeywordBegin:
-// 		return KeywordEnd
-// 	case ValueBegin:
-// 		return ValueEnd
-// 	case AnnotationBegin:
-// 		return AnnotationEnd
-// 	case SchemaBegin:
-// 		return SchemaEnd
-// 	case StringBodyBegin:
-// 		return StringBodyEnd
-// 	case JsonArrayBegin:
-// 		return JsonArrayEnd
-// 	case TextBegin:
-// 		return TextEnd
-// 	case ContextOpen:
-// 		return ContextClose
-// 	case ParameterBegin, ParameterEnd:
-// 		return ParameterEnd
-// 	default:
-// 		panic("Unknown beginning lexeme")
-// 	}
-// }

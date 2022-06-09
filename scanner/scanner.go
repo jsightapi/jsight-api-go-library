@@ -101,14 +101,6 @@ func (s *Scanner) Next() (*Lexeme, *jerr.JApiError) {
 	return nil, nil
 }
 
-// func (s *Scanner) closeAllOpenedLexemeEvent() {
-// 	l := len(s.stack)
-// 	for i := l-1; i != -1; i-- {
-// 		c := s.stack[i].type_.ClosingPair()
-// 		s.found(c)
-// 	}
-// }
-
 func (s *Scanner) CurrentIndex() bytes.Index {
 	return s.curIndex
 }

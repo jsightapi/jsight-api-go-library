@@ -22,28 +22,22 @@ const (
 )
 
 func (t LexemeType) String() string {
-	switch t {
-	case Keyword:
-		return "keyword"
-	case Annotation:
-		return "annotation"
-	case Schema:
-		return "schema"
-	case Array:
-		return "array"
-	case Text:
-		return "text"
-	case Json:
-		return "json"
-	case ContextExplicitOpening:
-		return "context-opening"
-	case ContextExplicitClosing:
-		return "context-closing"
-	case Parameter:
-		return "property"
-	default:
-		return "unknown-lexeme-type"
+	if s, ok := lexemeTypeStringMap[t]; ok {
+		return s
 	}
+	return "unknown-lexeme-type"
+}
+
+var lexemeTypeStringMap = map[LexemeType]string{
+	Keyword:                "keyword",
+	Parameter:              "property",
+	Annotation:             "annotation",
+	Schema:                 "schema",
+	Json:                   "json",
+	Array:                  "array",
+	Text:                   "text",
+	ContextExplicitOpening: "context-opening",
+	ContextExplicitClosing: "context-closing",
 }
 
 type Lexeme struct {
@@ -80,22 +74,6 @@ func (lex Lexeme) Begin() bytes.Index {
 
 func (lex Lexeme) End() bytes.Index {
 	return lex.end
-}
-
-func (lex *Lexeme) SetType(t LexemeType) {
-	lex.type_ = t
-}
-
-func (lex *Lexeme) SetBegin(begin bytes.Index) {
-	lex.begin = begin
-}
-
-func (lex *Lexeme) SetEnd(end bytes.Index) {
-	lex.end = end
-}
-
-func (lex *Lexeme) SetFile(file *fs.File) {
-	lex.file = file
 }
 
 func (lex Lexeme) String() string {
