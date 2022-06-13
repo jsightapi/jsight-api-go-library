@@ -7,7 +7,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-type stepFunc func(*Scanner, byte) *jerr.JAPIError
+type stepFunc func(*Scanner, byte) *jerr.JApiError
 
 type Scanner struct {
 	data bytes.Bytes
@@ -44,9 +44,13 @@ func NewJApiScanner(file *fs.File) *Scanner {
 	return &s
 }
 
+func (s *Scanner) File() *fs.File {
+	return s.file
+}
+
 // Next reads japi file by bytes, detects lexemes beginnings and ends and returns them as soon as they found
 // returns false for the end of file
-func (s *Scanner) Next() (*Lexeme, *jerr.JAPIError) {
+func (s *Scanner) Next() (*Lexeme, *jerr.JApiError) {
 	if len(s.finds) != 0 { // found beginning or end of lexeme
 		lex, je := s.processLexemeEvent(s.shiftFound())
 		if je != nil {
@@ -115,7 +119,7 @@ func (s *Scanner) SetCurrentIndex(i bytes.Index) {
 }
 
 // it is important to rely here on Event index only, not current scanner index
-func (s *Scanner) processLexemeEvent(lexEvent LexemeEvent) (*Lexeme, *jerr.JAPIError) {
+func (s *Scanner) processLexemeEvent(lexEvent LexemeEvent) (*Lexeme, *jerr.JApiError) {
 	eventType := lexEvent.type_
 	switch {
 	case eventType.IsBeginning():

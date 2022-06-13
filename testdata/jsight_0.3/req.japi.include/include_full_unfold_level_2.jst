@@ -1,0 +1,362 @@
+JSIGHT 0.3
+
+INFO
+    Title "Info title"
+    Version 3.14
+    Description
+        Info description
+
+SERVER @foo
+    BaseUrl "https://example.com"
+
+GET /get
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+GET /get/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+POST /post
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+POST /post/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+PUT /put
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+PUT /put/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+PATCH /patch
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+PATCH /patch/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+DELETE /delete
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+DELETE /delete/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        INCLUDE mixins/http_methods/inner/body.jst
+        INCLUDE mixins/http_methods/inner/headers.jst
+
+    200
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    201
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+    404
+        INCLUDE mixins/http_methods/inner/headers.jst
+        INCLUDE mixins/http_methods/inner/body.jst
+
+URL /url
+    GET
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    POST
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    PUT
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    PATCH
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    DELETE
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+URL /url/{id}
+    Path
+    {
+        "id": 1
+    }
+
+    GET
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    POST
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    PUT
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    PATCH
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+    DELETE
+        INCLUDE mixins/url/http_methods/description.jst
+        INCLUDE mixins/url/http_methods/request.jst
+        INCLUDE mixins/url/http_methods/responses.jst
+        INCLUDE mixins/url/http_methods/query.jst
+
+TYPE @foo
+{
+    "foo": 1
+}
+
+TYPE @bar
+{
+    "bar": 2
+}

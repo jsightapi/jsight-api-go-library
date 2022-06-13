@@ -10,7 +10,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JAPIError {
+func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JApiError {
 	for i := 0; i != len(dd); i++ {
 		switch dd[i].Type() {
 		case directive.Macro:
@@ -32,7 +32,7 @@ func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JAPIError {
 	return nil
 }
 
-func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JAPIError {
+func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}

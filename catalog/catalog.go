@@ -15,7 +15,6 @@ const JDocExchangeFileSchemaVersion = "1.0.0"
 // Has flat URL structure, each URL is unique and indicates a separate Resource.
 // Each Resource has Requests — available http methods and their properties.
 // Each Resource or Request has it its own complex properties, which can be added through dedicated methods.
-
 type Catalog struct {
 	rawUserTypes *directive.Directives
 

@@ -1,0 +1,872 @@
+JSIGHT 0.3
+
+INFO
+    Title "Info title"
+    Version 3.14
+    Description
+        Info description
+
+SERVER @foo
+    BaseUrl "https://example.com"
+
+GET /get
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+GET /get/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+POST /post
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+POST /post/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+PUT /put
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+PUT /put/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+PATCH /patch
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+PATCH /patch/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+DELETE /delete
+    Description
+        HTTP Method description
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+DELETE /delete/{id}
+    Description
+        HTTP Method description
+
+    Path
+    {
+        "id": 1
+    }
+
+    Query "page=1"
+    {
+      "page": 1
+    }
+
+    Request
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    200
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    201
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+    404
+        Headers
+        {
+            "Authorization": "Basic dG9tQGNhdC5jb206YWJjMTIz=", // {regex: "Basic [A-Za-z0-9+\/=]+"}
+            "Content-Type": "application/json"                  // {const: true}
+        }
+
+        Body
+        {
+            "foo": "1"
+        }
+
+URL /url
+    GET
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    POST
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    PUT
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    PATCH
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    DELETE
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+URL /url/{id}
+    Path
+    {
+        "id": 1
+    }
+
+    GET
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    POST
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    PUT
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    PATCH
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+    DELETE
+        Description
+            HTTP Method description
+
+        Query "page=1"
+        {
+          "page": 1
+        }
+
+        Request
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        200
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        201
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+        404
+            INCLUDE mixins/url/http_methods/inner/headers.jst
+            INCLUDE mixins/url/http_methods/inner/body.jst
+
+TYPE @foo
+{
+    "foo": 1
+}
+
+TYPE @bar
+{
+    "bar": 2
+}

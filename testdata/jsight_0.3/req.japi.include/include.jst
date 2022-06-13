@@ -1,0 +1,24 @@
+JSIGHT 0.3
+
+SERVER @FIZZ_API_SERVER // fizz server
+    BaseUrl "https://dogsbook.com/api/"
+
+PUT /foo
+    INCLUDE mixins/responses.jst
+
+DELETE /foo
+    200 @foo
+
+GET /bar
+    PASTE @test
+
+PASTE @included_macro
+
+INCLUDE mixins/root.jst
+
+INCLUDE mixins/types.jst
+
+MACRO @test
+    INCLUDE mixins/responses.jst
+
+INCLUDE mixins/macro.jst
