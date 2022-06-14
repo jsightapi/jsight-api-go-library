@@ -59,7 +59,7 @@ func (core *JApiCore) validateUsedUserTypes() *jerr.JAPIError {
 		return adoptError(err)
 	}
 
-	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v *catalog.HttpInteraction) error {
 		if v.Query != nil && v.Query.Schema != nil {
 			if err := core.findUserTypes(v.Query.Schema.UsedUserTypes); err != nil {
 				return v.Query.Directive.BodyError(err.Error())
@@ -108,7 +108,7 @@ func (core *JApiCore) findUserTypes(uu *catalog.StringSet) error {
 }
 
 func (core *JApiCore) validateRequestBody() *jerr.JAPIError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v *catalog.HttpInteraction) error {
 		r := v.Request
 		if r != nil && r.HTTPRequestBody == nil {
 			return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
@@ -118,7 +118,7 @@ func (core *JApiCore) validateRequestBody() *jerr.JAPIError {
 }
 
 func (core *JApiCore) validateResponseBody() *jerr.JAPIError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(k catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v *catalog.HttpInteraction) error {
 		for _, response := range v.Responses {
 			if response.Body == nil {
 				return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, k.String(), response.Code))
@@ -143,7 +143,7 @@ func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
 }
 
 func (core *JApiCore) validateHeaders() *jerr.JAPIError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionId, v *catalog.HttpInteraction) error {
 		request := v.Request
 		if request != nil && request.HTTPRequestHeaders != nil && !core.isJsightCastToObject(request.HTTPRequestHeaders.Schema) {
 			return v.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)

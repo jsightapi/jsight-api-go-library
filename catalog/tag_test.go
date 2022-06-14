@@ -7,11 +7,12 @@ import (
 )
 
 func Test_newEmptyTag(t *testing.T) {
-	tag := newEmptyTag(ResourceMethodId{
-		path: "/foo/bar",
+	tag := newEmptyTag(HttpInteractionId{
+		protocol: http,
+		path:     "/foo/bar",
 	})
 
-	assert.Equal(t, &TagResourceMethods{}, tag.ResourceMethods)
+	assert.Equal(t, make(map[Protocol]TagInteractionGroup), tag.InteractionGroups)
 	assert.Equal(t, &Tags{}, tag.Children)
 	assert.Equal(t, "/foo", tag.Title)
 	assert.Equal(t, TagName("@foo"), tag.Name)

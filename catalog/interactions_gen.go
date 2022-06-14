@@ -11,12 +11,12 @@ import (
 )
 
 // Set sets a value with specified key.
-func (m *ResourceMethods) Set(k ResourceMethodId, v *ResourceMethod) {
+func (m *Interactions) Set(k InteractionId, v *HttpInteraction) {
 	m.mx.Lock()
 	defer m.mx.Unlock()
 
 	if m.data == nil {
-		m.data = map[ResourceMethodId]*ResourceMethod{}
+		m.data = map[InteractionId]*HttpInteraction{}
 	}
 	if !m.has(k) {
 		m.order = append(m.order, k)
@@ -26,21 +26,21 @@ func (m *ResourceMethods) Set(k ResourceMethodId, v *ResourceMethod) {
 
 // SetToTop do the same as Set, but new key will be placed on top of the order
 // map.
-func (m *ResourceMethods) SetToTop(k ResourceMethodId, v *ResourceMethod) {
+func (m *Interactions) SetToTop(k InteractionId, v *HttpInteraction) {
 	m.mx.Lock()
 	defer m.mx.Unlock()
 
 	if m.data == nil {
-		m.data = map[ResourceMethodId]*ResourceMethod{}
+		m.data = map[InteractionId]*HttpInteraction{}
 	}
 	if !m.has(k) {
-		m.order = append([]ResourceMethodId{k}, m.order...)
+		m.order = append([]InteractionId{k}, m.order...)
 	}
 	m.data[k] = v
 }
 
 // Update updates a value with specified key.
-func (m *ResourceMethods) Update(k ResourceMethodId, fn func(v *ResourceMethod) *ResourceMethod) {
+func (m *Interactions) Update(k InteractionId, fn func(v *HttpInteraction) *HttpInteraction) {
 	m.mx.Lock()
 	defer m.mx.Unlock()
 
@@ -54,7 +54,7 @@ func (m *ResourceMethods) Update(k ResourceMethodId, fn func(v *ResourceMethod) 
 }
 
 // GetValue gets a value by key.
-func (m *ResourceMethods) GetValue(k ResourceMethodId) *ResourceMethod {
+func (m *Interactions) GetValue(k InteractionId) *HttpInteraction {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -62,7 +62,7 @@ func (m *ResourceMethods) GetValue(k ResourceMethodId) *ResourceMethod {
 }
 
 // Get gets a value by key.
-func (m *ResourceMethods) Get(k ResourceMethodId) (*ResourceMethod, bool) {
+func (m *Interactions) Get(k InteractionId) (*HttpInteraction, bool) {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -71,20 +71,20 @@ func (m *ResourceMethods) Get(k ResourceMethodId) (*ResourceMethod, bool) {
 }
 
 // Has checks that specified key is set.
-func (m *ResourceMethods) Has(k ResourceMethodId) bool {
+func (m *Interactions) Has(k InteractionId) bool {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
 	return m.has(k)
 }
 
-func (m *ResourceMethods) has(k ResourceMethodId) bool {
+func (m *Interactions) has(k InteractionId) bool {
 	_, ok := m.data[k]
 	return ok
 }
 
 // Len returns count of values.
-func (m *ResourceMethods) Len() int {
+func (m *Interactions) Len() int {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -92,25 +92,25 @@ func (m *ResourceMethods) Len() int {
 }
 
 // Find finds first matched item from the map.
-func (m *ResourceMethods) Find(fn findResourceMethodsFunc) (ResourceMethodsItem, bool) {
+func (m *Interactions) Find(fn findInteractionsFunc) (InteractionsItem, bool) {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
 	for _, k := range m.order {
 		if fn(k, m.data[k]) {
-			return ResourceMethodsItem{
+			return InteractionsItem{
 				Key:   k,
 				Value: m.data[k],
 			}, true
 		}
 	}
-	return ResourceMethodsItem{}, false
+	return InteractionsItem{}, false
 }
 
-type findResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod) bool
+type findInteractionsFunc = func(k InteractionId, v *HttpInteraction) bool
 
 // Each iterates and perform given function on each item in the map.
-func (m *ResourceMethods) Each(fn eachResourceMethodsFunc) error {
+func (m *Interactions) Each(fn eachInteractionsFunc) error {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -123,7 +123,7 @@ func (m *ResourceMethods) Each(fn eachResourceMethodsFunc) error {
 }
 
 // EachReverse act almost the same as Each but in reverse order.
-func (m *ResourceMethods) EachReverse(fn eachResourceMethodsFunc) error {
+func (m *Interactions) EachReverse(fn eachInteractionsFunc) error {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -136,9 +136,9 @@ func (m *ResourceMethods) EachReverse(fn eachResourceMethodsFunc) error {
 	return nil
 }
 
-type eachResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod) error
+type eachInteractionsFunc = func(k InteractionId, v *HttpInteraction) error
 
-func (m *ResourceMethods) EachSafe(fn eachSafeResourceMethodsFunc) {
+func (m *Interactions) EachSafe(fn eachSafeInteractionsFunc) {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 
@@ -147,10 +147,10 @@ func (m *ResourceMethods) EachSafe(fn eachSafeResourceMethodsFunc) {
 	}
 }
 
-type eachSafeResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod)
+type eachSafeInteractionsFunc = func(k InteractionId, v *HttpInteraction)
 
 // Map iterates and changes values in the map.
-func (m *ResourceMethods) Map(fn mapResourceMethodsFunc) error {
+func (m *Interactions) Map(fn mapInteractionsFunc) error {
 	m.mx.Lock()
 	defer m.mx.Unlock()
 
@@ -164,17 +164,17 @@ func (m *ResourceMethods) Map(fn mapResourceMethodsFunc) error {
 	return nil
 }
 
-type mapResourceMethodsFunc = func(k ResourceMethodId, v *ResourceMethod) (*ResourceMethod, error)
+type mapInteractionsFunc = func(k InteractionId, v *HttpInteraction) (*HttpInteraction, error)
 
-// ResourceMethodsItem represent single data from the ResourceMethods.
-type ResourceMethodsItem struct {
-	Key   ResourceMethodId
-	Value *ResourceMethod
+// InteractionsItem represent single data from the Interactions.
+type InteractionsItem struct {
+	Key   InteractionId
+	Value *HttpInteraction
 }
 
-var _ json.Marshaler = &ResourceMethods{}
+var _ json.Marshaler = &Interactions{}
 
-func (m *ResourceMethods) MarshalJSON() ([]byte, error) {
+func (m *Interactions) MarshalJSON() ([]byte, error) {
 	m.mx.RLock()
 	defer m.mx.RUnlock()
 

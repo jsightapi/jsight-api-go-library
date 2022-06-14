@@ -8,7 +8,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
-const JDocExchangeFileSchemaVersion = "1.0.0"
+const JDocExchangeVersion = "2.0.0"
 
 // Catalog is the main result of processing .jst file, represents all accumulated Api data more closely to API terms.
 // Has no direct connection to Directives but operates with models with similar structure, but in API terms.
@@ -28,7 +28,7 @@ type Catalog struct {
 	// UserTypes contains information about defined user types.
 	UserTypes *UserTypes
 
-	ResourceMethods *ResourceMethods
+	Interactions *Interactions
 
 	Tags *Tags
 
@@ -47,11 +47,11 @@ func (c *Catalog) ToJsonIndent() ([]byte, error) {
 
 func NewCatalog() *Catalog {
 	return &Catalog{
-		rawUserTypes:    &directive.Directives{},
-		Servers:         &Servers{},
-		UserTypes:       &UserTypes{},
-		ResourceMethods: &ResourceMethods{},
-		Tags:            &Tags{},
+		rawUserTypes: &directive.Directives{},
+		Servers:      &Servers{},
+		UserTypes:    &UserTypes{},
+		Interactions: &Interactions{},
+		Tags:         &Tags{},
 	}
 }
 
@@ -69,16 +69,16 @@ func (*Catalog) Read(coords directive.Coords) bytes.Bytes {
 
 func (c *Catalog) MarshalJSON() ([]byte, error) {
 	var data struct {
-		Info                          *Info            `json:"info,omitempty"`
-		Servers                       *Servers         `json:"servers,omitempty"`
-		UserTypes                     *UserTypes       `json:"userTypes,omitempty"`
-		ResourceMethods               *ResourceMethods `json:"resourceMethods"`
-		Tags                          *Tags            `json:"tags"`
-		JDocExchangeFileSchemaVersion string           `json:"jdocExchangeFileSchemaVersion"`
-		JSightVersion                 string           `json:"jsight"`
+		Info                *Info         `json:"info,omitempty"`
+		Servers             *Servers      `json:"servers,omitempty"`
+		UserTypes           *UserTypes    `json:"userTypes,omitempty"`
+		Interactions        *Interactions `json:"interactions"`
+		Tags                *Tags         `json:"tags"`
+		JdocExchangeVersion string        `json:"jdocExchangeVersion"`
+		JSightVersion       string        `json:"jsight"`
 	}
 
-	data.JDocExchangeFileSchemaVersion = JDocExchangeFileSchemaVersion
+	data.JdocExchangeVersion = JDocExchangeVersion
 	data.JSightVersion = c.JSightVersion
 	data.Info = c.Info
 	if c.Servers.Len() > 0 {
@@ -87,7 +87,7 @@ func (c *Catalog) MarshalJSON() ([]byte, error) {
 	if c.UserTypes.Len() > 0 {
 		data.UserTypes = c.UserTypes
 	}
-	data.ResourceMethods = c.ResourceMethods
+	data.Interactions = c.Interactions
 	data.Tags = c.Tags
 
 	return json.Marshal(data)
