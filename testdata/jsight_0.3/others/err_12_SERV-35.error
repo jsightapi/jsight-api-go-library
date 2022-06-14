@@ -1,0 +1,1 @@
+the "id" parameter is duplicated in the path "/cats/{id}/friends/{id}"
