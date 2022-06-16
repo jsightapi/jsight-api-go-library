@@ -3,15 +3,15 @@ package catalog
 import "github.com/jsightapi/jsight-api-go-library/directive"
 
 type JsonRpcInteraction struct {
-	Protocol      Protocol
-	Path          Path
-	Method        string
-	PathVariables *PathVariables
-	Tags          []TagName
-	Annotation    *string
 	Description   *string
 	Params        *jsonRpcParams
 	Result        *jsonRpcResult
+	PathVariables *PathVariables
+	Annotation    *string
+	Protocol      Protocol
+	Path          Path
+	Method        string
+	Tags          []TagName
 }
 
 func (ji JsonRpcInteraction) path() Path {

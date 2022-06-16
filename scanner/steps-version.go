@@ -1,4 +1,4 @@
-package scanner
+package scanner //nolint:dupl
 
 import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"

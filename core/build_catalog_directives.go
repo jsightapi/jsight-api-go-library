@@ -171,7 +171,7 @@ func (core JApiCore) addInfoDescription(d *directive.Directive, text string) *je
 }
 
 func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text string) *jerr.JAPIError {
-	if err := core.catalog.AddDescriptionToMethod(*d, text); err != nil {
+	if err := core.catalog.AddDescriptionToHttpMethod(*d, text); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil

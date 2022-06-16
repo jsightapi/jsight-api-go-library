@@ -20,11 +20,11 @@ type prop struct {
 func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.PathVariables, *jerr.JAPIError) {
 	s := catalog.NewSchema(notation.SchemaNotationJSight)
 	s.ContentJSight = &catalog.SchemaContentJSight{
-		IsKeyShortcut: false,
-		JsonType:      jschema.JSONTypeObject,
-		Type:          jschema.JSONTypeObject,
-		Optional:      false,
-		Properties:    &catalog.Properties{},
+		IsKeyUserTypeRef: false,
+		TokenType:        jschema.JSONTypeObject,
+		Type:             jschema.JSONTypeObject,
+		Optional:         false,
+		Children:         make([]*catalog.SchemaContentJSight, 0, len(properties)),
 	}
 
 	for k, p := range properties {
@@ -32,14 +32,15 @@ func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.Pat
 			return nil, p.directive.KeywordError(err.Error())
 		}
 
-		s.ContentJSight.Properties.Set(k, p.schemaContentJSight)
+		p.schemaContentJSight.Key = k
+		s.ContentJSight.Children = append(s.ContentJSight.Children, p.schemaContentJSight)
 	}
 
 	return &catalog.PathVariables{Schema: s}, nil
 }
 
 func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, usedUserTypes *catalog.StringSet) error {
-	if sc.JsonType == jschema.JSONTypeShortcut {
+	if sc.TokenType == jschema.JSONTypeShortcut {
 		// We have two different cases under "shortcut" type:
 		// 1. Single type like "@foo"
 		// 2. A list of types like "@foo | @bar"
@@ -90,12 +91,12 @@ func (core *JApiCore) appendUsedUserType(usedUserTypes *catalog.StringSet, s str
 	if t, ok := core.catalog.UserTypes.Get(s); ok {
 		switch t.Schema.Notation {
 		case notation.SchemaNotationJSight:
-			switch t.Schema.ContentJSight.JsonType {
+			switch t.Schema.ContentJSight.TokenType {
 			case "string", "number", "boolean", "null":
 				usedUserTypes.Add(s)
 				return nil
 			default:
-				return fmt.Errorf(`unavailable JSON type "%s" of the UserType "%s" in Path directive`, t.Schema.ContentJSight.JsonType, s)
+				return fmt.Errorf(`unavailable JSON type "%s" of the UserType "%s" in Path directive`, t.Schema.ContentJSight.TokenType, s)
 			}
 		case notation.SchemaNotationRegex:
 			usedUserTypes.Add(s)

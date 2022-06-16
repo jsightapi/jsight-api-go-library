@@ -8,8 +8,8 @@ import (
 
 type HttpInteractionId struct {
 	protocol Protocol
-	method   Method
 	path     Path
+	method   Method
 }
 
 func (h HttpInteractionId) Protocol() Protocol {
@@ -22,6 +22,10 @@ func (h HttpInteractionId) Path() Path {
 
 func (h HttpInteractionId) String() string {
 	return fmt.Sprintf("http %s %s", h.method.String(), h.path.String())
+}
+
+func (h HttpInteractionId) MarshalText() ([]byte, error) {
+	return []byte(h.String()), nil
 }
 
 func newHttpInteractionId(d directive.Directive) (HttpInteractionId, error) {

@@ -6,11 +6,11 @@ import (
 )
 
 type Tag struct {
+	InteractionGroups map[Protocol]TagInteractionGroup
+	Children          *Tags
 	Name              TagName
 	Title             string
 	Description       string
-	InteractionGroups map[Protocol]TagInteractionGroup
-	Children          *Tags
 }
 
 var _ json.Marshaler = &Tags{}
@@ -50,11 +50,11 @@ func (t *Tag) appendInteractionId(k InteractionId) {
 
 func (t *Tag) MarshalJSON() ([]byte, error) {
 	var data struct {
+		Children          *Tags                 `json:"children,omitempty"`
 		Name              TagName               `json:"name"`
 		Title             string                `json:"title"`
 		Description       string                `json:"description,omitempty"`
 		InteractionGroups []TagInteractionGroup `json:"interactionGroups"`
-		Children          *Tags                 `json:"children,omitempty"`
 	}
 
 	data.Name = t.Name

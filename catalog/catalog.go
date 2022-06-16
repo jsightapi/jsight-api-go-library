@@ -28,7 +28,7 @@ type Catalog struct {
 	// UserTypes contains information about defined user types.
 	UserTypes *UserTypes
 
-	Interactions *Interactions
+	HttpInteractions *HttpInteractions
 
 	Tags *Tags
 
@@ -47,11 +47,11 @@ func (c *Catalog) ToJsonIndent() ([]byte, error) {
 
 func NewCatalog() *Catalog {
 	return &Catalog{
-		rawUserTypes: &directive.Directives{},
-		Servers:      &Servers{},
-		UserTypes:    &UserTypes{},
-		Interactions: &Interactions{},
-		Tags:         &Tags{},
+		rawUserTypes:     &directive.Directives{},
+		Servers:          &Servers{},
+		UserTypes:        &UserTypes{},
+		HttpInteractions: &HttpInteractions{},
+		Tags:             &Tags{},
 	}
 }
 
@@ -68,14 +68,14 @@ func (*Catalog) Read(coords directive.Coords) bytes.Bytes {
 }
 
 func (c *Catalog) MarshalJSON() ([]byte, error) {
-	var data struct {
-		Info                *Info         `json:"info,omitempty"`
-		Servers             *Servers      `json:"servers,omitempty"`
-		UserTypes           *UserTypes    `json:"userTypes,omitempty"`
-		Interactions        *Interactions `json:"interactions"`
-		Tags                *Tags         `json:"tags"`
-		JdocExchangeVersion string        `json:"jdocExchangeVersion"`
-		JSightVersion       string        `json:"jsight"`
+	var data struct { //nolint:govet
+		JdocExchangeVersion string            `json:"jdocExchangeVersion"`
+		JSightVersion       string            `json:"jsight"`
+		Info                *Info             `json:"info,omitempty"`
+		Servers             *Servers          `json:"servers,omitempty"`
+		UserTypes           *UserTypes        `json:"userTypes,omitempty"`
+		HTTPInteractions    *HttpInteractions `json:"interactions"`
+		Tags                *Tags             `json:"tags"`
 	}
 
 	data.JdocExchangeVersion = JDocExchangeVersion
@@ -87,7 +87,7 @@ func (c *Catalog) MarshalJSON() ([]byte, error) {
 	if c.UserTypes.Len() > 0 {
 		data.UserTypes = c.UserTypes
 	}
-	data.Interactions = c.Interactions
+	data.HTTPInteractions = c.HttpInteractions
 	data.Tags = c.Tags
 
 	return json.Marshal(data)
