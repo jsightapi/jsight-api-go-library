@@ -9,7 +9,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library"
 )
 
 // Set sets a value with specified key.
