@@ -4,7 +4,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func stateMA(s *Scanner, c byte) *jerr.JAPIError {
+func stateMA(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'C':
 		s.step = stateMAC

@@ -4,7 +4,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func statePr(s *Scanner, c byte) *jerr.JAPIError {
+func statePr(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'o':
 		s.step = statePro
@@ -14,7 +14,7 @@ func statePr(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func statePro(s *Scanner, c byte) *jerr.JAPIError {
+func statePro(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 't':
 		s.step = stateProt
@@ -24,7 +24,7 @@ func statePro(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateProt(s *Scanner, c byte) *jerr.JAPIError {
+func stateProt(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'o':
 		s.step = stateProto
@@ -34,7 +34,7 @@ func stateProt(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateProto(s *Scanner, c byte) *jerr.JAPIError {
+func stateProto(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'c':
 		s.step = stateProtoc
@@ -44,7 +44,7 @@ func stateProto(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateProtoc(s *Scanner, c byte) *jerr.JAPIError {
+func stateProtoc(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'o':
 		s.step = stateProtoco
@@ -54,7 +54,7 @@ func stateProtoc(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateProtoco(s *Scanner, c byte) *jerr.JAPIError {
+func stateProtoco(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'l':
 		s.found(KeywordEnd)

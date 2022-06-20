@@ -140,14 +140,14 @@ func (core JApiCore) addInfoDescription(d *directive.Directive, text string) *je
 	return nil
 }
 
-func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text string) *jerr.JAPIError {
-	if err := core.catalog.AddDescriptionToMethod(*d, text); err != nil {
+func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text string) *jerr.JApiError {
+	if err := core.catalog.AddDescriptionToHttpMethod(*d, text); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
-func (core JApiCore) addMethodDescription(d *directive.Directive, text string) *jerr.JAPIError {
+func (core JApiCore) addMethodDescription(d *directive.Directive, text string) *jerr.JApiError {
 	// TODO
 	return nil
 }

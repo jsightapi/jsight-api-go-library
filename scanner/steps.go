@@ -119,7 +119,7 @@ func stateD(s *Scanner, c byte) *jerr.JApiError {
 	}
 }
 
-func stateM(s *Scanner, c byte) *jerr.JAPIError {
+func stateM(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'A': // MACRO
 		s.step = stateMA
@@ -167,7 +167,7 @@ func statePA(s *Scanner, c byte) *jerr.JApiError {
 	}
 }
 
-func statePa(s *Scanner, c byte) *jerr.JAPIError {
+func statePa(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 't': // Path
 		s.step = statePat
@@ -180,7 +180,7 @@ func statePa(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateR(s *Scanner, c byte) *jerr.JAPIError {
+func stateR(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'e': // Request, Result
 		s.step = stateRe
@@ -190,7 +190,7 @@ func stateR(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateRe(s *Scanner, c byte) *jerr.JAPIError {
+func stateRe(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'q': // Request
 		s.step = stateReq

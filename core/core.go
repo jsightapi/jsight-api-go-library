@@ -113,6 +113,10 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		directive.HTTPResponseCode: core.addResponse,
 		directive.Headers:          core.addHeaders,
 		directive.Body:             core.addBody,
+		directive.Protocol:         core.addProtocol,
+		// TODO directive.Method:           core.addMethod,
+		// TODO directive.Params:           core.addParams,
+		// TODO directive.Result:           core.addResult,
 	}
 
 	for _, o := range oo {
