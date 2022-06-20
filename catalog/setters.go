@@ -160,7 +160,7 @@ func (c *Catalog) AddResponseBody(
 	sn notation.SchemaNotation,
 	d directive.Directive,
 	tt *UserSchemas,
-) *jerr.JAPIError {
+) *jerr.JApiError {
 	rk, err := newResourceMethodId(d)
 	if err != nil {
 		return d.KeywordError(err.Error())
@@ -274,7 +274,7 @@ func (c *Catalog) AddBaseUrl(serverName string, path string) error {
 func (c *Catalog) AddType(
 	d directive.Directive,
 	tt *UserSchemas,
-) *jerr.JAPIError {
+) *jerr.JApiError {
 	name := d.Parameter("Name")
 
 	if c.UserTypes.Has(name) {

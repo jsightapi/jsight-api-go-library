@@ -68,6 +68,14 @@ func (m *UserSchemas) Each(fn eachUserSchemasFunc) error {
 
 type eachUserSchemasFunc = func(k string, v jschema.Schema) error
 
+func (m *UserSchemas) EachSafe(fn eachSafeUserSchemasFunc) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafeUserSchemasFunc = func(k string, v jschema.Schema)
+
 // Map iterates and changes values in the map.
 func (m *UserSchemas) Map(fn mapUserSchemasFunc) error {
 	for _, k := range m.order {

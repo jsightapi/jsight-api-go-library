@@ -24,7 +24,7 @@ func NewHTTPResponseBody(
 	sn notation.SchemaNotation,
 	d directive.Directive,
 	tt *UserSchemas,
-) (HTTPResponseBody, *jerr.JAPIError) {
+) (HTTPResponseBody, *jerr.JApiError) {
 	body := HTTPResponseBody{
 		Format:    f,
 		Schema:    nil,

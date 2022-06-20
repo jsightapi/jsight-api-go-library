@@ -1,0 +1,5536 @@
+{
+  "info": {
+    "title": "Info title",
+    "version": "3.14",
+    "description": "Info description"
+  },
+  "servers": {
+    "@foo": {
+      "baseUrl": "https://example.com"
+    }
+  },
+  "userTypes": {
+    "@foo": {
+      "schema": {
+        "content": {
+          "properties": {
+            "foo": {
+              "jsonType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            }
+          },
+          "jsonType": "object",
+          "type": "object",
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@bar": {
+      "schema": {
+        "content": {
+          "properties": {
+            "bar": {
+              "jsonType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "optional": false
+            }
+          },
+          "jsonType": "object",
+          "type": "object",
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "resourceMethods": {
+    "GET /get": {
+      "path": "/get",
+      "tags": [
+        "@get"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "GET /get/{id}": {
+      "path": "/get/{id}",
+      "tags": [
+        "@get"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "POST /post": {
+      "path": "/post",
+      "tags": [
+        "@post"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    },
+    "POST /post/{id}": {
+      "path": "/post/{id}",
+      "tags": [
+        "@post"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    },
+    "PUT /put": {
+      "path": "/put",
+      "tags": [
+        "@put"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PUT"
+    },
+    "PUT /put/{id}": {
+      "path": "/put/{id}",
+      "tags": [
+        "@put"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PUT"
+    },
+    "PATCH /patch": {
+      "path": "/patch",
+      "tags": [
+        "@patch"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PATCH"
+    },
+    "PATCH /patch/{id}": {
+      "path": "/patch/{id}",
+      "tags": [
+        "@patch"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PATCH"
+    },
+    "DELETE /delete": {
+      "path": "/delete",
+      "tags": [
+        "@delete"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "DELETE"
+    },
+    "DELETE /delete/{id}": {
+      "path": "/delete/{id}",
+      "tags": [
+        "@delete"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "DELETE"
+    },
+    "GET /url": {
+      "path": "/url",
+      "tags": [
+        "@url"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "POST /url": {
+      "path": "/url",
+      "tags": [
+        "@url"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    },
+    "PUT /url": {
+      "path": "/url",
+      "tags": [
+        "@url"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PUT"
+    },
+    "PATCH /url": {
+      "path": "/url",
+      "tags": [
+        "@url"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PATCH"
+    },
+    "DELETE /url": {
+      "path": "/url",
+      "tags": [
+        "@url"
+      ],
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "DELETE"
+    },
+    "GET /url/{id}": {
+      "path": "/url/{id}",
+      "tags": [
+        "@url"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "POST /url/{id}": {
+      "path": "/url/{id}",
+      "tags": [
+        "@url"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    },
+    "PUT /url/{id}": {
+      "path": "/url/{id}",
+      "tags": [
+        "@url"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PUT"
+    },
+    "PATCH /url/{id}": {
+      "path": "/url/{id}",
+      "tags": [
+        "@url"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PATCH"
+    },
+    "DELETE /url/{id}": {
+      "path": "/url/{id}",
+      "tags": [
+        "@url"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "properties": {
+              "id": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "description": "HTTP Method description",
+      "query": {
+        "example": "page=1",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "properties": {
+              "page": {
+                "jsonType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            },
+            "jsonType": "object",
+            "type": "object",
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "properties": {
+                "Authorization": {
+                  "rules": {
+                    "regex": {
+                      "jsonType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "optional": false
+                },
+                "Content-Type": {
+                  "rules": {
+                    "const": {
+                      "jsonType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  },
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "properties": {
+                "foo": {
+                  "jsonType": "string",
+                  "type": "string",
+                  "scalarValue": "1",
+                  "optional": false
+                }
+              },
+              "jsonType": "object",
+              "type": "object",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "201",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "headers": {
+            "schema": {
+              "content": {
+                "properties": {
+                  "Authorization": {
+                    "rules": {
+                      "regex": {
+                        "jsonType": "string",
+                        "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  },
+                  "Content-Type": {
+                    "rules": {
+                      "const": {
+                        "jsonType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    },
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "properties": {
+                  "foo": {
+                    "jsonType": "string",
+                    "type": "string",
+                    "scalarValue": "1",
+                    "optional": false
+                  }
+                },
+                "jsonType": "object",
+                "type": "object",
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "DELETE"
+    }
+  },
+  "tags": {
+    "@get": {
+      "resourceMethods": {
+        "/get": [
+          "GET /get"
+        ],
+        "/get/{id}": [
+          "GET /get/{id}"
+        ]
+      },
+      "name": "@get",
+      "title": "/get"
+    },
+    "@post": {
+      "resourceMethods": {
+        "/post": [
+          "POST /post"
+        ],
+        "/post/{id}": [
+          "POST /post/{id}"
+        ]
+      },
+      "name": "@post",
+      "title": "/post"
+    },
+    "@put": {
+      "resourceMethods": {
+        "/put": [
+          "PUT /put"
+        ],
+        "/put/{id}": [
+          "PUT /put/{id}"
+        ]
+      },
+      "name": "@put",
+      "title": "/put"
+    },
+    "@patch": {
+      "resourceMethods": {
+        "/patch": [
+          "PATCH /patch"
+        ],
+        "/patch/{id}": [
+          "PATCH /patch/{id}"
+        ]
+      },
+      "name": "@patch",
+      "title": "/patch"
+    },
+    "@delete": {
+      "resourceMethods": {
+        "/delete": [
+          "DELETE /delete"
+        ],
+        "/delete/{id}": [
+          "DELETE /delete/{id}"
+        ]
+      },
+      "name": "@delete",
+      "title": "/delete"
+    },
+    "@url": {
+      "resourceMethods": {
+        "/url": [
+          "GET /url",
+          "POST /url",
+          "PUT /url",
+          "PATCH /url",
+          "DELETE /url"
+        ],
+        "/url/{id}": [
+          "GET /url/{id}",
+          "POST /url/{id}",
+          "PUT /url/{id}",
+          "PATCH /url/{id}",
+          "DELETE /url/{id}"
+        ]
+      },
+      "name": "@url",
+      "title": "/url"
+    }
+  },
+  "jdocExchangeFileSchemaVersion": "1.0.0",
+  "jsight": "0.3"
+}

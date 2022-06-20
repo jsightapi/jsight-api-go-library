@@ -1,156 +1,96 @@
 package core
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_splitPath(t *testing.T) {
-	tests := []struct {
-		name string
-		want []string
-	}{
-		{
-			"",
-			[]string{},
-		},
-		{
-			"/",
-			[]string{},
-		},
-		{
-			"////",
-			[]string{},
-		},
-		{
-			"aaa/bbb",
-			[]string{"aaa", "bbb"},
-		},
-		{
-			"/aaa/bbb",
-			[]string{"aaa", "bbb"},
-		},
-		{
-			"/aaa/bbb/",
-			[]string{"aaa", "bbb"},
-		},
-		{
-			"//aaa//bbb//",
-			[]string{"aaa", "bbb"},
-		},
+	cc := map[string][]string{
+		"":             {},
+		"/":            {},
+		"////":         {},
+		"aaa/bbb":      {"aaa", "bbb"},
+		"/aaa/bbb":     {"aaa", "bbb"},
+		"/aaa/bbb/":    {"aaa", "bbb"},
+		"//aaa//bbb//": {"aaa", "bbb"},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := splitPath(tt.name); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("splitPath() = %v, want %v", got, tt.want)
-			}
+
+	for given, expected := range cc {
+		t.Run(given, func(t *testing.T) {
+			actual := splitPath(given)
+			assert.Equal(t, expected, actual)
 		})
 	}
 }
 
 func Test_PathParameters(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
-		tests := []struct {
-			name string
-			want []PathParameter
-		}{
-			{
-				"",
-				[]PathParameter{},
+		cc := map[string][]PathParameter{
+			"":     {},
+			"/":    {},
+			"/aaa": {},
+			"/aaa/{id}": {
+				{"aaa/{id}", "id"},
 			},
-			{
-				"/",
-				[]PathParameter{},
+			"/aaa/{id}/bbb/{some}": {
+				{"aaa/{id}", "id"},
+				{"aaa/{id}/bbb/{some}", "some"},
 			},
-			{
-				"/aaa",
-				[]PathParameter{},
-			},
-			{
-				"/aaa/{id}",
-				[]PathParameter{
-					{"aaa/{id}", "id"},
-				},
-			},
-			{
-				"/aaa/{id}/bbb/{some}",
-				[]PathParameter{
-					{"aaa/{id}", "id"},
-					{"aaa/{id}/bbb/{some}", "some"},
-				},
-			},
-			{
-				"///aaa///{id}///",
-				[]PathParameter{
-					{"aaa/{id}", "id"},
-				},
+			"///aaa///{id}///": {
+				{"aaa/{id}", "id"},
 			},
 		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				got, err := PathParameters(tt.name)
-				if err != nil {
-					t.Errorf("PathParameters() error = %v", err)
-					return
-				}
-				if !reflect.DeepEqual(got, tt.want) {
-					t.Errorf("PathParameters() got = %v, want %v", got, tt.want)
-				}
+
+		for given, expected := range cc {
+			t.Run(given, func(t *testing.T) {
+				acual, err := PathParameters(given)
+				require.NoError(t, err)
+				assert.Equal(t, expected, acual)
 			})
 		}
 	})
 
 	t.Run("negative", func(t *testing.T) {
-		tests := []struct {
-			name string
-		}{
-			{
-				"/aaa/{id}/bbb/{id}",
-			},
-			{
-				"/aaa/{}",
-			},
+		ss := []string{
+			"/aaa/{id}/bbb/{id}",
+			"/aaa/{}",
 		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				_, err := PathParameters(tt.name)
-				if err == nil {
-					t.Error("PathParameters() want error")
-					return
-				}
+
+		for _, s := range ss {
+			t.Run(s, func(t *testing.T) {
+				_, err := PathParameters(s)
+				assert.Error(t, err)
 			})
 		}
 	})
 }
 
 func Test_duplicatedPathParameters(t *testing.T) {
-	tests := []struct {
-		name string
+	cc := map[string]struct {
 		args []PathParameter
 		want string
 	}{
-		{
-			"empty",
+		"empty": {
 			[]PathParameter{},
 			"",
 		},
-		{
-			"one",
+		"one": {
 			[]PathParameter{
 				{"any string", "id"},
 			},
 			"",
 		},
-		{
-			"two",
+		"two": {
 			[]PathParameter{
 				{"any string", "id"},
 				{"any string", "name"},
 			},
 			"",
 		},
-		{
-			"three",
+		"three": {
 			[]PathParameter{
 				{"any string", "id"},
 				{"any string", "name"},
@@ -159,11 +99,11 @@ func Test_duplicatedPathParameters(t *testing.T) {
 			"id",
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := duplicatedPathParameters(tt.args); got != tt.want {
-				t.Errorf("HasDuplicationPathParameters() = %v, want %v", got, tt.want)
-			}
+
+	for n, c := range cc {
+		t.Run(n, func(t *testing.T) {
+			got := duplicatedPathParameters(c.args)
+			assert.Equal(t, c.want, got)
 		})
 	}
 }

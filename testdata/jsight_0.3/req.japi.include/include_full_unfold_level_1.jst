@@ -1,0 +1,91 @@
+JSIGHT 0.3
+
+INFO
+    INCLUDE mixins/info/title.jst
+    INCLUDE mixins/info/version.jst
+    INCLUDE mixins/info/description.jst
+
+SERVER @foo
+    INCLUDE mixins/server/base_url.jst
+
+GET /get
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+
+GET /get/{id}
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+    INCLUDE mixins/http_methods/path.jst
+
+POST /post
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+
+POST /post/{id}
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+    INCLUDE mixins/http_methods/path.jst
+
+PUT /put
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+
+PUT /put/{id}
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+    INCLUDE mixins/http_methods/path.jst
+
+PATCH /patch
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+
+PATCH /patch/{id}
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+    INCLUDE mixins/http_methods/path.jst
+
+DELETE /delete
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+
+DELETE /delete/{id}
+    INCLUDE mixins/http_methods/description.jst
+    INCLUDE mixins/http_methods/request.jst
+    INCLUDE mixins/http_methods/responses.jst
+    INCLUDE mixins/http_methods/query.jst
+    INCLUDE mixins/http_methods/path.jst
+
+URL /url
+    INCLUDE mixins/url/http_methods.jst
+
+URL /url/{id}
+    INCLUDE mixins/url/path.jst
+    INCLUDE mixins/url/http_methods.jst
+
+TYPE @foo
+{
+    "foo": 1
+}
+
+TYPE @bar
+{
+    "bar": 2
+}
