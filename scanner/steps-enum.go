@@ -10,7 +10,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func stateE(s *Scanner, c byte) *jerr.JAPIError {
+func stateE(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'N':
 		s.step = stateEN
@@ -20,7 +20,7 @@ func stateE(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateEN(s *Scanner, c byte) *jerr.JAPIError {
+func stateEN(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'U':
 		s.step = stateENU
@@ -30,7 +30,7 @@ func stateEN(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateENU(s *Scanner, c byte) *jerr.JAPIError {
+func stateENU(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'M':
 		s.found(KeywordEnd)
@@ -42,7 +42,7 @@ func stateENU(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateEnumBody(s *Scanner, c byte) *jerr.JAPIError {
+func stateEnumBody(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c), caseNewLine(c):
 		return nil
@@ -56,7 +56,7 @@ func stateEnumBody(s *Scanner, c byte) *jerr.JAPIError {
 }
 
 // pass rest of the file to jsc scanner to find out where array ends
-func (s *Scanner) scanJsonArray(_ byte) *jerr.JAPIError {
+func (s *Scanner) scanJsonArray(_ byte) *jerr.JApiError {
 	s.found(JsonArrayBegin)
 	arrLength, je := s.readArrayWithJsc()
 	if je != nil {
@@ -67,7 +67,7 @@ func (s *Scanner) scanJsonArray(_ byte) *jerr.JAPIError {
 	return nil
 }
 
-func (s *Scanner) readArrayWithJsc() (uint, *jerr.JAPIError) {
+func (s *Scanner) readArrayWithJsc() (uint, *jerr.JApiError) {
 	b := s.file.Content()
 	bb := b.Slice(s.curIndex, bytes.Index(b.Len()-1))
 	f := fs.NewFile("", bb)

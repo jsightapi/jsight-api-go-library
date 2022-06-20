@@ -108,6 +108,14 @@ func (m *UserSchemas) Each(fn each{{ .CapitalizedName }}Func) error {
 
 type each{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }}) error
 
+func (m *{{ .Name }}) EachSafe(fn eachSafe{{ .CapitalizedName }}Func) {
+	for _, k := range m.order {
+		fn(k, m.data[k])
+	}
+}
+
+type eachSafe{{ .CapitalizedName }}Func = func(k {{ .KeyType }}, v {{ .ValueType }})
+
 // Map iterates and changes values in the map.
 func (m *{{ .Name }}) Map(fn map{{ .CapitalizedName }}Func) error {
 	for _, k := range m.order {

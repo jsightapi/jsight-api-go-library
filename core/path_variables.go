@@ -17,7 +17,7 @@ type prop struct {
 	directive           directive.Directive
 }
 
-func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.PathVariables, *jerr.JAPIError) {
+func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.PathVariables, *jerr.JApiError) {
 	s := catalog.NewSchema(notation.SchemaNotationJSight)
 	s.ContentJSight = &catalog.SchemaContentJSight{
 		IsKeyUserTypeRef: false,

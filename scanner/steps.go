@@ -4,14 +4,14 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func stateRoot(s *Scanner, c byte) *jerr.JAPIError {
+func stateRoot(s *Scanner, c byte) *jerr.JApiError {
 	if c == CommentSign {
 		return s.startComment()
 	}
 	return stateExpectKeyword(s, c)
 }
 
-func stateExpectKeyword(s *Scanner, c byte) *jerr.JAPIError {
+func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseNewLine(c), caseWhitespace(c), EOF:
 		return nil
@@ -49,7 +49,7 @@ func stateExpectKeyword(s *Scanner, c byte) *jerr.JAPIError {
 		s.found(KeywordBegin)
 		s.step = stateS
 		return nil
-	case 'I': // INFO
+	case 'I': // INFO, INCLUDE
 		s.found(KeywordBegin)
 		s.step = stateI
 		return nil
@@ -93,7 +93,7 @@ func stateExpectKeyword(s *Scanner, c byte) *jerr.JAPIError {
 	return s.japiErrorUnexpectedChar("at directive beginning", "")
 }
 
-func stateB(s *Scanner, c byte) *jerr.JAPIError {
+func stateB(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'o': // Body
 		s.step = stateBo
@@ -106,7 +106,7 @@ func stateB(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateD(s *Scanner, c byte) *jerr.JAPIError {
+func stateD(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'E': // DELETE
 		s.step = stateDE
@@ -132,7 +132,7 @@ func stateM(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateP(s *Scanner, c byte) *jerr.JAPIError {
+func stateP(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'O': // POST
 		s.step = statePO
@@ -154,7 +154,7 @@ func stateP(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func statePA(s *Scanner, c byte) *jerr.JAPIError {
+func statePA(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'S': // PASTE
 		s.step = statePAS
@@ -203,7 +203,7 @@ func stateRe(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateT(s *Scanner, c byte) *jerr.JAPIError {
+func stateT(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'i': // Title
 		s.step = stateTi
@@ -218,7 +218,7 @@ func stateT(s *Scanner, c byte) *jerr.JAPIError {
 
 // this is only good until schema takes up whole body.
 // if we later need to continue body after schema, we can make processSchema() take 'nextStep' func as a parameter.
-func stateSchemaClosed(s *Scanner, c byte) *jerr.JAPIError {
+func stateSchemaClosed(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c):
 		s.foundAt(s.curIndex-1, SchemaEnd)
@@ -233,7 +233,7 @@ func stateSchemaClosed(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateJsonArrayClosed(s *Scanner, c byte) *jerr.JAPIError {
+func stateJsonArrayClosed(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c):
 		s.found(JsonArrayEnd)
@@ -250,7 +250,7 @@ func stateJsonArrayClosed(s *Scanner, c byte) *jerr.JAPIError {
 
 // any directive's body, not the "Body" directive
 // this state allows comments, because body was properly ended at least with whitespace
-func stateBodyEnded(s *Scanner, c byte) *jerr.JAPIError {
+func stateBodyEnded(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c):
 		return nil
@@ -264,7 +264,7 @@ func stateBodyEnded(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateContextClosed(s *Scanner, c byte) *jerr.JAPIError {
+func stateContextClosed(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c), EOF:
 		return nil
@@ -278,7 +278,7 @@ func stateContextClosed(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateContextOpenedOnNewline(s *Scanner, c byte) *jerr.JAPIError {
+func stateContextOpenedOnNewline(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case caseWhitespace(c):
 		return nil

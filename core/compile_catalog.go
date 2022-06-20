@@ -12,7 +12,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
-func (core *JApiCore) compileCatalog() *jerr.JAPIError {
+func (core *JApiCore) compileCatalog() *jerr.JApiError {
 	if je := core.ProcessAllOf(); je != nil {
 		return je
 	}
@@ -28,7 +28,7 @@ func (core *JApiCore) compileCatalog() *jerr.JAPIError {
 	return core.BuildResourceMethodsPathVariables()
 }
 
-func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JAPIError {
+func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
 	for i := 0; i < len(core.rawPathVariables); i++ {
 		r := &core.rawPathVariables[i]
 
@@ -54,7 +54,7 @@ func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JAPIError {
 	return nil
 }
 
-func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JAPIError {
+func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
 	for i := 0; i < len(core.rawPathVariables); i++ {
 		if err := checkPathSchema(core.rawPathVariables[i].schema); err != nil {
 			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
@@ -93,7 +93,7 @@ func checkPathSchema(s catalog.Schema) error {
 	return nil
 }
 
-func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JAPIError {
+func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	allProjectProperties := make(map[catalog.Path]prop)
 	for _, v := range core.rawPathVariables {
 		pp := core.propertiesToMap(v.schema.ContentJSight.Children)
@@ -140,7 +140,7 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JAPIError {
 		return resourceMethod, nil
 	})
 	if err != nil {
-		return err.(*jerr.JAPIError) //nolint:errorlint
+		return err.(*jerr.JApiError) //nolint:errorlint
 	}
 
 	return nil
@@ -171,53 +171,39 @@ func (*JApiCore) getPropertiesNames(pp map[string]*catalog.SchemaContentJSight) 
 	return strings.TrimSuffix(buf.String(), ", ")
 }
 
-func (core *JApiCore) ProcessAllOf() *jerr.JAPIError {
-	var err *jerr.JAPIError
-
-	err = core.processUserTypes()
-	if err != nil {
-		return err
+func (core *JApiCore) ProcessAllOf() *jerr.JApiError {
+	if je := core.processUserTypes(); je != nil {
+		return je
 	}
 
-	err = core.processBaseUrlAllOf()
-	if err != nil {
-		return err
+	if je := core.processBaseUrlAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processRawPathVariablesAllOf()
-	if err != nil {
-		return err
+	if je := core.processRawPathVariablesAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processQueryAllOf()
-	if err != nil {
-		return err
+	if je := core.processQueryAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processRequestHeaderAllOf()
-	if err != nil {
-		return err
+	if je := core.processRequestHeaderAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processRequestAllOf()
-	if err != nil {
-		return err
+	if je := core.processRequestAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processResponseHeaderAllOf()
-	if err != nil {
-		return err
+	if je := core.processResponseHeaderAllOf(); je != nil {
+		return je
 	}
 
-	err = core.processResponseAllOf()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return core.processResponseAllOf()
 }
 
-func (core *JApiCore) processUserTypes() *jerr.JAPIError {
+func (core *JApiCore) processUserTypes() *jerr.JApiError {
 	return adoptError(core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
 		if v.Schema.Notation == notation.SchemaNotationJSight {
 			if err := core.processSchemaContentJSightAllOf(v.Schema.ContentJSight, v.Schema.UsedUserTypes); err != nil {
@@ -228,7 +214,7 @@ func (core *JApiCore) processUserTypes() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processBaseUrlAllOf() *jerr.JAPIError {
+func (core *JApiCore) processBaseUrlAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
 		s := v.BaseUrlVariables
 		if s != nil && s.Schema != nil && s.Schema.Notation == notation.SchemaNotationJSight {
@@ -240,7 +226,7 @@ func (core *JApiCore) processBaseUrlAllOf() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JAPIError {
+func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JApiError {
 	for _, r := range core.rawPathVariables {
 		if r.schema.Notation == notation.SchemaNotationJSight {
 			if err := core.processSchemaContentJSightAllOf(r.schema.ContentJSight, r.schema.UsedUserTypes); err != nil {
@@ -251,7 +237,7 @@ func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JAPIError {
 	return nil
 }
 
-func (core *JApiCore) processQueryAllOf() *jerr.JAPIError {
+func (core *JApiCore) processQueryAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		q := v.Query
 		if q != nil && q.Schema != nil && q.Schema.Notation == notation.SchemaNotationJSight {
@@ -263,7 +249,7 @@ func (core *JApiCore) processQueryAllOf() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processRequestHeaderAllOf() *jerr.JAPIError {
+func (core *JApiCore) processRequestHeaderAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		r := v.Request
 		if r != nil && r.HTTPRequestHeaders != nil && r.HTTPRequestHeaders.Schema != nil && r.HTTPRequestHeaders.Schema.Notation == notation.SchemaNotationJSight {
@@ -276,7 +262,7 @@ func (core *JApiCore) processRequestHeaderAllOf() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processRequestAllOf() *jerr.JAPIError {
+func (core *JApiCore) processRequestAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		r := v.Request
 		if r != nil && r.HTTPRequestBody != nil && r.HTTPRequestBody.Schema != nil && r.HTTPRequestBody.Schema.Notation == notation.SchemaNotationJSight {
@@ -289,7 +275,7 @@ func (core *JApiCore) processRequestAllOf() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processResponseHeaderAllOf() *jerr.JAPIError {
+func (core *JApiCore) processResponseHeaderAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		for _, resp := range v.Responses {
 			h := resp.Headers
@@ -303,7 +289,7 @@ func (core *JApiCore) processResponseHeaderAllOf() *jerr.JAPIError {
 	}))
 }
 
-func (core *JApiCore) processResponseAllOf() *jerr.JAPIError {
+func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		for _, resp := range v.Responses {
 			b := resp.Body

@@ -7,18 +7,29 @@ import (
 )
 
 func Test_IsHTTPResponseCode(t *testing.T) {
-	assert.True(t, IsHTTPResponseCode("100"))
-	assert.True(t, IsHTTPResponseCode("200"))
-	assert.True(t, IsHTTPResponseCode("300"))
-	assert.True(t, IsHTTPResponseCode("400"))
-	assert.True(t, IsHTTPResponseCode("500"))
-	assert.True(t, IsHTTPResponseCode("526"))
+	cc := map[string]bool{
+		"100": true,
+		"200": true,
+		"300": true,
+		"400": true,
+		"500": true,
+		"526": true,
 
-	assert.False(t, IsHTTPResponseCode("527"))
-	assert.False(t, IsHTTPResponseCode("999"))
+		"99":  false,
+		"527": false,
+		"999": false,
 
-	assert.False(t, IsHTTPResponseCode(""))
-	assert.False(t, IsHTTPResponseCode("AAA"))
-	assert.False(t, IsHTTPResponseCode("0"))
-	assert.False(t, IsHTTPResponseCode("00100"))
+		"":      false,
+		"AAA":   false,
+		"0":     false,
+		"00100": false,
+		"3.14":  false,
+	}
+
+	for given, expected := range cc {
+		t.Run(given, func(t *testing.T) {
+			actual := IsHTTPResponseCode(given)
+			assert.Equal(t, expected, actual)
+		})
+	}
 }

@@ -9,7 +9,7 @@ import (
 )
 
 // Pass rest of the file to jsc scanner to find out where jschema ends
-func stateJSchema(s *Scanner, _ byte) *jerr.JAPIError {
+func stateJSchema(s *Scanner, _ byte) *jerr.JApiError {
 	s.found(SchemaBegin)
 	schemaLength, je := s.readSchemaWithJsc()
 	if je != nil {
@@ -22,7 +22,7 @@ func stateJSchema(s *Scanner, _ byte) *jerr.JAPIError {
 	return nil
 }
 
-func (s *Scanner) readSchemaWithJsc() (uint, *jerr.JAPIError) {
+func (s *Scanner) readSchemaWithJsc() (uint, *jerr.JApiError) {
 	b := s.file.Content()
 	bb := b.Slice(s.curIndex, bytes.Index(b.Len()-1))
 	f := fs.NewFile("", bb)

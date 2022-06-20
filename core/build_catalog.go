@@ -15,7 +15,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
-func (core *JApiCore) buildCatalog() *jerr.JAPIError {
+func (core *JApiCore) buildCatalog() *jerr.JApiError {
 	if len(core.directivesWithPastes) != 0 && core.directivesWithPastes[0].Type() != directive.Jsight {
 		return core.directivesWithPastes[0].KeywordError("JSIGHT should be the first directive")
 	}
@@ -23,7 +23,7 @@ func (core *JApiCore) buildCatalog() *jerr.JAPIError {
 	return core.addDirectives()
 }
 
-func (core *JApiCore) compileUserTypes() *jerr.JAPIError {
+func (core *JApiCore) compileUserTypes() *jerr.JApiError {
 	// Two-phase algorithm. On the first step we just create schema for each user
 	// type. On the second step we will add all schema to all.
 	// This is the simplest solution which allows us to skip building dependency
@@ -39,7 +39,7 @@ func (core *JApiCore) compileUserTypes() *jerr.JAPIError {
 	return adoptError(err)
 }
 
-func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
+func (core *JApiCore) buildUserTypes() *jerr.JApiError {
 	core.Catalog().GetRawUserTypes().EachSafe(func(k string, v *directive.Directive) {
 		switch notation.SchemaNotation(v.Parameter("SchemaNotation")) {
 		case "", notation.SchemaNotationJSight:
@@ -108,7 +108,7 @@ func (core *JApiCore) buildUserTypes() *jerr.JAPIError {
 	return adoptError(err)
 }
 
-func adoptError(err error) (e *jerr.JAPIError) {
+func adoptError(err error) (e *jerr.JApiError) {
 	if err == nil {
 		return nil
 	}
@@ -120,7 +120,7 @@ func adoptError(err error) (e *jerr.JAPIError) {
 	panic(fmt.Sprintf("Invalid error was given: %#v", err))
 }
 
-func (core *JApiCore) buildUserType(name string) *jerr.JAPIError {
+func (core *JApiCore) buildUserType(name string) *jerr.JApiError {
 	if _, ok := core.processedUserTypes[name]; ok {
 		// This user type already processed, skip.
 		return nil
@@ -240,7 +240,7 @@ func (core *JApiCore) fetchUsedUserTypes(
 	return nil
 }
 
-func (core *JApiCore) checkUserType(name string) *jerr.JAPIError {
+func (core *JApiCore) checkUserType(name string) *jerr.JApiError {
 	err := core.userTypes.GetValue(name).Check()
 	if err == nil {
 		return nil
@@ -259,7 +259,7 @@ func (core *JApiCore) checkUserType(name string) *jerr.JAPIError {
 	return d.BodyErrorIndex(e.Message(), e.Position())
 }
 
-func jschemaToJAPIError(err error, d *directive.Directive) *jerr.JAPIError {
+func jschemaToJAPIError(err error, d *directive.Directive) *jerr.JApiError {
 	var e kit.Error
 	if errors.As(err, &e) {
 		return d.BodyErrorIndex(e.Message(), e.Position())

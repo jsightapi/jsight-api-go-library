@@ -16,7 +16,7 @@ func statePat(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func statePathBody(s *Scanner, c byte) *jerr.JAPIError {
+func statePathBody(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case ContextOpenSign:
 		s.found(ContextOpen)

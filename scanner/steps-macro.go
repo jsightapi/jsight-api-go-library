@@ -14,7 +14,7 @@ func stateMA(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateMAC(s *Scanner, c byte) *jerr.JAPIError {
+func stateMAC(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'R':
 		s.step = stateMACR
@@ -24,7 +24,7 @@ func stateMAC(s *Scanner, c byte) *jerr.JAPIError {
 	}
 }
 
-func stateMACR(s *Scanner, c byte) *jerr.JAPIError {
+func stateMACR(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'O':
 		s.found(KeywordEnd)

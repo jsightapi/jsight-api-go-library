@@ -1,0 +1,3 @@
+duplicate type name "@foo"
+/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/mixins/types.jst:1
+/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/err_0_type_name_duplication_2.jst:8
