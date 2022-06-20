@@ -493,8 +493,11 @@ func TestUnmarshalSchema(t *testing.T) {
 							},
 						},
 					},
-					UsedUserTypes: &StringSet{},
+					UsedUserTypes: NewStringSet("@foo"),
 					UsedUserEnums: &StringSet{},
+				},
+				userTypes: map[string]string{
+					"@foo": `"abc" // {minLength: 3}`,
 				},
 			},
 
