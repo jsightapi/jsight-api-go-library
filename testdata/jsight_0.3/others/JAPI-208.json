@@ -1,29 +1,29 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
+  "jdocExchangeVersion": "2.0.0",
   "jsight": "0.3",
   "userTypes": {
     "@cat": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
           "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
+              "scalarValue": "1",
+              "optional": false
             }
-          }
-        }
+          ]
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cats": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cats": {
       "path": "/cats",
       "tags": [
         "@cats"
@@ -34,44 +34,48 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "array",
+                "tokenType": "array",
                 "type": "array",
                 "optional": false,
-                "items": [
+                "children": [
                   {
-                    "jsonType": "shortcut",
+                    "tokenType": "shortcut",
                     "type": "@cat",
-                    "optional": true,
-                    "scalarValue": "@cat"
+                    "scalarValue": "@cat",
+                    "optional": true
                   },
                   {
-                    "jsonType": "shortcut",
+                    "tokenType": "shortcut",
                     "type": "@cat",
-                    "optional": true,
-                    "scalarValue": "@cat"
+                    "scalarValue": "@cat",
+                    "optional": true
                   }
                 ]
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
               ]
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
   "tags": {
     "@cats": {
       "name": "@cats",
       "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "GET /cats"
-        ]
-      }
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats"
+          ]
+        }
+      ]
     }
   }
 }

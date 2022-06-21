@@ -1,47 +1,60 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/enemies"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@dog": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "ok": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "ok",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "ok"
+              "scalarValue": "ok",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@pig": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "ok": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "ok",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "ok"
+              "scalarValue": "ok",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cats/enemies": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cats/enemies": {
       "path": "/cats/enemies",
       "tags": [
         "@cats"
@@ -52,13 +65,13 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "shortcut",
                 "type": "mixed",
-                "optional": false,
-                "scalarValue": "@dog | @pig"
+                "scalarValue": "@dog | @pig",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@dog",
                 "@pig"
@@ -66,18 +79,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/enemies": [
-          "GET /cats/enemies"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }
