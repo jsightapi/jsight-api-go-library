@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
 
@@ -160,6 +161,7 @@ func (c *Catalog) AddResponseBody(
 	sn notation.SchemaNotation,
 	d directive.Directive,
 	tt *UserSchemas,
+	rr map[string]jschemaLib.Rule,
 ) *jerr.JApiError {
 	rk, err := newHttpInteractionId(d)
 	if err != nil {
@@ -177,7 +179,7 @@ func (c *Catalog) AddResponseBody(
 		return d.KeywordError(fmt.Sprintf("%s for %q", jerr.ResponsesIsEmpty, rk.String()))
 	}
 
-	httpResponseBody, je := NewHTTPResponseBody(schemaName, schemaBytes, bodyFormat, sn, d, tt)
+	httpResponseBody, je := NewHTTPResponseBody(schemaName, schemaBytes, bodyFormat, sn, d, tt, rr)
 	if je != nil {
 		return je
 	}
@@ -274,6 +276,7 @@ func (c *Catalog) AddBaseUrl(serverName string, path string) error {
 func (c *Catalog) AddType(
 	d directive.Directive,
 	tt *UserSchemas,
+	rr map[string]jschemaLib.Rule,
 ) *jerr.JApiError {
 	name := d.Parameter("Name")
 
@@ -296,7 +299,7 @@ func (c *Catalog) AddType(
 			return d.KeywordError(jerr.EmptyBody)
 		}
 		b := d.BodyCoords.Read()
-		schema, err := UnmarshalSchema(name, b, tt)
+		schema, err := UnmarshalSchema(name, b, tt, rr)
 		if err != nil {
 			var e kit.Error
 			if errors.As(err, &e) {

@@ -53,57 +53,8 @@ func (core *JApiCore) buildUserTypes() *jerr.JApiError {
 		}
 	})
 
-	err := core.userTypes.Each(func(name string, currUT jschemaLib.Schema) error {
-		if _, ok := core.processedUserTypes[name]; ok {
-			// This user type already built, skip.
-			return nil
-		}
-		core.processedUserTypes[name] = struct{}{}
-
-		dd := core.catalog.GetRawUserTypes()
-
-		tt, err := core.getUsedUserTypes(currUT)
-		if err != nil {
-			return jschemaToJAPIError(err, dd.GetValue(name))
-		}
-
-		alreadyAddedTypes := map[string]struct{}{}
-
-		for _, n := range tt {
-			if n != name {
-				if err := core.buildUserType(n); err != nil {
-					return err
-				}
-			}
-
-			ut := core.userTypes.GetValue(n)
-			if ut == nil {
-				continue
-			}
-
-			if _, ok := alreadyAddedTypes[n]; !ok {
-				if n != name {
-					if err := ut.Check(); err != nil {
-						return jschemaToJAPIError(err, dd.GetValue(n))
-					}
-				}
-
-				if err := safeAddType(currUT, n, ut); err != nil {
-					return jschemaToJAPIError(err, dd.GetValue(n))
-				}
-				alreadyAddedTypes[n] = struct{}{}
-			}
-		}
-
-		// Check user type is correct.
-		// We should do it here 'cause it will simplify further processing.
-		if err := currUT.Check(); err != nil {
-			return jschemaToJAPIError(err, dd.GetValue(name))
-		}
-
-		core.userTypes.Set(name, currUT)
-
-		return nil
+	err := core.userTypes.Each(func(n string, _ jschemaLib.Schema) error {
+		return core.compileUserTypeWithAllDependencies(n)
 	})
 	return adoptError(err)
 }
@@ -120,11 +71,12 @@ func adoptError(err error) (e *jerr.JApiError) {
 	panic(fmt.Sprintf("Invalid error was given: %#v", err))
 }
 
-func (core *JApiCore) buildUserType(name string) *jerr.JApiError {
+func (core *JApiCore) compileUserTypeWithAllDependencies(name string) error {
 	if _, ok := core.processedUserTypes[name]; ok {
 		// This user type already processed, skip.
 		return nil
 	}
+	core.processedUserTypes[name] = struct{}{}
 
 	currUT := core.userTypes.GetValue(name)
 	if currUT == nil {
@@ -133,37 +85,36 @@ func (core *JApiCore) buildUserType(name string) *jerr.JApiError {
 
 	dd := core.catalog.GetRawUserTypes()
 
+	// Add rules before we try to do something with the type.
+	for n, r := range core.rules {
+		if err := currUT.AddRule(n, r); err != nil {
+			return jschemaToJAPIError(err, dd.GetValue(n))
+		}
+	}
+
 	tt, err := core.getUsedUserTypes(currUT)
 	if err != nil {
 		return jschemaToJAPIError(err, dd.GetValue(name))
 	}
 
-	core.processedUserTypes[name] = struct{}{}
-	alreadyAddedTypes := map[string]struct{}{}
-
 	for _, n := range tt {
-		if n != name {
-			if err := core.buildUserType(n); err != nil {
-				return err
-			}
-		}
-
 		ut := core.userTypes.GetValue(n)
 		if ut == nil {
 			continue
 		}
 
-		if _, ok := alreadyAddedTypes[n]; !ok {
-			if n != name {
-				if err := core.checkUserTypeDuringBuild(n, ut); err != nil {
-					return jschemaToJAPIError(err, dd.GetValue(n))
-				}
+		if n != name {
+			if err := core.compileUserTypeWithAllDependencies(n); err != nil {
+				return err
 			}
 
-			if err := safeAddType(currUT, n, ut); err != nil {
+			if err := core.checkUserTypeDuringBuild(n, ut); err != nil {
 				return jschemaToJAPIError(err, dd.GetValue(n))
 			}
-			alreadyAddedTypes[n] = struct{}{}
+		}
+
+		if err := safeAddType(currUT, n, ut); err != nil {
+			return jschemaToJAPIError(err, dd.GetValue(n))
 		}
 	}
 

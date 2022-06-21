@@ -67,7 +67,7 @@ func (core *JApiCore) next(lexeme scanner.Lexeme) *jerr.JApiError {
 		core.processAnnotation(lexeme)
 		return nil
 
-	case scanner.Schema, scanner.Array, scanner.Text, scanner.Json:
+	case scanner.Schema, scanner.Text, scanner.Json, scanner.Enum:
 		core.processBody(lexeme)
 		return nil
 

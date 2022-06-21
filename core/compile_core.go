@@ -18,6 +18,10 @@ func (core *JApiCore) compileCore() *jerr.JApiError {
 		return je
 	}
 
+	if je := core.collectRules(); je != nil {
+		return je
+	}
+
 	core.collectUserTypes()
 
 	if je := core.compileUserTypes(); je != nil {

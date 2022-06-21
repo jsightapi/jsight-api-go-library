@@ -667,7 +667,7 @@ func TestUnmarshalSchema(t *testing.T) {
 				for n, p := range c.userTypes {
 					tt.Set(n, jschema.New(n, []byte(p)))
 				}
-				actual, err := UnmarshalSchema("foo", []byte(b), tt)
+				actual, err := UnmarshalSchema("foo", []byte(b), tt, nil)
 				require.NoError(t, err)
 				assert.EqualValues(t, c.expected, actual)
 			})
@@ -930,7 +930,7 @@ func TestSchema_MarshalJSON_Order(t *testing.T) {
 
 	for _, c := range cc {
 		t.Run(c.schema, func(t *testing.T) {
-			s, err := UnmarshalSchema("", []byte(c.schema), &UserSchemas{})
+			s, err := UnmarshalSchema("", []byte(c.schema), &UserSchemas{}, nil)
 			require.NoError(t, err)
 
 			ss := make([]string, 0, len(s.ContentJSight.Children))
