@@ -1,25 +1,17 @@
 package catalog
 
-import (
-	"encoding/json"
-)
-
 type TagHttpInteractionGroup struct {
-	protocol     Protocol
-	interactions []InteractionId
+	Protocol     Protocol        `json:"protocol"`
+	Interactions []InteractionId `json:"interactions"`
 }
 
 func newTagHttpInteractionGroup() *TagHttpInteractionGroup {
 	return &TagHttpInteractionGroup{
-		protocol:     http,
-		interactions: make([]InteractionId, 0, 5),
+		Protocol:     http,
+		Interactions: make([]InteractionId, 0, 5),
 	}
 }
 
 func (l *TagHttpInteractionGroup) append(i InteractionId) {
-	l.interactions = append(l.interactions, i)
-}
-
-func (l TagHttpInteractionGroup) MarshalJSON() ([]byte, error) {
-	return json.Marshal(l.interactions)
+	l.Interactions = append(l.Interactions, i)
 }

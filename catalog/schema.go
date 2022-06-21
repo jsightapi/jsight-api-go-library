@@ -368,7 +368,7 @@ func (c SchemaContentJSight) MarshalJSON() (b []byte, err error) {
 func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	var data struct {
 		Rules            *Rules                 `json:"rules,omitempty"`
-		Key              string                 `json:"key"`
+		Key              string                 `json:"key,omitempty"`
 		TokenType        string                 `json:"tokenType,omitempty"`
 		Type             string                 `json:"type,omitempty"`
 		InheritedFrom    string                 `json:"inheritedFrom,omitempty"`
@@ -388,7 +388,7 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	if c.Rules != nil && c.Rules.Len() > 0 {
 		data.Rules = c.Rules
 	}
-	if c.Children != nil && len(c.Children) > 0 {
+	if len(c.Children) > 0 {
 		data.Children = c.Children
 	}
 
@@ -398,7 +398,8 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	var data struct {
 		Rules            *Rules                 `json:"rules,omitempty"`
-		TokenType        string                 `json:"rokenType,omitempty"`
+		Key              string                 `json:"key,omitempty"`
+		TokenType        string                 `json:"tokenType,omitempty"`
 		Type             string                 `json:"type,omitempty"`
 		InheritedFrom    string                 `json:"inheritedFrom,omitempty"`
 		Note             string                 `json:"note,omitempty"`
@@ -407,6 +408,7 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 		Children         []*SchemaContentJSight `json:"children"`
 	}
 
+	data.Key = c.Key
 	data.IsKeyUserTypeRef = c.IsKeyUserTypeRef
 	data.TokenType = c.TokenType
 	data.Type = c.Type
@@ -416,7 +418,7 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	if c.Rules != nil && c.Rules.Len() > 0 {
 		data.Rules = c.Rules
 	}
-	if c.Children != nil && len(c.Children) > 0 {
+	if len(c.Children) > 0 {
 		data.Children = c.Children
 	}
 
@@ -426,6 +428,7 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 	var data struct {
 		Rules            *Rules `json:"rules,omitempty"`
+		Key              string `json:"key,omitempty"`
 		TokenType        string `json:"tokenType,omitempty"`
 		Type             string `json:"type,omitempty"`
 		ScalarValue      string `json:"scalarValue"`
@@ -435,6 +438,7 @@ func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 		Optional         bool   `json:"optional"`
 	}
 
+	data.Key = c.Key
 	data.IsKeyUserTypeRef = c.IsKeyUserTypeRef
 	data.TokenType = c.TokenType
 	data.Type = c.Type

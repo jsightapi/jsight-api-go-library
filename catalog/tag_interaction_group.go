@@ -2,7 +2,6 @@ package catalog
 
 type TagInteractionGroup interface {
 	append(i InteractionId)
-	MarshalJSON() ([]byte, error)
 }
 
 func newTagInteractionGroup(p Protocol) TagInteractionGroup {
