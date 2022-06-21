@@ -190,7 +190,6 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 				&catalog.SchemaContentJSight{
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
-					Rules:     &catalog.Rules{},
 				},
 				catalog.NewStringSet(),
 				[]*catalog.SchemaContentJSight{},
@@ -218,14 +217,13 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
 					Rules: catalog.NewRules(
-						map[string]catalog.Rule{
-							"allOf": {
+						[]catalog.Rule{
+							{
+								Key:         "allOf",
 								TokenType:   jschema.JSONTypeString,
 								ScalarValue: "@foo",
-								Properties:  &catalog.Rules{},
 							},
 						},
-						[]string{"allOf"},
 					),
 				},
 				catalog.NewStringSet("@foo"),
@@ -274,25 +272,22 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
 					Rules: catalog.NewRules(
-						map[string]catalog.Rule{
-							"allOf": {
-								TokenType:  jschema.JSONTypeArray,
-								Properties: &catalog.Rules{},
-								Items: []catalog.Rule{
+						[]catalog.Rule{
+							{
+								Key:       "allOf",
+								TokenType: jschema.JSONTypeArray,
+								Children: []catalog.Rule{
 									{
 										TokenType:   jschema.JSONTypeString,
 										ScalarValue: "@foo",
-										Properties:  &catalog.Rules{},
 									},
 									{
 										TokenType:   jschema.JSONTypeString,
 										ScalarValue: "@bar",
-										Properties:  &catalog.Rules{},
 									},
 								},
 							},
 						},
-						[]string{"allOf"},
 					),
 				},
 				catalog.NewStringSet("@bar", "@foo"),

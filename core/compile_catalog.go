@@ -315,8 +315,8 @@ func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJ
 	if rule, ok := sc.Rules.Get("allOf"); ok {
 		switch rule.TokenType {
 		case jschema.JSONTypeArray:
-			for i := len(rule.Items) - 1; i >= 0; i-- {
-				r := rule.Items[i]
+			for i := len(rule.Children) - 1; i >= 0; i-- {
+				r := rule.Children[i]
 				if err := core.inheritPropertiesFromUserType(sc, uut, r.ScalarValue); err != nil {
 					return err
 				}

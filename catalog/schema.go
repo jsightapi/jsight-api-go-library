@@ -120,6 +120,10 @@ func astNodeToJsightContent(
 		}
 	}
 
+	if rules.Len() == 0 {
+		rules = nil
+	}
+
 	c := &SchemaContentJSight{
 		IsKeyUserTypeRef: node.IsKeyShortcut,
 		TokenType:        node.JSONType,
@@ -142,11 +146,12 @@ func astNodeToJsightContent(
 }
 
 func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet) *Rules {
-	rr := &Rules{}
 
 	if node.Rules.Len() == 0 {
-		return rr
+		return &Rules{}
 	}
+
+	rr := newRulesBuilder(node.Rules.Len())
 
 	node.Rules.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
 		switch k {
@@ -195,31 +200,34 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 		rr.Set(k, astNodeToSchemaRule(v))
 	})
 
-	return rr
+	return rr.Rules()
 }
 
 func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
-	properties := &Rules{}
-	if node.Properties.Len() > 0 {
+	rr := newRulesBuilder(node.Properties.Len() + len(node.Items))
+
+	if node.Properties.Len() != 0 {
 		node.Properties.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
-			properties.Set(k, astNodeToSchemaRule(v))
+			rr.Set(k, astNodeToSchemaRule(v))
 		})
 	}
 
-	var items []Rule
-	if len(node.Items) > 0 {
-		items = make([]Rule, 0, len(node.Items))
+	if len(node.Items) != 0 {
 		for _, n := range node.Items {
-			items = append(items, astNodeToSchemaRule(n))
+			rr.Append(astNodeToSchemaRule(n))
 		}
+	}
+
+	var children []Rule
+	if rr.Rules().Len() != 0 {
+		children = rr.Rules().data
 	}
 
 	return Rule{
 		TokenType:   node.JSONType,
 		ScalarValue: node.Value,
 		Note:        node.Comment,
-		Properties:  properties,
-		Items:       items,
+		Children:    children,
 	}
 }
 
@@ -281,7 +289,7 @@ type SchemaContentJSight struct {
 	// Rules a list of attached rules.
 	Rules *Rules
 
-	// Items represent available object properties or array items.
+	// Children represent available object properties or array items.
 	Children []*SchemaContentJSight
 
 	// IsKeyUserTypeRef indicates that this is an object property which is described
@@ -367,7 +375,7 @@ func (c SchemaContentJSight) MarshalJSON() (b []byte, err error) {
 
 func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	var data struct {
-		Rules            *Rules                 `json:"rules,omitempty"`
+		Rules            []Rule                 `json:"rules,omitempty"`
 		Key              string                 `json:"key,omitempty"`
 		TokenType        string                 `json:"tokenType,omitempty"`
 		Type             string                 `json:"type,omitempty"`
@@ -385,10 +393,10 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	data.Optional = c.Optional
 	data.InheritedFrom = c.InheritedFrom
 	data.Note = c.Note
-	if c.Rules != nil && c.Rules.Len() > 0 {
-		data.Rules = c.Rules
+	if c.Rules != nil && c.Rules.Len() != 0 {
+		data.Rules = c.Rules.data
 	}
-	if len(c.Children) > 0 {
+	if len(c.Children) != 0 {
 		data.Children = c.Children
 	}
 
@@ -397,7 +405,7 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 
 func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	var data struct {
-		Rules            *Rules                 `json:"rules,omitempty"`
+		Rules            []Rule                 `json:"rules,omitempty"`
 		Key              string                 `json:"key,omitempty"`
 		TokenType        string                 `json:"tokenType,omitempty"`
 		Type             string                 `json:"type,omitempty"`
@@ -415,10 +423,10 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	data.Optional = c.Optional
 	data.InheritedFrom = c.InheritedFrom
 	data.Note = c.Note
-	if c.Rules != nil && c.Rules.Len() > 0 {
-		data.Rules = c.Rules
+	if c.Rules != nil && c.Rules.Len() != 0 {
+		data.Rules = c.Rules.data
 	}
-	if len(c.Children) > 0 {
+	if len(c.Children) != 0 {
 		data.Children = c.Children
 	}
 
@@ -427,7 +435,7 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 
 func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 	var data struct {
-		Rules            *Rules `json:"rules,omitempty"`
+		Rules            []Rule `json:"rules,omitempty"`
 		Key              string `json:"key,omitempty"`
 		TokenType        string `json:"tokenType,omitempty"`
 		Type             string `json:"type,omitempty"`
@@ -446,8 +454,8 @@ func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 	data.ScalarValue = c.ScalarValue
 	data.InheritedFrom = c.InheritedFrom
 	data.Note = c.Note
-	if c.Rules != nil && c.Rules.Len() > 0 {
-		data.Rules = c.Rules
+	if c.Rules != nil && c.Rules.Len() != 0 {
+		data.Rules = c.Rules.data
 	}
 
 	return json.Marshal(data)

@@ -23,7 +23,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -36,7 +35,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -50,14 +48,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "integer",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -72,7 +70,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "string",
 						Type:        "string",
 						ScalarValue: "foo",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -87,14 +84,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "string",
 						ScalarValue: "foo",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "string",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -109,7 +106,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "number",
 						Type:        "float",
 						ScalarValue: "3.14",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -124,14 +120,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "float",
 						ScalarValue: "3.14",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "float",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -146,7 +142,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "true",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -161,14 +156,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "boolean",
 						ScalarValue: "true",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "boolean",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -183,7 +178,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "false",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -198,14 +192,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "boolean",
 						ScalarValue: "false",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "boolean",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -220,7 +214,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "null",
 						Type:        "null",
 						ScalarValue: "null",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -235,7 +228,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "integer",
 						ScalarValue: "42",
 						Note:        "some note",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -250,19 +242,19 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"min": {
+							data: []Rule{
+								{
+									Key:         "min",
 									TokenType:   "number",
 									ScalarValue: "1",
-									Properties:  &Rules{},
 								},
-								"max": {
+								{
+									Key:         "max",
 									TokenType:   "number",
 									ScalarValue: "100",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"min", "max"},
+							index: map[string]int{"min": 0, "max": 1},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -278,19 +270,19 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"min": {
+							data: []Rule{
+								{
+									Key:         "min",
 									TokenType:   "number",
 									ScalarValue: "1",
-									Properties:  &Rules{},
 								},
-								"max": {
+								{
+									Key:         "max",
 									TokenType:   "number",
 									ScalarValue: "100",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"min", "max"},
+							index: map[string]int{"min": 0, "max": 1},
 						},
 						Note: "some note",
 					},
@@ -307,25 +299,23 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "enum",
 						ScalarValue: "fizz",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"enum": {
-									TokenType:  "array",
-									Properties: &Rules{},
-									Items: []Rule{
+							data: []Rule{
+								{
+									Key:       "enum",
+									TokenType: "array",
+									Children: []Rule{
 										{
 											TokenType:   "string",
 											ScalarValue: "fizz",
-											Properties:  &Rules{},
 										},
 										{
 											TokenType:   "string",
 											ScalarValue: "buzz",
-											Properties:  &Rules{},
 										},
 									},
 								},
 							},
-							order: []string{"enum"},
+							index: map[string]int{"enum": 0},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -356,21 +346,18 @@ func TestUnmarshalSchema(t *testing.T) {
 					ContentJSight: &SchemaContentJSight{
 						TokenType: "array",
 						Type:      "array",
-						Rules:     &Rules{},
 						Children: []*SchemaContentJSight{
 							{
 								TokenType:   "number",
 								Type:        "integer",
 								ScalarValue: "1",
 								Optional:    true,
-								Rules:       &Rules{},
 							},
 							{
 								TokenType:   "number",
 								Type:        "integer",
 								ScalarValue: "2",
 								Optional:    true,
-								Rules:       &Rules{},
 							},
 						},
 					},
@@ -385,14 +372,12 @@ func TestUnmarshalSchema(t *testing.T) {
 					ContentJSight: &SchemaContentJSight{
 						TokenType: "array",
 						Type:      "array",
-						Rules:     &Rules{},
 						Children: []*SchemaContentJSight{
 							{
 								TokenType:   "shortcut",
 								Type:        "@foo",
 								ScalarValue: "@foo",
 								Optional:    true,
-								Rules:       &Rules{},
 							},
 						},
 					},
@@ -410,14 +395,12 @@ func TestUnmarshalSchema(t *testing.T) {
 					ContentJSight: &SchemaContentJSight{
 						TokenType: "object",
 						Type:      "object",
-						Rules:     &Rules{},
 						Children: []*SchemaContentJSight{
 							{
 								Key:         "foo",
 								TokenType:   "string",
 								Type:        "string",
 								ScalarValue: "bar",
-								Rules:       &Rules{},
 							},
 						},
 					},
@@ -435,14 +418,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType: "object",
 						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"additionalProperties": {
+							data: []Rule{
+								{
+									Key:         "additionalProperties",
 									TokenType:   "boolean",
 									ScalarValue: "true",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"additionalProperties"},
+							index: map[string]int{"additionalProperties": 0},
 						},
 						Children: []*SchemaContentJSight{
 							{
@@ -452,14 +435,14 @@ func TestUnmarshalSchema(t *testing.T) {
 								ScalarValue: "bar",
 								Optional:    true,
 								Rules: &Rules{
-									data: map[string]Rule{
-										"optional": {
+									data: []Rule{
+										{
+											Key:         "optional",
 											TokenType:   "boolean",
 											ScalarValue: "true",
-											Properties:  &Rules{},
 										},
 									},
-									order: []string{"optional"},
+									index: map[string]int{"optional": 0},
 								},
 							},
 						},
@@ -475,14 +458,12 @@ func TestUnmarshalSchema(t *testing.T) {
 					ContentJSight: &SchemaContentJSight{
 						TokenType: "object",
 						Type:      "object",
-						Rules:     &Rules{},
 						Children: []*SchemaContentJSight{
 							{
 								Key:         "@foo",
 								TokenType:   "string",
 								Type:        "string",
 								ScalarValue: "bar",
-								Rules:       &Rules{},
 							},
 							{
 								Key:              "@foo",
@@ -490,7 +471,6 @@ func TestUnmarshalSchema(t *testing.T) {
 								TokenType:        "string",
 								Type:             "string",
 								ScalarValue:      "baz",
-								Rules:            &Rules{},
 							},
 						},
 					},
@@ -510,46 +490,40 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:        "mixed",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
+							data: []Rule{
+								{
+									Key:         "type",
 									TokenType:   "string",
 									ScalarValue: "mixed",
-									Properties:  &Rules{},
 								},
-								"or": {
-									TokenType:  "array",
-									Properties: &Rules{},
-									Items: []Rule{
+								{
+									Key:       "or",
+									TokenType: "array",
+									Children: []Rule{
 										{
 											TokenType: "object",
-											Properties: &Rules{
-												data: map[string]Rule{
-													"type": {
-														TokenType:   "string",
-														ScalarValue: "@foo",
-														Properties:  &Rules{},
-													},
+											Children: []Rule{
+												{
+													Key:         "type",
+													TokenType:   "string",
+													ScalarValue: "@foo",
 												},
-												order: []string{"type"},
 											},
 										},
 										{
 											TokenType: "object",
-											Properties: &Rules{
-												data: map[string]Rule{
-													"type": {
-														TokenType:   "string",
-														ScalarValue: "@bar",
-														Properties:  &Rules{},
-													},
+											Children: []Rule{
+												{
+													Key:         "type",
+													TokenType:   "string",
+													ScalarValue: "@bar",
 												},
-												order: []string{"type"},
 											},
 										},
 									},
 								},
 							},
-							order: []string{"type", "or"},
+							index: map[string]int{"type": 0, "or": 1},
 						},
 					},
 					UsedUserTypes: NewStringSet("@foo", "@bar"),
@@ -568,7 +542,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "shortcut",
 						Type:        "@foo",
 						ScalarValue: "@foo",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: NewStringSet("@foo"),
 					UsedUserEnums: &StringSet{},
@@ -585,7 +558,6 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType:   "shortcut",
 						Type:        "mixed",
 						ScalarValue: "@foo | @bar",
-						Rules:       &Rules{},
 					},
 					UsedUserTypes: NewStringSet("@foo", "@bar"),
 					UsedUserEnums: &StringSet{},
@@ -603,14 +575,14 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType: "object",
 						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"allOf": {
+							data: []Rule{
+								{
+									Key:         "allOf",
 									TokenType:   "string",
 									ScalarValue: "@foo",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"allOf"},
+							index: map[string]int{"allOf": 0},
 						},
 						InheritedFrom: "", // Handled by catalog compilation logic.
 					},
@@ -629,25 +601,23 @@ func TestUnmarshalSchema(t *testing.T) {
 						TokenType: "object",
 						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"allOf": {
-									TokenType:  "array",
-									Properties: &Rules{},
-									Items: []Rule{
+							data: []Rule{
+								{
+									Key:       "allOf",
+									TokenType: "array",
+									Children: []Rule{
 										{
 											TokenType:   "string",
 											ScalarValue: "@foo",
-											Properties:  &Rules{},
 										},
 										{
 											TokenType:   "string",
 											ScalarValue: "@bar",
-											Properties:  &Rules{},
 										},
 									},
 								},
 							},
-							order: []string{"allOf"},
+							index: map[string]int{"allOf": 0},
 						},
 						InheritedFrom: "", // Handled by catalog compilation logic.
 					},

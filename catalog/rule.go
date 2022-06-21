@@ -5,11 +5,11 @@ import (
 )
 
 type Rule struct {
+	Key         string
 	TokenType   string
 	ScalarValue string
 	Note        string
-	Properties  *Rules
-	Items       []Rule
+	Children    []Rule
 }
 
 var (
@@ -19,22 +19,17 @@ var (
 
 func (r Rule) MarshalJSON() ([]byte, error) {
 	var data struct {
-		// TODO "key" : @ruleNameEnum,
+		Key         string `json:"key,omitempty"`
 		TokenType   string `json:"tokenType"`
 		ScalarValue string `json:"scalarValue,omitempty"`
 		Note        string `json:"note,omitempty"`
-		Properties  *Rules `json:"properties,omitempty"` // TODO move to children
-		Items       []Rule `json:"items,omitempty"`      // TODO move to children
-		// TODO children
+		Children    []Rule `json:"children,omitempty"`
 	}
 
 	data.TokenType = r.TokenType
 	data.ScalarValue = r.ScalarValue
 	data.Note = r.Note
-	if r.Properties != nil && r.Properties.Len() > 0 {
-		data.Properties = r.Properties
-	}
-	data.Items = r.Items
+	data.Children = r.Children
 
 	return json.Marshal(data)
 }

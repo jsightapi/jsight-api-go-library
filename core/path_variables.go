@@ -64,12 +64,18 @@ func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, used
 				}
 
 			case "or":
-				for _, i := range v.Items {
+				for _, i := range v.Children {
 					var userType string
 					if i.ScalarValue != "" {
 						userType = i.ScalarValue
 					} else {
-						userType = i.Properties.GetValue("type").ScalarValue
+						for _, c := range i.Children {
+							if c.Key == "type" {
+								userType = c.ScalarValue
+								break
+							}
+						}
+						// TODO if not found ???
 					}
 
 					if err := core.appendUsedUserType(usedUserTypes, userType); err != nil {
