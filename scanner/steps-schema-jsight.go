@@ -27,11 +27,7 @@ func (s *Scanner) readSchemaWithJsc() (uint, *jerr.JApiError) {
 	fc := s.file.Content()
 	file := fs.NewFile("", fc.Slice(s.curIndex, bytes.Index(fc.Len()-1)))
 
-	l, err := jschema.FromFile(
-		file,
-		jschema.AllowTrailingNonSpaceCharacters(),
-	).
-		Len()
+	l, err := jschema.FromFile(file).Len()
 	if err != nil {
 		err := kit.ConvertError(file, err)
 		return 0, s.japiError(err.Message(), s.curIndex+bytes.Index(err.Position()))

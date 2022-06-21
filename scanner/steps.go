@@ -181,21 +181,6 @@ func stateSchemaClosed(s *Scanner, c byte) *jerr.JApiError {
 	}
 }
 
-func stateJsonArrayClosed(s *Scanner, c byte) *jerr.JApiError {
-	switch c {
-	case caseWhitespace(c):
-		s.found(JsonArrayEnd)
-		s.step = stateBodyEnded
-		return nil
-	case caseNewLine(c), EOF:
-		s.found(JsonArrayEnd)
-		s.step = stateExpectKeyword
-		return nil
-	default:
-		return s.japiErrorUnexpectedChar("after json array", "")
-	}
-}
-
 // any directive's body, not the "Body" directive
 // this state allows comments, because body was properly ended at least with whitespace
 func stateBodyEnded(s *Scanner, c byte) *jerr.JApiError {

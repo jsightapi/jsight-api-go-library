@@ -16,12 +16,12 @@ func TestLexemeEventType_IsBeginning(t *testing.T) {
 		AnnotationEnd:   false,
 		SchemaBegin:     true,
 		SchemaEnd:       false,
-		JsonArrayBegin:  true,
-		JsonArrayEnd:    false,
 		TextBegin:       true,
 		TextEnd:         false,
 		ContextOpen:     false,
 		ContextClose:    false,
+		EnumBegin:       true,
+		EnumEnd:         false,
 	}
 
 	for et, expected := range cc {
@@ -42,12 +42,12 @@ func TestLexemeEventType_IsEnding(t *testing.T) {
 		AnnotationEnd:   true,
 		SchemaBegin:     false,
 		SchemaEnd:       true,
-		JsonArrayBegin:  false,
-		JsonArrayEnd:    true,
 		TextBegin:       false,
 		TextEnd:         true,
 		ContextOpen:     false,
 		ContextClose:    false,
+		EnumBegin:       false,
+		EnumEnd:         true,
 	}
 
 	for et, expected := range cc {
@@ -68,12 +68,12 @@ func TestLexemeEventType_IsSingle(t *testing.T) {
 		AnnotationEnd:   false,
 		SchemaBegin:     false,
 		SchemaEnd:       false,
-		JsonArrayBegin:  false,
-		JsonArrayEnd:    false,
 		TextBegin:       false,
 		TextEnd:         false,
 		ContextOpen:     true,
 		ContextClose:    true,
+		EnumBegin:       false,
+		EnumEnd:         false,
 	}
 
 	for et, expected := range cc {
@@ -94,12 +94,12 @@ func TestLexemeEventType_String(t *testing.T) {
 		AnnotationEnd:   "annotation-end",
 		SchemaBegin:     "schema-begin",
 		SchemaEnd:       "schema-end",
-		JsonArrayBegin:  "array-begin",
-		JsonArrayEnd:    "array-end",
 		TextBegin:       "text-begin",
 		TextEnd:         "text-end",
 		ContextOpen:     "context-open",
 		ContextClose:    "context-close",
+		EnumBegin:       "enum-begin",
+		EnumEnd:         "enum-end",
 		255:             "Unknown-lexeme-event-type",
 	}
 
@@ -121,12 +121,12 @@ func TestLexemeEventType_ToLexemeType(t *testing.T) {
 		AnnotationEnd:   Annotation,
 		SchemaBegin:     Schema,
 		SchemaEnd:       Schema,
-		JsonArrayBegin:  Array,
-		JsonArrayEnd:    Array,
 		TextBegin:       Text,
 		TextEnd:         Text,
 		ContextOpen:     ContextExplicitOpening,
 		ContextClose:    ContextExplicitClosing,
+		EnumBegin:       Enum,
+		EnumEnd:         Enum,
 	}
 
 	for et, expected := range cc {

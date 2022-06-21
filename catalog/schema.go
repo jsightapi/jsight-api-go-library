@@ -59,7 +59,12 @@ type StringSet struct {
 
 // UnmarshalSchema unmarshal a schema from the given slice of bytes.
 // Marshaled schema shouldn't contain any trailing symbols.
-func UnmarshalSchema(name string, b []byte, userTypes *UserSchemas) (_ Schema, err error) {
+func UnmarshalSchema(
+	name string,
+	b []byte,
+	userTypes *UserSchemas,
+	enumRules map[string]jschemaLib.Rule,
+) (_ Schema, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			if e, ok := r.(error); ok {
@@ -71,6 +76,12 @@ func UnmarshalSchema(name string, b []byte, userTypes *UserSchemas) (_ Schema, e
 	}()
 
 	s := jschema.New(name, b)
+
+	for n, v := range enumRules {
+		if err := s.AddRule(n, v); err != nil {
+			return Schema{}, err
+		}
+	}
 
 	err = userTypes.Each(func(k string, v jschemaLib.Schema) error {
 		return s.AddType(k, v)

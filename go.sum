@@ -1,13 +1,7 @@
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220607070934-825bc4d43dce h1:e+IVw6qnvikO5uc5egaWZfs1BculTWDmfyw2JNK5104=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220607070934-825bc4d43dce/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220608142925-ffc7adb01d28 h1:s5sh4VErEhfGiNbgedtsAqcYvLQFbL3PgxRqPSJMXCw=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220608142925-ffc7adb01d28/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220610155950-d0680a0b271b h1:9b0+ksbP39Zp7lN8Mv/MKrzB4NwyuzrecfEhsZmV4+o=
-github.com/jsightapi/jsight-schema-go-library v0.3.1-0.20220610155950-d0680a0b271b/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
-github.com/jsightapi/jsight-schema-go-library v1.0.0 h1:LgvwT61R3oqJ4TGyz7+AApvFIJaMeMFrBbLKsPNuPPw=
-github.com/jsightapi/jsight-schema-go-library v1.0.0/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
+github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220621103048-77f3c2b2daf8 h1:BtAFIUi46Gx1XYCbfeqF/0KzFWKHBfy1ZgM5NNBB9Mo=
+github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220621103048-77f3c2b2daf8/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
 github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb h1:w1g9wNDIE/pHSTmAaUhv4TZQuPBS6GV3mMz5hkgziIU=
 github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb/go.mod h1:5ELEyG+X8f+meRWHuqUOewBOhvHkl7M76pdGEansxW4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

@@ -13,7 +13,6 @@ func TestLexemeType_String(t *testing.T) {
 		Annotation:             "annotation",
 		Schema:                 "schema",
 		Json:                   "json",
-		Array:                  "array",
 		Text:                   "text",
 		ContextExplicitOpening: "context-opening",
 		ContextExplicitClosing: "context-closing",

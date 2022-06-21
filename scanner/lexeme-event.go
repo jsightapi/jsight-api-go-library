@@ -20,12 +20,12 @@ const (
 	AnnotationEnd
 	SchemaBegin
 	SchemaEnd
-	JsonArrayBegin
-	JsonArrayEnd
 	TextBegin
 	TextEnd
 	ContextOpen
 	ContextClose
+	EnumBegin
+	EnumEnd
 )
 
 func (e LexemeEventType) IsBeginning() bool {
@@ -34,8 +34,8 @@ func (e LexemeEventType) IsBeginning() bool {
 		ParameterBegin,
 		AnnotationBegin,
 		SchemaBegin,
-		JsonArrayBegin,
-		TextBegin:
+		TextBegin,
+		EnumBegin:
 		return true
 	default:
 		return false
@@ -48,8 +48,8 @@ func (e LexemeEventType) IsEnding() bool {
 		ParameterEnd,
 		AnnotationEnd,
 		SchemaEnd,
-		JsonArrayEnd,
-		TextEnd:
+		TextEnd,
+		EnumEnd:
 		return true
 	default:
 		return false
@@ -81,32 +81,32 @@ var lexemeEventTypeStringMap = map[LexemeEventType]string{
 	AnnotationEnd:   "annotation-end",
 	SchemaBegin:     "schema-begin",
 	SchemaEnd:       "schema-end",
-	JsonArrayBegin:  "array-begin",
-	JsonArrayEnd:    "array-end",
 	TextBegin:       "text-begin",
 	TextEnd:         "text-end",
 	ContextOpen:     "context-open",
 	ContextClose:    "context-close",
+	EnumBegin:       "enum-begin",
+	EnumEnd:         "enum-end",
 }
 
 func (e LexemeEventType) ToLexemeType() LexemeType {
 	switch e {
 	case KeywordBegin, KeywordEnd:
 		return Keyword
+	case ParameterBegin, ParameterEnd:
+		return Parameter
 	case AnnotationBegin, AnnotationEnd:
 		return Annotation
 	case SchemaBegin, SchemaEnd:
 		return Schema
 	case TextBegin, TextEnd:
 		return Text
-	case JsonArrayBegin, JsonArrayEnd:
-		return Array
 	case ContextOpen:
 		return ContextExplicitOpening
 	case ContextClose:
 		return ContextExplicitClosing
-	case ParameterBegin, ParameterEnd:
-		return Parameter
+	case EnumBegin, EnumEnd:
+		return Enum
 	default:
 		panic("Unknown lexeme event type")
 	}

@@ -10,15 +10,33 @@ import (
 type LexemeType uint8
 
 const (
-	Keyword                LexemeType = iota // Name of a Directive, i.e. URL, GET, Path, 200, etc
-	Parameter                                // Parameter for directive (regexp/jsight fot TYPE)
-	Annotation                               // user's annotation to directive in a free-text form
-	Schema                                   // jSchema inside directive's body (Body, TYPE, 200, etc)
-	Json                                     // json inside directive's body (CONFIG)
-	Array                                    // Array of string values inside ENUM body
-	Text                                     // Text inside directive Description body
-	ContextExplicitOpening                   // Explicitly opens context, so that it can ba later explicitly closed
-	ContextExplicitClosing                   // Explicitly opens context, so that it can ba later explicitly closed
+	// Keyword represent a name of Directive, i.e. URL, GET, Path, 200, etc.
+	Keyword LexemeType = iota
+
+	// Parameter represent a parameter for directive (regexp/jsight for TYPE)
+	Parameter
+
+	// Annotation represent user's annotation to directive in a free-text form.
+	Annotation
+
+	// Schema represent a jSchema inside directive's body (Body, TYPE, 200, etc).
+	Schema
+
+	// Json represents a JSON inside directive's body (CONFIG).
+	Json
+
+	// Text represents a text inside directive Description body.
+	Text
+
+	// ContextExplicitOpening represent explicitly opened context, so that it can
+	// be later explicitly closed.
+	ContextExplicitOpening
+
+	// ContextExplicitClosing represents explicitly closed context.
+	ContextExplicitClosing
+
+	// Enum represents an enum body.
+	Enum
 )
 
 func (t LexemeType) String() string {
@@ -34,7 +52,6 @@ var lexemeTypeStringMap = map[LexemeType]string{
 	Annotation:             "annotation",
 	Schema:                 "schema",
 	Json:                   "json",
-	Array:                  "array",
 	Text:                   "text",
 	ContextExplicitOpening: "context-opening",
 	ContextExplicitClosing: "context-closing",

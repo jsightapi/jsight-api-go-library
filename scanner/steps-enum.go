@@ -1,11 +1,10 @@
 package scanner
 
 import (
-	"errors"
-
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
-	"github.com/jsightapi/jsight-schema-go-library/formats/json"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/rules"
 
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
@@ -58,54 +57,58 @@ func stateEnumBody(s *Scanner, c byte) *jerr.JApiError {
 	}
 }
 
-// scanEnumBody pass rest of the file to jsc scanner to find out where enum ends.
 func (s *Scanner) scanEnumBody(_ byte) *jerr.JApiError {
-	s.found(JsonArrayBegin)
-	arrLength, je := s.readArrayWithJsc()
+	s.found(EnumBegin)
+	enumLength, je := s.readEnumWithJsc()
 	if je != nil {
 		return je
 	}
-	s.curIndex += bytes.Index(arrLength - 1)
-	s.step = stateJsonArrayClosed
+	if enumLength > 0 {
+		s.curIndex += bytes.Index(enumLength - 1)
+	}
+	s.step = stateEnumBodyClose
 	return nil
 }
 
-func (s *Scanner) readArrayWithJsc() (uint, *jerr.JApiError) {
-	fc := s.file.Content()
+func stateEnumBodyClose(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case caseWhitespace(c):
+		s.foundAt(s.curIndex-1, EnumEnd)
+		s.step = stateEnumBodyEnded
+		return nil
+	case caseNewLine(c), EOF:
+		s.foundAt(s.curIndex-1, EnumEnd)
+		s.step = stateExpectKeyword
+		return nil
+	default:
+		return s.japiErrorUnexpectedChar("after enum", "")
+	}
+}
 
-	l, err := json.New(
-		"",
-		fc.Slice(s.curIndex, bytes.Index(fc.Len()-1)),
-		json.AllowTrailingNonSpaceCharacters(),
-	).
-		Len()
+// stateEnumBodyEnded any directive's body, not the "Body" directive
+// this state allows comments, because body was properly ended at least with whitespace
+func stateEnumBodyEnded(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case caseWhitespace(c):
+		return nil
+	case caseNewLine(c), EOF:
+		s.step = stateExpectKeyword
+		return nil
+	case CommentSign:
+		return s.startComment()
+	default:
+		return s.japiErrorUnexpectedChar("after enum body", "")
+	}
+}
+
+func (s *Scanner) readEnumWithJsc() (uint, *jerr.JApiError) {
+	fc := s.file.Content()
+	file := fs.NewFile("", fc.Slice(s.curIndex, bytes.Index(fc.Len()-1)))
+
+	l, err := rules.EnumFromFile(file).Len()
 	if err != nil {
-		var kitErr kit.Error
-		if errors.As(err, &kitErr) {
-			return 0, s.japiError(
-				kitErr.Message(),
-				s.curIndex+bytes.Index(kitErr.Position()),
-			)
-		}
-		return 0, s.japiErrorBasic(err.Error())
+		err := kit.ConvertError(file, err)
+		return 0, s.japiError(err.Message(), s.curIndex+bytes.Index(err.Position()))
 	}
 	return l, nil
-
-	//b := s.file.Content()
-	//bb := b.Slice(s.curIndex, bytes.Index(b.Len()-1))
-	//f := fs.NewFile("", bb)
-	//jsonLength, err := kit.LengthOfJson(f)
-	//if err != nil {
-	//	return 0, s.japiError(err.Message(), s.curIndex+bytes.Index(err.Position()))
-	//}
-	//
-	//// validate that it is indeed array, not json (though that will never happen in current logic)
-	//arr := bb[:jsonLength]
-	//model := make([]interface{}, 0)
-	//marshalErr := json.Unmarshal(arr, &model)
-	//if marshalErr != nil {
-	//	return 0, s.japiError("ENUM body is not a json array", s.curIndex)
-	//}
-	//
-	//return jsonLength, nil
 }
