@@ -59,9 +59,7 @@ func TestScanner_Next(t *testing.T) {
 	str := `GET /users`
 	bytes := []byte(str)
 
-	file := &fs.File{}
-	file.SetName("dummy.jst")
-	file.SetContent(bytes)
+	file := fs.NewFile("dummy.jst", bytes)
 	s := NewJApiScanner(file)
 	scan(s)
 }
@@ -124,8 +122,6 @@ func newTestScanner(s string) *Scanner {
 }
 
 func newTestScannerB(bytes []byte) *Scanner {
-	file := &fs.File{}
-	file.SetName("dummy.jst")
-	file.SetContent(bytes)
+	file := fs.NewFile("dummy.jst", bytes)
 	return NewJApiScanner(file)
 }

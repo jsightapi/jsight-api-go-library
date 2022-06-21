@@ -1,6 +1,7 @@
 package core
 
 import (
+	jschema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
@@ -30,6 +31,9 @@ type JApiCore struct {
 
 	// bannedDirectives a set of directives which didn't allow to use in schema.
 	bannedDirectives map[directive.Enumeration]struct{}
+
+	// rules all defined rules.
+	rules map[string]jschema.Rule
 
 	// userTypes represent all user types.
 	userTypes *catalog.UserSchemas
@@ -92,6 +96,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		rawPathVariables:   make([]rawPathVariable, 0, 40),
 		macro:              make(map[string]*directive.Directive, 20),
 		scannersStack:      &scanner.Stack{},
+		rules:              map[string]jschema.Rule{},
 	}
 	core.directiveFunctions = map[directive.Enumeration]func(*directive.Directive) *jerr.JApiError{
 		directive.Jsight:           core.addJSight,

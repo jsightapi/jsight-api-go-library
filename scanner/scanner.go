@@ -101,14 +101,6 @@ func (s *Scanner) Next() (*Lexeme, *jerr.JApiError) {
 	return nil, nil
 }
 
-// func (s *Scanner) closeAllOpenedLexemeEvent() {
-// 	l := len(s.stack)
-// 	for i := l-1; i != -1; i-- {
-// 		c := s.stack[i].type_.ClosingPair()
-// 		s.found(c)
-// 	}
-// }
-
 func (s *Scanner) CurrentIndex() bytes.Index {
 	return s.curIndex
 }
@@ -133,8 +125,8 @@ func (s *Scanner) processLexemeEvent(lexEvent LexemeEvent) (*Lexeme, *jerr.JApiE
 			startType == AnnotationBegin && eventType == AnnotationEnd,
 			startType == SchemaBegin && eventType == SchemaEnd,
 			startType == TextBegin && eventType == TextEnd,
-			startType == JsonArrayBegin && eventType == JsonArrayEnd,
-			startType == ParameterBegin && eventType == ParameterEnd:
+			startType == ParameterBegin && eventType == ParameterEnd,
+			startType == EnumBegin && eventType == EnumEnd:
 
 			lex := NewLexeme(eventType.ToLexemeType(), startEvent.position, lexEvent.position, s.file)
 
