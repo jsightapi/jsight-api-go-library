@@ -396,7 +396,7 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 	return nil
 }
 
-func (c *Catalog) AddProtocol(d directive.Directive) error {
+func (_ *Catalog) AddProtocol(_ directive.Directive) error {
 	// TODO
 	return nil
 }

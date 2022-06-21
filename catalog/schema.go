@@ -373,9 +373,9 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 		Type             string                 `json:"type,omitempty"`
 		InheritedFrom    string                 `json:"inheritedFrom,omitempty"`
 		Note             string                 `json:"note,omitempty"`
+		Children         []*SchemaContentJSight `json:"children"`
 		IsKeyUserTypeRef bool                   `json:"isKeyUserTypeRef,omitempty"`
 		Optional         bool                   `json:"optional"`
-		Children         []*SchemaContentJSight `json:"children"`
 	}
 
 	data.Key = c.Key
@@ -403,9 +403,9 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 		Type             string                 `json:"type,omitempty"`
 		InheritedFrom    string                 `json:"inheritedFrom,omitempty"`
 		Note             string                 `json:"note,omitempty"`
+		Children         []*SchemaContentJSight `json:"children"`
 		IsKeyUserTypeRef bool                   `json:"isKeyUserTypeRef,omitempty"`
 		Optional         bool                   `json:"optional"`
-		Children         []*SchemaContentJSight `json:"children"`
 	}
 
 	data.Key = c.Key

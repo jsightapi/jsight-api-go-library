@@ -147,7 +147,7 @@ func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, text strin
 	return nil
 }
 
-func (core JApiCore) addMethodDescription(d *directive.Directive, text string) *jerr.JApiError {
+func (_ JApiCore) addMethodDescription(_ *directive.Directive, _ string) *jerr.JApiError {
 	// TODO
 	return nil
 }

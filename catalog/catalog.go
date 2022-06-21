@@ -67,14 +67,14 @@ func (*Catalog) Read(coords directive.Coords) bytes.Bytes {
 }
 
 func (c *Catalog) MarshalJSON() ([]byte, error) {
-	var data struct { //nolint:govet
-		JdocExchangeVersion string            `json:"jdocExchangeVersion"`
-		JSightVersion       string            `json:"jsight"`
+	var data struct {
+		Tags                *Tags             `json:"tags"`
 		Info                *Info             `json:"info,omitempty"`
 		Servers             *Servers          `json:"servers,omitempty"`
 		UserTypes           *UserTypes        `json:"userTypes,omitempty"`
 		HTTPInteractions    *HttpInteractions `json:"interactions"`
-		Tags                *Tags             `json:"tags"`
+		JSightVersion       string            `json:"jsight"`
+		JdocExchangeVersion string            `json:"jdocExchangeVersion"`
 	}
 
 	data.JdocExchangeVersion = JDocExchangeVersion

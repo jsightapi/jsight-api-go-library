@@ -147,7 +147,7 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 }
 
 func (*JApiCore) propertiesToMap(pp []*catalog.SchemaContentJSight) map[string]*catalog.SchemaContentJSight {
-	if pp == nil || len(pp) == 0 {
+	if len(pp) == 0 {
 		return nil
 	}
 
