@@ -119,8 +119,13 @@ func astNodeToJsightContent(
 		Note:             Annotation(node.Comment),
 		Rules:            rules,
 	}
-	c.collectJSightContentProperties(node, usedUserTypes, usedUserEnums)
-	c.collectJSightContentItems(node, usedUserTypes, usedUserEnums)
+
+	switch node.JSONType {
+	case jschemaLib.JSONTypeObject:
+		c.collectJSightContentObjectProperties(node, usedUserTypes, usedUserEnums)
+	case jschemaLib.JSONTypeArray:
+		c.collectJSightContentArrayItems(node, usedUserTypes, usedUserEnums)
+	}
 
 	return c
 }
@@ -298,36 +303,36 @@ func (c *SchemaContentJSight) Unshift(v *SchemaContentJSight) {
 	c.Children = append([]*SchemaContentJSight{v}, c.Children...)
 }
 
-func (c *SchemaContentJSight) collectJSightContentProperties(
+func (c *SchemaContentJSight) collectJSightContentObjectProperties(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
-	if node.Properties.Len() > 0 {
+	if len(node.Children) > 0 {
 		if c.Children == nil {
-			c.Children = make([]*SchemaContentJSight, 0, node.Properties.Len())
+			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
-		node.Properties.EachSafe(func(k string, v jschemaLib.ASTNode) {
+		for _, v := range node.Children {
 			an := astNodeToJsightContent(v, usedUserTypes, usedUserEnums)
-			an.Key = k
+			an.Key = v.Key
 
 			c.Children = append(c.Children, an)
 
 			if v.IsKeyShortcut {
-				usedUserTypes.Add(k)
+				usedUserTypes.Add(v.Key)
 			}
-		})
+		}
 	}
 }
 
-func (c *SchemaContentJSight) collectJSightContentItems(
+func (c *SchemaContentJSight) collectJSightContentArrayItems(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
-	if len(node.Items) > 0 {
+	if len(node.Children) > 0 {
 		if c.Children == nil {
-			c.Children = make([]*SchemaContentJSight, 0, len(node.Items))
+			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
-		for _, n := range node.Items {
+		for _, n := range node.Children {
 			an := astNodeToJsightContent(n, usedUserTypes, usedUserEnums)
 			an.Optional = true
 			c.Children = append(c.Children, an)
