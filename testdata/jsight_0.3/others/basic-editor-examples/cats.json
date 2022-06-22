@@ -16,7 +16,7 @@
           "optional": false,
           "properties": {
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId"
@@ -145,7 +145,7 @@
               "scalarValue": "relaxing"
             },
             "bestFriend": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@cat",
               "optional": false,
               "scalarValue": "@cat"
@@ -163,7 +163,7 @@
               "properties": {
                 "@petName": {
                   "isKeyShortcut": true,
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "mixed",
                   "optional": false,
                   "scalarValue": "@cat | @pig"
@@ -182,7 +182,7 @@
               },
               "items": [
                 {
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "@dog",
                   "optional": true,
                   "scalarValue": "@dog"
@@ -190,7 +190,7 @@
               ]
             },
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId",
@@ -331,7 +331,7 @@
               "note": "Only dog ids are allowed.",
               "items": [
                 {
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "@petId",
                   "optional": true,
                   "scalarValue": "@petId"
@@ -400,7 +400,7 @@
               }
             },
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId",
@@ -591,7 +591,7 @@
               }
             },
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId",
@@ -837,7 +837,7 @@
                     "optional": false,
                     "items": [
                       {
-                        "jsonType": "shortcut",
+                        "jsonType": "reference",
                         "type": "@cat",
                         "optional": true,
                         "scalarValue": "@cat"
@@ -879,7 +879,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@cat",
               "optional": false,
               "scalarValue": "@cat"
@@ -899,7 +899,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@cat",
                 "optional": false,
                 "scalarValue": "@cat"
@@ -918,7 +918,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -975,7 +975,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@cat",
                 "optional": false,
                 "scalarValue": "@cat"
@@ -1039,7 +1039,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@cat",
               "optional": false,
               "scalarValue": "@cat"
@@ -1059,7 +1059,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@cat",
                 "optional": false,
                 "scalarValue": "@cat"
@@ -1088,7 +1088,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -1177,7 +1177,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -1264,7 +1264,7 @@
                 }
               },
               "friendId": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@petId",
                 "optional": false,
                 "scalarValue": "@petId",
@@ -1287,7 +1287,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "mixed",
                 "optional": false,
                 "scalarValue": "@cat | @pig",

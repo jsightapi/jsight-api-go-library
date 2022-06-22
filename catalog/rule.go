@@ -26,6 +26,7 @@ func (r Rule) MarshalJSON() ([]byte, error) {
 		Children    []Rule `json:"children,omitempty"`
 	}
 
+	data.Key = r.Key
 	data.TokenType = r.TokenType
 	data.ScalarValue = r.ScalarValue
 	data.Note = r.Note

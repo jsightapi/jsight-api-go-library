@@ -36,7 +36,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@cat",
                 "optional": false,
                 "scalarValue": "@cat"

@@ -36,7 +36,7 @@
             "optional": false,
             "properties": {
               "name": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@catName",
                 "optional": false,
                 "scalarValue": "@catName"

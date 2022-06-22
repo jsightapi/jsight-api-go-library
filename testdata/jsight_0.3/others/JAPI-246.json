@@ -27,12 +27,13 @@
             "type": "object",
             "children": [
               {
-                "rules": {
-                  "optional": {
+                "rules": [
+                  {
+                    "key": "optional",
                     "tokenType": "boolean",
                     "scalarValue": "true"
                   }
-                },
+                ],
                 "key": "page",
                 "tokenType": "number",
                 "type": "integer",
@@ -41,16 +42,18 @@
                 "optional": true
               },
               {
-                "rules": {
-                  "type": {
+                "rules": [
+                  {
+                    "key": "type",
                     "tokenType": "string",
                     "scalarValue": "boolean"
                   },
-                  "optional": {
+                  {
+                    "key": "optional",
                     "tokenType": "boolean",
                     "scalarValue": "true"
                   }
-                },
+                ],
                 "key": "canHunt",
                 "tokenType": "boolean",
                 "type": "boolean",

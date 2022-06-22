@@ -40,7 +40,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "mixed",
                 "optional": false,
                 "scalarValue": "@dog | @cat"

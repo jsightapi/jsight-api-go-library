@@ -103,7 +103,7 @@
                     "schema": {
                         "notation": "jsight",
                         "content": {
-                            "jsonType": "shortcut",
+                            "jsonType": "reference",
                             "type": "@admin",
                             "optional": false,
                             "scalarValue": "@admin"

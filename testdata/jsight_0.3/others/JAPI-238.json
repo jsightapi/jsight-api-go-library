@@ -8,12 +8,13 @@
                     "type": "object",
                     "children": [
                         {
-                            "rules": {
-                                "min": {
+                            "rules": [
+                                {
+                                    "key": "min",
                                     "tokenType": "number",
                                     "scalarValue": "1"
                                 }
-                            },
+                            ],
                             "key": "id",
                             "tokenType": "number",
                             "type": "integer",

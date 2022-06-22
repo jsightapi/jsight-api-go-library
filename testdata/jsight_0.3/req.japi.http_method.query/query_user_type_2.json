@@ -40,7 +40,7 @@
         "schema": {
           "notation": "jsight",
           "content": {
-            "jsonType": "shortcut",
+            "jsonType": "reference",
             "type": "@standardQuery",
             "optional": false,
             "scalarValue": "@standardQuery"

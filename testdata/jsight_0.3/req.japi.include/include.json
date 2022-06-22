@@ -64,7 +64,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -82,7 +82,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -109,7 +109,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -136,7 +136,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -154,7 +154,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -181,7 +181,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -199,7 +199,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -226,7 +226,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -244,7 +244,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -271,7 +271,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -289,7 +289,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false

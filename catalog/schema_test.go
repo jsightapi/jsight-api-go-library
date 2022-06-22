@@ -374,7 +374,7 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:      "array",
 						Children: []*SchemaContentJSight{
 							{
-								TokenType:   "shortcut",
+								TokenType:   "reference",
 								Type:        "@foo",
 								ScalarValue: "@foo",
 								Optional:    true,
@@ -539,7 +539,7 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						TokenType:   "shortcut",
+						TokenType:   "reference",
 						Type:        "@foo",
 						ScalarValue: "@foo",
 					},
@@ -555,7 +555,7 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						TokenType:   "shortcut",
+						TokenType:   "reference",
 						Type:        "mixed",
 						ScalarValue: "@foo | @bar",
 					},
@@ -742,16 +742,16 @@ func TestUnmarshalSchema(t *testing.T) {
 		//							},
 		//						},
 		//						"foo": {
-		//							TokenType: "shortcut",
+		//							TokenType: "reference",
 		//							Type:     "@foo",
 		//						},
 		//						"bar": {
-		//							TokenType: "shortcut",
+		//							TokenType: "reference",
 		//							Type:     "@foo | @buzz",
 		//						},
 		//						"@keyName": {
 		//							IsKeyUserTypeRef: true,
-		//							TokenType:      "shortcut",
+		//							TokenType:      "reference",
 		//							Type:          "@keyValue",
 		//						},
 		//					},

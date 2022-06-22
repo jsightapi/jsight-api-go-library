@@ -5,8 +5,8 @@ import (
 )
 
 type Rules struct {
-	data  []Rule
 	index map[string]int
+	data  []Rule
 }
 
 var _ json.Marshaler = &Rules{}

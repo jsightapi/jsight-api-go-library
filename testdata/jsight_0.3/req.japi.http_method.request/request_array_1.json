@@ -45,7 +45,7 @@
               "optional": false,
               "items": [
                 {
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "@cat",
                   "optional": true,
                   "scalarValue": "@cat"

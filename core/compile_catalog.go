@@ -309,7 +309,9 @@ func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJ
 	}
 
 	for _, v := range sc.Children {
-		return core.processSchemaContentJSightAllOf(v, uut)
+		if err := core.processSchemaContentJSightAllOf(v, uut); err != nil {
+			return err
+		}
 	}
 
 	if rule, ok := sc.Rules.Get("allOf"); ok {

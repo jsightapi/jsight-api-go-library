@@ -66,21 +66,23 @@
             "format": "json",
             "schema": {
               "content": {
-                "rules": {
-                  "type": {
+                "rules": [
+                  {
+                    "key": "type",
                     "tokenType": "string",
                     "scalarValue": "array"
                   },
-                  "maxItems": {
+                  {
+                    "key": "maxItems",
                     "tokenType": "number",
                     "scalarValue": "100"
                   }
-                },
+                ],
                 "tokenType": "array",
                 "type": "array",
                 "children": [
                   {
-                    "tokenType": "shortcut",
+                    "tokenType": "reference",
                     "type": "mixed",
                     "scalarValue": "@dog | @pig",
                     "optional": true

@@ -15,7 +15,7 @@
           "optional": false,
           "properties": {
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId"
@@ -197,7 +197,7 @@
               }
             },
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId",
@@ -438,7 +438,7 @@
                 "optional": false,
                 "items": [
                   {
-                    "jsonType": "shortcut",
+                    "jsonType": "reference",
                     "type": "@pig",
                     "optional": true,
                     "scalarValue": "@pig"
@@ -466,7 +466,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@pig",
               "optional": false,
               "scalarValue": "@pig"
@@ -486,7 +486,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@pig",
                 "optional": false,
                 "scalarValue": "@pig"
@@ -505,7 +505,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -562,7 +562,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@pig",
                 "optional": false,
                 "scalarValue": "@pig"
@@ -581,7 +581,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -635,7 +635,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@pig",
               "optional": false,
               "scalarValue": "@pig"
@@ -655,7 +655,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@pig",
                 "optional": false,
                 "scalarValue": "@pig"
@@ -674,7 +674,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -693,7 +693,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -760,7 +760,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"
@@ -779,7 +779,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"

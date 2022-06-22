@@ -27,7 +27,7 @@
           "optional": false,
           "properties": {
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId"
@@ -156,7 +156,7 @@
               "note": "Only dog ids are allowed.",
               "items": [
                 {
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "@petId",
                   "optional": true,
                   "scalarValue": "@petId"
@@ -225,7 +225,7 @@
               }
             },
             "id": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@petId",
               "optional": false,
               "scalarValue": "@petId",
@@ -718,7 +718,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@commonRequestHeaders",
               "optional": false,
               "scalarValue": "@commonRequestHeaders"
@@ -743,7 +743,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@commonResponseHeaders",
                 "optional": false,
                 "scalarValue": "@commonResponseHeaders"
@@ -768,7 +768,7 @@
                     "optional": false,
                     "items": [
                       {
-                        "jsonType": "shortcut",
+                        "jsonType": "reference",
                         "type": "@dog",
                         "optional": true,
                         "scalarValue": "@dog"
@@ -884,7 +884,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@dog",
               "optional": false,
               "scalarValue": "@dog"
@@ -977,7 +977,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@commonRequestHeaders",
               "optional": false,
               "scalarValue": "@commonRequestHeaders"
@@ -1002,7 +1002,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@commonResponseHeaders",
                 "optional": false,
                 "scalarValue": "@commonResponseHeaders"
@@ -1017,7 +1017,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@dog",
                 "optional": false,
                 "scalarValue": "@dog"
@@ -1090,7 +1090,7 @@
           "schema": {
             "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@commonRequestHeaders",
               "optional": false,
               "scalarValue": "@commonRequestHeaders"
@@ -1115,7 +1115,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@commonResponseHeaders",
                 "optional": false,
                 "scalarValue": "@commonResponseHeaders"
@@ -1162,7 +1162,7 @@
             "schema": {
               "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "jsonType": "reference",
                 "type": "@error",
                 "optional": false,
                 "scalarValue": "@error"

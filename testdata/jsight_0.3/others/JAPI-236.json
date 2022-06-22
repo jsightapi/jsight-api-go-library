@@ -1,13 +1,24 @@
 {
-  "jdocExchangeVersion": "2.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@dog": {
       "schema": {
         "content": {
           "tokenType": "object",
           "type": "object",
-          "optional": false,
           "children": [
             {
               "key": "id",
@@ -21,9 +32,10 @@
               "tokenType": "string",
               "type": "string",
               "scalarValue": "Doggie",
-              "optional": false
+                  "optional": false
             }
-          ]
+          ],
+          "optional": false
         },
         "notation": "jsight"
       }
@@ -44,7 +56,6 @@
               "content": {
                 "tokenType": "object",
                 "type": "object",
-                "optional": false,
                 "children": [
                   {
                     "key": "id",
@@ -54,12 +65,13 @@
                     "optional": false
                   },
                   {
-                    "rules": {
-                      "optional": {
+                    "rules": [
+                      {
+                        "key": "optional",
                         "tokenType": "boolean",
                         "scalarValue": "true"
                       }
-                    },
+                    ],
                     "key": "name",
                     "tokenType": "string",
                     "type": "string",
@@ -68,12 +80,13 @@
                   },
                   {
                     "key": "enemy",
-                    "tokenType": "shortcut",
+                    "tokenType": "reference",
                     "type": "@dog",
                     "scalarValue": "@dog",
                     "optional": false
                   }
-                ]
+                ],
+                "optional": false
               },
               "notation": "jsight",
               "usedUserTypes": [
@@ -86,18 +99,6 @@
       "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "interactionGroups": [
-        {
-          "protocol": "http",
-          "interactions": [
-            "http GET /cats/{id}"
-          ]
-        }
-      ]
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

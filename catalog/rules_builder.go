@@ -3,15 +3,15 @@ package catalog
 import "sync"
 
 type RulesBuilder struct {
-	mx    sync.RWMutex
 	rules *Rules
+	mx    sync.RWMutex
 }
 
-func newRulesBuilder(cap int) *RulesBuilder {
+func newRulesBuilder(caption int) *RulesBuilder {
 	return &RulesBuilder{
 		rules: &Rules{
-			data:  make([]Rule, 0, cap),
-			index: make(map[string]int, cap),
+			data:  make([]Rule, 0, caption),
+			index: make(map[string]int, caption),
 		},
 	}
 }

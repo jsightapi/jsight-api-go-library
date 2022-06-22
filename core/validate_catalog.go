@@ -133,7 +133,7 @@ func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
 		switch schema.ContentJSight.TokenType {
 		case "object":
 			return true
-		case "shortcut":
+		case "reference":
 			if userType, ok := core.catalog.UserTypes.Get(schema.ContentJSight.ScalarValue); ok {
 				return core.isJsightCastToObject(&userType.Schema)
 			}

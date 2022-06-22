@@ -1,100 +1,110 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@checkExpandAllForOr": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "or": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "or",
+              "tokenType": "string",
               "type": "mixed",
-              "optional": false,
               "scalarValue": "or",
-              "rules": {
-                "or": {
-                  "jsonType": "array",
-                  "items": [
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "string"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "boolean"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "integer"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "float"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "object"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "array"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "decimal"
                         },
-                        "precision": {
-                          "jsonType": "number",
+                        {
+                          "key": "precision",
+                          "tokenType": "number",
                           "scalarValue": "1"
                         }
-                      }
+                      ]
                     }
                   ]
                 }
-              }
+              ],
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

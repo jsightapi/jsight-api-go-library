@@ -146,7 +146,6 @@ func astNodeToJsightContent(
 }
 
 func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet) *Rules {
-
 	if node.Rules.Len() == 0 {
 		return &Rules{}
 	}
@@ -396,7 +395,9 @@ func (c SchemaContentJSight) marshalJSONObject() ([]byte, error) {
 	if c.Rules != nil && c.Rules.Len() != 0 {
 		data.Rules = c.Rules.data
 	}
-	if len(c.Children) != 0 {
+	if len(c.Children) == 0 {
+		data.Children = make([]*SchemaContentJSight, 0)
+	} else {
 		data.Children = c.Children
 	}
 
@@ -426,7 +427,9 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 	if c.Rules != nil && c.Rules.Len() != 0 {
 		data.Rules = c.Rules.data
 	}
-	if len(c.Children) != 0 {
+	if len(c.Children) == 0 {
+		data.Children = make([]*SchemaContentJSight, 0)
+	} else {
 		data.Children = c.Children
 	}
 
@@ -435,13 +438,13 @@ func (c SchemaContentJSight) marshalJSONArray() ([]byte, error) {
 
 func (c SchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 	var data struct {
-		Rules            []Rule `json:"rules,omitempty"`
+		Note             string `json:"note,omitempty"`
 		Key              string `json:"key,omitempty"`
 		TokenType        string `json:"tokenType,omitempty"`
 		Type             string `json:"type,omitempty"`
 		ScalarValue      string `json:"scalarValue"`
 		InheritedFrom    string `json:"inheritedFrom,omitempty"`
-		Note             string `json:"note,omitempty"`
+		Rules            []Rule `json:"rules,omitempty"`
 		IsKeyUserTypeRef bool   `json:"isKeyUserTypeRef,omitempty"`
 		Optional         bool   `json:"optional"`
 	}

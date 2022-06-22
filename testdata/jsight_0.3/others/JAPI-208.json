@@ -40,13 +40,13 @@
                 "optional": false,
                 "children": [
                   {
-                    "tokenType": "shortcut",
+                    "tokenType": "reference",
                     "type": "@cat",
                     "scalarValue": "@cat",
                     "optional": true
                   },
                   {
-                    "tokenType": "shortcut",
+                    "tokenType": "reference",
                     "type": "@cat",
                     "scalarValue": "@cat",
                     "optional": true

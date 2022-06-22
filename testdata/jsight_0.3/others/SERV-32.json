@@ -1,46 +1,47 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@animalType": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "enum",
-          "optional": false,
           "scalarValue": "cat",
-          "rules": {
-            "enum": {
-              "jsonType": "array",
-              "items": [
+          "rules": [
+            {
+              "key": "enum",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "cat",
                   "note": "The cat"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "dog",
                   "note": "The dog"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "pig",
                   "note": "The pig"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "frog",
                   "note": "The frog"
                 }
               ]
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

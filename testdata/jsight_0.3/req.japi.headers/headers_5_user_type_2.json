@@ -24,7 +24,7 @@
 			"schema": {
 				"notation": "jsight",
 				"content": {
-					"jsonType": "shortcut",
+					"jsonType": "reference",
 					"type": "@commonHeader",
 					"optional": false,
 					"scalarValue": "@commonHeader"
@@ -49,7 +49,7 @@
 						"schema": {
 							"notation": "jsight",
 							"content": {
-								"jsonType": "shortcut",
+								"jsonType": "reference",
 								"type": "@catHeader",
 								"optional": false,
 								"scalarValue": "@catHeader"

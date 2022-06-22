@@ -160,7 +160,7 @@
           },
           "properties": {
             "type": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@animalType",
               "scalarValue": "@animalType",
               "inheritedFrom": "@animal",
@@ -371,7 +371,7 @@
         "content": {
           "properties": {
             "type": {
-              "jsonType": "shortcut",
+              "jsonType": "reference",
               "type": "@animalType",
               "scalarValue": "@animalType",
               "optional": false

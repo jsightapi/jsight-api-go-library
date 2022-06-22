@@ -41,7 +41,7 @@ func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.Pat
 
 func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, usedUserTypes *catalog.StringSet) error {
 	if sc.TokenType == jschema.JSONTypeShortcut {
-		// We have two different cases under "shortcut" type:
+		// We have two different cases under "reference" type:
 		// 1. Single type like "@foo"
 		// 2. A list of types like "@foo | @bar"
 		//

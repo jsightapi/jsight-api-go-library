@@ -4,15 +4,16 @@
     "@catId": {
       "schema": {
         "content": {
-          "rules": {
-            "min": {
-              "tokenType": "number",
-              "scalarValue": "0"
-            }
-          },
           "tokenType": "number",
           "type": "integer",
           "scalarValue": "123",
+          "rules": [
+            {
+              "key": "min",
+              "tokenType": "number",
+              "scalarValue": "0"
+            }
+          ],
           "optional": false
         },
         "notation": "jsight"

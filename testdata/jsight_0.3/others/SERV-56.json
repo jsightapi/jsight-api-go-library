@@ -24,7 +24,7 @@
               "properties": {
                 "@petName": {
                   "isKeyShortcut": true,
-                  "jsonType": "shortcut",
+                  "jsonType": "reference",
                   "type": "mixed",
                   "optional": false,
                   "scalarValue": "@cat | @pig"
