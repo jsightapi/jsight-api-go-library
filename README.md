@@ -1475,7 +1475,7 @@ We sincerely thank all those without whom this project would not have been possi
 
 - [Alchemist Accelerator](https://www.alchemistaccelerator.com/),
 - [Lucas Jones](https://github.com/lucasjones) for his 
-  [reggen](github.com/lucasjones/reggen) library,
+  [reggen](https://github.com/lucasjones/reggen) library,
 - [Dave Collins](https://github.com/davecgh) for his 
   [go-spew](https://github.com/davecgh/go-spew) library,
 - [Stretchr](https://github.com/stretchr) company for
