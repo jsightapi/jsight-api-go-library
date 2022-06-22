@@ -39,8 +39,9 @@ JSight API language specification on the official website: https://jsight.io/doc
 JSight API language specification on GitHub:
 https://github.com/jsightapi/specification/tree/main/versions/JSight%20API.
 
-The JSight API Go Library is currently used as part of the [JSight Server](/jsightapi/jsight-server)
-and [JSight Online Editor](/jsightapi/online-editor-frontend) applications.
+The **JSight API Go Library** is currently used as part of the [JSight
+Server](https://github.com/jsightapi/jsight-server) and [JSight Online
+Editor](https://github.com/jsightapi/online-editor-frontend) applications.
 
 <div align="center">
   <a href="https://editor.jsight.io"><img src="./img/try-editor.svg" alt="Try now!" width="300px"/></a>
