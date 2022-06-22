@@ -54,7 +54,6 @@ Editor](https://github.com/jsightapi/online-editor-frontend) applications.
 <div align="center">
 	
   <a href="https://jsight.io/docs/jsight-api-0-3-quick-tutorial"><img src="./img/tab1.svg" alt="Quick tutorial"/></a>&nbsp;&nbsp;
-  <a href="TODO: link to the article"><img src="./img/tab2.svg" alt="CRUD REST API in 5 minutes"/></a>&nbsp;&nbsp;
   <a href="https://jsight.io/docs/jsight-api-0-3"><img src="./img/tab3.svg" alt="JSight API Language specification"/></a>
 	
 </div>
