@@ -35,7 +35,7 @@ Please get in touch with us and let us know what you think:
 Please [raise a new issue](https://github.com/jsightapi/jsight-api-go-library/issues/new) if you
 discover a bug.
 
-If you notice ways in which you can clearly enhance the JSight API Language or UI, this also makes a
+If you notice ways in which you can clearly enhance the JSight API Language, this also makes a
 great reason to raise an issue.
 
 If you simply don't comprehend something, you can create an issue for this also. So, write: *“How do
