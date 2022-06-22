@@ -116,7 +116,7 @@ Go to the repository folder:
 <td>
 
 ```
-cd .\jsight-api-go-library\
+cd ./jsight-api-go-library/
 ```
 
 </td>
