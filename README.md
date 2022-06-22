@@ -1357,7 +1357,7 @@ The complete list of JSight API Go Library dependencies is described in the file
   &nbsp;
 </div>
 
-## :test_tube: &nbsp; Tests
+## :test_tube: &nbsp; Testing
 
 To run automated tests, run the following command in the repository root folder:
 
