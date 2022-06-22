@@ -1347,7 +1347,7 @@ https://github.com/jsightapi/jsight-api-go-library/releases.
 ## :notebook_with_decorative_cover: &nbsp; Dependencies
 
 The JSight API Go Library depends on the [JSight Schema Go
-Library](/jsightapi/jsight-schema-go-library) and several other libraries.
+Library](https://github.com/jsightapi/jsight-schema-go-library) and several other libraries.
 
 The complete list of JSight API Go Library dependencies is described in the file [go.mod](./go.mod).
 
