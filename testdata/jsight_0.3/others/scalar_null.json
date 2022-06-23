@@ -1,9 +1,20 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-    "resourceMethods": {
-        "GET /": {
-            "httpMethod": "GET",
+    "tags": {
+        "@_": {
+            "name": "@_",
+            "title": "/",
+            "interactionGroups": [
+                {
+                    "protocol": "http",
+                    "interactions": [
+                        "http GET /"
+                    ]
+                }
+            ]
+        }
+    },
+    "interactions": {
+        "http GET /": {
             "path": "/",
             "tags": [
                 "@_"
@@ -14,35 +25,28 @@
                     "body": {
                         "format": "json",
                         "schema": {
-                            "notation": "jsight",
                             "content": {
-                                "jsonType": "object",
+                                "tokenType": "object",
                                 "type": "object",
-                                "optional": false,
-                                "properties": {
-                                    "val": {
-                                        "jsonType": "null",
+                                "children": [
+                                    {
+                                        "key": "val",
+                                        "tokenType": "null",
                                         "type": "null",
-                                        "optional": false,
-                                        "scalarValue": "null"
+                                        "scalarValue": "null",
+                                        "optional": false
                                     }
-                                }
-                            }
+                                ],
+                                "optional": false
+                            },
+                            "notation": "jsight"
                         }
                     }
                 }
-            ]
+            ],
+            "httpMethod": "GET"
         }
     },
-    "tags": {
-        "@_": {
-            "name": "@_",
-            "title": "/",
-            "resourceMethods": {
-                "/": [
-                    "GET /"
-                ]
-            }
-        }
-    }
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

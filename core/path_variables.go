@@ -13,11 +13,12 @@ import (
 )
 
 type prop struct {
+	parameter           string
 	schemaContentJSight *catalog.SchemaContentJSight
 	directive           directive.Directive
 }
 
-func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.PathVariables, *jerr.JApiError) {
+func (core *JApiCore) newPathVariables(properties []prop) (*catalog.PathVariables, *jerr.JApiError) {
 	s := catalog.NewSchema(notation.SchemaNotationJSight)
 	s.ContentJSight = &catalog.SchemaContentJSight{
 		IsKeyUserTypeRef: false,
@@ -27,12 +28,12 @@ func (core *JApiCore) newPathVariables(properties map[string]prop) (*catalog.Pat
 		Children:         make([]*catalog.SchemaContentJSight, 0, len(properties)),
 	}
 
-	for k, p := range properties {
+	for _, p := range properties {
 		if err := core.collectUsedUserTypes(p.schemaContentJSight, s.UsedUserTypes /* &s.UsedUserEnums */); err != nil {
 			return nil, p.directive.KeywordError(err.Error())
 		}
 
-		p.schemaContentJSight.Key = k
+		p.schemaContentJSight.Key = p.parameter
 		s.ContentJSight.Children = append(s.ContentJSight.Children, p.schemaContentJSight)
 	}
 

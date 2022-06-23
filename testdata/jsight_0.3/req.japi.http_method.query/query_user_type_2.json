@@ -1,50 +1,63 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@pets": {
+      "name": "@pets",
+      "title": "/pets",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /pets"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@standardQuery": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "page": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "page",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
+              "scalarValue": "1",
+              "optional": false
             },
-            "per_page": {
-              "jsonType": "number",
+            {
+              "key": "per_page",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "10"
+              "scalarValue": "10",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /pets": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /pets": {
       "path": "/pets",
       "tags": [
         "@pets"
       ],
       "query": {
-        "example": "page=1&per_page=50",
+        "example": "page=1\u0026per_page=50",
         "format": "htmlFormEncoded",
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "reference",
+            "tokenType": "reference",
             "type": "@standardQuery",
-            "optional": false,
-            "scalarValue": "@standardQuery"
+            "scalarValue": "@standardQuery",
+            "optional": false
           },
+          "notation": "jsight",
           "usedUserTypes": [
             "@standardQuery"
           ]
@@ -60,19 +73,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@pets": {
-      "name": "@pets",
-      "title": "/pets",
-      "resourceMethods": {
-        "/pets": [
-          "GET /pets"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }
-

@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /dogs": {
-      "httpMethod": "GET",
+  "tags": {
+    "@dogs": {
+      "name": "@dogs",
+      "title": "/dogs",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /dogs"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /dogs": {
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -11,40 +22,34 @@
       "query": {
         "format": "htmlFormEncoded",
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "canHunt": {
-                "jsonType": "boolean",
-                "type": "boolean",
-                "optional": true,
-                "scalarValue": "true",
+            "children": [
+              {
                 "note": "Filter by hunting ability.",
-                "rules": {
-                  "optional": {
-                    "jsonType": "boolean",
+                "key": "canHunt",
+                "tokenType": "boolean",
+                "type": "boolean",
+                "scalarValue": "true",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
                     "scalarValue": "true"
                   }
-                }
+                ],
+                "optional": true
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
-      }
+      },
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@dogs": {
-      "name": "@dogs",
-      "title": "/dogs",
-      "resourceMethods": {
-        "/dogs": [
-          "GET /dogs"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

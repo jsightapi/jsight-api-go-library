@@ -1,4 +1,45 @@
 {
+  "tags": {
+    "@foo": {
+      "name": "@foo",
+      "title": "/foo",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http PUT /foo",
+            "http DELETE /foo"
+          ]
+        }
+      ]
+    },
+    "@bar": {
+      "name": "@bar",
+      "title": "/bar",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /bar",
+            "http POST /bar"
+          ]
+        }
+      ]
+    },
+    "@mixins": {
+      "name": "@mixins",
+      "title": "/mixins",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /mixins",
+            "http POST /mixins"
+          ]
+        }
+      ]
+    }
+  },
   "servers": {
     "@FIZZ_API_SERVER": {
       "annotation": "fizz server",
@@ -17,16 +58,17 @@
     "@foo": {
       "schema": {
         "content": {
-          "properties": {
-            "foo": {
-              "jsonType": "number",
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "foo",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight"
@@ -35,24 +77,25 @@
     "@bar": {
       "schema": {
         "content": {
-          "properties": {
-            "bar": {
-              "jsonType": "number",
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "bar",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "PUT /foo": {
+  "interactions": {
+    "http PUT /foo": {
       "path": "/foo",
       "tags": [
         "@foo"
@@ -64,7 +107,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -82,7 +125,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -97,7 +140,7 @@
       ],
       "httpMethod": "PUT"
     },
-    "DELETE /foo": {
+    "http DELETE /foo": {
       "path": "/foo",
       "tags": [
         "@foo"
@@ -109,7 +152,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -124,7 +167,7 @@
       ],
       "httpMethod": "DELETE"
     },
-    "GET /bar": {
+    "http GET /bar": {
       "path": "/bar",
       "tags": [
         "@bar"
@@ -136,7 +179,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -154,7 +197,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -169,7 +212,7 @@
       ],
       "httpMethod": "GET"
     },
-    "POST /bar": {
+    "http POST /bar": {
       "path": "/bar",
       "tags": [
         "@bar"
@@ -181,7 +224,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -199,7 +242,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -214,7 +257,7 @@
       ],
       "httpMethod": "POST"
     },
-    "GET /mixins": {
+    "http GET /mixins": {
       "path": "/mixins",
       "tags": [
         "@mixins"
@@ -226,7 +269,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -244,7 +287,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -259,7 +302,7 @@
       ],
       "httpMethod": "GET"
     },
-    "POST /mixins": {
+    "http POST /mixins": {
       "path": "/mixins",
       "tags": [
         "@mixins"
@@ -271,7 +314,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@foo",
                 "scalarValue": "@foo",
                 "optional": false
@@ -289,7 +332,7 @@
             "format": "json",
             "schema": {
               "content": {
-                "jsonType": "reference",
+                "tokenType": "reference",
                 "type": "@bar",
                 "scalarValue": "@bar",
                 "optional": false
@@ -305,38 +348,6 @@
       "httpMethod": "POST"
     }
   },
-  "tags": {
-    "@foo": {
-      "resourceMethods": {
-        "/foo": [
-          "PUT /foo",
-          "DELETE /foo"
-        ]
-      },
-      "name": "@foo",
-      "title": "/foo"
-    },
-    "@bar": {
-      "resourceMethods": {
-        "/bar": [
-          "GET /bar",
-          "POST /bar"
-        ]
-      },
-      "name": "@bar",
-      "title": "/bar"
-    },
-    "@mixins": {
-      "resourceMethods": {
-        "/mixins": [
-          "GET /mixins",
-          "POST /mixins"
-        ]
-      },
-      "name": "@mixins",
-      "title": "/mixins"
-    }
-  },
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3"
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

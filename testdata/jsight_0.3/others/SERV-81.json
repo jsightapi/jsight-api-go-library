@@ -1,55 +1,61 @@
 {
+  "tags": {},
   "userTypes": {
     "@t1": {
       "schema": {
         "content": {
-          "rules": {
-            "allOf": {
-              "jsonType": "array",
-              "items": [
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@1"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@2"
                 }
               ]
             }
-          },
-          "properties": {
-            "1-field1": {
-              "jsonType": "number",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "1-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "inheritedFrom": "@1",
               "optional": false
             },
-            "1-field2": {
-              "jsonType": "number",
+            {
+              "key": "1-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "inheritedFrom": "@1",
               "optional": false
             },
-            "2-field1": {
-              "jsonType": "number",
+            {
+              "key": "2-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "inheritedFrom": "@2",
               "optional": false
             },
-            "2-field2": {
-              "jsonType": "number",
+            {
+              "key": "2-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "inheritedFrom": "@2",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight",
@@ -62,53 +68,58 @@
     "@t2": {
       "schema": {
         "content": {
-          "rules": {
-            "allOf": {
-              "jsonType": "array",
-              "items": [
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@2"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@1"
                 }
               ]
             }
-          },
-          "properties": {
-            "2-field1": {
-              "jsonType": "number",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "2-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "inheritedFrom": "@2",
               "optional": false
             },
-            "2-field2": {
-              "jsonType": "number",
+            {
+              "key": "2-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "inheritedFrom": "@2",
               "optional": false
             },
-            "1-field1": {
-              "jsonType": "number",
+            {
+              "key": "1-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "inheritedFrom": "@1",
               "optional": false
             },
-            "1-field2": {
-              "jsonType": "number",
+            {
+              "key": "1-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "inheritedFrom": "@1",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight",
@@ -121,22 +132,24 @@
     "@1": {
       "schema": {
         "content": {
-          "properties": {
-            "1-field1": {
-              "jsonType": "number",
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "1-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "optional": false
             },
-            "1-field2": {
-              "jsonType": "number",
+            {
+              "key": "1-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "1",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight"
@@ -145,30 +158,31 @@
     "@2": {
       "schema": {
         "content": {
-          "properties": {
-            "2-field1": {
-              "jsonType": "number",
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "2-field1",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "optional": false
             },
-            "2-field2": {
-              "jsonType": "number",
+            {
+              "key": "2-field2",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "2",
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {},
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3"
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

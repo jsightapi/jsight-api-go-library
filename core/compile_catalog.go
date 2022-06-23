@@ -121,12 +121,13 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	}
 
 	err := core.catalog.HttpInteractions.Map(func(id catalog.HttpInteractionId, resourceMethod *catalog.HttpInteraction) (*catalog.HttpInteraction, error) {
-		properties := make(map[string]prop)
 		pp := pathParameters(resourceMethod.Path.String())
+		properties := make([]prop, 0, len(pp))
 
 		for _, p := range pp {
 			if pr, ok := allProjectProperties[p.path]; ok {
-				properties[p.parameter] = pr
+				pr.parameter = p.parameter
+				properties = append(properties, pr)
 			}
 		}
 

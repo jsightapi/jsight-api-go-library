@@ -1,9 +1,20 @@
 {
-	"jdocExchangeFileSchemaVersion": "1.0.0",
-	"jsight": "0.3",
-	"resourceMethods": {
-		"GET /cat": {
-			"httpMethod": "GET",
+	"tags": {
+		"@cat": {
+			"name": "@cat",
+			"title": "/cat",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http GET /cat"
+					]
+				}
+			]
+		}
+	},
+	"interactions": {
+		"http GET /cat": {
 			"path": "/cat",
 			"tags": [
 				"@cat"
@@ -14,42 +25,35 @@
 					"annotation": "annotation",
 					"headers": {
 						"schema": {
-							"notation": "jsight",
 							"content": {
-								"jsonType": "object",
+								"tokenType": "object",
 								"type": "object",
-								"optional": false,
-								"properties": {
-									"Content-Type": {
-										"jsonType": "string",
+								"children": [
+									{
+										"key": "Content-Type",
+										"tokenType": "string",
 										"type": "string",
-										"optional": false,
-										"scalarValue": "application/json"
+										"scalarValue": "application/json",
+										"optional": false
 									}
-								}
-							}
+								],
+								"optional": false
+							},
+							"notation": "jsight"
 						}
 					},
 					"body": {
 						"format": "plainString",
 						"schema": {
-							"notation": "regex",
-							"content": ".*"
+							"content": ".*",
+							"notation": "regex"
 						}
 					}
 				}
-			]
+			],
+			"httpMethod": "GET"
 		}
 	},
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"resourceMethods": {
-				"/cat": [
-					"GET /cat"
-				]
-			}
-		}
-	}
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

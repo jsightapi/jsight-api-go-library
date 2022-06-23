@@ -1,44 +1,43 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "POST /api": {
-      "httpMethod": "POST",
-      "path": "/api",
-      "tags": [
-        "@api"
-      ]
-    },
-    "GET /api/cats": {
-      "httpMethod": "GET",
-      "path": "/api/cats",
-      "tags": [
-        "@api"
-      ]
-    },
-    "DELETE /api/cats/{id}": {
-      "httpMethod": "DELETE",
-      "path": "/api/cats/{id}",
-      "tags": [
-        "@api"
-      ]
-    }
-  },
   "tags": {
     "@api": {
       "name": "@api",
       "title": "/api",
-      "resourceMethods": {
-        "/api": [
-          "POST /api"
-        ],
-        "/api/cats": [
-          "GET /api/cats"
-        ],
-        "/api/cats/{id}": [
-          "DELETE /api/cats/{id}"
-        ]
-      }
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /api",
+            "http GET /api/cats",
+            "http DELETE /api/cats/{id}"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "interactions": {
+    "http POST /api": {
+      "path": "/api",
+      "tags": [
+        "@api"
+      ],
+      "httpMethod": "POST"
+    },
+    "http GET /api/cats": {
+      "path": "/api/cats",
+      "tags": [
+        "@api"
+      ],
+      "httpMethod": "GET"
+    },
+    "http DELETE /api/cats/{id}": {
+      "path": "/api/cats/{id}",
+      "tags": [
+        "@api"
+      ],
+      "httpMethod": "DELETE"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

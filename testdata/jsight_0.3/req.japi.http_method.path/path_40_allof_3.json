@@ -1,63 +1,68 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}/{name}"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@pathVars1": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
+              "scalarValue": "1",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cats/{id}/{name}": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cats/{id}/{name}": {
       "path": "/cats/{id}/{name}",
       "tags": [
         "@cats"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
                 "scalarValue": "1",
-                "inheritedFrom": "@pathVars1"
+                "inheritedFrom": "@pathVars1",
+                "optional": false
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
-      }
+      },
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}/{name}": [
-          "GET /cats/{id}/{name}"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

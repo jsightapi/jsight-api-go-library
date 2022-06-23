@@ -1,48 +1,51 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "DELETE /cat": {
-      "httpMethod": "DELETE",
-      "path": "/cat",
-      "tags": [
-        "@cat"
-      ]
-    },
-    "GET /cat": {
-      "httpMethod": "GET",
-      "path": "/cat",
-      "tags": [
-        "@cat"
-      ]
-    },
-    "POST /cat": {
-      "httpMethod": "POST",
-      "path": "/cat",
-      "tags": [
-        "@cat"
-      ]
-    },
-    "PUT /cat": {
-      "httpMethod": "PUT",
-      "path": "/cat",
-      "tags": [
-        "@cat"
-      ]
-    }
-  },
   "tags": {
     "@cat": {
       "name": "@cat",
       "title": "/cat",
-      "resourceMethods": {
-        "/cat": [
-          "GET /cat",
-          "POST /cat",
-          "PUT /cat",
-          "DELETE /cat"
-        ]
-      }
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat",
+            "http POST /cat",
+            "http PUT /cat",
+            "http DELETE /cat"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "GET"
+    },
+    "http POST /cat": {
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "POST"
+    },
+    "http PUT /cat": {
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "PUT"
+    },
+    "http DELETE /cat": {
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "DELETE"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

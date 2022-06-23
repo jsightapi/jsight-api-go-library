@@ -1,29 +1,41 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@cat": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "name": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "kusja"
+              "scalarValue": "kusja",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "POST /": {
-      "httpMethod": "POST",
+  "interactions": {
+    "http POST /": {
       "path": "/",
       "tags": [
         "@_"
@@ -32,30 +44,22 @@
         "body": {
           "format": "json",
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "reference",
+              "tokenType": "reference",
               "type": "@cat",
-              "optional": false,
-              "scalarValue": "@cat"
+              "scalarValue": "@cat",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@cat"
             ]
           }
         }
-      }
+      },
+      "httpMethod": "POST"
     }
   },
-  "tags": {
-    "@_": {
-      "name": "@_",
-      "title": "/",
-      "resourceMethods": {
-        "/": [
-          "POST /"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

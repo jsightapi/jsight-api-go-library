@@ -1,10 +1,10 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "info": {
     "title": "Catsbook \" API \\",
     "version": "\"1.0\" \\"
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

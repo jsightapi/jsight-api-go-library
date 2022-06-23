@@ -1,11 +1,11 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "info": {
-    "title": "Catsbook API",
-    "version": "1.0",
-    "description": "The API of social network for cats."
-  },
-  "resourceMethods": {},
-  "tags": {}
+	"tags": {},
+	"info": {
+		"title": "Catsbook API",
+		"version": "1.0",
+		"description": "The API of social network for cats."
+	},
+	"interactions": {},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

@@ -1,78 +1,86 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cats/{id}": {
-      "httpMethod": "GET",
-      "path": "/cats/{id}",
-      "tags": [
-        "@cats"
-      ],
-      "pathVariables": {
-        "schema": {
-          "notation": "jsight",
-          "content": {
-            "jsonType": "object",
-            "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
-                "type": "integer",
-                "optional": false,
-                "scalarValue": "12",
-                "note": "Cat identifier."
-              }
-            }
-          }
-        }
-      }
-    },
-    "POST /cat/{id}": {
-      "httpMethod": "POST",
-      "path": "/cat/{id}",
-      "tags": [
-        "@cat"
-      ],
-      "pathVariables": {
-        "schema": {
-          "notation": "jsight",
-          "content": {
-            "jsonType": "object",
-            "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
-                "type": "integer",
-                "optional": false,
-                "scalarValue": "12",
-                "note": "Cat identifier."
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}": [
-          "GET /cats/{id}"
-        ]
-      }
-    },
-    "@cat": {
-      "name": "@cat",
-      "title": "/cat",
-      "resourceMethods": {
-        "/cat/{id}": [
-          "POST /cat/{id}"
-        ]
-      }
-    }
-  }
+	"tags": {
+		"@cats": {
+			"name": "@cats",
+			"title": "/cats",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http GET /cats/{id}"
+					]
+				}
+			]
+		},
+		"@cat": {
+			"name": "@cat",
+			"title": "/cat",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http POST /cat/{id}"
+					]
+				}
+			]
+		}
+	},
+	"interactions": {
+		"http GET /cats/{id}": {
+			"path": "/cats/{id}",
+			"tags": [
+				"@cats"
+			],
+			"pathVariables": {
+				"schema": {
+					"content": {
+						"tokenType": "object",
+						"type": "object",
+						"children": [
+							{
+								"note": "Cat identifier.",
+								"key": "id",
+								"tokenType": "number",
+								"type": "integer",
+								"scalarValue": "12",
+								"optional": false
+							}
+						],
+						"optional": false
+					},
+					"notation": "jsight"
+				}
+			},
+			"httpMethod": "GET"
+		},
+		"http POST /cat/{id}": {
+			"path": "/cat/{id}",
+			"tags": [
+				"@cat"
+			],
+			"pathVariables": {
+				"schema": {
+					"content": {
+						"tokenType": "object",
+						"type": "object",
+						"children": [
+							{
+								"note": "Cat identifier.",
+								"key": "id",
+								"tokenType": "number",
+								"type": "integer",
+								"scalarValue": "12",
+								"optional": false
+							}
+						],
+						"optional": false
+					},
+					"notation": "jsight"
+				}
+			},
+			"httpMethod": "POST"
+		}
+	},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

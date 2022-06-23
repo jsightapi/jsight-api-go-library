@@ -1,145 +1,165 @@
 {
+  "tags": {},
   "userTypes": {
     "@cat": {
       "annotation": "A cat.",
       "schema": {
         "content": {
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@pet"
             }
-          },
-          "properties": {
-            "passportNumber": {
-              "rules": {
-                "or": {
-                  "jsonType": "array",
-                  "items": [
-                    {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "integer"
-                        }
-                      }
-                    },
-                    {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "string"
-                        },
-                        "minLength": {
-                          "jsonType": "number",
-                          "scalarValue": "10"
-                        },
-                        "maxLength": {
-                          "jsonType": "number",
-                          "scalarValue": "10"
-                        }
-                      }
-                    }
-                  ]
-                }
-              },
-              "jsonType": "number",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "passportNumber",
+              "tokenType": "number",
               "type": "mixed",
               "scalarValue": "1234123212",
               "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "string"
+                        },
+                        {
+                          "key": "minLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
+                        },
+                        {
+                          "key": "maxLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
               "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
               "scalarValue": "Thomas the Great",
               "inheritedFrom": "@pet",
               "optional": false
             },
-            "email": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "email"
-                }
-              },
-              "jsonType": "string",
+            {
+              "key": "email",
+              "tokenType": "string",
               "type": "email",
               "scalarValue": "thomas@catsbook.com",
               "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "email"
+                }
+              ],
               "optional": false
             },
-            "website": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "uri"
-                },
-                "nullable": {
-                  "jsonType": "boolean",
-                  "scalarValue": "true"
-                }
-              },
-              "jsonType": "string",
+            {
+              "key": "website",
+              "tokenType": "string",
               "type": "uri",
               "scalarValue": "http://www.thomas-the-great.com",
               "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uri"
+                },
+                {
+                  "key": "nullable",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
               "optional": false
             },
-            "owners": {
-              "jsonType": "array",
+            {
+              "key": "owners",
+              "tokenType": "array",
               "type": "array",
               "inheritedFrom": "@pet",
               "note": "Owners",
-              "items": [
+              "children": [
                 {
-                  "properties": {
-                    "id": {
-                      "rules": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "uuid"
-                        }
-                      },
-                      "jsonType": "string",
+                  "tokenType": "object",
+                  "type": "object",
+                  "note": "Owner",
+                  "children": [
+                    {
+                      "note": "Owners id.",
+                      "key": "id",
+                      "tokenType": "string",
                       "type": "uuid",
                       "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
-                      "note": "Owners id.",
+                      "rules": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "uuid"
+                        }
+                      ],
                       "optional": false
                     },
-                    "name": {
-                      "jsonType": "string",
+                    {
+                      "key": "name",
+                      "tokenType": "string",
                       "type": "string",
                       "scalarValue": "John",
                       "optional": false
                     }
-                  },
-                  "jsonType": "object",
-                  "type": "object",
-                  "note": "Owner",
+                  ],
                   "optional": true
                 }
               ],
               "optional": false
             },
-            "id": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "@catId"
-                }
-              },
-              "jsonType": "string",
+            {
+              "note": "Cat’s id.",
+              "key": "id",
+              "tokenType": "string",
               "type": "@catId",
               "scalarValue": "CAT-123",
-              "note": "Cat’s id.",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "@catId"
+                }
+              ],
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight",
@@ -152,212 +172,243 @@
     "@pet": {
       "schema": {
         "content": {
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@animal"
             }
-          },
-          "properties": {
-            "type": {
-              "jsonType": "reference",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "type",
+              "tokenType": "reference",
               "type": "@animalType",
               "scalarValue": "@animalType",
               "inheritedFrom": "@animal",
               "optional": false
             },
-            "moodStatus": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+            {
+              "key": "moodStatus",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "happy",
+              "inheritedFrom": "@animal",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "enum"
                 },
-                "enum": {
-                  "jsonType": "array",
-                  "items": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "happy"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "gloomy"
                     }
                   ]
                 }
-              },
-              "jsonType": "string",
-              "type": "enum",
-              "scalarValue": "happy",
-              "inheritedFrom": "@animal",
+              ],
               "optional": false
             },
-            "age": {
-              "rules": {
-                "min": {
-                  "jsonType": "number",
-                  "scalarValue": "0"
-                },
-                "max": {
-                  "jsonType": "number",
-                  "scalarValue": "600"
-                }
-              },
-              "jsonType": "number",
+            {
+              "key": "age",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "12",
               "inheritedFrom": "@animal",
-              "optional": false
-            },
-            "weight": {
-              "rules": {
-                "min": {
-                  "jsonType": "number",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "0"
                 },
-                "exclusiveMinimum": {
-                  "jsonType": "boolean",
-                  "scalarValue": "true"
-                },
-                "max": {
-                  "jsonType": "number",
-                  "scalarValue": "6000"
-                },
-                "exclusiveMaximum": {
-                  "jsonType": "boolean",
-                  "scalarValue": "false"
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "600"
                 }
-              },
-              "jsonType": "number",
+              ],
+              "optional": false
+            },
+            {
+              "key": "weight",
+              "tokenType": "number",
               "type": "float",
               "scalarValue": "2.5",
               "inheritedFrom": "@animal",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "exclusiveMinimum",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "6000"
+                },
+                {
+                  "key": "exclusiveMaximum",
+                  "tokenType": "boolean",
+                  "scalarValue": "false"
+                }
+              ],
               "optional": false
             },
-            "birthday": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "date"
-                }
-              },
-              "jsonType": "string",
+            {
+              "key": "birthday",
+              "tokenType": "string",
               "type": "date",
               "scalarValue": "2006-01-02",
               "inheritedFrom": "@animal",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "date"
+                }
+              ],
               "optional": false
             },
-            "passportNumber": {
-              "rules": {
-                "or": {
-                  "jsonType": "array",
-                  "items": [
+            {
+              "key": "passportNumber",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1234123212",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "integer"
                         }
-                      }
+                      ]
                     },
                     {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
                           "scalarValue": "string"
                         },
-                        "minLength": {
-                          "jsonType": "number",
+                        {
+                          "key": "minLength",
+                          "tokenType": "number",
                           "scalarValue": "10"
                         },
-                        "maxLength": {
-                          "jsonType": "number",
+                        {
+                          "key": "maxLength",
+                          "tokenType": "number",
                           "scalarValue": "10"
                         }
-                      }
+                      ]
                     }
                   ]
                 }
-              },
-              "jsonType": "number",
-              "type": "mixed",
-              "scalarValue": "1234123212",
+              ],
               "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
               "scalarValue": "Thomas the Great",
               "optional": false
             },
-            "email": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "email"
-                }
-              },
-              "jsonType": "string",
+            {
+              "key": "email",
+              "tokenType": "string",
               "type": "email",
               "scalarValue": "thomas@catsbook.com",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "email"
+                }
+              ],
               "optional": false
             },
-            "website": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "uri"
-                },
-                "nullable": {
-                  "jsonType": "boolean",
-                  "scalarValue": "true"
-                }
-              },
-              "jsonType": "string",
+            {
+              "key": "website",
+              "tokenType": "string",
               "type": "uri",
               "scalarValue": "http://www.thomas-the-great.com",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uri"
+                },
+                {
+                  "key": "nullable",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
               "optional": false
             },
-            "owners": {
-              "jsonType": "array",
+            {
+              "key": "owners",
+              "tokenType": "array",
               "type": "array",
               "note": "Owners",
-              "items": [
+              "children": [
                 {
-                  "properties": {
-                    "id": {
-                      "rules": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "uuid"
-                        }
-                      },
-                      "jsonType": "string",
+                  "tokenType": "object",
+                  "type": "object",
+                  "note": "Owner",
+                  "children": [
+                    {
+                      "note": "Owners id.",
+                      "key": "id",
+                      "tokenType": "string",
                       "type": "uuid",
                       "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
-                      "note": "Owners id.",
+                      "rules": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "uuid"
+                        }
+                      ],
                       "optional": false
                     },
-                    "name": {
-                      "jsonType": "string",
+                    {
+                      "key": "name",
+                      "tokenType": "string",
                       "type": "string",
                       "scalarValue": "John",
                       "optional": false
                     }
-                  },
-                  "jsonType": "object",
-                  "type": "object",
-                  "note": "Owner",
+                  ],
                   "optional": true
                 }
               ],
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight",
@@ -369,93 +420,107 @@
     "@animal": {
       "schema": {
         "content": {
-          "properties": {
-            "type": {
-              "jsonType": "reference",
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "type",
+              "tokenType": "reference",
               "type": "@animalType",
               "scalarValue": "@animalType",
               "optional": false
             },
-            "moodStatus": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+            {
+              "key": "moodStatus",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "happy",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "enum"
                 },
-                "enum": {
-                  "jsonType": "array",
-                  "items": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "happy"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "gloomy"
                     }
                   ]
                 }
-              },
-              "jsonType": "string",
-              "type": "enum",
-              "scalarValue": "happy",
+              ],
               "optional": false
             },
-            "age": {
-              "rules": {
-                "min": {
-                  "jsonType": "number",
-                  "scalarValue": "0"
-                },
-                "max": {
-                  "jsonType": "number",
-                  "scalarValue": "600"
-                }
-              },
-              "jsonType": "number",
+            {
+              "key": "age",
+              "tokenType": "number",
               "type": "integer",
               "scalarValue": "12",
-              "optional": false
-            },
-            "weight": {
-              "rules": {
-                "min": {
-                  "jsonType": "number",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "0"
                 },
-                "exclusiveMinimum": {
-                  "jsonType": "boolean",
-                  "scalarValue": "true"
-                },
-                "max": {
-                  "jsonType": "number",
-                  "scalarValue": "6000"
-                },
-                "exclusiveMaximum": {
-                  "jsonType": "boolean",
-                  "scalarValue": "false"
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "600"
                 }
-              },
-              "jsonType": "number",
-              "type": "float",
-              "scalarValue": "2.5",
+              ],
               "optional": false
             },
-            "birthday": {
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "date"
+            {
+              "key": "weight",
+              "tokenType": "number",
+              "type": "float",
+              "scalarValue": "2.5",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "exclusiveMinimum",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "6000"
+                },
+                {
+                  "key": "exclusiveMaximum",
+                  "tokenType": "boolean",
+                  "scalarValue": "false"
                 }
-              },
-              "jsonType": "string",
+              ],
+              "optional": false
+            },
+            {
+              "key": "birthday",
+              "tokenType": "string",
               "type": "date",
               "scalarValue": "2006-01-02",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "date"
+                }
+              ],
               "optional": false
             }
-          },
-          "jsonType": "object",
-          "type": "object",
+          ],
           "optional": false
         },
         "notation": "jsight",
@@ -473,40 +538,40 @@
     "@animalType": {
       "schema": {
         "content": {
-          "rules": {
-            "enum": {
-              "jsonType": "array",
-              "items": [
+          "tokenType": "string",
+          "type": "enum",
+          "scalarValue": "cat",
+          "rules": [
+            {
+              "key": "enum",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "cat"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "dog"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "pig"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "frog"
                 }
               ]
             }
-          },
-          "jsonType": "string",
-          "type": "enum",
-          "scalarValue": "cat",
+          ],
           "optional": false
         },
         "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {},
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3"
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

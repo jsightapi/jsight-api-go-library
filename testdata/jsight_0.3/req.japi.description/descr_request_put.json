@@ -1,25 +1,28 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "PUT /cats": {
-      "httpMethod": "PUT",
-      "path": "/cats",
-      "tags": [
-        "@cats"
-      ],
-      "description": "Using this method, you can get\na list of all the cats that are registered\non Catsbook."
-    }
-  },
   "tags": {
     "@cats": {
       "name": "@cats",
       "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "PUT /cats"
-        ]
-      }
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http PUT /cats"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "interactions": {
+    "http PUT /cats": {
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "description": "Using this method, you can get\na list of all the cats that are registered\non Catsbook.",
+      "httpMethod": "PUT"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

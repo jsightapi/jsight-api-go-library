@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /catName": {
-      "httpMethod": "GET",
+  "tags": {
+    "@catName": {
+      "name": "@catName",
+      "title": "/catName",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /catName"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /catName": {
       "path": "/catName",
       "tags": [
         "@catName"
@@ -14,28 +25,20 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "string",
+                "tokenType": "string",
                 "type": "string",
-                "optional": false,
-                "scalarValue": "Tom"
-              }
+                "scalarValue": "Tom",
+                "optional": false
+              },
+              "notation": "jsight"
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@catName": {
-      "name": "@catName",
-      "title": "/catName",
-      "resourceMethods": {
-        "/catName": [
-          "GET /catName"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

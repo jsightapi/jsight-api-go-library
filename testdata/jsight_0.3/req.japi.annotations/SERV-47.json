@@ -1,6 +1,18 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats"
+          ]
+        }
+      ]
+    }
+  },
   "info": {
     "description": "Check all the annotations below in the main field and in details cards."
   },
@@ -14,67 +26,71 @@
     "@testExtraLongAnnotationInObject": {
       "annotation": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "key": {
-              "jsonType": "string",
-              "type": "string",
-              "optional": true,
-              "scalarValue": "value",
+          "children": [
+            {
               "note": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside.",
-              "rules": {
-                "optional": {
-                  "jsonType": "boolean",
+              "key": "key",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "value",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 },
-                "nullable": {
-                  "jsonType": "boolean",
+                {
+                  "key": "nullable",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              }
+              ],
+              "optional": true
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@testExtraLongAnnotationInArray": {
       "annotation": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "array",
+          "tokenType": "array",
           "type": "array",
-          "optional": false,
-          "items": [
+          "children": [
             {
-              "jsonType": "string",
-              "type": "string",
-              "optional": true,
-              "scalarValue": "value",
               "note": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside.",
-              "rules": {
-                "nullable": {
-                  "jsonType": "boolean",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "value",
+              "rules": [
+                {
+                  "key": "nullable",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 },
-                "minLength": {
-                  "jsonType": "number",
+                {
+                  "key": "minLength",
+                  "tokenType": "number",
                   "scalarValue": "1"
                 }
-              }
+              ],
+              "optional": true
             }
-          ]
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cats": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cats": {
       "path": "/cats",
       "tags": [
         "@cats"
@@ -87,29 +103,21 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "string",
+                "note": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside.",
+                "tokenType": "string",
                 "type": "string",
-                "optional": false,
                 "scalarValue": "OK",
-                "note": "This is a field with a very long note. It must be: 1) cutted with ... in th end in \"Collapse rules\" mode, 2) it must NOT have line breaks inside."
-              }
+                "optional": false
+              },
+              "notation": "jsight"
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "GET /cats"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

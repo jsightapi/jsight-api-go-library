@@ -1,33 +1,36 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "POST /catsName": {
-      "httpMethod": "POST",
-      "path": "/catsName",
-      "tags": [
-        "@catsName"
-      ],
-      "request": {
-        "body": {
-          "format": "plainString",
-          "schema": {
-            "notation": "regex",
-            "content": "[a-z]+"
-          }
-        }
-      }
-    }
-  },
-  "tags": {
-    "@catsName": {
-      "name": "@catsName",
-      "title": "/catsName",
-      "resourceMethods": {
-        "/catsName": [
-          "POST /catsName"
-        ]
-      }
-    }
-  }
+	"tags": {
+		"@catsName": {
+			"name": "@catsName",
+			"title": "/catsName",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http POST /catsName"
+					]
+				}
+			]
+		}
+	},
+	"interactions": {
+		"http POST /catsName": {
+			"path": "/catsName",
+			"tags": [
+				"@catsName"
+			],
+			"request": {
+				"body": {
+					"format": "plainString",
+					"schema": {
+						"content": "[a-z]+",
+						"notation": "regex"
+					}
+				}
+			},
+			"httpMethod": "POST"
+		}
+	},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

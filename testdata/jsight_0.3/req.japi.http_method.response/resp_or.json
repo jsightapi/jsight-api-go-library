@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "POST /cats": {
-      "httpMethod": "POST",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /cats"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http POST /cats": {
       "path": "/cats",
       "tags": [
         "@cats"
@@ -15,68 +26,66 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "data": {
-                    "jsonType": "string",
+                "children": [
+                  {
+                    "key": "data",
+                    "tokenType": "string",
                     "type": "mixed",
-                    "optional": false,
                     "scalarValue": "abc",
-                    "rules": {
-                      "or": {
-                        "jsonType": "array",
-                        "items": [
+                    "rules": [
+                      {
+                        "key": "or",
+                        "tokenType": "array",
+                        "children": [
                           {
-                            "jsonType": "object",
-                            "properties": {
-                              "type": {
-                                "jsonType": "string",
+                            "tokenType": "object",
+                            "children": [
+                              {
+                                "key": "type",
+                                "tokenType": "string",
                                 "scalarValue": "string"
                               },
-                              "maxLength": {
-                                "jsonType": "number",
+                              {
+                                "key": "maxLength",
+                                "tokenType": "number",
                                 "scalarValue": "3"
                               }
-                            }
+                            ]
                           },
                           {
-                            "jsonType": "object",
-                            "properties": {
-                              "type": {
-                                "jsonType": "string",
+                            "tokenType": "object",
+                            "children": [
+                              {
+                                "key": "type",
+                                "tokenType": "string",
                                 "scalarValue": "integer"
                               },
-                              "min": {
-                                "jsonType": "number",
+                              {
+                                "key": "min",
+                                "tokenType": "number",
                                 "scalarValue": "0"
                               }
-                            }
+                            ]
                           }
                         ]
                       }
-                    }
+                    ],
+                    "optional": false
                   }
-                }
-              }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "POST"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "POST /cats"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }
