@@ -1,88 +1,95 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "userTypes": {
-    "@pathVars1": {
-      "schema": {
-        "notation": "jsight",
-        "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "number",
-              "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
-            }
-          }
-        }
-      }
-    },
-    "@pathVars2": {
-      "schema": {
-        "notation": "jsight",
-        "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "properties": {
-            "name": {
-              "jsonType": "string",
-              "type": "string",
-              "optional": false,
-              "scalarValue": "Tom"
-            }
-          }
-        }
-      }
-    }
-  },
-  "resourceMethods": {
-    "GET /cats/{id}/{name}": {
-      "httpMethod": "GET",
-      "path": "/cats/{id}/{name}",
-      "tags": [
-        "@cats"
-      ],
-      "pathVariables": {
-        "schema": {
-          "notation": "jsight",
-          "content": {
-            "jsonType": "object",
-            "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
-                "type": "integer",
-                "optional": false,
-                "scalarValue": "1",
-                "inheritedFrom": "@pathVars1"
-              },
-              "name": {
-                "jsonType": "string",
-                "type": "string",
-                "optional": false,
-                "scalarValue": "Tom",
-                "inheritedFrom": "@pathVars2"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}/{name}": [
-          "GET /cats/{id}/{name}"
-        ]
-      }
-    }
-  }
+	"tags": {
+		"@cats": {
+			"name": "@cats",
+			"title": "/cats",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http GET /cats/{id}/{name}"
+					]
+				}
+			]
+		}
+	},
+	"userTypes": {
+		"@pathVars1": {
+			"schema": {
+				"content": {
+					"tokenType": "object",
+					"type": "object",
+					"children": [
+						{
+							"key": "id",
+							"tokenType": "number",
+							"type": "integer",
+							"scalarValue": "1",
+							"optional": false
+						}
+					],
+					"optional": false
+				},
+				"notation": "jsight"
+			}
+		},
+		"@pathVars2": {
+			"schema": {
+				"content": {
+					"tokenType": "object",
+					"type": "object",
+					"children": [
+						{
+							"key": "name",
+							"tokenType": "string",
+							"type": "string",
+							"scalarValue": "Tom",
+							"optional": false
+						}
+					],
+					"optional": false
+				},
+				"notation": "jsight"
+			}
+		}
+	},
+	"interactions": {
+		"http GET /cats/{id}/{name}": {
+			"path": "/cats/{id}/{name}",
+			"tags": [
+				"@cats"
+			],
+			"pathVariables": {
+				"schema": {
+					"content": {
+						"tokenType": "object",
+						"type": "object",
+						"children": [
+							{
+								"key": "id",
+								"tokenType": "number",
+								"type": "integer",
+								"scalarValue": "1",
+								"inheritedFrom": "@pathVars1",
+								"optional": false
+							},
+							{
+								"key": "name",
+								"tokenType": "string",
+								"type": "string",
+								"scalarValue": "Tom",
+								"inheritedFrom": "@pathVars2",
+								"optional": false
+							}
+						],
+						"optional": false
+					},
+					"notation": "jsight"
+				}
+			},
+			"httpMethod": "GET"
+		}
+	},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

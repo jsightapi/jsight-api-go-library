@@ -1,33 +1,44 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http PUT /"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@cat": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "number",
+          "tokenType": "number",
           "type": "integer",
-          "optional": false,
-          "scalarValue": "12"
-        }
+          "scalarValue": "12",
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@dog": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "string",
-          "optional": false,
-          "scalarValue": "funtic"
-        }
+          "scalarValue": "funtic",
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "PUT /": {
-      "httpMethod": "PUT",
+  "interactions": {
+    "http PUT /": {
       "path": "/",
       "tags": [
         "@_"
@@ -36,31 +47,23 @@
         "body": {
           "format": "json",
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "tokenType": "reference",
               "type": "mixed",
-              "optional": false,
-              "scalarValue": "@dog | @cat"
+              "scalarValue": "@dog | @cat",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@dog",
               "@cat"
             ]
           }
         }
-      }
+      },
+      "httpMethod": "PUT"
     }
   },
-  "tags": {
-    "@_": {
-      "name": "@_",
-      "title": "/",
-      "resourceMethods": {
-        "/": [
-          "PUT /"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

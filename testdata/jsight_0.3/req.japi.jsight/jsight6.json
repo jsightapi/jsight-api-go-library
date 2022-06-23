@@ -1,25 +1,26 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@dogId": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "string",
-          "optional": false,
           "scalarValue": "DOG-123",
-          "rules": {
-            "regex": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "regex",
+              "tokenType": "string",
               "scalarValue": "DOG"
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

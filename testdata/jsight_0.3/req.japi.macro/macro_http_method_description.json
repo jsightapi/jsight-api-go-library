@@ -1,25 +1,28 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cat": {
-      "httpMethod": "GET",
-      "path": "/cat",
-      "tags": [
-        "@cat"
-      ],
-      "description": "The API of social network for cats."
-    }
-  },
-  "tags": {
-    "@cat": {
-      "name": "@cat",
-      "title": "/cat",
-      "resourceMethods": {
-        "/cat": [
-          "GET /cat"
-        ]
-      }
-    }
-  }
+	"tags": {
+		"@cat": {
+			"name": "@cat",
+			"title": "/cat",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http GET /cat"
+					]
+				}
+			]
+		}
+	},
+	"interactions": {
+		"http GET /cat": {
+			"path": "/cat",
+			"tags": [
+				"@cat"
+			],
+			"description": "The API of social network for cats.",
+			"httpMethod": "GET"
+		}
+	},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

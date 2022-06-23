@@ -1,59 +1,61 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "userTypes": {
-    "@n": {
-      "schema": {
-        "notation": "jsight",
-        "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "properties": {
-            "a": {
-              "jsonType": "number",
-              "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
-            }
-          }
-        }
-      }
-    },
-    "@m": {
-      "schema": {
-        "notation": "jsight",
-        "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "properties": {
-            "b": {
-              "jsonType": "number",
-              "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
-            }
-          }
-        }
-      }
-    },
-    "@nm": {
-      "schema": {
-        "notation": "jsight",
-        "content": {
-          "jsonType": "shortcut",
-          "type": "mixed",
-          "optional": false,
-          "scalarValue": "@n | @m"
-        },
-        "usedUserTypes": [
-          "@n",
-          "@m"
-        ]
-      }
-    }
-  },
-  "resourceMethods": {},
-  "tags": {}
+	"tags": {},
+	"userTypes": {
+		"@n": {
+			"schema": {
+				"content": {
+					"tokenType": "object",
+					"type": "object",
+					"children": [
+						{
+							"key": "a",
+							"tokenType": "number",
+							"type": "integer",
+							"scalarValue": "1",
+							"optional": false
+						}
+					],
+					"optional": false
+				},
+				"notation": "jsight"
+			}
+		},
+		"@m": {
+			"schema": {
+				"content": {
+					"tokenType": "object",
+					"type": "object",
+					"children": [
+						{
+							"key": "b",
+							"tokenType": "number",
+							"type": "integer",
+							"scalarValue": "1",
+							"optional": false
+						}
+					],
+					"optional": false
+				},
+				"notation": "jsight"
+			}
+		},
+		"@nm": {
+			"schema": {
+				"content": {
+					"tokenType": "reference",
+					"type": "mixed",
+					"scalarValue": "@n | @m",
+					"optional": false
+				},
+				"notation": "jsight",
+				"usedUserTypes": [
+					"@n",
+					"@m"
+				]
+			}
+		}
+	},
+	"interactions": {},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

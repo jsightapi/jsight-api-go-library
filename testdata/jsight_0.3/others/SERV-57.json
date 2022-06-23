@@ -1,6 +1,21 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@dogs": {
+      "name": "@dogs",
+      "title": "/dogs",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /dogs",
+            "http POST /dogs",
+            "http GET /dogs/{id}",
+            "http DELETE /dogs/{id}"
+          ]
+        }
+      ]
+    }
+  },
   "info": {
     "title": "Dogs REST API",
     "version": "1.0",
@@ -20,115 +35,130 @@
     "@pet": {
       "annotation": "A pet.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "shortcut",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "reference",
               "type": "@petId",
-              "optional": false,
-              "scalarValue": "@petId"
+              "scalarValue": "@petId",
+              "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Tom"
+              "scalarValue": "Tom",
+              "optional": false
             },
-            "type": {
-              "jsonType": "string",
+            {
+              "key": "type",
+              "tokenType": "string",
               "type": "enum",
-              "optional": false,
               "scalarValue": "PIG",
-              "rules": {
-                "enum": {
-                  "jsonType": "array",
-                  "items": [
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "CAT"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "DOG"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "PIG"
                     }
                   ]
                 }
-              }
+              ],
+              "optional": false
             },
-            "age": {
-              "jsonType": "number",
+            {
+              "key": "age",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "10",
-              "rules": {
-                "min": {
-                  "jsonType": "number",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "0"
                 },
-                "max": {
-                  "jsonType": "number",
+                {
+                  "key": "max",
+                  "tokenType": "number",
                   "scalarValue": "99"
                 }
-              }
+              ],
+              "optional": false
             },
-            "email": {
-              "jsonType": "string",
+            {
+              "key": "email",
+              "tokenType": "string",
               "type": "email",
-              "optional": false,
               "scalarValue": "tom@pets.com",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "email"
                 }
-              }
+              ],
+              "optional": false
             },
-            "uri": {
-              "jsonType": "string",
+            {
+              "key": "uri",
+              "tokenType": "string",
               "type": "uri",
-              "optional": false,
               "scalarValue": "http://tom.pets.com",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "uri"
                 }
-              }
+              ],
+              "optional": false
             },
-            "birthday": {
-              "jsonType": "string",
+            {
+              "key": "birthday",
+              "tokenType": "string",
               "type": "date",
-              "optional": false,
               "scalarValue": "2012-01-03",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "date"
                 }
-              }
+              ],
+              "optional": false
             },
-            "uuid": {
-              "jsonType": "string",
+            {
+              "key": "uuid",
+              "tokenType": "string",
               "type": "uuid",
-              "optional": false,
               "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "uuid"
                 }
-              }
+              ],
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@petId"
         ]
@@ -137,204 +167,232 @@
     "@dog": {
       "annotation": "A dog.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@pet"
             }
-          },
-          "properties": {
-            "friendIds": {
-              "jsonType": "array",
-              "type": "array",
-              "optional": false,
-              "note": "Only dog ids are allowed.",
-              "items": [
-                {
-                  "jsonType": "shortcut",
-                  "type": "@petId",
-                  "optional": true,
-                  "scalarValue": "@petId"
-                }
-              ]
-            },
-            "isDangerous": {
-              "jsonType": "boolean",
-              "type": "boolean",
-              "optional": false,
-              "scalarValue": "false"
-            },
-            "legacyId": {
-              "jsonType": "number",
-              "type": "mixed",
-              "optional": true,
-              "scalarValue": "1",
-              "rules": {
-                "or": {
-                  "jsonType": "array",
-                  "items": [
-                    {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "integer"
-                        },
-                        "min": {
-                          "jsonType": "number",
-                          "scalarValue": "0"
-                        },
-                        "exclusiveMinimum": {
-                          "jsonType": "boolean",
-                          "scalarValue": "true"
-                        }
-                      }
-                    },
-                    {
-                      "jsonType": "object",
-                      "properties": {
-                        "type": {
-                          "jsonType": "string",
-                          "scalarValue": "string"
-                        }
-                      }
-                    }
-                  ]
-                },
-                "optional": {
-                  "jsonType": "boolean",
-                  "scalarValue": "true"
-                }
-              }
-            },
-            "additionalData": {
-              "jsonType": "object",
-              "type": "any",
-              "optional": false,
-              "note": "Field for legacy.",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
-                  "scalarValue": "any"
-                }
-              }
-            },
-            "id": {
-              "jsonType": "shortcut",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "reference",
               "type": "@petId",
-              "optional": false,
               "scalarValue": "@petId",
-              "inheritedFrom": "@pet"
+              "inheritedFrom": "@pet",
+              "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "Tom",
-              "inheritedFrom": "@pet"
+              "inheritedFrom": "@pet",
+              "optional": false
             },
-            "type": {
-              "jsonType": "string",
+            {
+              "key": "type",
+              "tokenType": "string",
               "type": "enum",
-              "optional": false,
               "scalarValue": "PIG",
               "inheritedFrom": "@pet",
-              "rules": {
-                "enum": {
-                  "jsonType": "array",
-                  "items": [
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "CAT"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "DOG"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "PIG"
                     }
                   ]
                 }
-              }
+              ],
+              "optional": false
             },
-            "age": {
-              "jsonType": "number",
+            {
+              "key": "age",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "10",
               "inheritedFrom": "@pet",
-              "rules": {
-                "min": {
-                  "jsonType": "number",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "0"
                 },
-                "max": {
-                  "jsonType": "number",
+                {
+                  "key": "max",
+                  "tokenType": "number",
                   "scalarValue": "99"
                 }
-              }
+              ],
+              "optional": false
             },
-            "email": {
-              "jsonType": "string",
+            {
+              "key": "email",
+              "tokenType": "string",
               "type": "email",
-              "optional": false,
               "scalarValue": "tom@pets.com",
               "inheritedFrom": "@pet",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "email"
                 }
-              }
+              ],
+              "optional": false
             },
-            "uri": {
-              "jsonType": "string",
+            {
+              "key": "uri",
+              "tokenType": "string",
               "type": "uri",
-              "optional": false,
               "scalarValue": "http://tom.pets.com",
               "inheritedFrom": "@pet",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "uri"
                 }
-              }
+              ],
+              "optional": false
             },
-            "birthday": {
-              "jsonType": "string",
+            {
+              "key": "birthday",
+              "tokenType": "string",
               "type": "date",
-              "optional": false,
               "scalarValue": "2012-01-03",
               "inheritedFrom": "@pet",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "date"
                 }
-              }
+              ],
+              "optional": false
             },
-            "uuid": {
-              "jsonType": "string",
+            {
+              "key": "uuid",
+              "tokenType": "string",
               "type": "uuid",
-              "optional": false,
               "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
               "inheritedFrom": "@pet",
-              "rules": {
-                "type": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
                   "scalarValue": "uuid"
                 }
-              }
+              ],
+              "optional": false
+            },
+            {
+              "key": "friendIds",
+              "tokenType": "array",
+              "type": "array",
+              "note": "Only dog ids are allowed.",
+              "children": [
+                {
+                  "tokenType": "reference",
+                  "type": "@petId",
+                  "scalarValue": "@petId",
+                  "optional": true
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "isDangerous",
+              "tokenType": "boolean",
+              "type": "boolean",
+              "scalarValue": "false",
+              "optional": false
+            },
+            {
+              "key": "legacyId",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "integer"
+                        },
+                        {
+                          "key": "min",
+                          "tokenType": "number",
+                          "scalarValue": "0"
+                        },
+                        {
+                          "key": "exclusiveMinimum",
+                          "tokenType": "boolean",
+                          "scalarValue": "true"
+                        }
+                      ]
+                    },
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "string"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "any"
+                }
+              ],
+              "key": "additionalData",
+              "tokenType": "object",
+              "type": "any",
+              "note": "Field for legacy.",
+              "children": [],
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@pet",
           "@petId"
@@ -343,105 +401,115 @@
     },
     "@petId": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "string",
-          "optional": false,
           "scalarValue": "GOAT-12345",
-          "rules": {
-            "regex": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "regex",
+              "tokenType": "string",
               "scalarValue": "^[A-Z]+-\\d+$"
             },
-            "minLength": {
-              "jsonType": "number",
+            {
+              "key": "minLength",
+              "tokenType": "number",
               "scalarValue": "3"
             },
-            "maxLength": {
-              "jsonType": "number",
+            {
+              "key": "maxLength",
+              "tokenType": "number",
               "scalarValue": "255"
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@error": {
       "annotation": "A common error response.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "code": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "code",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "12"
+              "scalarValue": "12",
+              "optional": false
             },
-            "message": {
-              "jsonType": "string",
+            {
+              "key": "message",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Something bad had happened on server..."
+              "scalarValue": "Something bad had happened on server...",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@commonRequestHeaders": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "rules": {
-            "allOf": {
-              "jsonType": "array",
-              "items": [
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@contentTypeHeader"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "@authHeader"
                 }
               ]
             }
-          },
-          "properties": {
-            "Content-Type": {
-              "jsonType": "string",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "application/json",
               "inheritedFrom": "@contentTypeHeader",
-              "rules": {
-                "const": {
-                  "jsonType": "boolean",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              }
+              ],
+              "optional": false
             },
-            "Authorization": {
-              "jsonType": "string",
+            {
+              "key": "Authorization",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
               "inheritedFrom": "@authHeader",
-              "rules": {
-                "regex": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "regex",
+                  "tokenType": "string",
                   "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
                 }
-              }
+              ],
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@contentTypeHeader",
           "@authHeader"
@@ -450,33 +518,36 @@
     },
     "@commonResponseHeaders": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@contentTypeHeader"
             }
-          },
-          "properties": {
-            "Content-Type": {
-              "jsonType": "string",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "application/json",
               "inheritedFrom": "@contentTypeHeader",
-              "rules": {
-                "const": {
-                  "jsonType": "boolean",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              }
+              ],
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@contentTypeHeader"
         ]
@@ -484,107 +555,117 @@
     },
     "@contentTypeHeader": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "Content-Type": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "application/json",
-              "rules": {
-                "const": {
-                  "jsonType": "boolean",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              }
+              ],
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@authHeader": {
       "annotation": "Authorization header.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "Authorization": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "Authorization",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
               "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-              "rules": {
-                "regex": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "regex",
+                  "tokenType": "string",
                   "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
                 }
-              }
+              ],
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@pageQuery": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "page": {
-              "jsonType": "number",
-              "type": "integer",
-              "optional": true,
-              "scalarValue": "1",
+          "children": [
+            {
               "note": "1 by default.",
-              "rules": {
-                "optional": {
-                  "jsonType": "boolean",
+              "key": "page",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 },
-                "min": {
-                  "jsonType": "number",
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "1"
                 }
-              }
+              ],
+              "optional": true
             },
-            "pageSize": {
-              "jsonType": "number",
-              "type": "integer",
-              "optional": true,
-              "scalarValue": "30",
+            {
               "note": "30 by default.",
-              "rules": {
-                "optional": {
-                  "jsonType": "boolean",
+              "key": "pageSize",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "30",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 },
-                "min": {
-                  "jsonType": "number",
+                {
+                  "key": "min",
+                  "tokenType": "number",
                   "scalarValue": "10"
                 },
-                "max": {
-                  "jsonType": "number",
+                {
+                  "key": "max",
+                  "tokenType": "number",
                   "scalarValue": "100"
                 }
-              }
+              ],
+              "optional": true
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /dogs": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /dogs": {
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -594,120 +675,136 @@
         "example": "page=1\u0026pageSize=30\u0026filter[age]=12",
         "format": "htmlFormEncoded",
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
-            "type": "object",
-            "optional": false,
-            "rules": {
-              "allOf": {
-                "jsonType": "string",
+            "rules": [
+              {
+                "key": "allOf",
+                "tokenType": "string",
                 "scalarValue": "@pageQuery"
               }
-            },
-            "properties": {
-              "filter": {
-                "jsonType": "object",
-                "type": "object",
-                "optional": true,
-                "rules": {
-                  "optional": {
-                    "jsonType": "boolean",
+            ],
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "1 by default.",
+                "key": "page",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "inheritedFrom": "@pageQuery",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  {
+                    "key": "min",
+                    "tokenType": "number",
+                    "scalarValue": "1"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "note": "30 by default.",
+                "key": "pageSize",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "30",
+                "inheritedFrom": "@pageQuery",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  {
+                    "key": "min",
+                    "tokenType": "number",
+                    "scalarValue": "10"
+                  },
+                  {
+                    "key": "max",
+                    "tokenType": "number",
+                    "scalarValue": "100"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
                     "scalarValue": "true"
                   }
-                },
-                "properties": {
-                  "size": {
-                    "jsonType": "string",
-                    "type": "enum",
-                    "optional": true,
-                    "scalarValue": "S",
+                ],
+                "key": "filter",
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
                     "note": "Filter by dog's size.",
-                    "rules": {
-                      "optional": {
-                        "jsonType": "boolean",
+                    "key": "size",
+                    "tokenType": "string",
+                    "type": "enum",
+                    "scalarValue": "S",
+                    "rules": [
+                      {
+                        "key": "optional",
+                        "tokenType": "boolean",
                         "scalarValue": "true"
                       },
-                      "enum": {
-                        "jsonType": "array",
-                        "items": [
+                      {
+                        "key": "enum",
+                        "tokenType": "array",
+                        "children": [
                           {
-                            "jsonType": "string",
+                            "tokenType": "string",
                             "scalarValue": "S"
                           },
                           {
-                            "jsonType": "string",
+                            "tokenType": "string",
                             "scalarValue": "L"
                           },
                           {
-                            "jsonType": "string",
+                            "tokenType": "string",
                             "scalarValue": "M"
                           }
                         ]
                       }
-                    }
+                    ],
+                    "optional": true
                   },
-                  "age": {
-                    "jsonType": "number",
-                    "type": "integer",
-                    "optional": true,
-                    "scalarValue": "12",
+                  {
                     "note": "Filter by dog's age.",
-                    "rules": {
-                      "optional": {
-                        "jsonType": "boolean",
+                    "key": "age",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "12",
+                    "rules": [
+                      {
+                        "key": "optional",
+                        "tokenType": "boolean",
                         "scalarValue": "true"
                       },
-                      "min": {
-                        "jsonType": "number",
+                      {
+                        "key": "min",
+                        "tokenType": "number",
                         "scalarValue": "0"
                       }
-                    }
+                    ],
+                    "optional": true
                   }
-                }
-              },
-              "page": {
-                "jsonType": "number",
-                "type": "integer",
-                "optional": true,
-                "scalarValue": "1",
-                "inheritedFrom": "@pageQuery",
-                "note": "1 by default.",
-                "rules": {
-                  "optional": {
-                    "jsonType": "boolean",
-                    "scalarValue": "true"
-                  },
-                  "min": {
-                    "jsonType": "number",
-                    "scalarValue": "1"
-                  }
-                }
-              },
-              "pageSize": {
-                "jsonType": "number",
-                "type": "integer",
-                "optional": true,
-                "scalarValue": "30",
-                "inheritedFrom": "@pageQuery",
-                "note": "30 by default.",
-                "rules": {
-                  "optional": {
-                    "jsonType": "boolean",
-                    "scalarValue": "true"
-                  },
-                  "min": {
-                    "jsonType": "number",
-                    "scalarValue": "10"
-                  },
-                  "max": {
-                    "jsonType": "number",
-                    "scalarValue": "100"
-                  }
-                }
+                ],
+                "optional": true
               }
-            }
+            ],
+            "optional": false
           },
+          "notation": "jsight",
           "usedUserTypes": [
             "@pageQuery"
           ]
@@ -716,13 +813,13 @@
       "request": {
         "headers": {
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "tokenType": "reference",
               "type": "@commonRequestHeaders",
-              "optional": false,
-              "scalarValue": "@commonRequestHeaders"
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
             ]
@@ -741,13 +838,13 @@
           "annotation": "Returns a page of dogs.",
           "headers": {
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@commonResponseHeaders",
-                "optional": false,
-                "scalarValue": "@commonResponseHeaders"
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
               ]
@@ -756,39 +853,42 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "items": {
-                    "jsonType": "array",
+                "children": [
+                  {
+                    "key": "items",
+                    "tokenType": "array",
                     "type": "array",
-                    "optional": false,
-                    "items": [
+                    "children": [
                       {
-                        "jsonType": "shortcut",
+                        "tokenType": "reference",
                         "type": "@dog",
-                        "optional": true,
-                        "scalarValue": "@dog"
+                        "scalarValue": "@dog",
+                        "optional": true
                       }
-                    ]
+                    ],
+                    "optional": false
                   },
-                  "page": {
-                    "jsonType": "number",
+                  {
+                    "key": "page",
+                    "tokenType": "number",
                     "type": "integer",
-                    "optional": false,
-                    "scalarValue": "1"
+                    "scalarValue": "1",
+                    "optional": false
                   },
-                  "pageSize": {
-                    "jsonType": "number",
+                  {
+                    "key": "pageSize",
+                    "tokenType": "number",
                     "type": "integer",
-                    "optional": false,
-                    "scalarValue": "30"
+                    "scalarValue": "30",
+                    "optional": false
                   }
-                }
+                ],
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@dog"
               ]
@@ -815,10 +915,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     },
-    "POST /dogs": {
-      "httpMethod": "POST",
+    "http POST /dogs": {
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -828,52 +928,58 @@
       "request": {
         "headers": {
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "object",
-              "type": "object",
-              "optional": false,
-              "rules": {
-                "allOf": {
-                  "jsonType": "string",
+              "rules": [
+                {
+                  "key": "allOf",
+                  "tokenType": "string",
                   "scalarValue": "@commonRequestHeaders"
                 }
-              },
-              "properties": {
-                "X-header": {
-                  "jsonType": "string",
+              ],
+              "tokenType": "object",
+              "type": "object",
+              "children": [
+                {
+                  "key": "Content-Type",
+                  "tokenType": "string",
                   "type": "string",
-                  "optional": false,
-                  "scalarValue": "Some additional header"
-                },
-                "Content-Type": {
-                  "jsonType": "string",
-                  "type": "string",
-                  "optional": false,
                   "scalarValue": "application/json",
                   "inheritedFrom": "@commonRequestHeaders",
-                  "rules": {
-                    "const": {
-                      "jsonType": "boolean",
+                  "rules": [
+                    {
+                      "key": "const",
+                      "tokenType": "boolean",
                       "scalarValue": "true"
                     }
-                  }
+                  ],
+                  "optional": false
                 },
-                "Authorization": {
-                  "jsonType": "string",
+                {
+                  "key": "Authorization",
+                  "tokenType": "string",
                   "type": "string",
-                  "optional": false,
                   "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
                   "inheritedFrom": "@commonRequestHeaders",
-                  "rules": {
-                    "regex": {
-                      "jsonType": "string",
+                  "rules": [
+                    {
+                      "key": "regex",
+                      "tokenType": "string",
                       "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
                     }
-                  }
+                  ],
+                  "optional": false
+                },
+                {
+                  "key": "X-header",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "Some additional header",
+                  "optional": false
                 }
-              }
+              ],
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
             ]
@@ -882,13 +988,13 @@
         "body": {
           "format": "json",
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "tokenType": "reference",
               "type": "@dog",
-              "optional": false,
-              "scalarValue": "@dog"
+              "scalarValue": "@dog",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@dog"
             ]
@@ -901,27 +1007,28 @@
           "annotation": "Success.",
           "headers": {
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "X-header": {
-                    "jsonType": "string",
+                "children": [
+                  {
+                    "key": "X-header",
+                    "tokenType": "string",
                     "type": "string",
-                    "optional": false,
-                    "scalarValue": "Some additional header"
+                    "scalarValue": "Some additional header",
+                    "optional": false
                   }
-                }
-              }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
             }
           },
           "body": {
             "format": "plainString",
             "schema": {
-              "notation": "regex",
-              "content": "^OK$"
+              "content": "^OK$",
+              "notation": "regex"
             }
           }
         },
@@ -935,37 +1042,39 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "POST"
     },
-    "GET /dogs/{id}": {
-      "httpMethod": "GET",
+    "http GET /dogs/{id}": {
       "path": "/dogs/{id}",
       "tags": [
         "@dogs"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "string",
-                "type": "@petId",
-                "optional": false,
-                "scalarValue": "DOG-123",
+            "children": [
+              {
                 "note": "Dog's id.",
-                "rules": {
-                  "type": {
-                    "jsonType": "string",
+                "key": "id",
+                "tokenType": "string",
+                "type": "@petId",
+                "scalarValue": "DOG-123",
+                "rules": [
+                  {
+                    "key": "type",
+                    "tokenType": "string",
                     "scalarValue": "@petId"
                   }
-                }
+                ],
+                "optional": false
               }
-            }
+            ],
+            "optional": false
           },
+          "notation": "jsight",
           "usedUserTypes": [
             "@petId"
           ]
@@ -975,13 +1084,13 @@
       "request": {
         "headers": {
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "tokenType": "reference",
               "type": "@commonRequestHeaders",
-              "optional": false,
-              "scalarValue": "@commonRequestHeaders"
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
             ]
@@ -1000,13 +1109,13 @@
           "annotation": "Return a dog.",
           "headers": {
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@commonResponseHeaders",
-                "optional": false,
-                "scalarValue": "@commonResponseHeaders"
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
               ]
@@ -1015,13 +1124,13 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@dog",
-                "optional": false,
-                "scalarValue": "@dog"
+                "scalarValue": "@dog",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@dog"
               ]
@@ -1048,37 +1157,39 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     },
-    "DELETE /dogs/{id}": {
-      "httpMethod": "DELETE",
+    "http DELETE /dogs/{id}": {
       "path": "/dogs/{id}",
       "tags": [
         "@dogs"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "string",
-                "type": "@petId",
-                "optional": false,
-                "scalarValue": "DOG-123",
+            "children": [
+              {
                 "note": "Dog's id.",
-                "rules": {
-                  "type": {
-                    "jsonType": "string",
+                "key": "id",
+                "tokenType": "string",
+                "type": "@petId",
+                "scalarValue": "DOG-123",
+                "rules": [
+                  {
+                    "key": "type",
+                    "tokenType": "string",
                     "scalarValue": "@petId"
                   }
-                }
+                ],
+                "optional": false
               }
-            }
+            ],
+            "optional": false
           },
+          "notation": "jsight",
           "usedUserTypes": [
             "@petId"
           ]
@@ -1088,13 +1199,13 @@
       "request": {
         "headers": {
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "shortcut",
+              "tokenType": "reference",
               "type": "@commonRequestHeaders",
-              "optional": false,
-              "scalarValue": "@commonRequestHeaders"
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
             },
+            "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
             ]
@@ -1113,13 +1224,13 @@
           "annotation": "OK.",
           "headers": {
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@commonResponseHeaders",
-                "optional": false,
-                "scalarValue": "@commonResponseHeaders"
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
               ]
@@ -1128,19 +1239,20 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "string",
+                "tokenType": "string",
                 "type": "string",
-                "optional": false,
                 "scalarValue": "OK",
-                "rules": {
-                  "const": {
-                    "jsonType": "boolean",
+                "rules": [
+                  {
+                    "key": "const",
+                    "tokenType": "boolean",
                     "scalarValue": "true"
                   }
-                }
-              }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
             }
           }
         },
@@ -1160,13 +1272,13 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@error",
-                "optional": false,
-                "scalarValue": "@error"
+                "scalarValue": "@error",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@error"
               ]
@@ -1183,23 +1295,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "DELETE"
     }
   },
-  "tags": {
-    "@dogs": {
-      "name": "@dogs",
-      "title": "/dogs",
-      "resourceMethods": {
-        "/dogs": [
-          "GET /dogs",
-          "POST /dogs"
-        ],
-        "/dogs/{id}": [
-          "GET /dogs/{id}",
-          "DELETE /dogs/{id}"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

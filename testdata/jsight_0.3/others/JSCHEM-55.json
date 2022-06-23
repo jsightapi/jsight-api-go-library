@@ -1,41 +1,44 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@rule": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "properties": {
-              "jsonType": "object",
-              "type": "object",
-              "optional": true,
-              "rules": {
-                "additionalProperties": {
-                  "jsonType": "string",
+          "children": [
+            {
+              "rules": [
+                {
+                  "key": "additionalProperties",
+                  "tokenType": "string",
                   "scalarValue": "@ruleNameEnum"
                 },
-                "optional": {
-                  "jsonType": "boolean",
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              },
-              "properties": {
-                "@ruleNameEnum": {
-                  "isKeyShortcut": true,
-                  "jsonType": "shortcut",
+              ],
+              "key": "properties",
+              "tokenType": "object",
+              "type": "object",
+              "children": [
+                {
+                  "key": "@ruleNameEnum",
+                  "tokenType": "reference",
                   "type": "@rule",
-                  "optional": false,
-                  "scalarValue": "@rule"
+                  "scalarValue": "@rule",
+                  "isKeyUserTypeRef": true,
+                  "optional": false
                 }
-              }
+              ],
+              "optional": true
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@rule",
           "@ruleNameEnum"
@@ -44,103 +47,105 @@
     },
     "@ruleNameEnum": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "enum",
-          "optional": false,
           "scalarValue": "minLength",
-          "rules": {
-            "enum": {
-              "jsonType": "array",
-              "items": [
+          "rules": [
+            {
+              "key": "enum",
+              "tokenType": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "type"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "optional"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "nullable"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "min"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "max"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "exclusiveMinimum"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "exclusiveMaximum"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "precision"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "minLength"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "maxLength"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "regexp"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "minItems"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "maxItems"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "or"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "additionalProperties"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "const"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "serializeFormat"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "serializedType"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "enum"
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "scalarValue": "allOf"
                 }
               ]
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

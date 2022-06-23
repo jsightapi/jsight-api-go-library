@@ -1,9 +1,20 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3",
-    "resourceMethods": {
-        "GET /api": {
-            "httpMethod": "GET",
+    "tags": {
+        "@api": {
+            "name": "@api",
+            "title": "/api",
+            "interactionGroups": [
+                {
+                    "protocol": "http",
+                    "interactions": [
+                        "http GET /api"
+                    ]
+                }
+            ]
+        }
+    },
+    "interactions": {
+        "http GET /api": {
             "path": "/api",
             "tags": [
                 "@api"
@@ -18,18 +29,10 @@
                         }
                     }
                 }
-            ]
+            ],
+            "httpMethod": "GET"
         }
     },
-    "tags": {
-        "@api": {
-            "name": "@api",
-            "title": "/api",
-            "resourceMethods": {
-                "/api": [
-                    "GET /api"
-                ]
-            }
-        }
-    }
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

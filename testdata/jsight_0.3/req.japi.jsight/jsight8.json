@@ -1,56 +1,62 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3",
+    "tags": {},
     "userTypes": {
         "@dog": {
             "schema": {
-                "notation": "jsight",
                 "content": {
-                    "jsonType": "object",
+                    "tokenType": "object",
                     "type": "object",
-                    "optional": false,
-                    "properties": {
-                        "id": {
-                            "jsonType": "string",
+                    "children": [
+                        {
+                            "key": "id",
+                            "tokenType": "string",
                             "type": "string",
-                            "optional": false,
-                            "scalarValue": "DOG-123"
+                            "scalarValue": "DOG-123",
+                            "optional": false
                         },
-                        "name": {
-                            "jsonType": "string",
+                        {
+                            "key": "name",
+                            "tokenType": "string",
                             "type": "string",
-                            "optional": false,
-                            "scalarValue": "Doggie"
+                            "scalarValue": "Doggie",
+                            "optional": false
                         },
-                        "birt_day": {
-                            "jsonType": "string",
+                        {
+                            "key": "birt_day",
+                            "tokenType": "string",
                             "type": "date",
-                            "optional": false,
                             "scalarValue": "2021-01-08",
-                            "rules": {
-                                "type": {
-                                    "jsonType": "string",
+                            "rules": [
+                                {
+                                    "key": "type",
+                                    "tokenType": "string",
                                     "scalarValue": "date"
                                 }
-                            }
+                            ],
+                            "optional": false
                         },
-                        "created_at": {
-                            "jsonType": "string",
+                        {
+                            "key": "created_at",
+                            "tokenType": "string",
                             "type": "datetime",
-                            "optional": false,
                             "scalarValue": "2021-01-08T12:50:45Z",
-                            "rules": {
-                                "type": {
-                                    "jsonType": "string",
+                            "rules": [
+                                {
+                                    "key": "type",
+                                    "tokenType": "string",
                                     "scalarValue": "datetime"
                                 }
-                            }
+                            ],
+                            "optional": false
                         }
-                    }
-                }
+                    ],
+                    "optional": false
+                },
+                "notation": "jsight"
             }
         }
     },
-    "resourceMethods": {},
-    "tags": {}
+    "interactions": {},
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

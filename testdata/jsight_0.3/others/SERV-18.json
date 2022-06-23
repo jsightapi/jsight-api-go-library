@@ -1,73 +1,79 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@level1": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "level1Field1": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
+              "scalarValue": "1",
+              "optional": false
             },
-            "level1Field2": {
-              "jsonType": "number",
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "1"
+              "scalarValue": "1",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@level2": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@level1"
             }
-          },
-          "properties": {
-            "level1Field1": {
-              "jsonType": "number",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "1",
-              "inheritedFrom": "@level1"
+              "inheritedFrom": "@level1",
+              "optional": false
             },
-            "level1Field2": {
-              "jsonType": "number",
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "1",
-              "inheritedFrom": "@level1"
+              "inheritedFrom": "@level1",
+              "optional": false
             },
-            "level2Field1": {
-              "jsonType": "number",
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "2"
+              "scalarValue": "2",
+              "optional": false
             },
-            "level2Field2": {
-              "jsonType": "number",
+            {
+              "key": "level2Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "2"
+              "scalarValue": "2",
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@level1"
         ]
@@ -75,66 +81,74 @@
     },
     "@level3": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
-          "type": "object",
-          "optional": false,
-          "rules": {
-            "allOf": {
-              "jsonType": "string",
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
               "scalarValue": "@level2"
             }
-          },
-          "properties": {
-            "level1Field1": {
-              "jsonType": "number",
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "1",
-              "inheritedFrom": "@level2"
+              "inheritedFrom": "@level2",
+              "optional": false
             },
-            "level1Field2": {
-              "jsonType": "number",
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "1",
-              "inheritedFrom": "@level2"
+              "inheritedFrom": "@level2",
+              "optional": false
             },
-            "level2Field1": {
-              "jsonType": "number",
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "2",
-              "inheritedFrom": "@level2"
+              "inheritedFrom": "@level2",
+              "optional": false
             },
-            "level2Field2": {
-              "jsonType": "number",
+            {
+              "key": "level2Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
               "scalarValue": "2",
-              "inheritedFrom": "@level2"
+              "inheritedFrom": "@level2",
+              "optional": false
             },
-            "level3Field1": {
-              "jsonType": "number",
+            {
+              "key": "level3Field1",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "3"
+              "scalarValue": "3",
+              "optional": false
             },
-            "level3Field2": {
-              "jsonType": "number",
+            {
+              "key": "level3Field2",
+              "tokenType": "number",
               "type": "integer",
-              "optional": false,
-              "scalarValue": "3"
+              "scalarValue": "3",
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@level2"
         ]
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

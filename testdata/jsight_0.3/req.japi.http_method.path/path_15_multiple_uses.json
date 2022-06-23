@@ -1,82 +1,87 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /{id}/phone": {
-      "httpMethod": "GET",
+  "tags": {
+    "@_7Bid_7D": {
+      "name": "@_7Bid_7D",
+      "title": "/{id}",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /{id}/phone",
+            "http GET /{id}/name"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /{id}/phone": {
       "path": "/{id}/phone",
       "tags": [
         "@_7Bid_7D"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
                 "scalarValue": "1",
-                "rules": {
-                  "min": {
-                    "jsonType": "number",
+                "rules": [
+                  {
+                    "key": "min",
+                    "tokenType": "number",
                     "scalarValue": "1"
                   }
-                }
+                ],
+                "optional": false
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
-      }
+      },
+      "httpMethod": "GET"
     },
-    "GET /{id}/name": {
-      "httpMethod": "GET",
+    "http GET /{id}/name": {
       "path": "/{id}/name",
       "tags": [
         "@_7Bid_7D"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
                 "scalarValue": "1",
-                "rules": {
-                  "min": {
-                    "jsonType": "number",
+                "rules": [
+                  {
+                    "key": "min",
+                    "tokenType": "number",
                     "scalarValue": "1"
                   }
-                }
+                ],
+                "optional": false
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
-      }
+      },
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@_7Bid_7D": {
-      "name": "@_7Bid_7D",
-      "title": "/{id}",
-      "resourceMethods": {
-        "/{id}/phone": [
-          "GET /{id}/phone"
-        ],
-        "/{id}/name": [
-          "GET /{id}/name"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

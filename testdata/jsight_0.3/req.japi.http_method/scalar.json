@@ -1,9 +1,20 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3",
-    "resourceMethods": {
-        "GET /special": {
-            "httpMethod": "GET",
+    "tags": {
+        "@special": {
+            "name": "@special",
+            "title": "/special",
+            "interactionGroups": [
+                {
+                    "protocol": "http",
+                    "interactions": [
+                        "http GET /special"
+                    ]
+                }
+            ]
+        }
+    },
+    "interactions": {
+        "http GET /special": {
             "path": "/special",
             "tags": [
                 "@special"
@@ -14,43 +25,36 @@
                     "body": {
                         "format": "json",
                         "schema": {
-                            "notation": "jsight",
                             "content": {
-                                "jsonType": "string",
+                                "tokenType": "string",
                                 "type": "enum",
-                                "optional": false,
                                 "scalarValue": "some string",
-                                "rules": {
-                                    "enum": {
-                                        "jsonType": "array",
-                                        "items": [
+                                "rules": [
+                                    {
+                                        "key": "enum",
+                                        "tokenType": "array",
+                                        "children": [
                                             {
-                                                "jsonType": "string",
+                                                "tokenType": "string",
                                                 "scalarValue": "some string"
                                             },
                                             {
-                                                "jsonType": "string",
+                                                "tokenType": "string",
                                                 "scalarValue": "other string"
                                             }
                                         ]
                                     }
-                                }
-                            }
+                                ],
+                                "optional": false
+                            },
+                            "notation": "jsight"
                         }
                     }
                 }
-            ]
+            ],
+            "httpMethod": "GET"
         }
     },
-    "tags": {
-        "@special": {
-            "name": "@special",
-            "title": "/special",
-            "resourceMethods": {
-                "/special": [
-                    "GET /special"
-                ]
-            }
-        }
-    }
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

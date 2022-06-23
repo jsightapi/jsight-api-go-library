@@ -1,6 +1,18 @@
 {
-	"jdocExchangeFileSchemaVersion": "1.0.0",
-	"jsight": "0.3",
+	"tags": {
+		"@_": {
+			"name": "@_",
+			"title": "/",
+			"interactionGroups": [
+				{
+					"protocol": "http",
+					"interactions": [
+						"http GET /"
+					]
+				}
+			]
+		}
+	},
 	"servers": {
 		"@CATS_API_SERVER": {
 			"annotation": "Server catsbook.com API",
@@ -11,24 +23,15 @@
 			"baseUrl": "https://dogsbook.com/api/"
 		}
 	},
-	"resourceMethods": {
-		"GET /": {
-			"httpMethod": "GET",
+	"interactions": {
+		"http GET /": {
 			"path": "/",
 			"tags": [
 				"@_"
-			]
+			],
+			"httpMethod": "GET"
 		}
 	},
-	"tags": {
-		"@_": {
-			"name": "@_",
-			"title": "/",
-			"resourceMethods": {
-				"/": [
-					"GET /"
-				]
-			}
-		}
-	}
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cats": {
-      "httpMethod": "GET",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cats": {
       "path": "/cats",
       "tags": [
         "@cats"
@@ -12,26 +23,28 @@
       "query": {
         "format": "htmlFormEncoded",
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "page": {
-                "jsonType": "number",
+            "children": [
+              {
+                "key": "page",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
-                "scalarValue": "1"
+                "scalarValue": "1",
+                "optional": false
               },
-              "per_page": {
-                "jsonType": "number",
+              {
+                "key": "per_page",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
-                "scalarValue": "50"
+                "scalarValue": "50",
+                "optional": false
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
       },
       "responses": [
@@ -44,18 +57,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "GET /cats"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

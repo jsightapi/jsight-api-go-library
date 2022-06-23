@@ -1,9 +1,20 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3",
-    "resourceMethods": {
-        "GET /cats": {
-            "httpMethod": "GET",
+    "tags": {
+        "@cats": {
+            "name": "@cats",
+            "title": "/cats",
+            "interactionGroups": [
+                {
+                    "protocol": "http",
+                    "interactions": [
+                        "http GET /cats"
+                    ]
+                }
+            ]
+        }
+    },
+    "interactions": {
+        "http GET /cats": {
             "path": "/cats",
             "tags": [
                 "@cats"
@@ -13,84 +24,85 @@
                 "example": "page=1\u0026per_page=50\u0026filter[size]=XXL",
                 "format": "htmlFormEncoded",
                 "schema": {
-                    "notation": "jsight",
                     "content": {
-                        "jsonType": "object",
+                        "tokenType": "object",
                         "type": "object",
-                        "optional": false,
-                        "properties": {
-                            "page": {
-                                "jsonType": "number",
+                        "children": [
+                            {
+                                "key": "page",
+                                "tokenType": "number",
                                 "type": "integer",
-                                "optional": false,
-                                "scalarValue": "1"
+                                "scalarValue": "1",
+                                "optional": false
                             },
-                            "per_page": {
-                                "jsonType": "number",
+                            {
+                                "key": "per_page",
+                                "tokenType": "number",
                                 "type": "integer",
-                                "optional": true,
                                 "scalarValue": "50",
-                                "rules": {
-                                    "optional": {
-                                        "jsonType": "boolean",
+                                "rules": [
+                                    {
+                                        "key": "optional",
+                                        "tokenType": "boolean",
                                         "scalarValue": "true"
                                     }
-                                }
+                                ],
+                                "optional": true
                             },
-                            "filter": {
-                                "jsonType": "object",
-                                "type": "object",
-                                "optional": true,
-                                "rules": {
-                                    "optional": {
-                                        "jsonType": "boolean",
+                            {
+                                "rules": [
+                                    {
+                                        "key": "optional",
+                                        "tokenType": "boolean",
                                         "scalarValue": "true"
                                     }
-                                },
-                                "properties": {
-                                    "size": {
-                                        "jsonType": "string",
-                                        "type": "string",
-                                        "optional": true,
-                                        "scalarValue": "XXL",
+                                ],
+                                "key": "filter",
+                                "tokenType": "object",
+                                "type": "object",
+                                "children": [
+                                    {
                                         "note": "Filter by cat size.",
-                                        "rules": {
-                                            "optional": {
-                                                "jsonType": "boolean",
+                                        "key": "size",
+                                        "tokenType": "string",
+                                        "type": "string",
+                                        "scalarValue": "XXL",
+                                        "rules": [
+                                            {
+                                                "key": "optional",
+                                                "tokenType": "boolean",
                                                 "scalarValue": "true"
                                             }
-                                        }
+                                        ],
+                                        "optional": true
                                     },
-                                    "age": {
-                                        "jsonType": "number",
-                                        "type": "integer",
-                                        "optional": true,
-                                        "scalarValue": "12",
+                                    {
                                         "note": "Filter by age of the cat.",
-                                        "rules": {
-                                            "optional": {
-                                                "jsonType": "boolean",
+                                        "key": "age",
+                                        "tokenType": "number",
+                                        "type": "integer",
+                                        "scalarValue": "12",
+                                        "rules": [
+                                            {
+                                                "key": "optional",
+                                                "tokenType": "boolean",
                                                 "scalarValue": "true"
                                             }
-                                        }
+                                        ],
+                                        "optional": true
                                     }
-                                }
+                                ],
+                                "optional": true
                             }
-                        }
-                    }
+                        ],
+                        "optional": false
+                    },
+                    "notation": "jsight"
                 }
-            }
+            },
+            "httpMethod": "GET"
         }
     },
-    "tags": {
-        "@cats": {
-            "name": "@cats",
-            "title": "/cats",
-            "resourceMethods": {
-                "/cats": [
-                    "GET /cats"
-                ]
-            }
-        }
-    }
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

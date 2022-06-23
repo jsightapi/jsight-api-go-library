@@ -79,6 +79,12 @@ func (d *Directive) AppendParameter(b bytes.Bytes) error {
 		if b.IsUserTypeName() {
 			return d.SetParameter("Name", s)
 		}
+
+	case Protocol:
+		return d.SetParameter("Protocol", s)
+
+	case Method:
+		return d.SetParameter("Method", s)
 	}
 
 	return fmt.Errorf("%s %q", jerr.IncorrectParameter, s)

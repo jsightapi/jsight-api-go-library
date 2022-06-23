@@ -32,7 +32,7 @@ func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
 	for i := 0; i < len(core.rawPathVariables); i++ {
 		r := &core.rawPathVariables[i]
 
-		for r.schema.ContentJSight.JsonType == jschema.JSONTypeShortcut {
+		for r.schema.ContentJSight.TokenType == jschema.JSONTypeShortcut {
 			typeName := r.schema.ContentJSight.Type
 			if typeName == "mixed" {
 				return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
@@ -64,7 +64,7 @@ func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
 }
 
 func checkPathSchema(s catalog.Schema) error {
-	if s.ContentJSight.JsonType != jschema.JSONTypeObject {
+	if s.ContentJSight.TokenType != jschema.JSONTypeObject {
 		return errors.New("the body of the Path DIRECTIVE must be an object")
 	}
 
@@ -80,15 +80,14 @@ func checkPathSchema(s catalog.Schema) error {
 		return errors.New(`the "or" rule is invalid in the Path directive`)
 	}
 
-	if s.ContentJSight.Properties == nil || s.ContentJSight.Properties.Len() == 0 {
+	if s.ContentJSight.Children == nil || len(s.ContentJSight.Children) == 0 {
 		return errors.New("an empty object in the Path directive")
 	}
 
-	kv, ok := s.ContentJSight.Properties.Find(func(_ string, v *catalog.SchemaContentJSight) bool {
-		return v.JsonType == jschema.JSONTypeObject || v.JsonType == jschema.JSONTypeArray
-	})
-	if ok {
-		return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", kv.Key)
+	for _, v := range s.ContentJSight.Children {
+		if v.TokenType == jschema.JSONTypeObject || v.TokenType == jschema.JSONTypeArray {
+			return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", v.Key)
+		}
 	}
 
 	return nil
@@ -97,7 +96,7 @@ func checkPathSchema(s catalog.Schema) error {
 func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	allProjectProperties := make(map[catalog.Path]prop)
 	for _, v := range core.rawPathVariables {
-		pp := core.propertiesToMap(v.schema.ContentJSight.Properties)
+		pp := core.propertiesToMap(v.schema.ContentJSight.Children)
 
 		for _, p := range v.parameters {
 			if sc, ok := pp[p.parameter]; ok {
@@ -121,13 +120,14 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 		}
 	}
 
-	err := core.catalog.ResourceMethods.Map(func(id catalog.ResourceMethodId, resourceMethod *catalog.ResourceMethod) (*catalog.ResourceMethod, error) {
-		properties := make(map[string]prop)
+	err := core.catalog.HttpInteractions.Map(func(id catalog.HttpInteractionId, resourceMethod *catalog.HttpInteraction) (*catalog.HttpInteraction, error) {
 		pp := pathParameters(resourceMethod.Path.String())
+		properties := make([]prop, 0, len(pp))
 
 		for _, p := range pp {
 			if pr, ok := allProjectProperties[p.path]; ok {
-				properties[p.parameter] = pr
+				pr.parameter = p.parameter
+				properties = append(properties, pr)
 			}
 		}
 
@@ -147,15 +147,15 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	return nil
 }
 
-func (*JApiCore) propertiesToMap(pp *catalog.Properties) map[string]*catalog.SchemaContentJSight {
-	if pp == nil || pp.Len() == 0 {
+func (*JApiCore) propertiesToMap(pp []*catalog.SchemaContentJSight) map[string]*catalog.SchemaContentJSight {
+	if len(pp) == 0 {
 		return nil
 	}
 
-	res := make(map[string]*catalog.SchemaContentJSight, pp.Len())
-	pp.EachSafe(func(k string, v *catalog.SchemaContentJSight) {
-		res[k] = v
-	})
+	res := make(map[string]*catalog.SchemaContentJSight, len(pp))
+	for _, v := range pp {
+		res[v.Key] = v
+	}
 	return res
 }
 
@@ -239,7 +239,7 @@ func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processQueryAllOf() *jerr.JApiError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		q := v.Query
 		if q != nil && q.Schema != nil && q.Schema.Notation == notation.SchemaNotationJSight {
 			if err := core.processSchemaContentJSightAllOf(q.Schema.ContentJSight, q.Schema.UsedUserTypes); err != nil {
@@ -251,7 +251,7 @@ func (core *JApiCore) processQueryAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processRequestHeaderAllOf() *jerr.JApiError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		r := v.Request
 		if r != nil && r.HTTPRequestHeaders != nil && r.HTTPRequestHeaders.Schema != nil && r.HTTPRequestHeaders.Schema.Notation == notation.SchemaNotationJSight {
 			h := r.HTTPRequestHeaders
@@ -264,7 +264,7 @@ func (core *JApiCore) processRequestHeaderAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processRequestAllOf() *jerr.JApiError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		r := v.Request
 		if r != nil && r.HTTPRequestBody != nil && r.HTTPRequestBody.Schema != nil && r.HTTPRequestBody.Schema.Notation == notation.SchemaNotationJSight {
 			b := r.HTTPRequestBody
@@ -277,7 +277,7 @@ func (core *JApiCore) processRequestAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processResponseHeaderAllOf() *jerr.JApiError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		for _, resp := range v.Responses {
 			h := resp.Headers
 			if h != nil && h.Schema != nil && h.Schema.Notation == notation.SchemaNotationJSight {
@@ -291,7 +291,7 @@ func (core *JApiCore) processResponseHeaderAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
-	return adoptError(core.catalog.ResourceMethods.Each(func(_ catalog.ResourceMethodId, v *catalog.ResourceMethod) error {
+	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
 		for _, resp := range v.Responses {
 			b := resp.Body
 			if b != nil && b.Schema != nil && b.Schema.Notation == notation.SchemaNotationJSight {
@@ -305,22 +305,21 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJSight, uut *catalog.StringSet) error {
-	if sc.JsonType != jschema.JSONTypeObject {
+	if sc.TokenType != jschema.JSONTypeObject {
 		return nil
 	}
 
-	err := sc.Properties.Each(func(_ string, v *catalog.SchemaContentJSight) error {
-		return core.processSchemaContentJSightAllOf(v, uut)
-	})
-	if err != nil {
-		return err
+	for _, v := range sc.Children {
+		if err := core.processSchemaContentJSightAllOf(v, uut); err != nil {
+			return err
+		}
 	}
 
 	if rule, ok := sc.Rules.Get("allOf"); ok {
-		switch rule.JsonType {
+		switch rule.TokenType {
 		case jschema.JSONTypeArray:
-			for i := len(rule.Items) - 1; i >= 0; i-- {
-				r := rule.Items[i]
+			for i := len(rule.Children) - 1; i >= 0; i-- {
+				r := rule.Children[i]
 				if err := core.inheritPropertiesFromUserType(sc, uut, r.ScalarValue); err != nil {
 					return err
 				}
@@ -340,24 +339,27 @@ func (core *JApiCore) inheritPropertiesFromUserType(sc *catalog.SchemaContentJSi
 		return fmt.Errorf(`the user type %q not found`, userTypeName)
 	}
 
-	if ut.Schema.ContentJSight.JsonType != jschema.JSONTypeObject {
+	if ut.Schema.ContentJSight.TokenType != jschema.JSONTypeObject {
 		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
 	}
 
-	if sc.Properties == nil {
-		sc.Properties = &catalog.Properties{}
+	if sc.Children == nil {
+		sc.Children = make([]*catalog.SchemaContentJSight, 0, 10)
 	}
 
-	return ut.Schema.ContentJSight.Properties.EachReverse(func(k string, v *catalog.SchemaContentJSight) error {
-		if sc.Properties.Has(k) {
-			return fmt.Errorf(`it is not allowed to override the "%s" property from the user type "%s"`, k, userTypeName)
+	for i := len(ut.Schema.ContentJSight.Children) - 1; i >= 0; i-- {
+		v := ut.Schema.ContentJSight.Children[i]
+
+		if sc.IsObjectHaveProperty(v.Key) {
+			return fmt.Errorf(`it is not allowed to override the "%s" property from the user type "%s"`, v.Key, userTypeName)
 		}
 		vv := *v
 		if vv.InheritedFrom == "" {
 			uut.Add(userTypeName)
 		}
 		vv.InheritedFrom = userTypeName
-		sc.Properties.SetToTop(k, &vv)
-		return nil
-	})
+		sc.Unshift(&vv)
+	}
+
+	return nil
 }

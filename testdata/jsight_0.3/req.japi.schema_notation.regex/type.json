@@ -1,14 +1,14 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "userTypes": {
-    "@catName": {
-      "schema": {
-        "notation": "regex",
-        "content": "[a-z]+"
-      }
-    }
-  },
-  "resourceMethods": {},
-  "tags": {}
+	"tags": {},
+	"userTypes": {
+		"@catName": {
+			"schema": {
+				"content": "[a-z]+",
+				"notation": "regex"
+			}
+		}
+	},
+	"interactions": {},
+	"jsight": "0.3",
+	"jdocExchangeVersion": "2.0.0"
 }

@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cats/{id}": {
-      "httpMethod": "GET",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cats/{id}": {
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -14,41 +25,35 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "id": {
-                    "jsonType": "number",
+                "children": [
+                  {
+                    "key": "id",
+                    "tokenType": "number",
                     "type": "integer",
-                    "optional": false,
-                    "scalarValue": "1"
+                    "scalarValue": "1",
+                    "optional": false
                   },
-                  "name": {
-                    "jsonType": "string",
+                  {
+                    "key": "name",
+                    "tokenType": "string",
                     "type": "string",
-                    "optional": false,
-                    "scalarValue": "Tom"
+                    "scalarValue": "Tom",
+                    "optional": false
                   }
-                }
-              }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}": [
-          "GET /cats/{id}"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

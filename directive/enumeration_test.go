@@ -33,6 +33,10 @@ func TestEnumeration_String(t *testing.T) {
 		"MACRO":              Macro,
 		"PASTE":              Paste,
 		"INCLUDE":            Include,
+		"Protocol":           Protocol,
+		"Method":             Method,
+		"Params":             Params,
+		"Result":             Result,
 	}
 
 	for expected, given := range cc {
@@ -69,6 +73,10 @@ func TestEnumeration_IsHTTPRequestMethod(t *testing.T) {
 		Macro:            false,
 		Paste:            false,
 		Include:          false,
+		Protocol:         false,
+		Method:           false,
+		Params:           false,
+		Result:           false,
 	}
 
 	for e, expected := range cc {
@@ -104,6 +112,11 @@ func TestEnumeration_IsAllowedForRootContext(t *testing.T) {
 		Enum:             true,
 		Macro:            true,
 		Paste:            true,
+		Include:          false,
+		Protocol:         false,
+		Method:           false,
+		Params:           false,
+		Result:           false,
 	}
 
 	for e, expected := range cc {
@@ -146,6 +159,10 @@ func TestEnumeration_IsAllowedForDirectiveContext(t *testing.T) {
 		{Url, Macro, false},
 		{Url, Paste, true},
 		{Url, Include, false},
+		{Url, Protocol, true},
+		{Url, Method, true},
+		{Url, Params, false},
+		{Url, Result, false},
 
 		{Info, Jsight, false},
 		{Info, Info, false},
@@ -171,6 +188,10 @@ func TestEnumeration_IsAllowedForDirectiveContext(t *testing.T) {
 		{Info, Macro, false},
 		{Info, Paste, true},
 		{Info, Include, false},
+		{Info, Protocol, false},
+		{Info, Method, false},
+		{Info, Params, false},
+		{Info, Result, false},
 
 		{Server, Jsight, false},
 		{Server, Info, false},
@@ -196,6 +217,10 @@ func TestEnumeration_IsAllowedForDirectiveContext(t *testing.T) {
 		{Server, Macro, false},
 		{Server, Paste, true},
 		{Server, Include, false},
+		{Server, Protocol, false},
+		{Server, Method, false},
+		{Server, Params, false},
+		{Server, Result, false},
 
 		{Macro, Jsight, false},
 		{Macro, Info, true},
@@ -221,6 +246,10 @@ func TestEnumeration_IsAllowedForDirectiveContext(t *testing.T) {
 		{Macro, Macro, false},
 		{Macro, Paste, true},
 		{Macro, Include, false},
+		{Macro, Protocol, false},
+		{Macro, Method, false},
+		{Macro, Params, false},
+		{Macro, Result, false},
 	}
 
 	all := []Enumeration{
@@ -248,6 +277,10 @@ func TestEnumeration_IsAllowedForDirectiveContext(t *testing.T) {
 		Macro,
 		Paste,
 		Include,
+		Protocol,
+		Method,
+		Params,
+		Result,
 	}
 
 	notAllowedAtAll := []Enumeration{

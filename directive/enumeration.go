@@ -39,6 +39,11 @@ const (
 	// This directive will be processed before we build a directive tree, so you
 	// won't see it.
 	Include
+
+	Protocol
+	Method
+	Params
+	Result
 )
 
 var (
@@ -67,6 +72,10 @@ var (
 		"MACRO",
 		"PASTE",
 		"INCLUDE",
+		"Protocol",
+		"Method",
+		"Params",
+		"Result",
 	}
 	eeOnce sync.Once
 	ee     map[string]Enumeration
@@ -127,7 +136,7 @@ func (de Enumeration) IsAllowedForDirectiveContext(child Enumeration) bool {
 // directiveAllowedToDirectiveContext a map between directive type and directive
 // types which can be placed into this directive context.
 var directiveAllowedToDirectiveContext = map[Enumeration]map[Enumeration]struct{}{
-	Url:              createEnumerationSet(Get, Post, Put, Patch, Delete, Path, Paste),
+	Url:              createEnumerationSet(Get, Post, Put, Patch, Delete, Path, Paste, Protocol, Method),
 	Get:              createEnumerationSet(Description, Request, HTTPResponseCode, Path, Query, Paste),
 	Post:             createEnumerationSet(Description, Request, HTTPResponseCode, Path, Query, Paste),
 	Put:              createEnumerationSet(Description, Request, HTTPResponseCode, Path, Query, Paste),
@@ -137,6 +146,7 @@ var directiveAllowedToDirectiveContext = map[Enumeration]map[Enumeration]struct{
 	Request:          createEnumerationSet(Body, Headers, Paste),
 	Info:             createEnumerationSet(Title, Version, Description, Paste),
 	Server:           createEnumerationSet(BaseUrl, Paste),
+	Method:           createEnumerationSet(Description, Params, Result),
 	Macro: createEnumerationSet(
 		Info,
 		Title,

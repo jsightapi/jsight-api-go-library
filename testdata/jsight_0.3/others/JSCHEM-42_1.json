@@ -1,25 +1,26 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@t": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "number",
+          "tokenType": "number",
           "type": "decimal",
-          "optional": false,
           "scalarValue": "1.1",
-          "rules": {
-            "precision": {
-              "jsonType": "number",
+          "rules": [
+            {
+              "key": "precision",
+              "tokenType": "number",
               "scalarValue": "2"
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

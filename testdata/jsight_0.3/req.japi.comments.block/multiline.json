@@ -1,24 +1,27 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cats": {
-      "httpMethod": "GET",
-      "path": "/cats",
-      "tags": [
-        "@cats"
-      ]
-    }
-  },
   "tags": {
     "@cats": {
       "name": "@cats",
       "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "GET /cats"
-        ]
-      }
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "interactions": {
+    "http GET /cats": {
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

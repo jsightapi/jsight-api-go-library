@@ -1,45 +1,47 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@testRequiredFieldsMarks": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "optional3": {
-              "jsonType": "array",
-              "type": "array",
-              "optional": true,
-              "rules": {
-                "optional": {
-                  "jsonType": "boolean",
+          "children": [
+            {
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              },
-              "items": [
+              ],
+              "key": "optional3",
+              "tokenType": "array",
+              "type": "array",
+              "children": [
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "type": "string",
-                  "optional": true,
-                  "scalarValue": "optionalItem1"
+                  "scalarValue": "optionalItem1",
+                  "optional": true
                 },
                 {
-                  "jsonType": "string",
+                  "tokenType": "string",
                   "type": "string",
-                  "optional": true,
-                  "scalarValue": "optionalItem2"
+                  "scalarValue": "optionalItem2",
+                  "optional": true
                 }
-              ]
+              ],
+              "optional": true
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

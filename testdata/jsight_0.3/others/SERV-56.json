@@ -1,38 +1,40 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@cat": {
       "annotation": "A cat.",
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "topFriends": {
-              "jsonType": "object",
-              "type": "object",
-              "optional": false,
-              "rules": {
-                "additionalProperties": {
-                  "jsonType": "boolean",
+          "children": [
+            {
+              "rules": [
+                {
+                  "key": "additionalProperties",
+                  "tokenType": "boolean",
                   "scalarValue": "true"
                 }
-              },
-              "properties": {
-                "@petName": {
-                  "isKeyShortcut": true,
-                  "jsonType": "shortcut",
+              ],
+              "key": "topFriends",
+              "tokenType": "object",
+              "type": "object",
+              "children": [
+                {
+                  "key": "@petName",
+                  "tokenType": "reference",
                   "type": "mixed",
-                  "optional": false,
-                  "scalarValue": "@cat | @pig"
+                  "scalarValue": "@cat | @pig",
+                  "isKeyUserTypeRef": true,
+                  "optional": false
                 }
-              }
+              ],
+              "optional": false
             }
-          }
+          ],
+          "optional": false
         },
+        "notation": "jsight",
         "usedUserTypes": [
           "@cat",
           "@pig",
@@ -42,29 +44,31 @@
     },
     "@pig": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "name": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Tom"
+              "scalarValue": "Tom",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@petName": {
       "schema": {
-        "notation": "regex",
-        "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$"
+        "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$",
+        "notation": "regex"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

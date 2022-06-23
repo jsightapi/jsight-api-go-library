@@ -1,61 +1,63 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@checkEnums": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "mixedEnum": {
-              "jsonType": "number",
+          "children": [
+            {
+              "key": "mixedEnum",
+              "tokenType": "number",
               "type": "enum",
-              "optional": false,
               "scalarValue": "1",
-              "rules": {
-                "enum": {
-                  "jsonType": "array",
-                  "items": [
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
                     {
-                      "jsonType": "number",
+                      "tokenType": "number",
                       "scalarValue": "1"
                     },
                     {
-                      "jsonType": "number",
+                      "tokenType": "number",
                       "scalarValue": "2"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "3"
                     },
                     {
-                      "jsonType": "string",
+                      "tokenType": "string",
                       "scalarValue": "4"
                     },
                     {
-                      "jsonType": "boolean",
+                      "tokenType": "boolean",
                       "scalarValue": "true"
                     },
                     {
-                      "jsonType": "boolean",
+                      "tokenType": "boolean",
                       "scalarValue": "false"
                     },
                     {
-                      "jsonType": "null",
+                      "tokenType": "null",
                       "scalarValue": "null"
                     }
                   ]
                 }
-              }
+              ],
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

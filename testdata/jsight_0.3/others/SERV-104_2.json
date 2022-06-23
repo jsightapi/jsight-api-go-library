@@ -1,71 +1,81 @@
 {
+    "tags": {},
     "userTypes": {
         "@cat": {
             "annotation": "A cat.",
             "schema": {
                 "content": {
-                    "rules": {
-                        "allOf": {
-                            "jsonType": "string",
+                    "rules": [
+                        {
+                            "key": "allOf",
+                            "tokenType": "string",
                             "scalarValue": "@pet"
                         }
-                    },
-                    "properties": {
-                        "passportNumber": {
-                            "rules": {
-                                "or": {
-                                    "jsonType": "array",
-                                    "items": [
-                                        {
-                                            "jsonType": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "jsonType": "string",
-                                                    "scalarValue": "integer"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "jsonType": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "jsonType": "string",
-                                                    "scalarValue": "string"
-                                                },
-                                                "minLength": {
-                                                    "jsonType": "number",
-                                                    "scalarValue": "10"
-                                                },
-                                                "maxLength": {
-                                                    "jsonType": "number",
-                                                    "scalarValue": "10"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            },
-                            "jsonType": "number",
+                    ],
+                    "tokenType": "object",
+                    "type": "object",
+                    "children": [
+                        {
+                            "key": "passportNumber",
+                            "tokenType": "number",
                             "type": "mixed",
                             "scalarValue": "1234123212",
                             "inheritedFrom": "@pet",
+                            "rules": [
+                                {
+                                    "key": "or",
+                                    "tokenType": "array",
+                                    "children": [
+                                        {
+                                            "tokenType": "object",
+                                            "children": [
+                                                {
+                                                    "key": "type",
+                                                    "tokenType": "string",
+                                                    "scalarValue": "integer"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "tokenType": "object",
+                                            "children": [
+                                                {
+                                                    "key": "type",
+                                                    "tokenType": "string",
+                                                    "scalarValue": "string"
+                                                },
+                                                {
+                                                    "key": "minLength",
+                                                    "tokenType": "number",
+                                                    "scalarValue": "10"
+                                                },
+                                                {
+                                                    "key": "maxLength",
+                                                    "tokenType": "number",
+                                                    "scalarValue": "10"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
                             "optional": false
                         },
-                        "friends": {
-                            "rules": {
-                                "optional": {
-                                    "jsonType": "boolean",
-                                    "scalarValue": "true"
-                                }
-                            },
-                            "jsonType": "shortcut",
+                        {
+                            "key": "friends",
+                            "tokenType": "reference",
                             "type": "@catList",
                             "scalarValue": "@catList",
+                            "rules": [
+                                {
+                                    "key": "optional",
+                                    "tokenType": "boolean",
+                                    "scalarValue": "true"
+                                }
+                            ],
                             "optional": true
                         }
-                    },
-                    "jsonType": "object",
-                    "type": "object",
+                    ],
                     "optional": false
                 },
                 "notation": "jsight",
@@ -78,49 +88,55 @@
         "@pet": {
             "schema": {
                 "content": {
-                    "properties": {
-                        "passportNumber": {
-                            "rules": {
-                                "or": {
-                                    "jsonType": "array",
-                                    "items": [
+                    "tokenType": "object",
+                    "type": "object",
+                    "children": [
+                        {
+                            "key": "passportNumber",
+                            "tokenType": "number",
+                            "type": "mixed",
+                            "scalarValue": "1234123212",
+                            "rules": [
+                                {
+                                    "key": "or",
+                                    "tokenType": "array",
+                                    "children": [
                                         {
-                                            "jsonType": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "jsonType": "string",
+                                            "tokenType": "object",
+                                            "children": [
+                                                {
+                                                    "key": "type",
+                                                    "tokenType": "string",
                                                     "scalarValue": "integer"
                                                 }
-                                            }
+                                            ]
                                         },
                                         {
-                                            "jsonType": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "jsonType": "string",
+                                            "tokenType": "object",
+                                            "children": [
+                                                {
+                                                    "key": "type",
+                                                    "tokenType": "string",
                                                     "scalarValue": "string"
                                                 },
-                                                "minLength": {
-                                                    "jsonType": "number",
+                                                {
+                                                    "key": "minLength",
+                                                    "tokenType": "number",
                                                     "scalarValue": "10"
                                                 },
-                                                "maxLength": {
-                                                    "jsonType": "number",
+                                                {
+                                                    "key": "maxLength",
+                                                    "tokenType": "number",
                                                     "scalarValue": "10"
                                                 }
-                                            }
+                                            ]
                                         }
                                     ]
                                 }
-                            },
-                            "jsonType": "number",
-                            "type": "mixed",
-                            "scalarValue": "1234123212",
+                            ],
                             "optional": false
                         }
-                    },
-                    "jsonType": "object",
-                    "type": "object",
+                    ],
                     "optional": false
                 },
                 "notation": "jsight"
@@ -129,11 +145,11 @@
         "@catList": {
             "schema": {
                 "content": {
-                    "jsonType": "array",
+                    "tokenType": "array",
                     "type": "array",
-                    "items": [
+                    "children": [
                         {
-                            "jsonType": "shortcut",
+                            "tokenType": "reference",
                             "type": "@cat",
                             "scalarValue": "@cat",
                             "optional": true
@@ -148,8 +164,7 @@
             }
         }
     },
-    "resourceMethods": {},
-    "tags": {},
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3"
+    "interactions": {},
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

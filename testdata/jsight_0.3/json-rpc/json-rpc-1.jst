@@ -1,0 +1,16 @@
+JSIGHT 0.3
+
+URL /api/rpc
+  Protocol json-rpc-2.0
+
+  Method createCat // Create a cat.
+    Description
+        The method creates a better cat.
+    Params
+      {
+        "cat": @cat
+      }
+    Result
+      {
+        "id": 1 // Cat’s id.
+      }

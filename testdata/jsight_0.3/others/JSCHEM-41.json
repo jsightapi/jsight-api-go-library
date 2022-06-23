@@ -1,55 +1,56 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {},
   "userTypes": {
     "@emptyStringInRoot": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "string",
+          "tokenType": "string",
           "type": "string",
           "scalarValue": "",
           "optional": false
-        }
+        },
+        "notation": "jsight"
       }
     },
     "@emptyStringInArray": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "array",
+          "tokenType": "array",
           "type": "array",
-          "optional": false,
-          "items": [
+          "children": [
             {
-              "jsonType": "string",
+              "tokenType": "string",
               "type": "string",
               "scalarValue": "",
               "optional": true
             }
-          ]
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@emptyStringInProperty": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "checkEmptyValue": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "checkEmptyValue",
+              "tokenType": "string",
               "type": "string",
               "scalarValue": "",
               "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {},
-  "tags": {}
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

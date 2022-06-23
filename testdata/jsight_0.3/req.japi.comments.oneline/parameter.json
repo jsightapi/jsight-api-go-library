@@ -1,29 +1,32 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@users": {
+      "name": "@users",
+      "title": "/users",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /users"
+          ]
+        }
+      ]
+    }
+  },
   "info": {
     "title": "#Catsbook API#",
     "version": "1.0",
     "description": "The social network API\nfor cats Catsbook."
   },
-  "resourceMethods": {
-    "GET /users": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /users": {
       "path": "/users",
       "tags": [
         "@users"
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@users": {
-      "name": "@users",
-      "title": "/users",
-      "resourceMethods": {
-        "/users": [
-          "GET /users"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

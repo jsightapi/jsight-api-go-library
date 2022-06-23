@@ -1,48 +1,53 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cats/{id}/friends/{unknown}": {
-      "httpMethod": "GET",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}/friends/{unknown}"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cats/{id}/friends/{unknown}": {
       "path": "/cats/{id}/friends/{unknown}",
       "tags": [
         "@cats"
       ],
       "pathVariables": {
         "schema": {
-          "notation": "jsight",
           "content": {
-            "jsonType": "object",
+            "tokenType": "object",
             "type": "object",
-            "optional": false,
-            "properties": {
-              "id": {
-                "jsonType": "number",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
                 "type": "integer",
-                "optional": false,
                 "scalarValue": "12",
-                "rules": {
-                  "min": {
-                    "jsonType": "number",
+                "rules": [
+                  {
+                    "key": "min",
+                    "tokenType": "number",
                     "scalarValue": "1"
                   }
-                }
+                ],
+                "optional": false
               }
-            }
-          }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
         }
-      }
+      },
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}/friends/{unknown}": [
-          "GET /cats/{id}/friends/{unknown}"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

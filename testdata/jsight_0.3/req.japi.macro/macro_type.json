@@ -1,29 +1,41 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@cat": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "name": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Tom"
+              "scalarValue": "Tom",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cat": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cat": {
       "path": "/cat",
       "tags": [
         "@cat"
@@ -34,13 +46,13 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@cat",
-                "optional": false,
-                "scalarValue": "@cat"
+                "scalarValue": "@cat",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
               ]
@@ -52,31 +64,23 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "shortcut",
+                "tokenType": "reference",
                 "type": "@cat",
-                "optional": false,
-                "scalarValue": "@cat"
+                "scalarValue": "@cat",
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
               ]
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cat": {
-      "name": "@cat",
-      "title": "/cat",
-      "resourceMethods": {
-        "/cat": [
-          "GET /cat"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

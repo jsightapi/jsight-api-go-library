@@ -29,7 +29,7 @@ func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError {
 		s.found(KeywordBegin)
 		s.step = stateU
 		return nil
-	case 'R': // Request
+	case 'R': // Request, Result
 		s.found(KeywordBegin)
 		s.step = stateR
 		return nil
@@ -37,7 +37,7 @@ func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError {
 		s.found(KeywordBegin)
 		s.step = stateG
 		return nil
-	case 'P': // POST, PUT, PATCH, Path, PASTE
+	case 'P': // POST, PUT, PATCH, Path, PASTE, Protocol, Params
 		s.found(KeywordBegin)
 		s.step = stateP
 		return nil
@@ -73,7 +73,7 @@ func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError {
 		s.found(KeywordBegin)
 		s.step = stateQ
 		return nil
-	case 'M': // MACRO
+	case 'M': // MACRO, Method
 		s.found(KeywordBegin)
 		s.step = stateM
 		return nil
@@ -102,7 +102,7 @@ func stateB(s *Scanner, c byte) *jerr.JApiError {
 		s.step = stateBa
 		return nil
 	default:
-		return s.japiErrorUnexpectedChar("in keyword Body/BaseUrl", "o")
+		return s.japiErrorUnexpectedChar("in directive name", "")
 	}
 }
 
@@ -115,7 +115,20 @@ func stateD(s *Scanner, c byte) *jerr.JApiError {
 		s.step = stateDe
 		return nil
 	default:
-		return s.japiErrorUnexpectedChar("in keyword DELETE", "E")
+		return s.japiErrorUnexpectedChar("in directive name", "")
+	}
+}
+
+func stateM(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case 'A': // MACRO
+		s.step = stateMA
+		return nil
+	case 'e': // Method
+		s.step = stateMe
+		return nil
+	default:
+		return s.japiErrorUnexpectedChar("in directive name", "")
 	}
 }
 
@@ -130,11 +143,14 @@ func stateP(s *Scanner, c byte) *jerr.JApiError {
 	case 'A': // PATCH, PASTE
 		s.step = statePA
 		return nil
-	case 'a': // Path
+	case 'a': // Path, Params
 		s.step = statePa
 		return nil
+	case 'r': // Protocol
+		s.step = statePr
+		return nil
 	default:
-		return s.japiErrorUnexpectedChar("in keyword ", "'O', 'U', 'A', 'a')")
+		return s.japiErrorUnexpectedChar("in directive name", "")
 	}
 }
 
@@ -147,7 +163,43 @@ func statePA(s *Scanner, c byte) *jerr.JApiError {
 		s.step = statePAT
 		return nil
 	default:
-		return s.japiErrorUnexpectedChar("in keyword PATCH", "T")
+		return s.japiErrorUnexpectedChar("in directive name", "")
+	}
+}
+
+func statePa(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case 't': // Path
+		s.step = statePat
+		return nil
+	case 'r': // Params
+		s.step = statePar
+		return nil
+	default:
+		return s.japiErrorUnexpectedChar("in directive name", "")
+	}
+}
+
+func stateR(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case 'e': // Request, Result
+		s.step = stateRe
+		return nil
+	default:
+		return s.japiErrorUnexpectedChar("in directive name", "")
+	}
+}
+
+func stateRe(s *Scanner, c byte) *jerr.JApiError {
+	switch c {
+	case 'q': // Request
+		s.step = stateReq
+		return nil
+	case 's': // Result
+		s.step = stateRes
+		return nil
+	default:
+		return s.japiErrorUnexpectedChar("in directive name", "")
 	}
 }
 
@@ -160,7 +212,7 @@ func stateT(s *Scanner, c byte) *jerr.JApiError {
 		s.step = stateTy
 		return nil
 	default:
-		return s.japiErrorUnexpectedChar("in keyword Title", "'Y' or 'i'")
+		return s.japiErrorUnexpectedChar("in directive name", "")
 	}
 }
 

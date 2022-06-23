@@ -1,9 +1,20 @@
 {
-    "jdocExchangeFileSchemaVersion": "1.0.0",
-    "jsight": "0.3",
-    "resourceMethods": {
-        "GET /cats": {
-            "httpMethod": "GET",
+    "tags": {
+        "@cats": {
+            "name": "@cats",
+            "title": "/cats",
+            "interactionGroups": [
+                {
+                    "protocol": "http",
+                    "interactions": [
+                        "http GET /cats"
+                    ]
+                }
+            ]
+        }
+    },
+    "interactions": {
+        "http GET /cats": {
             "path": "/cats",
             "tags": [
                 "@cats"
@@ -13,104 +24,106 @@
                     "code": "200",
                     "headers": {
                         "schema": {
-                            "notation": "jsight",
                             "content": {
-                                "jsonType": "object",
-                                "type": "object",
-                                "optional": false,
-                                "rules": {
-                                    "additionalProperties": {
-                                        "jsonType": "boolean",
+                                "rules": [
+                                    {
+                                        "key": "additionalProperties",
+                                        "tokenType": "boolean",
                                         "scalarValue": "true"
                                     }
-                                },
-                                "properties": {
-                                    "X-Header": {
-                                        "jsonType": "object",
-                                        "type": "object",
-                                        "optional": false,
-                                        "rules": {
-                                            "additionalProperties": {
-                                                "jsonType": "boolean",
+                                ],
+                                "tokenType": "object",
+                                "type": "object",
+                                "children": [
+                                    {
+                                        "rules": [
+                                            {
+                                                "key": "additionalProperties",
+                                                "tokenType": "boolean",
                                                 "scalarValue": "true"
                                             }
-                                        },
-                                        "properties": {
-                                            "key": {
-                                                "jsonType": "string",
+                                        ],
+                                        "key": "X-Header",
+                                        "tokenType": "object",
+                                        "type": "object",
+                                        "children": [
+                                            {
+                                                "key": "key",
+                                                "tokenType": "string",
                                                 "type": "string",
-                                                "optional": false,
-                                                "scalarValue": "value"
+                                                "scalarValue": "value",
+                                                "optional": false
                                             }
-                                        }
+                                        ],
+                                        "optional": false
                                     }
-                                }
-                            }
+                                ],
+                                "optional": false
+                            },
+                            "notation": "jsight"
                         }
                     },
                     "body": {
                         "format": "json",
                         "schema": {
-                            "notation": "jsight",
                             "content": {
-                                "jsonType": "object",
-                                "type": "object",
-                                "optional": false,
-                                "rules": {
-                                    "additionalProperties": {
-                                        "jsonType": "boolean",
+                                "rules": [
+                                    {
+                                        "key": "additionalProperties",
+                                        "tokenType": "boolean",
                                         "scalarValue": "true"
                                     }
-                                },
-                                "properties": {
-                                    "Extra": {
-                                        "jsonType": "object",
-                                        "type": "object",
-                                        "optional": false,
-                                        "rules": {
-                                            "additionalProperties": {
-                                                "jsonType": "boolean",
+                                ],
+                                "tokenType": "object",
+                                "type": "object",
+                                "children": [
+                                    {
+                                        "key": "id",
+                                        "tokenType": "number",
+                                        "type": "integer",
+                                        "scalarValue": "4",
+                                        "optional": false
+                                    },
+                                    {
+                                        "key": "name",
+                                        "tokenType": "string",
+                                        "type": "string",
+                                        "scalarValue": "Tom",
+                                        "optional": false
+                                    },
+                                    {
+                                        "rules": [
+                                            {
+                                                "key": "additionalProperties",
+                                                "tokenType": "boolean",
                                                 "scalarValue": "true"
                                             }
-                                        },
-                                        "properties": {
-                                            "key": {
-                                                "jsonType": "string",
+                                        ],
+                                        "key": "Extra",
+                                        "tokenType": "object",
+                                        "type": "object",
+                                        "children": [
+                                            {
+                                                "key": "key",
+                                                "tokenType": "string",
                                                 "type": "string",
-                                                "optional": false,
-                                                "scalarValue": "value"
+                                                "scalarValue": "value",
+                                                "optional": false
                                             }
-                                        }
-                                    },
-                                    "id": {
-                                        "jsonType": "number",
-                                        "type": "integer",
-                                        "optional": false,
-                                        "scalarValue": "4"
-                                    },
-                                    "name": {
-                                        "jsonType": "string",
-                                        "type": "string",
-                                        "optional": false,
-                                        "scalarValue": "Tom"
+                                        ],
+                                        "optional": false
                                     }
-                                }
-                            }
+                                ],
+                                "optional": false
+                            },
+                            "notation": "jsight"
                         }
                     }
                 }
-            ]
+            ],
+            "httpMethod": "GET"
         }
     },
-    "tags": {
-        "@cats": {
-            "name": "@cats",
-            "title": "/cats",
-            "resourceMethods": {
-                "/cats": [
-                    "GET /cats"
-                ]
-            }
-        }
-    }
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
 }

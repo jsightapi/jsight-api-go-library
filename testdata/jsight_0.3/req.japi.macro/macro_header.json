@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "GET /cat": {
-      "httpMethod": "GET",
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
       "path": "/cat",
       "tags": [
         "@cat"
@@ -13,38 +24,42 @@
           "code": "200",
           "headers": {
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "Authorization": {
-                    "jsonType": "string",
+                "children": [
+                  {
+                    "key": "Authorization",
+                    "tokenType": "string",
                     "type": "string",
-                    "optional": false,
                     "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-                    "rules": {
-                      "regex": {
-                        "jsonType": "string",
+                    "rules": [
+                      {
+                        "key": "regex",
+                        "tokenType": "string",
                         "scalarValue": "Basic [A-Za-z0-9+/=]+"
                       }
-                    }
+                    ],
+                    "optional": false
                   },
-                  "Content-Type": {
-                    "jsonType": "string",
+                  {
+                    "key": "Content-Type",
+                    "tokenType": "string",
                     "type": "string",
-                    "optional": false,
                     "scalarValue": "application/json",
-                    "rules": {
-                      "const": {
-                        "jsonType": "boolean",
+                    "rules": [
+                      {
+                        "key": "const",
+                        "tokenType": "boolean",
                         "scalarValue": "true"
                       }
-                    }
+                    ],
+                    "optional": false
                   }
-                }
-              }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
             }
           },
           "body": {
@@ -54,18 +69,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cat": {
-      "name": "@cat",
-      "title": "/cat",
-      "resourceMethods": {
-        "/cat": [
-          "GET /cat"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

@@ -1,9 +1,20 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
-  "resourceMethods": {
-    "POST /cats": {
-      "httpMethod": "POST",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /cats"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http POST /cats": {
       "path": "/cats",
       "tags": [
         "@cats"
@@ -12,54 +23,48 @@
         "body": {
           "format": "json",
           "schema": {
-            "notation": "jsight",
             "content": {
-              "jsonType": "array",
+              "tokenType": "array",
               "type": "array",
-              "optional": false,
-              "items": [
+              "children": [
                 {
-                  "jsonType": "array",
+                  "tokenType": "array",
                   "type": "array",
-                  "optional": true,
-                  "items": [
+                  "children": [
                     {
-                      "jsonType": "object",
+                      "tokenType": "object",
                       "type": "object",
-                      "optional": true,
-                      "properties": {
-                        "id": {
-                          "jsonType": "number",
+                      "children": [
+                        {
+                          "key": "id",
+                          "tokenType": "number",
                           "type": "integer",
-                          "optional": false,
-                          "scalarValue": "1"
+                          "scalarValue": "1",
+                          "optional": false
                         },
-                        "name": {
-                          "jsonType": "string",
+                        {
+                          "key": "name",
+                          "tokenType": "string",
                           "type": "string",
-                          "optional": false,
-                          "scalarValue": "Tom"
+                          "scalarValue": "Tom",
+                          "optional": false
                         }
-                      }
+                      ],
+                      "optional": true
                     }
-                  ]
+                  ],
+                  "optional": true
                 }
-              ]
-            }
+              ],
+              "optional": false
+            },
+            "notation": "jsight"
           }
         }
-      }
+      },
+      "httpMethod": "POST"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats": [
-          "POST /cats"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

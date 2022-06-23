@@ -1,59 +1,74 @@
 {
-  "jdocExchangeFileSchemaVersion": "1.0.0",
-  "jsight": "0.3",
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}"
+          ]
+        }
+      ]
+    }
+  },
   "userTypes": {
     "@dog": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "DOG-123"
+              "scalarValue": "DOG-123",
+              "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Doggie"
+              "scalarValue": "Doggie",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     },
     "@pig": {
       "schema": {
-        "notation": "jsight",
         "content": {
-          "jsonType": "object",
+          "tokenType": "object",
           "type": "object",
-          "optional": false,
-          "properties": {
-            "id": {
-              "jsonType": "string",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "PIG-123"
+              "scalarValue": "PIG-123",
+              "optional": false
             },
-            "name": {
-              "jsonType": "string",
+            {
+              "key": "name",
+              "tokenType": "string",
               "type": "string",
-              "optional": false,
-              "scalarValue": "Naf Naf"
+              "scalarValue": "Naf Naf",
+              "optional": false
             }
-          }
-        }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
       }
     }
   },
-  "resourceMethods": {
-    "GET /cats/{id}": {
-      "httpMethod": "GET",
+  "interactions": {
+    "http GET /cats/{id}": {
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -64,38 +79,42 @@
           "body": {
             "format": "json",
             "schema": {
-              "notation": "jsight",
               "content": {
-                "jsonType": "object",
+                "tokenType": "object",
                 "type": "object",
-                "optional": false,
-                "properties": {
-                  "enemy": {
-                    "jsonType": "shortcut",
-                    "type": "mixed",
-                    "optional": false,
-                    "scalarValue": "@dog | @pig"
-                  },
-                  "id": {
-                    "jsonType": "number",
+                "children": [
+                  {
+                    "key": "id",
+                    "tokenType": "number",
                     "type": "integer",
-                    "optional": false,
-                    "scalarValue": "1"
+                    "scalarValue": "1",
+                    "optional": false
                   },
-                  "name": {
-                    "jsonType": "string",
+                  {
+                    "key": "name",
+                    "tokenType": "string",
                     "type": "string",
-                    "optional": true,
                     "scalarValue": "Tom",
-                    "rules": {
-                      "optional": {
-                        "jsonType": "boolean",
+                    "rules": [
+                      {
+                        "key": "optional",
+                        "tokenType": "boolean",
                         "scalarValue": "true"
                       }
-                    }
+                    ],
+                    "optional": true
+                  },
+                  {
+                    "key": "enemy",
+                    "tokenType": "reference",
+                    "type": "mixed",
+                    "scalarValue": "@dog | @pig",
+                    "optional": false
                   }
-                }
+                ],
+                "optional": false
               },
+              "notation": "jsight",
               "usedUserTypes": [
                 "@dog",
                 "@pig"
@@ -103,18 +122,10 @@
             }
           }
         }
-      ]
+      ],
+      "httpMethod": "GET"
     }
   },
-  "tags": {
-    "@cats": {
-      "name": "@cats",
-      "title": "/cats",
-      "resourceMethods": {
-        "/cats/{id}": [
-          "GET /cats/{id}"
-        ]
-      }
-    }
-  }
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

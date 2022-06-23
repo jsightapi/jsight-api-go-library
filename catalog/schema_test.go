@@ -20,11 +20,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -34,11 +32,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -48,20 +44,19 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "integer",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -72,11 +67,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "string",
+						TokenType:   "string",
 						Type:        "string",
 						ScalarValue: "foo",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -87,20 +80,19 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "string",
+						TokenType:   "string",
 						Type:        "string",
 						ScalarValue: "foo",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "string",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -111,11 +103,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "float",
 						ScalarValue: "3.14",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -126,20 +116,19 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "float",
 						ScalarValue: "3.14",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "float",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -150,11 +139,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "boolean",
+						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "true",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -165,20 +152,19 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "boolean",
+						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "true",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "boolean",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -189,11 +175,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "boolean",
+						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "false",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -204,20 +188,19 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "boolean",
+						TokenType:   "boolean",
 						Type:        "boolean",
 						ScalarValue: "false",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "boolean",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"type"},
+							index: map[string]int{"type": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -228,11 +211,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "null",
+						TokenType:   "null",
 						Type:        "null",
 						ScalarValue: "null",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -243,12 +224,10 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
 						Note:        "some note",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -259,25 +238,24 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"min": {
-									JsonType:    "number",
+							data: []Rule{
+								{
+									Key:         "min",
+									TokenType:   "number",
 									ScalarValue: "1",
-									Properties:  &Rules{},
 								},
-								"max": {
-									JsonType:    "number",
+								{
+									Key:         "max",
+									TokenType:   "number",
 									ScalarValue: "100",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"min", "max"},
+							index: map[string]int{"min": 0, "max": 1},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -288,26 +266,25 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "integer",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"min": {
-									JsonType:    "number",
+							data: []Rule{
+								{
+									Key:         "min",
+									TokenType:   "number",
 									ScalarValue: "1",
-									Properties:  &Rules{},
 								},
-								"max": {
-									JsonType:    "number",
+								{
+									Key:         "max",
+									TokenType:   "number",
 									ScalarValue: "100",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"min", "max"},
+							index: map[string]int{"min": 0, "max": 1},
 						},
-						Properties: &Properties{},
-						Note:       "some note",
+						Note: "some note",
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -318,31 +295,28 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "string",
+						TokenType:   "string",
 						Type:        "enum",
 						ScalarValue: "fizz",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"enum": {
-									JsonType:   "array",
-									Properties: &Rules{},
-									Items: []Rule{
+							data: []Rule{
+								{
+									Key:       "enum",
+									TokenType: "array",
+									Children: []Rule{
 										{
-											JsonType:    "string",
+											TokenType:   "string",
 											ScalarValue: "fizz",
-											Properties:  &Rules{},
 										},
 										{
-											JsonType:    "string",
+											TokenType:   "string",
 											ScalarValue: "buzz",
-											Properties:  &Rules{},
 										},
 									},
 								},
 							},
-							order: []string{"enum"},
+							index: map[string]int{"enum": 0},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: &StringSet{},
 					UsedUserEnums: &StringSet{},
@@ -353,12 +327,12 @@ func TestUnmarshalSchema(t *testing.T) {
 			// `"foo" // {enum: "@AnEnum"}`: {
 			//	Notation: notation.SchemaNotationJSight,
 			//	ContentJSight: &SchemaContentJSight{
-			//		JsonType: "string",
+			//		TokenType: "string",
 			//		Type:     "enum",
 			//		ScalarValue: "foo",
 			//		Rules: map[string]Rule{
 			//			"enum": {
-			//				JsonType: "string",
+			//				TokenType: "string",
 			//				ScalarValue: "@AnEnum",
 			//			},
 			//		},
@@ -370,26 +344,20 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:   "array",
-						Type:       "array",
-						Rules:      &Rules{},
-						Properties: &Properties{},
-						Items: []*SchemaContentJSight{
+						TokenType: "array",
+						Type:      "array",
+						Children: []*SchemaContentJSight{
 							{
-								JsonType:    "number",
+								TokenType:   "number",
 								Type:        "integer",
 								ScalarValue: "1",
 								Optional:    true,
-								Rules:       &Rules{},
-								Properties:  &Properties{},
 							},
 							{
-								JsonType:    "number",
+								TokenType:   "number",
 								Type:        "integer",
 								ScalarValue: "2",
 								Optional:    true,
-								Rules:       &Rules{},
-								Properties:  &Properties{},
 							},
 						},
 					},
@@ -402,18 +370,14 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:   "array",
-						Type:       "array",
-						Rules:      &Rules{},
-						Properties: &Properties{},
-						Items: []*SchemaContentJSight{
+						TokenType: "array",
+						Type:      "array",
+						Children: []*SchemaContentJSight{
 							{
-								JsonType:    "shortcut",
+								TokenType:   "reference",
 								Type:        "@foo",
 								ScalarValue: "@foo",
 								Optional:    true,
-								Rules:       &Rules{},
-								Properties:  &Properties{},
 							},
 						},
 					},
@@ -429,20 +393,15 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType: "object",
-						Type:     "object",
-						Rules:    &Rules{},
-						Properties: &Properties{
-							data: map[string]*SchemaContentJSight{
-								"foo": {
-									JsonType:    "string",
-									Type:        "string",
-									ScalarValue: "bar",
-									Rules:       &Rules{},
-									Properties:  &Properties{},
-								},
+						TokenType: "object",
+						Type:      "object",
+						Children: []*SchemaContentJSight{
+							{
+								Key:         "foo",
+								TokenType:   "string",
+								Type:        "string",
+								ScalarValue: "bar",
 							},
-							order: []string{"foo"},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -456,39 +415,36 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType: "object",
-						Type:     "object",
+						TokenType: "object",
+						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"additionalProperties": {
-									JsonType:    "boolean",
+							data: []Rule{
+								{
+									Key:         "additionalProperties",
+									TokenType:   "boolean",
 									ScalarValue: "true",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"additionalProperties"},
+							index: map[string]int{"additionalProperties": 0},
 						},
-						Properties: &Properties{
-							data: map[string]*SchemaContentJSight{
-								"foo": {
-									JsonType:    "string",
-									Type:        "string",
-									ScalarValue: "bar",
-									Optional:    true,
-									Rules: &Rules{
-										data: map[string]Rule{
-											"optional": {
-												JsonType:    "boolean",
-												ScalarValue: "true",
-												Properties:  &Rules{},
-											},
+						Children: []*SchemaContentJSight{
+							{
+								Key:         "foo",
+								TokenType:   "string",
+								Type:        "string",
+								ScalarValue: "bar",
+								Optional:    true,
+								Rules: &Rules{
+									data: []Rule{
+										{
+											Key:         "optional",
+											TokenType:   "boolean",
+											ScalarValue: "true",
 										},
-										order: []string{"optional"},
 									},
-									Properties: &Properties{},
+									index: map[string]int{"optional": 0},
 								},
 							},
-							order: []string{"foo"},
 						},
 					},
 					UsedUserTypes: &StringSet{},
@@ -496,56 +452,79 @@ func TestUnmarshalSchema(t *testing.T) {
 				},
 			},
 
+			`{"@foo": "bar", @foo: "baz"}`: {
+				expected: Schema{
+					Notation: notation.SchemaNotationJSight,
+					ContentJSight: &SchemaContentJSight{
+						TokenType: "object",
+						Type:      "object",
+						Children: []*SchemaContentJSight{
+							{
+								Key:         "@foo",
+								TokenType:   "string",
+								Type:        "string",
+								ScalarValue: "bar",
+							},
+							{
+								Key:              "@foo",
+								IsKeyUserTypeRef: true,
+								TokenType:        "string",
+								Type:             "string",
+								ScalarValue:      "baz",
+							},
+						},
+					},
+					UsedUserTypes: NewStringSet("@foo"),
+					UsedUserEnums: &StringSet{},
+				},
+				userTypes: map[string]string{
+					"@foo": `"abc" // {minLength: 3}`,
+				},
+			},
+
 			`42 // {type: "mixed", or: [{type: "@foo"}, {type: "@bar"}]}`: {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "number",
+						TokenType:   "number",
 						Type:        "mixed",
 						ScalarValue: "42",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"type": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "type",
+									TokenType:   "string",
 									ScalarValue: "mixed",
-									Properties:  &Rules{},
 								},
-								"or": {
-									JsonType:   "array",
-									Properties: &Rules{},
-									Items: []Rule{
+								{
+									Key:       "or",
+									TokenType: "array",
+									Children: []Rule{
 										{
-											JsonType: "object",
-											Properties: &Rules{
-												data: map[string]Rule{
-													"type": {
-														JsonType:    "string",
-														ScalarValue: "@foo",
-														Properties:  &Rules{},
-													},
+											TokenType: "object",
+											Children: []Rule{
+												{
+													Key:         "type",
+													TokenType:   "string",
+													ScalarValue: "@foo",
 												},
-												order: []string{"type"},
 											},
 										},
 										{
-											JsonType: "object",
-											Properties: &Rules{
-												data: map[string]Rule{
-													"type": {
-														JsonType:    "string",
-														ScalarValue: "@bar",
-														Properties:  &Rules{},
-													},
+											TokenType: "object",
+											Children: []Rule{
+												{
+													Key:         "type",
+													TokenType:   "string",
+													ScalarValue: "@bar",
 												},
-												order: []string{"type"},
 											},
 										},
 									},
 								},
 							},
-							order: []string{"type", "or"},
+							index: map[string]int{"type": 0, "or": 1},
 						},
-						Properties: &Properties{},
 					},
 					UsedUserTypes: NewStringSet("@foo", "@bar"),
 					UsedUserEnums: &StringSet{},
@@ -560,11 +539,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "shortcut",
+						TokenType:   "reference",
 						Type:        "@foo",
 						ScalarValue: "@foo",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: NewStringSet("@foo"),
 					UsedUserEnums: &StringSet{},
@@ -578,11 +555,9 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:    "shortcut",
+						TokenType:   "reference",
 						Type:        "mixed",
 						ScalarValue: "@foo | @bar",
-						Rules:       &Rules{},
-						Properties:  &Properties{},
 					},
 					UsedUserTypes: NewStringSet("@foo", "@bar"),
 					UsedUserEnums: &StringSet{},
@@ -597,19 +572,18 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType: "object",
-						Type:     "object",
+						TokenType: "object",
+						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"allOf": {
-									JsonType:    "string",
+							data: []Rule{
+								{
+									Key:         "allOf",
+									TokenType:   "string",
 									ScalarValue: "@foo",
-									Properties:  &Rules{},
 								},
 							},
-							order: []string{"allOf"},
+							index: map[string]int{"allOf": 0},
 						},
-						Properties:    &Properties{},
 						InheritedFrom: "", // Handled by catalog compilation logic.
 					},
 					UsedUserTypes: NewStringSet("@foo"),
@@ -624,30 +598,27 @@ func TestUnmarshalSchema(t *testing.T) {
 				expected: Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType: "object",
-						Type:     "object",
+						TokenType: "object",
+						Type:      "object",
 						Rules: &Rules{
-							data: map[string]Rule{
-								"allOf": {
-									JsonType:   "array",
-									Properties: &Rules{},
-									Items: []Rule{
+							data: []Rule{
+								{
+									Key:       "allOf",
+									TokenType: "array",
+									Children: []Rule{
 										{
-											JsonType:    "string",
+											TokenType:   "string",
 											ScalarValue: "@foo",
-											Properties:  &Rules{},
 										},
 										{
-											JsonType:    "string",
+											TokenType:   "string",
 											ScalarValue: "@bar",
-											Properties:  &Rules{},
 										},
 									},
 								},
 							},
-							order: []string{"allOf"},
+							index: map[string]int{"allOf": 0},
 						},
-						Properties:    &Properties{},
 						InheritedFrom: "", // Handled by catalog compilation logic.
 					},
 					UsedUserTypes: NewStringSet("@foo", "@bar"),
@@ -692,67 +663,67 @@ func TestUnmarshalSchema(t *testing.T) {
 		//			assert.Equal(t, Schema{
 		//				Notation: notation.SchemaNotationJSight,
 		//				ContentJSight: &SchemaContentJSight{
-		//					JsonType: "object",
+		//					TokenType: "object",
 		//					Type:     "object",
 		//					Properties: map[string]SchemaContentJSight{
 		//						"page": {
-		//							JsonType:    "number",
+		//							TokenType:    "number",
 		//							Type:        "integer",
 		//							ScalarValue: 1,
 		//						},
 		//						"per_page": {
-		//							JsonType:    "number",
+		//							TokenType:    "number",
 		//							Type:        "integer",
 		//							Optional:    true,
 		//							ScalarValue: 50,
 		//							Rules: map[string]Rule{
 		//								"optional": {
-		//									JsonType:    "boolean",
+		//									TokenType:    "boolean",
 		//									ScalarValue: true,
 		//								},
 		//								"max": {
-		//									JsonType:    "number",
+		//									TokenType:    "number",
 		//									ScalarValue: 100,
 		//								},
 		//							},
 		//						},
 		//						"filter": {
-		//							JsonType: "object",
+		//							TokenType: "object",
 		//							Type:     "object",
 		//							Optional: true,
 		//							Rules: map[string]Rule{
 		//								"optional": {
-		//									JsonType:    "boolean",
+		//									TokenType:    "boolean",
 		//									ScalarValue: true,
 		//								},
 		//							},
 		//							Properties: map[string]SchemaContentJSight{
 		//								"size": {
-		//									JsonType:    "string",
+		//									TokenType:    "string",
 		//									Type:        "enum",
 		//									Optional:    true,
 		//									ScalarValue: "XXL",
 		//									Note:        "Filter by cat size",
 		//									Rules: map[string]Rule{
 		//										"optional": {
-		//											JsonType:    "boolean",
+		//											TokenType:    "boolean",
 		//											ScalarValue: true,
 		//										},
 		//										"enum": {
-		//											JsonType:    "string",
+		//											TokenType:    "string",
 		//											ScalarValue: "@catSizeEnum",
 		//										},
 		//									},
 		//								},
 		//								"age": {
-		//									JsonType:    "number",
+		//									TokenType:    "number",
 		//									Type:        "integer",
 		//									Optional:    true,
 		//									ScalarValue: 12,
 		//									Note:        "Filter by cat's age",
 		//									Rules: map[string]Rule{
 		//										"optional": {
-		//											JsonType:    "boolean",
+		//											TokenType:    "boolean",
 		//											ScalarValue: true,
 		//										},
 		//									},
@@ -760,27 +731,27 @@ func TestUnmarshalSchema(t *testing.T) {
 		//							},
 		//						},
 		//						"parameters": {
-		//							JsonType: "object",
+		//							TokenType: "object",
 		//							Type:     "object",
 		//							Optional: true,
 		//							Rules: map[string]Rule{
 		//								"type": {
-		//									JsonType:    "string",
+		//									TokenType:    "string",
 		//									ScalarValue: "@catParameters",
 		//								},
 		//							},
 		//						},
 		//						"foo": {
-		//							JsonType: "shortcut",
+		//							TokenType: "reference",
 		//							Type:     "@foo",
 		//						},
 		//						"bar": {
-		//							JsonType: "shortcut",
+		//							TokenType: "reference",
 		//							Type:     "@foo | @buzz",
 		//						},
 		//						"@keyName": {
-		//							IsKeyShortcut: true,
-		//							JsonType:      "shortcut",
+		//							IsKeyUserTypeRef: true,
+		//							TokenType:      "reference",
 		//							Type:          "@keyValue",
 		//						},
 		//					},
@@ -809,7 +780,7 @@ func TestSchema_MarshalJSON(t *testing.T) {
 				Schema{
 					Notation: notation.SchemaNotationJSight,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:      "string",
+						TokenType:     "string",
 						Type:          "bar",
 						ScalarValue:   "100",
 						InheritedFrom: "inherited_from",
@@ -822,7 +793,7 @@ func TestSchema_MarshalJSON(t *testing.T) {
 				`{
 	"notation": "jsight",
 	"content": {
-		"jsonType": "string",
+		"tokenType": "string",
 		"type": "bar",
 		"optional": false,
 		"scalarValue": "100",
@@ -844,7 +815,7 @@ func TestSchema_MarshalJSON(t *testing.T) {
 				Schema{
 					Notation: notation.SchemaNotationRegex,
 					ContentJSight: &SchemaContentJSight{
-						JsonType:      "string",
+						TokenType:     "string",
 						Type:          "bar",
 						ScalarValue:   "100",
 						InheritedFrom: "inherited_from",
@@ -875,7 +846,7 @@ func TestSchema_MarshalJSON(t *testing.T) {
 			{
 				Notation: notation.SchemaNotation("foo"),
 				ContentJSight: &SchemaContentJSight{
-					JsonType:      "string",
+					TokenType:     "string",
 					Type:          "bar",
 					ScalarValue:   "100",
 					InheritedFrom: "inherited_from",
@@ -931,7 +902,12 @@ func TestSchema_MarshalJSON_Order(t *testing.T) {
 		t.Run(c.schema, func(t *testing.T) {
 			s, err := UnmarshalSchema("", []byte(c.schema), &UserSchemas{}, nil)
 			require.NoError(t, err)
-			assert.Equal(t, c.expected, s.ContentJSight.Properties.order)
+
+			ss := make([]string, 0, len(s.ContentJSight.Children))
+			for _, v := range s.ContentJSight.Children {
+				ss = append(ss, v.Key)
+			}
+			assert.Equal(t, c.expected, ss)
 		})
 	}
 }
@@ -948,7 +924,7 @@ func BenchmarkSchema_MarshalJSON(b *testing.B) {
 			s := Schema{
 				Notation: c,
 				ContentJSight: &SchemaContentJSight{
-					JsonType:      "string",
+					TokenType:     "string",
 					Type:          "bar",
 					ScalarValue:   "100",
 					InheritedFrom: "inherited_from",

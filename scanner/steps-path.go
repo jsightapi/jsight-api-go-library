@@ -4,16 +4,6 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 )
 
-func statePa(s *Scanner, c byte) *jerr.JApiError {
-	switch c {
-	case 't':
-		s.step = statePat
-		return nil
-	default:
-		return s.japiErrorUnexpectedChar("in keyword Path", "t")
-	}
-}
-
 func statePat(s *Scanner, c byte) *jerr.JApiError {
 	switch c {
 	case 'h':
