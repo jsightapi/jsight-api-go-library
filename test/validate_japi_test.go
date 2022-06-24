@@ -50,8 +50,15 @@ func TestValidateJapi(t *testing.T) {
 				expectedError, err := getExpectedError(f)
 				require.NoError(t, err)
 
+				// We print absolute path to file in the stacktrace. This leads
+				// to errors when somebody wants to run test on different machine.
+				// So, we should use relative paths in the expected error and make
+				// all path relative in the actual error message.
 				if expectedError != "" {
-					assert.Equal(t, expectedError, je.Error())
+					sep := string(os.PathSeparator)
+					basePath := strings.TrimSuffix(filepath.Dir(f), sep) + sep
+					actualError := getActualErrorMessage(basePath, je)
+					assert.Equal(t, expectedError, actualError)
 				}
 			})
 		}
@@ -120,6 +127,13 @@ func getExpectedError(filename string) (string, error) {
 		return "", err
 	}
 	return strings.TrimSpace(string(c)), nil
+}
+
+func getActualErrorMessage(basePath string, je *jerr.JApiError) string {
+	if je == nil {
+		return ""
+	}
+	return strings.ReplaceAll(je.Error(), basePath, "")
 }
 
 func logJAPIError(t *testing.T, e *jerr.JApiError) {
