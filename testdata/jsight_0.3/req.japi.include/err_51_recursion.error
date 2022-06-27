@@ -1,5 +1,5 @@
 recursion detected
-/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/mixins/recursion1.jst:2
-/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/mixins/recursion2.jst:1
-/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/mixins/recursion1.jst:2
-/Users/dshemin/Workspace/github.com/jsightapi/jsight-api-go-library/testdata/jsight_0.3/req.japi.include/err_51_recursion.jst:3
+mixins/recursion1.jst:2
+mixins/recursion2.jst:1
+mixins/recursion1.jst:2
+err_51_recursion.jst:3
