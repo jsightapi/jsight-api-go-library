@@ -77,7 +77,7 @@ func (c *Catalog) AddMethod(d directive.Directive) error {
 		return err
 	}
 
-	if c.HttpInteractions.Has(rk) {
+	if c.Interactions.Has(rk) {
 		return fmt.Errorf("method is already defined in resource %s", rk.String())
 	}
 
@@ -85,7 +85,7 @@ func (c *Catalog) AddMethod(d directive.Directive) error {
 	t.appendInteractionId(rk)
 
 	rm := initHttpInteraction(rk.path, rk.method, d.Annotation, t.Name)
-	c.HttpInteractions.Set(rk, &rm)
+	c.Interactions.Set(rk, &rm)
 
 	return nil
 }
@@ -96,18 +96,18 @@ func (c *Catalog) AddDescriptionToHttpMethod(d directive.Directive, text string)
 		return err
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return fmt.Errorf("%s %q", jerr.ResourceNotFound, rk.String())
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	if v.Description != nil {
 		return errors.New(jerr.NotUniqueDirective)
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Description = &text
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Description = &text
 		return v
 	})
 
@@ -120,18 +120,18 @@ func (c *Catalog) AddQueryToCurrentMethod(d directive.Directive, q Query) error 
 		return err
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return fmt.Errorf("%s %q", jerr.ResourceNotFound, rk.String())
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	if v.Query != nil {
 		return errors.New(jerr.NotUniqueDirective)
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Query = &q
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Query = &q
 		return v
 	})
 
@@ -146,8 +146,8 @@ func (c *Catalog) AddResponse(code string, annotation string, d directive.Direct
 
 	r := HTTPResponse{Code: code, Annotation: annotation, Directive: d}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Responses = append(v.Responses, r)
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Responses = append(v.(*HttpInteraction).Responses, r)
 		return v
 	})
 
@@ -168,11 +168,11 @@ func (c *Catalog) AddResponseBody(
 		return d.KeywordError(err.Error())
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return d.KeywordError(fmt.Sprintf("%s %q", jerr.ResourceNotFound, rk.String()))
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	i := len(v.Responses) - 1
 	if i == -1 {
@@ -184,8 +184,8 @@ func (c *Catalog) AddResponseBody(
 		return je
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Responses[i].Body = &httpResponseBody
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Responses[i].Body = &httpResponseBody
 		return v
 	})
 
@@ -198,11 +198,11 @@ func (c *Catalog) AddResponseHeaders(s Schema, d directive.Directive) error {
 		return err
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return fmt.Errorf("%s %q", jerr.ResourceNotFound, rk.String())
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	i := len(v.Responses) - 1
 	if i == -1 {
@@ -213,8 +213,8 @@ func (c *Catalog) AddResponseHeaders(s Schema, d directive.Directive) error {
 		return errors.New(jerr.NotUniqueDirective)
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Responses[i].Headers = &HTTPResponseHeaders{Schema: &s, Directive: d}
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Responses[i].Headers = &HTTPResponseHeaders{Schema: &s, Directive: d}
 		return v
 	})
 
@@ -328,9 +328,9 @@ func (c *Catalog) AddRequest(d directive.Directive) error {
 		return err
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		if v.Request == nil {
-			v.Request = &HTTPRequest{
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		if v.(*HttpInteraction).Request == nil {
+			v.(*HttpInteraction).Request = &HTTPRequest{
 				Directive: d,
 			}
 		}
@@ -346,11 +346,11 @@ func (c *Catalog) AddRequestBody(s Schema, f SerializeFormat, d directive.Direct
 		return err
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return fmt.Errorf("%s %q", jerr.ResourceNotFound, rk.String())
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	if v.Request == nil {
 		return fmt.Errorf("%s for %q", jerr.RequestIsEmpty, rk.String())
@@ -360,8 +360,8 @@ func (c *Catalog) AddRequestBody(s Schema, f SerializeFormat, d directive.Direct
 		return errors.New(jerr.NotUniqueDirective)
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Request.HTTPRequestBody = &HTTPRequestBody{Format: f, Schema: &s, Directive: d}
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Request.HTTPRequestBody = &HTTPRequestBody{Format: f, Schema: &s, Directive: d}
 		return v
 	})
 
@@ -374,11 +374,11 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 		return err
 	}
 
-	if !c.HttpInteractions.Has(rk) {
+	if !c.Interactions.Has(rk) {
 		return fmt.Errorf("%s %q", jerr.ResourceNotFound, rk.String())
 	}
 
-	v := c.HttpInteractions.GetValue(rk)
+	v := c.Interactions.GetValue(rk).(*HttpInteraction)
 
 	if v.Request == nil {
 		return fmt.Errorf("%s for %q", jerr.RequestIsEmpty, rk.String())
@@ -388,8 +388,8 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 		return errors.New(jerr.NotUniqueDirective)
 	}
 
-	c.HttpInteractions.Update(rk, func(v *HttpInteraction) *HttpInteraction {
-		v.Request.HTTPRequestHeaders = &HTTPRequestHeaders{Schema: &s, Directive: d}
+	c.Interactions.Update(rk, func(v Interaction) Interaction {
+		v.(*HttpInteraction).Request.HTTPRequestHeaders = &HTTPRequestHeaders{Schema: &s, Directive: d}
 		return v
 	})
 

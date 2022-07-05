@@ -59,7 +59,9 @@ func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
 		return adoptError(err)
 	}
 
-	return adoptError(core.catalog.HttpInteractions.Each(func(k catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, vv catalog.Interaction) error {
+		v := vv.(*catalog.HttpInteraction)
+
 		if v.Query != nil && v.Query.Schema != nil {
 			if err := core.findUserTypes(v.Query.Schema.UsedUserTypes); err != nil {
 				return v.Query.Directive.BodyError(err.Error())
@@ -108,8 +110,8 @@ func (core *JApiCore) findUserTypes(uu *catalog.StringSet) error {
 }
 
 func (core *JApiCore) validateRequestBody() *jerr.JApiError {
-	return adoptError(core.catalog.HttpInteractions.Each(func(k catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
-		r := v.Request
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v catalog.Interaction) error {
+		r := v.(*catalog.HttpInteraction).Request
 		if r != nil && r.HTTPRequestBody == nil {
 			return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
 		}
@@ -118,8 +120,8 @@ func (core *JApiCore) validateRequestBody() *jerr.JApiError {
 }
 
 func (core *JApiCore) validateResponseBody() *jerr.JApiError {
-	return adoptError(core.catalog.HttpInteractions.Each(func(k catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
-		for _, response := range v.Responses {
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v catalog.Interaction) error {
+		for _, response := range v.(*catalog.HttpInteraction).Responses {
 			if response.Body == nil {
 				return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, k.String(), response.Code))
 			}
@@ -143,7 +145,8 @@ func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
 }
 
 func (core *JApiCore) validateHeaders() *jerr.JApiError {
-	return adoptError(core.catalog.HttpInteractions.Each(func(_ catalog.HttpInteractionId, v *catalog.HttpInteraction) error {
+	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionId, vv catalog.Interaction) error {
+		v := vv.(*catalog.HttpInteraction)
 		request := v.Request
 		if request != nil && request.HTTPRequestHeaders != nil && !core.isJsightCastToObject(request.HTTPRequestHeaders.Schema) {
 			return v.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)
