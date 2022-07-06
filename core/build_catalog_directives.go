@@ -233,7 +233,7 @@ func (core JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError(err.Error())
 	}
 
-	if err = core.catalog.AddMethod(*d); err != nil {
+	if err = core.catalog.AddHTTPMethod(*d); err != nil {
 		return d.KeywordError(err.Error())
 	}
 
@@ -443,18 +443,43 @@ func (core JApiCore) addBody(d *directive.Directive) *jerr.JApiError {
 	}
 }
 
-func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
+func (_ JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
 
-	if d.Parameter("Protocol") != "json-rpc-2.0" {
-		return d.KeywordError("the parameter value should be \"json-rpc-2.0\"")
+	if d.Parameter("ProtocolName") == "" {
+		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "ProtocolName"))
 	}
 
-	if err := core.catalog.AddProtocol(*d); err != nil {
+	if d.Parameter("ProtocolName") != "json-rpc-2.0" {
+		return d.KeywordError("the parameter value have to be \"json-rpc-2.0\"")
+	}
+
+	return nil
+}
+
+func (core JApiCore) addJsonRpcMethod(d *directive.Directive) *jerr.JApiError {
+	if d.Parameter("MethodName") == "" {
+		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "MethodName"))
+	}
+
+	if !isProtocolExists(d) {
+		return d.KeywordError("the directive \"Protocol\" was not found")
+	}
+
+	if err := core.catalog.AddJsonRpcMethod(*d); err != nil {
 		return d.KeywordError(err.Error())
 	}
 
 	return nil
+}
+
+func isProtocolExists(d *directive.Directive) bool {
+	for _, dd := range d.Parent.Children {
+		if dd.Type() == directive.Protocol {
+			return true
+		}
+	}
+	return false
 }

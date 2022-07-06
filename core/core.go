@@ -119,7 +119,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		directive.Headers:          core.addHeaders,
 		directive.Body:             core.addBody,
 		directive.Protocol:         core.addProtocol,
-		// TODO directive.Method:           core.addMethod,
+		directive.Method:           core.addJsonRpcMethod,
 		// TODO directive.Params:           core.addParams,
 		// TODO directive.Result:           core.addResult,
 	}

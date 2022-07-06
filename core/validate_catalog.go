@@ -59,39 +59,39 @@ func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
 		return adoptError(err)
 	}
 
-	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, vv catalog.Interaction) error {
-		v := vv.(*catalog.HttpInteraction)
-
-		if v.Query != nil && v.Query.Schema != nil {
-			if err := core.findUserTypes(v.Query.Schema.UsedUserTypes); err != nil {
-				return v.Query.Directive.BodyError(err.Error())
-			}
-		}
-
-		if v.Request != nil {
-			if v.Request.HTTPRequestHeaders != nil && v.Request.HTTPRequestHeaders.Schema != nil {
-				if err := core.findUserTypes(v.Request.HTTPRequestHeaders.Schema.UsedUserTypes); err != nil {
-					return v.Request.HTTPRequestHeaders.Directive.BodyError(err.Error())
+	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v catalog.Interaction) error {
+		if hi, ok := v.(*catalog.HttpInteraction); ok {
+			if hi.Query != nil && hi.Query.Schema != nil {
+				if err := core.findUserTypes(hi.Query.Schema.UsedUserTypes); err != nil {
+					return hi.Query.Directive.BodyError(err.Error())
 				}
 			}
 
-			if v.Request.HTTPRequestBody != nil && v.Request.HTTPRequestBody.Schema != nil {
-				if err := core.findUserTypes(v.Request.HTTPRequestBody.Schema.UsedUserTypes); err != nil {
-					return v.Request.HTTPRequestBody.Directive.BodyError(err.Error())
+			if hi.Request != nil {
+				if hi.Request.HTTPRequestHeaders != nil && hi.Request.HTTPRequestHeaders.Schema != nil {
+					if err := core.findUserTypes(hi.Request.HTTPRequestHeaders.Schema.UsedUserTypes); err != nil {
+						return hi.Request.HTTPRequestHeaders.Directive.BodyError(err.Error())
+					}
+				}
+
+				if hi.Request.HTTPRequestBody != nil && hi.Request.HTTPRequestBody.Schema != nil {
+					if err := core.findUserTypes(hi.Request.HTTPRequestBody.Schema.UsedUserTypes); err != nil {
+						return hi.Request.HTTPRequestBody.Directive.BodyError(err.Error())
+					}
 				}
 			}
-		}
 
-		for _, r := range v.Responses {
-			if r.Headers != nil && r.Headers.Schema != nil {
-				if err := core.findUserTypes(r.Headers.Schema.UsedUserTypes); err != nil {
-					return r.Headers.Directive.BodyError(err.Error())
+			for _, r := range hi.Responses {
+				if r.Headers != nil && r.Headers.Schema != nil {
+					if err := core.findUserTypes(r.Headers.Schema.UsedUserTypes); err != nil {
+						return r.Headers.Directive.BodyError(err.Error())
+					}
 				}
-			}
 
-			if r.Body != nil && r.Body.Schema != nil {
-				if err := core.findUserTypes(r.Body.Schema.UsedUserTypes); err != nil {
-					return r.Body.Directive.BodyError(err.Error())
+				if r.Body != nil && r.Body.Schema != nil {
+					if err := core.findUserTypes(r.Body.Schema.UsedUserTypes); err != nil {
+						return r.Body.Directive.BodyError(err.Error())
+					}
 				}
 			}
 		}
@@ -111,9 +111,11 @@ func (core *JApiCore) findUserTypes(uu *catalog.StringSet) error {
 
 func (core *JApiCore) validateRequestBody() *jerr.JApiError {
 	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v catalog.Interaction) error {
-		r := v.(*catalog.HttpInteraction).Request
-		if r != nil && r.HTTPRequestBody == nil {
-			return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
+		if hi, ok := v.(*catalog.HttpInteraction); ok {
+			r := hi.Request
+			if r != nil && r.HTTPRequestBody == nil {
+				return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
+			}
 		}
 		return nil
 	}))
@@ -121,9 +123,11 @@ func (core *JApiCore) validateRequestBody() *jerr.JApiError {
 
 func (core *JApiCore) validateResponseBody() *jerr.JApiError {
 	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionId, v catalog.Interaction) error {
-		for _, response := range v.(*catalog.HttpInteraction).Responses {
-			if response.Body == nil {
-				return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, k.String(), response.Code))
+		if hi, ok := v.(*catalog.HttpInteraction); ok {
+			for _, response := range hi.Responses {
+				if response.Body == nil {
+					return response.Directive.KeywordError(fmt.Sprintf(`undefined response body for resource "%s", HTTP-code "%s"`, k.String(), response.Code))
+				}
 			}
 		}
 		return nil
@@ -145,15 +149,16 @@ func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
 }
 
 func (core *JApiCore) validateHeaders() *jerr.JApiError {
-	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionId, vv catalog.Interaction) error {
-		v := vv.(*catalog.HttpInteraction)
-		request := v.Request
-		if request != nil && request.HTTPRequestHeaders != nil && !core.isJsightCastToObject(request.HTTPRequestHeaders.Schema) {
-			return v.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)
-		}
-		for _, response := range v.Responses {
-			if response.Headers != nil && !core.isJsightCastToObject(response.Headers.Schema) {
-				return response.Headers.Directive.BodyError(jerr.BodyMustBeObject)
+	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionId, v catalog.Interaction) error {
+		if hi, ok := v.(*catalog.HttpInteraction); ok {
+			request := hi.Request
+			if request != nil && request.HTTPRequestHeaders != nil && !core.isJsightCastToObject(request.HTTPRequestHeaders.Schema) {
+				return hi.Request.HTTPRequestHeaders.Directive.BodyError(jerr.BodyMustBeObject)
+			}
+			for _, response := range hi.Responses {
+				if response.Headers != nil && !core.isJsightCastToObject(response.Headers.Schema) {
+					return response.Headers.Directive.BodyError(jerr.BodyMustBeObject)
+				}
 			}
 		}
 		return nil

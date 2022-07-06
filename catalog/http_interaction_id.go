@@ -9,7 +9,7 @@ import (
 type HttpInteractionId struct {
 	protocol Protocol
 	path     Path
-	method   Method
+	method   HttpMethod
 }
 
 func (h HttpInteractionId) Protocol() Protocol {
@@ -38,12 +38,12 @@ func newHttpInteractionId(d directive.Directive) (HttpInteractionId, error) {
 		return h, err
 	}
 
-	de, err := d.Method()
+	de, err := d.HttpMethod()
 	if err != nil {
 		return h, err
 	}
 
-	method, err := NewMethod(de)
+	method, err := NewHttpMethod(de)
 	if err != nil {
 		return h, err
 	}

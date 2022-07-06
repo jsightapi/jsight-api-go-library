@@ -1,30 +1,39 @@
 package catalog
 
 type HttpInteraction struct {
-	Path          Path           `json:"path"`
+	PathVal       Path           `json:"path"`
 	Tags          []TagName      `json:"tags"`
 	PathVariables *PathVariables `json:"pathVariables,omitempty"`
-	Annotation    string         `json:"annotation,omitempty"`
+	Annotation    *string        `json:"annotation,omitempty"`
 	Description   *string        `json:"description,omitempty"`
 	Query         *Query         `json:"query,omitempty"`
 	Request       *HTTPRequest   `json:"request,omitempty"`
 	Responses     []HTTPResponse `json:"responses,omitempty"`
-	HttpMethod    Method         `json:"httpMethod"`
+	HttpMethod    HttpMethod     `json:"httpMethod"`
 }
 
-func (hi HttpInteraction) path() Path {
-	return hi.Path
+func (h HttpInteraction) Path() Path {
+	return h.PathVal
 }
-func initHttpInteraction(path Path, method Method, annotation string, tn TagName) HttpInteraction {
-	return HttpInteraction{
+
+func (h *HttpInteraction) SetPathVariables(p *PathVariables) {
+	h.PathVariables = p
+}
+
+func newHttpInteraction(path Path, method HttpMethod, annotation string, tn TagName) *HttpInteraction {
+	h := &HttpInteraction{
 		HttpMethod:    method,
-		Path:          path,
+		PathVal:       path,
 		Tags:          []TagName{tn},
 		PathVariables: nil,
-		Annotation:    annotation,
+		Annotation:    nil,
 		Description:   nil,
 		Query:         nil,
 		Request:       nil,
 		Responses:     []HTTPResponse{},
 	}
+	if annotation != "" {
+		h.Annotation = &annotation
+	}
+	return h
 }
