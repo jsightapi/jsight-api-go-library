@@ -1,17 +1,17 @@
 package catalog
 
-type HttpInteraction struct {
+type HttpInteraction struct { //nolint:govet
 	Id            string         `json:"id"`
 	Protocol      Protocol       `json:"protocol"`
+	HttpMethod    HttpMethod     `json:"httpMethod"`
 	PathVal       Path           `json:"path"`
-	Tags          []TagName      `json:"tags"`
 	PathVariables *PathVariables `json:"pathVariables,omitempty"`
+	Tags          []TagName      `json:"tags"`
 	Annotation    *string        `json:"annotation,omitempty"`
 	Description   *string        `json:"description,omitempty"`
 	Query         *Query         `json:"query,omitempty"`
 	Request       *HTTPRequest   `json:"request,omitempty"`
 	Responses     []HTTPResponse `json:"responses,omitempty"`
-	HttpMethod    HttpMethod     `json:"httpMethod"`
 }
 
 func (h HttpInteraction) Path() Path {
