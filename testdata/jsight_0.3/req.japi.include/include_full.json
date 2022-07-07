@@ -139,6 +139,8 @@
   },
   "interactions": {
     "http GET /get": {
+      "id": "http GET /get",
+      "protocol": "http",
       "path": "/get",
       "tags": [
         "@get"
@@ -421,6 +423,8 @@
       "httpMethod": "GET"
     },
     "http GET /get/{id}": {
+      "id": "http GET /get/{id}",
+      "protocol": "http",
       "path": "/get/{id}",
       "tags": [
         "@get"
@@ -722,6 +726,8 @@
       "httpMethod": "GET"
     },
     "http POST /post": {
+      "id": "http POST /post",
+      "protocol": "http",
       "path": "/post",
       "tags": [
         "@post"
@@ -1004,6 +1010,8 @@
       "httpMethod": "POST"
     },
     "http POST /post/{id}": {
+      "id": "http POST /post/{id}",
+      "protocol": "http",
       "path": "/post/{id}",
       "tags": [
         "@post"
@@ -1305,6 +1313,8 @@
       "httpMethod": "POST"
     },
     "http PUT /put": {
+      "id": "http PUT /put",
+      "protocol": "http",
       "path": "/put",
       "tags": [
         "@put"
@@ -1587,6 +1597,8 @@
       "httpMethod": "PUT"
     },
     "http PUT /put/{id}": {
+      "id": "http PUT /put/{id}",
+      "protocol": "http",
       "path": "/put/{id}",
       "tags": [
         "@put"
@@ -1888,6 +1900,8 @@
       "httpMethod": "PUT"
     },
     "http PATCH /patch": {
+      "id": "http PATCH /patch",
+      "protocol": "http",
       "path": "/patch",
       "tags": [
         "@patch"
@@ -2170,6 +2184,8 @@
       "httpMethod": "PATCH"
     },
     "http PATCH /patch/{id}": {
+      "id": "http PATCH /patch/{id}",
+      "protocol": "http",
       "path": "/patch/{id}",
       "tags": [
         "@patch"
@@ -2471,6 +2487,8 @@
       "httpMethod": "PATCH"
     },
     "http DELETE /delete": {
+      "id": "http DELETE /delete",
+      "protocol": "http",
       "path": "/delete",
       "tags": [
         "@delete"
@@ -2753,6 +2771,8 @@
       "httpMethod": "DELETE"
     },
     "http DELETE /delete/{id}": {
+      "id": "http DELETE /delete/{id}",
+      "protocol": "http",
       "path": "/delete/{id}",
       "tags": [
         "@delete"
@@ -3054,6 +3074,8 @@
       "httpMethod": "DELETE"
     },
     "http GET /url": {
+      "id": "http GET /url",
+      "protocol": "http",
       "path": "/url",
       "tags": [
         "@url"
@@ -3336,6 +3358,8 @@
       "httpMethod": "GET"
     },
     "http POST /url": {
+      "id": "http POST /url",
+      "protocol": "http",
       "path": "/url",
       "tags": [
         "@url"
@@ -3618,6 +3642,8 @@
       "httpMethod": "POST"
     },
     "http PUT /url": {
+      "id": "http PUT /url",
+      "protocol": "http",
       "path": "/url",
       "tags": [
         "@url"
@@ -3900,6 +3926,8 @@
       "httpMethod": "PUT"
     },
     "http PATCH /url": {
+      "id": "http PATCH /url",
+      "protocol": "http",
       "path": "/url",
       "tags": [
         "@url"
@@ -4182,6 +4210,8 @@
       "httpMethod": "PATCH"
     },
     "http DELETE /url": {
+      "id": "http DELETE /url",
+      "protocol": "http",
       "path": "/url",
       "tags": [
         "@url"
@@ -4464,6 +4494,8 @@
       "httpMethod": "DELETE"
     },
     "http GET /url/{id}": {
+      "id": "http GET /url/{id}",
+      "protocol": "http",
       "path": "/url/{id}",
       "tags": [
         "@url"
@@ -4765,6 +4797,8 @@
       "httpMethod": "GET"
     },
     "http POST /url/{id}": {
+      "id": "http POST /url/{id}",
+      "protocol": "http",
       "path": "/url/{id}",
       "tags": [
         "@url"
@@ -5066,6 +5100,8 @@
       "httpMethod": "POST"
     },
     "http PUT /url/{id}": {
+      "id": "http PUT /url/{id}",
+      "protocol": "http",
       "path": "/url/{id}",
       "tags": [
         "@url"
@@ -5367,6 +5403,8 @@
       "httpMethod": "PUT"
     },
     "http PATCH /url/{id}": {
+      "id": "http PATCH /url/{id}",
+      "protocol": "http",
       "path": "/url/{id}",
       "tags": [
         "@url"
@@ -5668,6 +5706,8 @@
       "httpMethod": "PATCH"
     },
     "http DELETE /url/{id}": {
+      "id": "http DELETE /url/{id}",
+      "protocol": "http",
       "path": "/url/{id}",
       "tags": [
         "@url"

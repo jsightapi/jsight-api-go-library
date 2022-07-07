@@ -3,15 +3,16 @@ package catalog
 import "github.com/jsightapi/jsight-api-go-library/directive"
 
 type JsonRpcInteraction struct {
-	Description   *string
-	Annotation    *string
-	Params        *jsonRpcParams
-	Result        *jsonRpcResult
-	PathVariables *PathVariables
-	Protocol      Protocol
-	PathVal       Path
-	Method        string
-	Tags          []TagName
+	Id            string         `json:"id"`
+	Protocol      Protocol       `json:"protocol"`
+	PathVal       Path           `json:"path"`
+	Method        string         `json:"method"`
+	PathVariables *PathVariables `json:"pathVariables"`
+	Tags          []TagName      `json:"tags"`
+	Description   *string        `json:"annotation"`
+	Annotation    *string        `json:"description"`
+	Params        *jsonRpcParams `json:"params"`
+	Result        *jsonRpcResult `json:"result"`
 }
 
 type jsonRpcParams struct {
@@ -32,17 +33,18 @@ func (j *JsonRpcInteraction) SetPathVariables(p *PathVariables) {
 	j.PathVariables = p
 }
 
-func newJsonRpcInteraction(path Path, method string, annotation string, tn TagName) *JsonRpcInteraction {
+func newJsonRpcInteraction(id JsonRpcInteractionId, method string, annotation string, tn TagName) *JsonRpcInteraction {
 	j := &JsonRpcInteraction{
-		Description:   nil,
-		Annotation:    nil,
-		Params:        nil,
-		Result:        nil,
+		Id:            id.String(),
+		Protocol:      JsonRpc,
+		PathVal:       id.path,
 		PathVariables: nil,
-		Protocol:      jsonRpc,
-		PathVal:       path,
 		Method:        method,
 		Tags:          []TagName{tn},
+		Annotation:    nil,
+		Description:   nil,
+		Params:        nil,
+		Result:        nil,
 	}
 	if annotation != "" {
 		j.Annotation = &annotation

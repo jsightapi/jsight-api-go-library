@@ -27,6 +27,8 @@
   },
   "interactions": {
     "http POST /cats": {
+      "id": "http POST /cats",
+      "protocol": "http",
       "path": "/cats",
       "tags": [
         "@cats"
@@ -55,6 +57,8 @@
       "httpMethod": "POST"
     },
     "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"

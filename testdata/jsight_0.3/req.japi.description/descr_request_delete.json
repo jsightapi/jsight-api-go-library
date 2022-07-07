@@ -15,6 +15,8 @@
   },
   "interactions": {
     "http DELETE /cats": {
+      "id": "http DELETE /cats",
+      "protocol": "http",
       "path": "/cats",
       "tags": [
         "@cats"

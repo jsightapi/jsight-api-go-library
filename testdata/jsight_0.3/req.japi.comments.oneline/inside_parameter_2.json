@@ -27,6 +27,8 @@
   },
   "interactions": {
     "http GET /cat#dog": {
+      "id": "http GET /cat#dog",
+      "protocol": "http",
       "path": "/cat#dog",
       "tags": [
         "@cat_23dog"
@@ -34,6 +36,8 @@
       "httpMethod": "GET"
     },
     "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"

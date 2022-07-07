@@ -1,87 +1,91 @@
 {
-	"tags": {
-		"@_7Bfirst_7D": {
-			"name": "@_7Bfirst_7D",
-			"title": "/{first}",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /{first}/{second}",
-						"http DELETE /{first}/{second}"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /{first}/{second}": {
-			"path": "/{first}/{second}",
-			"tags": [
-				"@_7Bfirst_7D"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "first",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							},
-							{
-								"key": "second",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight"
-				}
-			},
-			"httpMethod": "GET"
-		},
-		"http DELETE /{first}/{second}": {
-			"path": "/{first}/{second}",
-			"tags": [
-				"@_7Bfirst_7D"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "first",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							},
-							{
-								"key": "second",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight"
-				}
-			},
-			"httpMethod": "DELETE"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@_7Bfirst_7D": {
+      "name": "@_7Bfirst_7D",
+      "title": "/{first}",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /{first}/{second}",
+            "http DELETE /{first}/{second}"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /{first}/{second}": {
+      "id": "http GET /{first}/{second}",
+      "protocol": "http",
+      "path": "/{first}/{second}",
+      "tags": [
+        "@_7Bfirst_7D"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "first",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              },
+              {
+                "key": "second",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "httpMethod": "GET"
+    },
+    "http DELETE /{first}/{second}": {
+      "id": "http DELETE /{first}/{second}",
+      "protocol": "http",
+      "path": "/{first}/{second}",
+      "tags": [
+        "@_7Bfirst_7D"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "first",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              },
+              {
+                "key": "second",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "httpMethod": "DELETE"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

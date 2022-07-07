@@ -1,69 +1,71 @@
 {
-	"tags": {
-		"@list": {
-			"name": "@list",
-			"title": "/list",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /list/{section}/"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@regex": {
-			"schema": {
-				"content": {
-					"tokenType": "string",
-					"type": "string",
-					"scalarValue": "section0",
-					"rules": [
-						{
-							"key": "regex",
-							"tokenType": "string",
-							"scalarValue": "section[0-9]"
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /list/{section}/": {
-			"path": "/list/{section}/",
-			"tags": [
-				"@list"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "section",
-								"tokenType": "reference",
-								"type": "@regex",
-								"scalarValue": "@regex",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@regex"
-					]
-				}
-			},
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /list/{section}/"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@regex": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "section0",
+          "rules": [
+            {
+              "key": "regex",
+              "tokenType": "string",
+              "scalarValue": "section[0-9]"
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /list/{section}/": {
+      "id": "http GET /list/{section}/",
+      "protocol": "http",
+      "path": "/list/{section}/",
+      "tags": [
+        "@list"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "section",
+                "tokenType": "reference",
+                "type": "@regex",
+                "scalarValue": "@regex",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@regex"
+          ]
+        }
+      },
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

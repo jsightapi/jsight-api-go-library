@@ -69,6 +69,8 @@
   },
   "interactions": {
     "http GET /cats/{id}": {
+      "id": "http GET /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"

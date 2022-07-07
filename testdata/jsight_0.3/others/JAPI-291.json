@@ -55,6 +55,8 @@
   },
   "interactions": {
     "http GET /cats/enemies": {
+      "id": "http GET /cats/enemies",
+      "protocol": "http",
       "path": "/cats/enemies",
       "tags": [
         "@cats"

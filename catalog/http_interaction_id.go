@@ -30,7 +30,7 @@ func (h HttpInteractionId) MarshalText() ([]byte, error) {
 
 func newHttpInteractionId(d directive.Directive) (HttpInteractionId, error) {
 	h := HttpInteractionId{
-		protocol: http,
+		protocol: HTTP,
 	}
 
 	path, err := d.Path()

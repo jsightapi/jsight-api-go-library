@@ -18,6 +18,8 @@
   },
   "interactions": {
     "http GET /users": {
+      "id": "http GET /users",
+      "protocol": "http",
       "path": "/users",
       "tags": [
         "@users"

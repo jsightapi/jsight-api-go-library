@@ -84,7 +84,7 @@ func (c *Catalog) AddHTTPMethod(d directive.Directive) error {
 	t := c.tag(httpId)
 	t.appendInteractionId(httpId)
 
-	c.Interactions.Set(httpId, newHttpInteraction(httpId.path, httpId.method, d.Annotation, t.Name))
+	c.Interactions.Set(httpId, newHttpInteraction(httpId, d.Annotation, t.Name))
 
 	return nil
 }
@@ -408,7 +408,7 @@ func (c *Catalog) AddJsonRpcMethod(d directive.Directive) error {
 	t := c.tag(rpcId)
 	t.appendInteractionId(rpcId)
 
-	c.Interactions.Set(rpcId, newJsonRpcInteraction(rpcId.path, d.Parameter("MethodName"), d.Annotation, t.Name))
+	c.Interactions.Set(rpcId, newJsonRpcInteraction(rpcId, d.Parameter("MethodName"), d.Annotation, t.Name))
 
 	return nil
 }

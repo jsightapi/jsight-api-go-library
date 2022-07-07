@@ -36,6 +36,8 @@
   },
   "interactions": {
     "http POST /": {
+      "id": "http POST /",
+      "protocol": "http",
       "path": "/",
       "tags": [
         "@_"

@@ -1,6 +1,8 @@
 package catalog
 
 type HttpInteraction struct {
+	Id            string         `json:"id"`
+	Protocol      Protocol       `json:"protocol"`
 	PathVal       Path           `json:"path"`
 	Tags          []TagName      `json:"tags"`
 	PathVariables *PathVariables `json:"pathVariables,omitempty"`
@@ -20,10 +22,12 @@ func (h *HttpInteraction) SetPathVariables(p *PathVariables) {
 	h.PathVariables = p
 }
 
-func newHttpInteraction(path Path, method HttpMethod, annotation string, tn TagName) *HttpInteraction {
+func newHttpInteraction(id HttpInteractionId, annotation string, tn TagName) *HttpInteraction {
 	h := &HttpInteraction{
-		HttpMethod:    method,
-		PathVal:       path,
+		Id:            id.String(),
+		Protocol:      HTTP,
+		HttpMethod:    id.method,
+		PathVal:       id.path,
 		Tags:          []TagName{tn},
 		PathVariables: nil,
 		Annotation:    nil,

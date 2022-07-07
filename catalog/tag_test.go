@@ -8,7 +8,7 @@ import (
 
 func Test_newEmptyTag(t *testing.T) {
 	tag := newEmptyTag(HttpInteractionId{
-		protocol: http,
+		protocol: HTTP,
 		path:     "/foo/bar",
 	})
 

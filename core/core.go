@@ -16,6 +16,9 @@ type JApiCore struct {
 	// builtUserTypes a "set" of already build user types.
 	processedUserTypes map[string]struct{}
 
+	// To verify the uniqueness of a directive Protocol within a directive URL
+	uniqProtocolDirective map[*directive.Directive]struct{}
+
 	// uniqURLPath used for checking the uniqueness URL paths.
 	uniqURLPath map[catalog.Path]struct{}
 
@@ -85,18 +88,19 @@ func WithBannedDirectives(dd ...directive.Enumeration) Option {
 
 func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 	core := &JApiCore{
-		userTypes:          &catalog.UserSchemas{},
-		processedUserTypes: make(map[string]struct{}, 30),
-		scanner:            scanner.NewJApiScanner(file),
-		catalog:            catalog.NewCatalog(),
-		currentDirective:   nil,
-		directives:         make([]*directive.Directive, 0, 200),
-		uniqURLPath:        make(map[catalog.Path]struct{}, 20),
-		similarPaths:       make(map[string]string, 20),
-		rawPathVariables:   make([]rawPathVariable, 0, 40),
-		macro:              make(map[string]*directive.Directive, 20),
-		scannersStack:      &scanner.Stack{},
-		rules:              map[string]jschema.Rule{},
+		userTypes:             &catalog.UserSchemas{},
+		processedUserTypes:    make(map[string]struct{}, 30),
+		scanner:               scanner.NewJApiScanner(file),
+		catalog:               catalog.NewCatalog(),
+		currentDirective:      nil,
+		directives:            make([]*directive.Directive, 0, 200),
+		uniqProtocolDirective: make(map[*directive.Directive]struct{}, 20),
+		uniqURLPath:           make(map[catalog.Path]struct{}, 20),
+		similarPaths:          make(map[string]string, 20),
+		rawPathVariables:      make([]rawPathVariable, 0, 40),
+		macro:                 make(map[string]*directive.Directive, 20),
+		scannersStack:         &scanner.Stack{},
+		rules:                 map[string]jschema.Rule{},
 	}
 	core.directiveFunctions = map[directive.Enumeration]func(*directive.Directive) *jerr.JApiError{
 		directive.Jsight:           core.addJSight,

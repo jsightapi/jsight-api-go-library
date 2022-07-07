@@ -1,38 +1,40 @@
 {
-	"tags": {
-		"@cats": {
-			"name": "@cats",
-			"title": "/cats",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cats"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /cats": {
-			"path": "/cats",
-			"tags": [
-				"@cats"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cats": {
+      "id": "http GET /cats",
+      "protocol": "http",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

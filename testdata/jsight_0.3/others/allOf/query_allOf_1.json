@@ -1,115 +1,117 @@
 {
-	"tags": {
-		"@list": {
-			"name": "@list",
-			"title": "/list",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /list"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@pager": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "page",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "1",
-							"optional": false
-						},
-						{
-							"key": "per_page",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "50",
-							"rules": [
-								{
-									"key": "optional",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": true
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /list": {
-			"path": "/list",
-			"tags": [
-				"@list"
-			],
-			"query": {
-				"format": "htmlFormEncoded",
-				"schema": {
-					"content": {
-						"rules": [
-							{
-								"key": "allOf",
-								"tokenType": "string",
-								"scalarValue": "@pager"
-							}
-						],
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "page",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"inheritedFrom": "@pager",
-								"optional": false
-							},
-							{
-								"key": "per_page",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "50",
-								"inheritedFrom": "@pager",
-								"rules": [
-									{
-										"key": "optional",
-										"tokenType": "boolean",
-										"scalarValue": "true"
-									}
-								],
-								"optional": true
-							},
-							{
-								"key": "section",
-								"tokenType": "string",
-								"type": "string",
-								"scalarValue": "abc",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@pager"
-					]
-				}
-			},
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /list"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@pager": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "page",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            },
+            {
+              "key": "per_page",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "50",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /list": {
+      "id": "http GET /list",
+      "protocol": "http",
+      "path": "/list",
+      "tags": [
+        "@list"
+      ],
+      "query": {
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "rules": [
+              {
+                "key": "allOf",
+                "tokenType": "string",
+                "scalarValue": "@pager"
+              }
+            ],
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "page",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "inheritedFrom": "@pager",
+                "optional": false
+              },
+              {
+                "key": "per_page",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "50",
+                "inheritedFrom": "@pager",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "key": "section",
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "abc",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@pager"
+          ]
+        }
+      },
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

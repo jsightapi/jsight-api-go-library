@@ -39,6 +39,8 @@
   },
   "interactions": {
     "http PUT /": {
+      "id": "http PUT /",
+      "protocol": "http",
       "path": "/",
       "tags": [
         "@_"

@@ -16,6 +16,8 @@
   },
   "interactions": {
     "http GET /cats/{id}": {
+      "id": "http GET /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -60,6 +62,8 @@
       "httpMethod": "GET"
     },
     "http GET /cats/{id}/friends": {
+      "id": "http GET /cats/{id}/friends",
+      "protocol": "http",
       "path": "/cats/{id}/friends",
       "tags": [
         "@cats"

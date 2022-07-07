@@ -214,7 +214,45 @@ func (core *JApiCore) addURL(d *directive.Directive) *jerr.JApiError {
 
 	core.uniqURLPath[p] = struct{}{}
 
+	return checkChildDirectiveCompatible(d)
+}
+
+// checkChildDirectiveCompatible checks the compatibility of child directives for HTTP and JSON-RPC protocols.
+func checkChildDirectiveCompatible(d *directive.Directive) *jerr.JApiError {
+	if len(d.Children) == 0 {
+		return nil
+	}
+
+	var base *directive.Directive
+	var isBaseJsonRpc bool
+
+	for _, dd := range d.Children {
+		if dd.Type() == directive.Path {
+			continue
+		}
+		if base == nil {
+			base = dd
+			isBaseJsonRpc = isJsonRpcUrlChildDirective(base)
+		} else if isBaseJsonRpc != isJsonRpcUrlChildDirective(dd) {
+			return dd.KeywordError(
+				fmt.Sprintf("directives %q and %q cannot be within the same URL directive",
+					base.Type().String(),
+					dd.Type().String(),
+				),
+			)
+		}
+	}
+
 	return nil
+}
+
+func isJsonRpcUrlChildDirective(d *directive.Directive) bool {
+	switch d.Type() {
+	case directive.Protocol, directive.Method:
+		return true
+	default:
+		return false
+	}
 }
 
 func (core JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
@@ -443,7 +481,7 @@ func (core JApiCore) addBody(d *directive.Directive) *jerr.JApiError {
 	}
 }
 
-func (_ JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
+func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -455,6 +493,11 @@ func (_ JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 	if d.Parameter("ProtocolName") != "json-rpc-2.0" {
 		return d.KeywordError("the parameter value have to be \"json-rpc-2.0\"")
 	}
+
+	if _, ok := core.uniqProtocolDirective[d.Parent]; ok {
+		return d.KeywordError("the directive Protocol must be unique within the directive URL")
+	}
+	core.uniqProtocolDirective[d.Parent] = struct{}{}
 
 	return nil
 }

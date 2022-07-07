@@ -1,38 +1,40 @@
 {
-    "tags": {
-        "@api": {
-            "name": "@api",
-            "title": "/api",
-            "interactionGroups": [
-                {
-                    "protocol": "http",
-                    "interactions": [
-                        "http GET /api"
-                    ]
-                }
-            ]
+  "tags": {
+    "@api": {
+      "name": "@api",
+      "title": "/api",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /api"
+          ]
         }
-    },
-    "interactions": {
-        "http GET /api": {
-            "path": "/api",
-            "tags": [
-                "@api"
-            ],
-            "responses": [
-                {
-                    "code": "200",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                }
-            ],
-            "httpMethod": "GET"
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /api": {
+      "id": "http GET /api",
+      "protocol": "http",
+      "path": "/api",
+      "tags": [
+        "@api"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
         }
-    },
-    "jsight": "0.3",
-    "jdocExchangeVersion": "2.0.0"
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

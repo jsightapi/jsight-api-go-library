@@ -1,52 +1,54 @@
 {
-	"tags": {
-		"@_": {
-			"name": "@_",
-			"title": "/",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /": {
-			"path": "/",
-			"tags": [
-				"@_"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"key": "@cat",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "Tom",
-										"optional": false
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /": {
+      "id": "http GET /",
+      "protocol": "http",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "@cat",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "Tom",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

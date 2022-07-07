@@ -1,60 +1,62 @@
 {
-    "tags": {
-        "@special": {
-            "name": "@special",
-            "title": "/special",
-            "interactionGroups": [
-                {
-                    "protocol": "http",
-                    "interactions": [
-                        "http GET /special"
+  "tags": {
+    "@special": {
+      "name": "@special",
+      "title": "/special",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /special"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /special": {
+      "id": "http GET /special",
+      "protocol": "http",
+      "path": "/special",
+      "tags": [
+        "@special"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "string",
+                "type": "enum",
+                "scalarValue": "some string",
+                "rules": [
+                  {
+                    "key": "enum",
+                    "tokenType": "array",
+                    "children": [
+                      {
+                        "tokenType": "string",
+                        "scalarValue": "some string"
+                      },
+                      {
+                        "tokenType": "string",
+                        "scalarValue": "other string"
+                      }
                     ]
-                }
-            ]
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
         }
-    },
-    "interactions": {
-        "http GET /special": {
-            "path": "/special",
-            "tags": [
-                "@special"
-            ],
-            "responses": [
-                {
-                    "code": "200",
-                    "body": {
-                        "format": "json",
-                        "schema": {
-                            "content": {
-                                "tokenType": "string",
-                                "type": "enum",
-                                "scalarValue": "some string",
-                                "rules": [
-                                    {
-                                        "key": "enum",
-                                        "tokenType": "array",
-                                        "children": [
-                                            {
-                                                "tokenType": "string",
-                                                "scalarValue": "some string"
-                                            },
-                                            {
-                                                "tokenType": "string",
-                                                "scalarValue": "other string"
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "optional": false
-                            },
-                            "notation": "jsight"
-                        }
-                    }
-                }
-            ],
-            "httpMethod": "GET"
-        }
-    },
-    "jsight": "0.3",
-    "jdocExchangeVersion": "2.0.0"
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

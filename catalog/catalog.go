@@ -41,7 +41,7 @@ func (c *Catalog) ToJson() ([]byte, error) {
 }
 
 func (c *Catalog) ToJsonIndent() ([]byte, error) {
-	return json.MarshalIndent(c, "", "\t")
+	return json.MarshalIndent(c, "", "  ")
 }
 
 func NewCatalog() *Catalog {

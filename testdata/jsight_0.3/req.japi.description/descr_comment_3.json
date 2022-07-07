@@ -27,6 +27,8 @@
   },
   "interactions": {
     "http GET /": {
+      "id": "http GET /",
+      "protocol": "http",
       "path": "/",
       "tags": [
         "@_"
@@ -35,6 +37,8 @@
       "httpMethod": "GET"
     },
     "http GET /user": {
+      "id": "http GET /user",
+      "protocol": "http",
       "path": "/user",
       "tags": [
         "@user"

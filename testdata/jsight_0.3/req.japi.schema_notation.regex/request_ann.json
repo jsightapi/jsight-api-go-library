@@ -1,40 +1,42 @@
 {
-	"tags": {
-		"@catsName": {
-			"name": "@catsName",
-			"title": "/catsName",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /catsName"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /catsName": {
-			"path": "/catsName",
-			"tags": [
-				"@catsName"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "body-explanation",
-					"body": {
-						"format": "plainString",
-						"schema": {
-							"content": ".*",
-							"notation": "regex"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@catsName": {
+      "name": "@catsName",
+      "title": "/catsName",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /catsName"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /catsName": {
+      "id": "http GET /catsName",
+      "protocol": "http",
+      "path": "/catsName",
+      "tags": [
+        "@catsName"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "body-explanation",
+          "body": {
+            "format": "plainString",
+            "schema": {
+              "content": ".*",
+              "notation": "regex"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

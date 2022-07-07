@@ -19,6 +19,8 @@
   },
   "interactions": {
     "http POST /cats": {
+      "id": "http POST /cats",
+      "protocol": "http",
       "path": "/cats",
       "tags": [
         "@cats"
@@ -27,6 +29,8 @@
       "httpMethod": "POST"
     },
     "http GET /cats/{id}": {
+      "id": "http GET /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -35,6 +39,8 @@
       "httpMethod": "GET"
     },
     "http PUT /cats/{id}": {
+      "id": "http PUT /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -43,6 +49,8 @@
       "httpMethod": "PUT"
     },
     "http PATCH /cats/{id}": {
+      "id": "http PATCH /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -51,6 +59,8 @@
       "httpMethod": "PATCH"
     },
     "http DELETE /cats/{id}": {
+      "id": "http DELETE /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"

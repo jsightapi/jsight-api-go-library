@@ -1,37 +1,39 @@
 {
-	"tags": {
-		"@_": {
-			"name": "@_",
-			"title": "/",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /"
-					]
-				}
-			]
-		}
-	},
-	"servers": {
-		"@CATS_API_SERVER": {
-			"annotation": "Server catsbook.com API",
-			"baseUrl": "https://{env}.catsbook.com/api/{version}/{locale}/"
-		},
-		"@DOGS_API_SERVER": {
-			"annotation": "dog server",
-			"baseUrl": "https://dogsbook.com/api/"
-		}
-	},
-	"interactions": {
-		"http GET /": {
-			"path": "/",
-			"tags": [
-				"@_"
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /"
+          ]
+        }
+      ]
+    }
+  },
+  "servers": {
+    "@CATS_API_SERVER": {
+      "annotation": "Server catsbook.com API",
+      "baseUrl": "https://{env}.catsbook.com/api/{version}/{locale}/"
+    },
+    "@DOGS_API_SERVER": {
+      "annotation": "dog server",
+      "baseUrl": "https://dogsbook.com/api/"
+    }
+  },
+  "interactions": {
+    "http GET /": {
+      "id": "http GET /",
+      "protocol": "http",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

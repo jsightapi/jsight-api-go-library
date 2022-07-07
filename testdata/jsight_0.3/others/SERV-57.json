@@ -666,6 +666,8 @@
   },
   "interactions": {
     "http GET /dogs": {
+      "id": "http GET /dogs",
+      "protocol": "http",
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -919,6 +921,8 @@
       "httpMethod": "GET"
     },
     "http POST /dogs": {
+      "id": "http POST /dogs",
+      "protocol": "http",
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -1046,6 +1050,8 @@
       "httpMethod": "POST"
     },
     "http GET /dogs/{id}": {
+      "id": "http GET /dogs/{id}",
+      "protocol": "http",
       "path": "/dogs/{id}",
       "tags": [
         "@dogs"
@@ -1161,6 +1167,8 @@
       "httpMethod": "GET"
     },
     "http DELETE /dogs/{id}": {
+      "id": "http DELETE /dogs/{id}",
+      "protocol": "http",
       "path": "/dogs/{id}",
       "tags": [
         "@dogs"

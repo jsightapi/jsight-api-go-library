@@ -30,7 +30,7 @@ func (j JsonRpcInteractionId) MarshalText() ([]byte, error) {
 
 func newJsonRpcInteractionId(d directive.Directive) (JsonRpcInteractionId, error) {
 	j := JsonRpcInteractionId{
-		protocol: jsonRpc,
+		protocol: JsonRpc,
 	}
 
 	// if d.Type() != directive.Method {

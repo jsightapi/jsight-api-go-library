@@ -1,53 +1,55 @@
 {
-	"tags": {
-		"@pet": {
-			"name": "@pet",
-			"title": "/pet",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /pet/{pet}/{id}"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /pet/{pet}/{id}": {
-			"path": "/pet/{pet}/{id}",
-			"tags": [
-				"@pet"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "pet",
-								"tokenType": "string",
-								"type": "string",
-								"scalarValue": "cat",
-								"optional": false
-							},
-							{
-								"key": "id",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight"
-				}
-			},
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@pet": {
+      "name": "@pet",
+      "title": "/pet",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /pet/{pet}/{id}"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /pet/{pet}/{id}": {
+      "id": "http GET /pet/{pet}/{id}",
+      "protocol": "http",
+      "path": "/pet/{pet}/{id}",
+      "tags": [
+        "@pet"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "pet",
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "cat",
+                "optional": false
+              },
+              {
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }
