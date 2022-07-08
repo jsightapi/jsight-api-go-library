@@ -1,0 +1,170 @@
+{
+  "tags": {
+    "@api": {
+      "name": "@api",
+      "title": "/api",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /api/http",
+            "http POST /api/http"
+          ]
+        },
+        {
+          "protocol": "json-rpc-2.0",
+          "interactions": [
+            "json-rpc-2.0 createCat /api/rpc",
+            "json-rpc-2.0 getCat /api/rpc"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@cat": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            },
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /api/http": {
+      "id": "http GET /api/http",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/api/http",
+      "tags": [
+        "@api"
+      ]
+    },
+    "http POST /api/http": {
+      "id": "http POST /api/http",
+      "protocol": "http",
+      "httpMethod": "POST",
+      "path": "/api/http",
+      "tags": [
+        "@api"
+      ]
+    },
+    "json-rpc-2.0 createCat /api/rpc": {
+      "id": "json-rpc-2.0 createCat /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "createCat",
+      "tags": [
+        "@api"
+      ],
+      "description": "Create a cat.",
+      "params": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "cat",
+                "tokenType": "reference",
+                "type": "@cat",
+                "scalarValue": "@cat",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@cat"
+          ]
+        }
+      },
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Cat’s id.",
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      }
+    },
+    "json-rpc-2.0 getCat /api/rpc": {
+      "id": "json-rpc-2.0 getCat /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "getCat",
+      "tags": [
+        "@api"
+      ],
+      "description": "Get a cat by its id.",
+      "params": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Cat’s id.",
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "reference",
+            "type": "@cat",
+            "scalarValue": "@cat",
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@cat"
+          ]
+        }
+      }
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

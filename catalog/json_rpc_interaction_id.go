@@ -33,17 +33,17 @@ func newJsonRpcInteractionId(d directive.Directive) (JsonRpcInteractionId, error
 		protocol: JsonRpc,
 	}
 
-	// if d.Type() != directive.Method {
-	// 	return j, errors.New("internal error, incorrect directive type")
-	// }
-
 	path, err := d.Path()
 	if err != nil {
 		return j, err
 	}
 
 	j.path = Path(path)
-	j.method = d.Parameter("MethodName")
+
+	j.method, err = d.JsonRpcMethodName()
+	if err != nil {
+		return j, err
+	}
 
 	return j, nil
 }

@@ -120,23 +120,26 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 		}
 	}
 
+	// set PathVariables
 	err := core.catalog.Interactions.Map(func(_ catalog.InteractionId, v catalog.Interaction) (catalog.Interaction, error) {
-		pp := pathParameters(v.Path().String())
-		properties := make([]prop, 0, len(pp))
+		if hi, ok := v.(*catalog.HttpInteraction); ok {
+			pp := pathParameters(v.Path().String())
+			properties := make([]prop, 0, len(pp))
 
-		for _, p := range pp {
-			if pr, ok := allProjectProperties[p.path]; ok {
-				pr.parameter = p.parameter
-				properties = append(properties, pr)
+			for _, p := range pp {
+				if pr, ok := allProjectProperties[p.path]; ok {
+					pr.parameter = p.parameter
+					properties = append(properties, pr)
+				}
 			}
-		}
 
-		if len(properties) != 0 {
-			pv, err := core.newPathVariables(properties)
-			if err != nil {
-				return nil, err
+			if len(properties) != 0 {
+				pv, err := core.newPathVariables(properties)
+				if err != nil {
+					return nil, err
+				}
+				hi.SetPathVariables(pv)
 			}
-			v.SetPathVariables(pv)
 		}
 		return v, nil
 	})

@@ -214,11 +214,11 @@ func (core *JApiCore) addURL(d *directive.Directive) *jerr.JApiError {
 
 	core.uniqURLPath[p] = struct{}{}
 
-	return checkChildDirectiveCompatible(d)
+	return checkJsonRpcUrlChildCompatible(d)
 }
 
-// checkChildDirectiveCompatible checks the compatibility of child directives for HTTP and JSON-RPC protocols.
-func checkChildDirectiveCompatible(d *directive.Directive) *jerr.JApiError {
+// checkJsonRpcUrlChildCompatible checks the compatibility of child directives for HTTP and JSON-RPC protocols.
+func checkJsonRpcUrlChildCompatible(d *directive.Directive) *jerr.JApiError {
 	if len(d.Children) == 0 {
 		return nil
 	}
@@ -227,9 +227,6 @@ func checkChildDirectiveCompatible(d *directive.Directive) *jerr.JApiError {
 	var isBaseJsonRpc bool
 
 	for _, dd := range d.Children {
-		if dd.Type() == directive.Path {
-			continue
-		}
 		if base == nil {
 			base = dd
 			isBaseJsonRpc = isJsonRpcUrlChildDirective(base)
@@ -494,10 +491,10 @@ func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError("the parameter value have to be \"json-rpc-2.0\"")
 	}
 
-	if _, ok := core.uniqProtocolDirective[d.Parent]; ok {
+	if _, ok := core.onlyOneProtocolIntoUrl[d.Parent]; ok {
 		return d.KeywordError("the directive Protocol must be unique within the directive URL")
 	}
-	core.uniqProtocolDirective[d.Parent] = struct{}{}
+	core.onlyOneProtocolIntoUrl[d.Parent] = struct{}{}
 
 	return nil
 }
@@ -525,4 +522,40 @@ func isProtocolExists(d *directive.Directive) bool {
 		}
 	}
 	return false
+}
+
+func (core JApiCore) addJsonRpcSchema(d *directive.Directive, f func(catalog.Schema, directive.Directive) error) *jerr.JApiError {
+	if d.Annotation != "" {
+		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
+	}
+	if !d.BodyCoords.IsSet() {
+		return d.KeywordError(jerr.EmptyBody)
+	}
+
+	var s catalog.Schema
+	var err error
+
+	s, err = catalog.UnmarshalSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	if err != nil {
+		var e kit.Error
+		if errors.As(err, &e) {
+			return d.BodyErrorIndex(e.Message(), e.Position())
+		}
+		return d.BodyError(err.Error())
+	}
+
+	err = f(s, *d)
+	if err != nil {
+		return d.KeywordError(err.Error())
+	}
+
+	return nil
+}
+
+func (core JApiCore) addJsonRpcParams(d *directive.Directive) *jerr.JApiError {
+	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcParams)
+}
+
+func (core JApiCore) addJsonRpcResult(d *directive.Directive) *jerr.JApiError {
+	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcResult)
 }

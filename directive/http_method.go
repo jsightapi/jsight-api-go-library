@@ -13,5 +13,5 @@ func (d Directive) HttpMethod() (Enumeration, error) {
 		return d.Parent.HttpMethod()
 	}
 
-	return Get, errors.New(jerr.MethodNotFound)
+	return Get, errors.New(jerr.HttpMethodNotFound)
 }
