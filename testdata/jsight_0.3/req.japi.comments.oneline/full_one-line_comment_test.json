@@ -75,6 +75,8 @@
   },
   "interactions": {
     "http GET /cats/{id}": {
+      "id": "http GET /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -145,6 +147,8 @@
       "httpMethod": "GET"
     },
     "http POST /cats/{id}": {
+      "id": "http POST /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -254,6 +258,8 @@
       "httpMethod": "POST"
     },
     "http DELETE /cats/{id}": {
+      "id": "http DELETE /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"

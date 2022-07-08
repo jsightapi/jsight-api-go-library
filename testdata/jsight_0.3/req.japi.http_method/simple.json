@@ -18,6 +18,8 @@
   },
   "interactions": {
     "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -25,6 +27,8 @@
       "httpMethod": "GET"
     },
     "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -32,6 +36,8 @@
       "httpMethod": "POST"
     },
     "http PUT /cat": {
+      "id": "http PUT /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -39,6 +45,8 @@
       "httpMethod": "PUT"
     },
     "http DELETE /cat": {
+      "id": "http DELETE /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"

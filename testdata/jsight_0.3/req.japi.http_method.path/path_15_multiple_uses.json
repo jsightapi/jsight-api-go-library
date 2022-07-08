@@ -16,6 +16,8 @@
   },
   "interactions": {
     "http GET /{id}/phone": {
+      "id": "http GET /{id}/phone",
+      "protocol": "http",
       "path": "/{id}/phone",
       "tags": [
         "@_7Bid_7D"
@@ -49,6 +51,8 @@
       "httpMethod": "GET"
     },
     "http GET /{id}/name": {
+      "id": "http GET /{id}/name",
+      "protocol": "http",
       "path": "/{id}/name",
       "tags": [
         "@_7Bid_7D"

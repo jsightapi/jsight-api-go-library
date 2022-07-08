@@ -1,95 +1,97 @@
 {
-	"tags": {
-		"@cats": {
-			"name": "@cats",
-			"title": "/cats",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cats/{id}/{name}"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@pathVars1": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "id",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "1",
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		},
-		"@pathVars2": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "name",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Tom",
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /cats/{id}/{name}": {
-			"path": "/cats/{id}/{name}",
-			"tags": [
-				"@cats"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "id",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"inheritedFrom": "@pathVars1",
-								"optional": false
-							},
-							{
-								"key": "name",
-								"tokenType": "string",
-								"type": "string",
-								"scalarValue": "Tom",
-								"inheritedFrom": "@pathVars2",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight"
-				}
-			},
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats/{id}/{name}"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@pathVars1": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@pathVars2": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /cats/{id}/{name}": {
+      "id": "http GET /cats/{id}/{name}",
+      "protocol": "http",
+      "path": "/cats/{id}/{name}",
+      "tags": [
+        "@cats"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "inheritedFrom": "@pathVars1",
+                "optional": false
+              },
+              {
+                "key": "name",
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "Tom",
+                "inheritedFrom": "@pathVars2",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

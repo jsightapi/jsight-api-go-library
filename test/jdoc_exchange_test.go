@@ -1,7 +1,6 @@
 package test
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -17,7 +16,7 @@ func TestJDocExchange(t *testing.T) {
 
 	for _, jsonPath := range jsonFilesPaths {
 		t.Run(cutRepositoryPath(jsonPath), func(t *testing.T) {
-			json, err := ioutil.ReadFile(jsonPath)
+			json, err := os.ReadFile(jsonPath)
 			require.NoError(t, err)
 
 			japiPath, err := japiFilePath(jsonPath)

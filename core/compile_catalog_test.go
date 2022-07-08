@@ -22,12 +22,12 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 			"empty": {
 				&JApiCore{
 					catalog: &catalog.Catalog{
-						HttpInteractions: &catalog.HttpInteractions{},
+						Interactions: &catalog.Interactions{},
 					},
 				},
 				&JApiCore{
 					catalog: &catalog.Catalog{
-						HttpInteractions: &catalog.HttpInteractions{},
+						Interactions: &catalog.Interactions{},
 					},
 				},
 			},
@@ -74,7 +74,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 				},
 
 				catalog: &catalog.Catalog{
-					HttpInteractions: &catalog.HttpInteractions{},
+					Interactions: &catalog.Interactions{},
 				},
 			},
 		}

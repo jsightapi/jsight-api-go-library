@@ -1,93 +1,97 @@
 {
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cat",
-						"http POST /cat"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				},
-				{
-					"code": "300",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				},
-				{
-					"code": "400",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		},
-		"http POST /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				},
-				{
-					"code": "300",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				},
-				{
-					"code": "400",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "POST"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat",
+            "http POST /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "300",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "300",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

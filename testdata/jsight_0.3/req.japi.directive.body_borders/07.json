@@ -17,6 +17,8 @@
   },
   "interactions": {
     "http POST /api": {
+      "id": "http POST /api",
+      "protocol": "http",
       "path": "/api",
       "tags": [
         "@api"
@@ -24,6 +26,8 @@
       "httpMethod": "POST"
     },
     "http GET /api/cats": {
+      "id": "http GET /api/cats",
+      "protocol": "http",
       "path": "/api/cats",
       "tags": [
         "@api"
@@ -31,6 +35,8 @@
       "httpMethod": "GET"
     },
     "http DELETE /api/cats/{id}": {
+      "id": "http DELETE /api/cats/{id}",
+      "protocol": "http",
       "path": "/api/cats/{id}",
       "tags": [
         "@api"

@@ -1,35 +1,37 @@
 {
-	"tags": {
-		"@cats": {
-			"name": "@cats",
-			"title": "/cats",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http POST /cats"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http POST /cats": {
-			"path": "/cats",
-			"tags": [
-				"@cats"
-			],
-			"request": {
-				"body": {
-					"format": "binary",
-					"schema": {
-						"notation": "any"
-					}
-				}
-			},
-			"httpMethod": "POST"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cats": {
+      "name": "@cats",
+      "title": "/cats",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /cats"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http POST /cats": {
+      "id": "http POST /cats",
+      "protocol": "http",
+      "path": "/cats",
+      "tags": [
+        "@cats"
+      ],
+      "request": {
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "any"
+          }
+        }
+      },
+      "httpMethod": "POST"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

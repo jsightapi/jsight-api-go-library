@@ -1,75 +1,77 @@
 {
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cat"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@cat": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "field",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "value",
-							"rules": [
-								{
-									"key": "optional",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": true
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@cat",
-								"scalarValue": "@cat",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@cat"
-							]
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@cat": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "field",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "value",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@cat",
+                "scalarValue": "@cat",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@cat"
+              ]
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

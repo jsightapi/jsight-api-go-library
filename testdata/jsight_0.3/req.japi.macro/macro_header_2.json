@@ -1,81 +1,83 @@
 {
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http POST /cat"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http POST /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"tokenType": "object",
-							"type": "object",
-							"children": [
-								{
-									"key": "Authorization",
-									"tokenType": "string",
-									"type": "string",
-									"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-									"rules": [
-										{
-											"key": "regex",
-											"tokenType": "string",
-											"scalarValue": "Basic [A-Za-z0-9+/=]+"
-										}
-									],
-									"optional": false
-								},
-								{
-									"key": "Content-Type",
-									"tokenType": "string",
-									"type": "string",
-									"scalarValue": "application/json",
-									"rules": [
-										{
-											"key": "const",
-											"tokenType": "boolean",
-											"scalarValue": "true"
-										}
-									],
-									"optional": false
-								}
-							],
-							"optional": false
-						},
-						"notation": "jsight"
-					}
-				},
-				"body": {
-					"format": "json",
-					"schema": {
-						"content": {
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Tom",
-							"optional": false
-						},
-						"notation": "jsight"
-					}
-				}
-			},
-			"httpMethod": "POST"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http POST /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "tokenType": "object",
+              "type": "object",
+              "children": [
+                {
+                  "key": "Authorization",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "rules": [
+                    {
+                      "key": "regex",
+                      "tokenType": "string",
+                      "scalarValue": "Basic [A-Za-z0-9+/=]+"
+                    }
+                  ],
+                  "optional": false
+                },
+                {
+                  "key": "Content-Type",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "rules": [
+                    {
+                      "key": "const",
+                      "tokenType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  ],
+                  "optional": false
+                }
+              ],
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "optional": false
+            },
+            "notation": "jsight"
+          }
+        }
+      },
+      "httpMethod": "POST"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

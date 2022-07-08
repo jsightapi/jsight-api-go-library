@@ -14,9 +14,10 @@ func Test_IsHTTPResponseCode(t *testing.T) {
 		"400": true,
 		"500": true,
 		"526": true,
+		"599": true,
 
 		"99":  false,
-		"527": false,
+		"600": false,
 		"999": false,
 
 		"":      false,

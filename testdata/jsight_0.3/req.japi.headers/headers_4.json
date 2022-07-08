@@ -1,64 +1,66 @@
 {
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cat"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"key": "Content-Type",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "application/json",
-										"optional": false
-									},
-									{
-										"key": "Authorization",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-										"optional": false
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight"
-						}
-					},
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "Content-Type",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "optional": false
+                  },
+                  {
+                    "key": "Authorization",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

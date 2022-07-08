@@ -1,160 +1,164 @@
 {
-    "tags": {
-        "@cat": {
-            "name": "@cat",
-            "title": "/cat",
-            "interactionGroups": [
-                {
-                    "protocol": "http",
-                    "interactions": [
-                        "http GET /cat"
-                    ]
-                }
-            ]
-        },
-        "@dog": {
-            "name": "@dog",
-            "title": "/dog",
-            "interactionGroups": [
-                {
-                    "protocol": "http",
-                    "interactions": [
-                        "http GET /dog"
-                    ]
-                }
-            ]
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat"
+          ]
         }
+      ]
     },
-    "interactions": {
-        "http GET /cat": {
-            "path": "/cat",
-            "tags": [
-                "@cat"
-            ],
-            "description": "Some text",
-            "responses": [
-                {
-                    "code": "200",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "300",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "301",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "400",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "404",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "409",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                }
-            ],
-            "httpMethod": "GET"
-        },
-        "http GET /dog": {
-            "path": "/dog",
-            "tags": [
-                "@dog"
-            ],
-            "description": "Some text",
-            "responses": [
-                {
-                    "code": "200",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "300",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "301",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "400",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "404",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                },
-                {
-                    "code": "409",
-                    "body": {
-                        "format": "binary",
-                        "schema": {
-                            "notation": "any"
-                        }
-                    }
-                }
-            ],
-            "httpMethod": "GET"
+    "@dog": {
+      "name": "@dog",
+      "title": "/dog",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /dog"
+          ]
         }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "description": "Some text",
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "300",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "301",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
     },
-    "jsight": "0.3",
-    "jdocExchangeVersion": "2.0.0"
+    "http GET /dog": {
+      "id": "http GET /dog",
+      "protocol": "http",
+      "path": "/dog",
+      "tags": [
+        "@dog"
+      ],
+      "description": "Some text",
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "300",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "301",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "400",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

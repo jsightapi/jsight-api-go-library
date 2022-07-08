@@ -32,7 +32,7 @@
               "tokenType": "string",
               "type": "string",
               "scalarValue": "Doggie",
-                  "optional": false
+              "optional": false
             }
           ],
           "optional": false
@@ -43,6 +43,8 @@
   },
   "interactions": {
     "http GET /cats/{id}": {
+      "id": "http GET /cats/{id}",
+      "protocol": "http",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -65,6 +67,10 @@
                     "optional": false
                   },
                   {
+                    "key": "name",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "Tom",
                     "rules": [
                       {
                         "key": "optional",
@@ -72,10 +78,6 @@
                         "scalarValue": "true"
                       }
                     ],
-                    "key": "name",
-                    "tokenType": "string",
-                    "type": "string",
-                    "scalarValue": "Tom",
                     "optional": true
                   },
                   {

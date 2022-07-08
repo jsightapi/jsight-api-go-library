@@ -1,1512 +1,1522 @@
 {
-	"tags": {
-		"@dogs": {
-			"name": "@dogs",
-			"title": "/dogs",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /dogs",
-						"http POST /dogs",
-						"http GET /dogs/{id}",
-						"http PUT /dogs/{id}",
-						"http DELETE /dogs/{id}"
-					]
-				}
-			]
-		}
-	},
-	"info": {
-		"title": "Dogs REST API",
-		"version": "1.0",
-		"description": "## Overview\n\nThe Dogs REST API allows you to manage your dogs.\n\nPowered by [JSight](http://jsight.io)©."
-	},
-	"servers": {
-		"@prod": {
-			"annotation": "Production server.",
-			"baseUrl": "https://pets.com/api/1.0"
-		},
-		"@test": {
-			"annotation": "Test server.",
-			"baseUrl": "https://192.168.0.100/1.0"
-		}
-	},
-	"userTypes": {
-		"@pet": {
-			"annotation": "A pet.",
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "id",
-							"tokenType": "reference",
-							"type": "@petId",
-							"scalarValue": "@petId",
-							"optional": false
-						},
-						{
-							"key": "name",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Tom",
-							"optional": false
-						},
-						{
-							"key": "type",
-							"tokenType": "string",
-							"type": "enum",
-							"scalarValue": "PIG",
-							"rules": [
-								{
-									"key": "enum",
-									"tokenType": "array",
-									"children": [
-										{
-											"tokenType": "string",
-											"scalarValue": "CAT"
-										},
-										{
-											"tokenType": "string",
-											"scalarValue": "DOG"
-										},
-										{
-											"tokenType": "string",
-											"scalarValue": "PIG"
-										}
-									]
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "age",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "10",
-							"rules": [
-								{
-									"key": "min",
-									"tokenType": "number",
-									"scalarValue": "0"
-								},
-								{
-									"key": "max",
-									"tokenType": "number",
-									"scalarValue": "99"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "email",
-							"tokenType": "string",
-							"type": "email",
-							"scalarValue": "tom@pets.com",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "email"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "uri",
-							"tokenType": "string",
-							"type": "uri",
-							"scalarValue": "http://tom.pets.com",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "uri"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "birthday",
-							"tokenType": "string",
-							"type": "date",
-							"scalarValue": "2012-01-03",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "date"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "uuid",
-							"tokenType": "string",
-							"type": "uuid",
-							"scalarValue": "550e8400-e29b-41d4-a716-446655440000",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "uuid"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight",
-				"usedUserTypes": [
-					"@petId"
-				]
-			}
-		},
-		"@dog": {
-			"annotation": "A dog.",
-			"schema": {
-				"content": {
-					"rules": [
-						{
-							"key": "allOf",
-							"tokenType": "string",
-							"scalarValue": "@pet"
-						}
-					],
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "id",
-							"tokenType": "reference",
-							"type": "@petId",
-							"scalarValue": "@petId",
-							"inheritedFrom": "@pet",
-							"optional": false
-						},
-						{
-							"key": "name",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Tom",
-							"inheritedFrom": "@pet",
-							"optional": false
-						},
-						{
-							"key": "type",
-							"tokenType": "string",
-							"type": "enum",
-							"scalarValue": "PIG",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "enum",
-									"tokenType": "array",
-									"children": [
-										{
-											"tokenType": "string",
-											"scalarValue": "CAT"
-										},
-										{
-											"tokenType": "string",
-											"scalarValue": "DOG"
-										},
-										{
-											"tokenType": "string",
-											"scalarValue": "PIG"
-										}
-									]
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "age",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "10",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "min",
-									"tokenType": "number",
-									"scalarValue": "0"
-								},
-								{
-									"key": "max",
-									"tokenType": "number",
-									"scalarValue": "99"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "email",
-							"tokenType": "string",
-							"type": "email",
-							"scalarValue": "tom@pets.com",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "email"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "uri",
-							"tokenType": "string",
-							"type": "uri",
-							"scalarValue": "http://tom.pets.com",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "uri"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "birthday",
-							"tokenType": "string",
-							"type": "date",
-							"scalarValue": "2012-01-03",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "date"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "uuid",
-							"tokenType": "string",
-							"type": "uuid",
-							"scalarValue": "550e8400-e29b-41d4-a716-446655440000",
-							"inheritedFrom": "@pet",
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "uuid"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "friendIds",
-							"tokenType": "array",
-							"type": "array",
-							"note": "Only dog ids are allowed.",
-							"children": [
-								{
-									"tokenType": "reference",
-									"type": "@petId",
-									"scalarValue": "@petId",
-									"optional": true
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "isDangerous",
-							"tokenType": "boolean",
-							"type": "boolean",
-							"scalarValue": "false",
-							"optional": false
-						},
-						{
-							"key": "legacyId",
-							"tokenType": "number",
-							"type": "mixed",
-							"scalarValue": "1",
-							"rules": [
-								{
-									"key": "or",
-									"tokenType": "array",
-									"children": [
-										{
-											"tokenType": "object",
-											"children": [
-												{
-													"key": "type",
-													"tokenType": "string",
-													"scalarValue": "integer"
-												},
-												{
-													"key": "min",
-													"tokenType": "number",
-													"scalarValue": "0"
-												},
-												{
-													"key": "exclusiveMinimum",
-													"tokenType": "boolean",
-													"scalarValue": "true"
-												}
-											]
-										},
-										{
-											"tokenType": "object",
-											"children": [
-												{
-													"key": "type",
-													"tokenType": "string",
-													"scalarValue": "string"
-												}
-											]
-										}
-									]
-								},
-								{
-									"key": "optional",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": true
-						},
-						{
-							"rules": [
-								{
-									"key": "type",
-									"tokenType": "string",
-									"scalarValue": "any"
-								}
-							],
-							"key": "additionalData",
-							"tokenType": "object",
-							"type": "any",
-							"note": "Field for legacy.",
-							"children": [],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight",
-				"usedUserTypes": [
-					"@pet",
-					"@petId"
-				]
-			}
-		},
-		"@petId": {
-			"schema": {
-				"content": {
-					"tokenType": "string",
-					"type": "string",
-					"scalarValue": "GOAT-12345",
-					"rules": [
-						{
-							"key": "regex",
-							"tokenType": "string",
-							"scalarValue": "^[A-Z]+-\\d+$"
-						},
-						{
-							"key": "minLength",
-							"tokenType": "number",
-							"scalarValue": "3"
-						},
-						{
-							"key": "maxLength",
-							"tokenType": "number",
-							"scalarValue": "255"
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		},
-		"@petName": {
-			"schema": {
-				"content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$",
-				"notation": "regex"
-			}
-		},
-		"@error": {
-			"annotation": "A common error response.",
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "code",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "12",
-							"optional": false
-						},
-						{
-							"key": "message",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Something bad had happened on the server...",
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		},
-		"@commonRequestHeaders": {
-			"schema": {
-				"content": {
-					"rules": [
-						{
-							"key": "allOf",
-							"tokenType": "array",
-							"children": [
-								{
-									"tokenType": "string",
-									"scalarValue": "@contentTypeHeader"
-								},
-								{
-									"tokenType": "string",
-									"scalarValue": "@authHeader"
-								}
-							]
-						}
-					],
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "Content-Type",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "application/json",
-							"inheritedFrom": "@contentTypeHeader",
-							"rules": [
-								{
-									"key": "const",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": false
-						},
-						{
-							"key": "Authorization",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-							"inheritedFrom": "@authHeader",
-							"rules": [
-								{
-									"key": "regex",
-									"tokenType": "string",
-									"scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight",
-				"usedUserTypes": [
-					"@contentTypeHeader",
-					"@authHeader"
-				]
-			}
-		},
-		"@commonResponseHeaders": {
-			"schema": {
-				"content": {
-					"rules": [
-						{
-							"key": "allOf",
-							"tokenType": "string",
-							"scalarValue": "@contentTypeHeader"
-						}
-					],
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "Content-Type",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "application/json",
-							"inheritedFrom": "@contentTypeHeader",
-							"rules": [
-								{
-									"key": "const",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight",
-				"usedUserTypes": [
-					"@contentTypeHeader"
-				]
-			}
-		},
-		"@contentTypeHeader": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "Content-Type",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "application/json",
-							"rules": [
-								{
-									"key": "const",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		},
-		"@authHeader": {
-			"annotation": "Authorization header.",
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "Authorization",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-							"rules": [
-								{
-									"key": "regex",
-									"tokenType": "string",
-									"scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		},
-		"@pageQuery": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"note": "1 by default.",
-							"key": "page",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "1",
-							"rules": [
-								{
-									"key": "optional",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								},
-								{
-									"key": "min",
-									"tokenType": "number",
-									"scalarValue": "1"
-								}
-							],
-							"optional": true
-						},
-						{
-							"note": "30 by default.",
-							"key": "pageSize",
-							"tokenType": "number",
-							"type": "integer",
-							"scalarValue": "30",
-							"rules": [
-								{
-									"key": "optional",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								},
-								{
-									"key": "min",
-									"tokenType": "number",
-									"scalarValue": "10"
-								},
-								{
-									"key": "max",
-									"tokenType": "number",
-									"scalarValue": "100"
-								}
-							],
-							"optional": true
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /dogs": {
-			"path": "/dogs",
-			"tags": [
-				"@dogs"
-			],
-			"annotation": "Get the paged list of all dogs.",
-			"query": {
-				"example": "page=1\u0026pageSize=30\u0026filter[age]=12",
-				"format": "htmlFormEncoded",
-				"schema": {
-					"content": {
-						"rules": [
-							{
-								"key": "allOf",
-								"tokenType": "string",
-								"scalarValue": "@pageQuery"
-							}
-						],
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"note": "1 by default.",
-								"key": "page",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"inheritedFrom": "@pageQuery",
-								"rules": [
-									{
-										"key": "optional",
-										"tokenType": "boolean",
-										"scalarValue": "true"
-									},
-									{
-										"key": "min",
-										"tokenType": "number",
-										"scalarValue": "1"
-									}
-								],
-								"optional": true
-							},
-							{
-								"note": "30 by default.",
-								"key": "pageSize",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "30",
-								"inheritedFrom": "@pageQuery",
-								"rules": [
-									{
-										"key": "optional",
-										"tokenType": "boolean",
-										"scalarValue": "true"
-									},
-									{
-										"key": "min",
-										"tokenType": "number",
-										"scalarValue": "10"
-									},
-									{
-										"key": "max",
-										"tokenType": "number",
-										"scalarValue": "100"
-									}
-								],
-								"optional": true
-							},
-							{
-								"rules": [
-									{
-										"key": "optional",
-										"tokenType": "boolean",
-										"scalarValue": "true"
-									}
-								],
-								"key": "filter",
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"note": "Filter by dog’s size.",
-										"key": "size",
-										"tokenType": "string",
-										"type": "enum",
-										"scalarValue": "S",
-										"rules": [
-											{
-												"key": "optional",
-												"tokenType": "boolean",
-												"scalarValue": "true"
-											},
-											{
-												"key": "enum",
-												"tokenType": "array",
-												"children": [
-													{
-														"tokenType": "string",
-														"scalarValue": "S"
-													},
-													{
-														"tokenType": "string",
-														"scalarValue": "L"
-													},
-													{
-														"tokenType": "string",
-														"scalarValue": "M"
-													}
-												]
-											}
-										],
-										"optional": true
-									},
-									{
-										"note": "Filter by dog’s age.",
-										"key": "age",
-										"tokenType": "number",
-										"type": "integer",
-										"scalarValue": "12",
-										"rules": [
-											{
-												"key": "optional",
-												"tokenType": "boolean",
-												"scalarValue": "true"
-											},
-											{
-												"key": "min",
-												"tokenType": "number",
-												"scalarValue": "0"
-											}
-										],
-										"optional": true
-									}
-								],
-								"optional": true
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@pageQuery"
-					]
-				}
-			},
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@commonRequestHeaders",
-							"scalarValue": "@commonRequestHeaders",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@commonRequestHeaders"
-						]
-					}
-				},
-				"body": {
-					"format": "binary",
-					"schema": {
-						"notation": "empty"
-					}
-				}
-			},
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "Returns a page of dogs.",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@commonResponseHeaders",
-								"scalarValue": "@commonResponseHeaders",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@commonResponseHeaders"
-							]
-						}
-					},
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"key": "items",
-										"tokenType": "array",
-										"type": "array",
-										"children": [
-											{
-												"tokenType": "reference",
-												"type": "@dog",
-												"scalarValue": "@dog",
-												"optional": true
-											}
-										],
-										"optional": false
-									},
-									{
-										"key": "page",
-										"tokenType": "number",
-										"type": "integer",
-										"scalarValue": "1",
-										"optional": false
-									},
-									{
-										"key": "pageSize",
-										"tokenType": "number",
-										"type": "integer",
-										"scalarValue": "30",
-										"optional": false
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@dog"
-							]
-						}
-					}
-				},
-				{
-					"code": "404",
-					"annotation": "No entity found.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "empty"
-						}
-					}
-				},
-				{
-					"code": "409",
-					"annotation": "Some error.",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@error",
-								"scalarValue": "@error",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@error"
-							]
-						}
-					}
-				},
-				{
-					"code": "401",
-					"annotation": "Unauthorized.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		},
-		"http POST /dogs": {
-			"path": "/dogs",
-			"tags": [
-				"@dogs"
-			],
-			"annotation": "Create a new dog.",
-			"description": "### Limitations\n\n- Accounts are limited to 25 new dogs \n  within a 24 hour period.",
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"rules": [
-								{
-									"key": "allOf",
-									"tokenType": "string",
-									"scalarValue": "@commonRequestHeaders"
-								}
-							],
-							"tokenType": "object",
-							"type": "object",
-							"children": [
-								{
-									"key": "Content-Type",
-									"tokenType": "string",
-									"type": "string",
-									"scalarValue": "application/json",
-									"inheritedFrom": "@commonRequestHeaders",
-									"rules": [
-										{
-											"key": "const",
-											"tokenType": "boolean",
-											"scalarValue": "true"
-										}
-									],
-									"optional": false
-								},
-								{
-									"key": "Authorization",
-									"tokenType": "string",
-									"type": "string",
-									"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-									"inheritedFrom": "@commonRequestHeaders",
-									"rules": [
-										{
-											"key": "regex",
-											"tokenType": "string",
-											"scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
-										}
-									],
-									"optional": false
-								},
-								{
-									"key": "X-header",
-									"tokenType": "string",
-									"type": "string",
-									"scalarValue": "Some additional header",
-									"optional": false
-								}
-							],
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@commonRequestHeaders"
-						]
-					}
-				},
-				"body": {
-					"format": "json",
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@dog",
-							"scalarValue": "@dog",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@dog"
-						]
-					}
-				}
-			},
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "Success.",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"key": "X-header",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "Some additional header",
-										"optional": false
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight"
-						}
-					},
-					"body": {
-						"format": "plainString",
-						"schema": {
-							"content": "^OK$",
-							"notation": "regex"
-						}
-					}
-				},
-				{
-					"code": "404",
-					"annotation": "No entity found.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "empty"
-						}
-					}
-				},
-				{
-					"code": "409",
-					"annotation": "Some error.",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@error",
-								"scalarValue": "@error",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@error"
-							]
-						}
-					}
-				},
-				{
-					"code": "401",
-					"annotation": "Unauthorized.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "POST"
-		},
-		"http GET /dogs/{id}": {
-			"path": "/dogs/{id}",
-			"tags": [
-				"@dogs"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"note": "Dog’s id.",
-								"key": "id",
-								"tokenType": "string",
-								"type": "@petId",
-								"scalarValue": "DOG-123",
-								"rules": [
-									{
-										"key": "type",
-										"tokenType": "string",
-										"scalarValue": "@petId"
-									}
-								],
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@petId"
-					]
-				}
-			},
-			"annotation": "Get a dog by its id.",
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@commonRequestHeaders",
-							"scalarValue": "@commonRequestHeaders",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@commonRequestHeaders"
-						]
-					}
-				},
-				"body": {
-					"format": "binary",
-					"schema": {
-						"notation": "empty"
-					}
-				}
-			},
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "Returns a dog.",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@commonResponseHeaders",
-								"scalarValue": "@commonResponseHeaders",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@commonResponseHeaders"
-							]
-						}
-					},
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@dog",
-								"scalarValue": "@dog",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@dog"
-							]
-						}
-					}
-				},
-				{
-					"code": "404",
-					"annotation": "No entity found.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "empty"
-						}
-					}
-				},
-				{
-					"code": "409",
-					"annotation": "Some error.",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@error",
-								"scalarValue": "@error",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@error"
-							]
-						}
-					}
-				},
-				{
-					"code": "401",
-					"annotation": "Unauthorized.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		},
-		"http PUT /dogs/{id}": {
-			"path": "/dogs/{id}",
-			"tags": [
-				"@dogs"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"note": "Dog’s id.",
-								"key": "id",
-								"tokenType": "string",
-								"type": "@petId",
-								"scalarValue": "DOG-123",
-								"rules": [
-									{
-										"key": "type",
-										"tokenType": "string",
-										"scalarValue": "@petId"
-									}
-								],
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@petId"
-					]
-				}
-			},
-			"annotation": "Update a dog.",
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@commonRequestHeaders",
-							"scalarValue": "@commonRequestHeaders",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@commonRequestHeaders"
-						]
-					}
-				},
-				"body": {
-					"format": "json",
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@dog",
-							"scalarValue": "@dog",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@dog"
-						]
-					}
-				}
-			},
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "Success.",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@commonResponseHeaders",
-								"scalarValue": "@commonResponseHeaders",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@commonResponseHeaders"
-							]
-						}
-					},
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				},
-				{
-					"code": "404",
-					"annotation": "No entity found.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "empty"
-						}
-					}
-				},
-				{
-					"code": "409",
-					"annotation": "Some error.",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@error",
-								"scalarValue": "@error",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@error"
-							]
-						}
-					}
-				},
-				{
-					"code": "401",
-					"annotation": "Unauthorized.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "PUT"
-		},
-		"http DELETE /dogs/{id}": {
-			"path": "/dogs/{id}",
-			"tags": [
-				"@dogs"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"note": "Dog’s id.",
-								"key": "id",
-								"tokenType": "string",
-								"type": "@petId",
-								"scalarValue": "DOG-123",
-								"rules": [
-									{
-										"key": "type",
-										"tokenType": "string",
-										"scalarValue": "@petId"
-									}
-								],
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight",
-					"usedUserTypes": [
-						"@petId"
-					]
-				}
-			},
-			"annotation": "Delete a dog.",
-			"request": {
-				"headers": {
-					"schema": {
-						"content": {
-							"tokenType": "reference",
-							"type": "@commonRequestHeaders",
-							"scalarValue": "@commonRequestHeaders",
-							"optional": false
-						},
-						"notation": "jsight",
-						"usedUserTypes": [
-							"@commonRequestHeaders"
-						]
-					}
-				},
-				"body": {
-					"format": "binary",
-					"schema": {
-						"notation": "empty"
-					}
-				}
-			},
-			"responses": [
-				{
-					"code": "200",
-					"annotation": "OK.",
-					"headers": {
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@commonResponseHeaders",
-								"scalarValue": "@commonResponseHeaders",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@commonResponseHeaders"
-							]
-						}
-					},
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "string",
-								"type": "string",
-								"scalarValue": "OK",
-								"rules": [
-									{
-										"key": "const",
-										"tokenType": "boolean",
-										"scalarValue": "true"
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight"
-						}
-					}
-				},
-				{
-					"code": "404",
-					"annotation": "No entity found.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "empty"
-						}
-					}
-				},
-				{
-					"code": "409",
-					"annotation": "Some error.",
-					"body": {
-						"format": "json",
-						"schema": {
-							"content": {
-								"tokenType": "reference",
-								"type": "@error",
-								"scalarValue": "@error",
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@error"
-							]
-						}
-					}
-				},
-				{
-					"code": "401",
-					"annotation": "Unauthorized.",
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "DELETE"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@dogs": {
+      "name": "@dogs",
+      "title": "/dogs",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /dogs",
+            "http POST /dogs",
+            "http GET /dogs/{id}",
+            "http PUT /dogs/{id}",
+            "http DELETE /dogs/{id}"
+          ]
+        }
+      ]
+    }
+  },
+  "info": {
+    "title": "Dogs REST API",
+    "version": "1.0",
+    "description": "## Overview\n\nThe Dogs REST API allows you to manage your dogs.\n\nPowered by [JSight](http://jsight.io)©."
+  },
+  "servers": {
+    "@prod": {
+      "annotation": "Production server.",
+      "baseUrl": "https://pets.com/api/1.0"
+    },
+    "@test": {
+      "annotation": "Test server.",
+      "baseUrl": "https://192.168.0.100/1.0"
+    }
+  },
+  "userTypes": {
+    "@pet": {
+      "annotation": "A pet.",
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "reference",
+              "type": "@petId",
+              "scalarValue": "@petId",
+              "optional": false
+            },
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "optional": false
+            },
+            {
+              "key": "type",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "PIG",
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "age",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "10",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "99"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "email",
+              "tokenType": "string",
+              "type": "email",
+              "scalarValue": "tom@pets.com",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "email"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "uri",
+              "tokenType": "string",
+              "type": "uri",
+              "scalarValue": "http://tom.pets.com",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uri"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "birthday",
+              "tokenType": "string",
+              "type": "date",
+              "scalarValue": "2012-01-03",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "date"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "uuid",
+              "tokenType": "string",
+              "type": "uuid",
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uuid"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@petId"
+        ]
+      }
+    },
+    "@dog": {
+      "annotation": "A dog.",
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
+              "scalarValue": "@pet"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "reference",
+              "type": "@petId",
+              "scalarValue": "@petId",
+              "inheritedFrom": "@pet",
+              "optional": false
+            },
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "inheritedFrom": "@pet",
+              "optional": false
+            },
+            {
+              "key": "type",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "PIG",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "CAT"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "DOG"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "PIG"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "age",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "10",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "99"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "email",
+              "tokenType": "string",
+              "type": "email",
+              "scalarValue": "tom@pets.com",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "email"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "uri",
+              "tokenType": "string",
+              "type": "uri",
+              "scalarValue": "http://tom.pets.com",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uri"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "birthday",
+              "tokenType": "string",
+              "type": "date",
+              "scalarValue": "2012-01-03",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "date"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "uuid",
+              "tokenType": "string",
+              "type": "uuid",
+              "scalarValue": "550e8400-e29b-41d4-a716-446655440000",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "uuid"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "friendIds",
+              "tokenType": "array",
+              "type": "array",
+              "note": "Only dog ids are allowed.",
+              "children": [
+                {
+                  "tokenType": "reference",
+                  "type": "@petId",
+                  "scalarValue": "@petId",
+                  "optional": true
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "isDangerous",
+              "tokenType": "boolean",
+              "type": "boolean",
+              "scalarValue": "false",
+              "optional": false
+            },
+            {
+              "key": "legacyId",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "integer"
+                        },
+                        {
+                          "key": "min",
+                          "tokenType": "number",
+                          "scalarValue": "0"
+                        },
+                        {
+                          "key": "exclusiveMinimum",
+                          "tokenType": "boolean",
+                          "scalarValue": "true"
+                        }
+                      ]
+                    },
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "string"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "any"
+                }
+              ],
+              "key": "additionalData",
+              "tokenType": "object",
+              "type": "any",
+              "note": "Field for legacy.",
+              "children": [],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@pet",
+          "@petId"
+        ]
+      }
+    },
+    "@petId": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "GOAT-12345",
+          "rules": [
+            {
+              "key": "regex",
+              "tokenType": "string",
+              "scalarValue": "^[A-Z]+-\\d+$"
+            },
+            {
+              "key": "minLength",
+              "tokenType": "number",
+              "scalarValue": "3"
+            },
+            {
+              "key": "maxLength",
+              "tokenType": "number",
+              "scalarValue": "255"
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@petName": {
+      "schema": {
+        "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$",
+        "notation": "regex"
+      }
+    },
+    "@error": {
+      "annotation": "A common error response.",
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "code",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "12",
+              "optional": false
+            },
+            {
+              "key": "message",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Something bad had happened on the server...",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@commonRequestHeaders": {
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "string",
+                  "scalarValue": "@contentTypeHeader"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "@authHeader"
+                }
+              ]
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "application/json",
+              "inheritedFrom": "@contentTypeHeader",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "Authorization",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+              "inheritedFrom": "@authHeader",
+              "rules": [
+                {
+                  "key": "regex",
+                  "tokenType": "string",
+                  "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@contentTypeHeader",
+          "@authHeader"
+        ]
+      }
+    },
+    "@commonResponseHeaders": {
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "string",
+              "scalarValue": "@contentTypeHeader"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "application/json",
+              "inheritedFrom": "@contentTypeHeader",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@contentTypeHeader"
+        ]
+      }
+    },
+    "@contentTypeHeader": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Content-Type",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "application/json",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@authHeader": {
+      "annotation": "Authorization header.",
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Authorization",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+              "rules": [
+                {
+                  "key": "regex",
+                  "tokenType": "string",
+                  "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@pageQuery": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "note": "1 by default.",
+              "key": "page",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                },
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "1"
+                }
+              ],
+              "optional": true
+            },
+            {
+              "note": "30 by default.",
+              "key": "pageSize",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "30",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                },
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "10"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "100"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /dogs": {
+      "id": "http GET /dogs",
+      "protocol": "http",
+      "path": "/dogs",
+      "tags": [
+        "@dogs"
+      ],
+      "annotation": "Get the paged list of all dogs.",
+      "query": {
+        "example": "page=1\u0026pageSize=30\u0026filter[age]=12",
+        "format": "htmlFormEncoded",
+        "schema": {
+          "content": {
+            "rules": [
+              {
+                "key": "allOf",
+                "tokenType": "string",
+                "scalarValue": "@pageQuery"
+              }
+            ],
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "1 by default.",
+                "key": "page",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "inheritedFrom": "@pageQuery",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  {
+                    "key": "min",
+                    "tokenType": "number",
+                    "scalarValue": "1"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "note": "30 by default.",
+                "key": "pageSize",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "30",
+                "inheritedFrom": "@pageQuery",
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  },
+                  {
+                    "key": "min",
+                    "tokenType": "number",
+                    "scalarValue": "10"
+                  },
+                  {
+                    "key": "max",
+                    "tokenType": "number",
+                    "scalarValue": "100"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "rules": [
+                  {
+                    "key": "optional",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  }
+                ],
+                "key": "filter",
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "note": "Filter by dog’s size.",
+                    "key": "size",
+                    "tokenType": "string",
+                    "type": "enum",
+                    "scalarValue": "S",
+                    "rules": [
+                      {
+                        "key": "optional",
+                        "tokenType": "boolean",
+                        "scalarValue": "true"
+                      },
+                      {
+                        "key": "enum",
+                        "tokenType": "array",
+                        "children": [
+                          {
+                            "tokenType": "string",
+                            "scalarValue": "S"
+                          },
+                          {
+                            "tokenType": "string",
+                            "scalarValue": "L"
+                          },
+                          {
+                            "tokenType": "string",
+                            "scalarValue": "M"
+                          }
+                        ]
+                      }
+                    ],
+                    "optional": true
+                  },
+                  {
+                    "note": "Filter by dog’s age.",
+                    "key": "age",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "12",
+                    "rules": [
+                      {
+                        "key": "optional",
+                        "tokenType": "boolean",
+                        "scalarValue": "true"
+                      },
+                      {
+                        "key": "min",
+                        "tokenType": "number",
+                        "scalarValue": "0"
+                      }
+                    ],
+                    "optional": true
+                  }
+                ],
+                "optional": true
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@pageQuery"
+          ]
+        }
+      },
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@commonRequestHeaders",
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Returns a page of dogs.",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@commonResponseHeaders",
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "items",
+                    "tokenType": "array",
+                    "type": "array",
+                    "children": [
+                      {
+                        "tokenType": "reference",
+                        "type": "@dog",
+                        "scalarValue": "@dog",
+                        "optional": true
+                      }
+                    ],
+                    "optional": false
+                  },
+                  {
+                    "key": "page",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "1",
+                    "optional": false
+                  },
+                  {
+                    "key": "pageSize",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "30",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@dog"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "No entity found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@error",
+                "scalarValue": "@error",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorized.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "http POST /dogs": {
+      "id": "http POST /dogs",
+      "protocol": "http",
+      "path": "/dogs",
+      "tags": [
+        "@dogs"
+      ],
+      "annotation": "Create a new dog.",
+      "description": "### Limitations\n\n- Accounts are limited to 25 new dogs \n  within a 24 hour period.",
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "rules": [
+                {
+                  "key": "allOf",
+                  "tokenType": "string",
+                  "scalarValue": "@commonRequestHeaders"
+                }
+              ],
+              "tokenType": "object",
+              "type": "object",
+              "children": [
+                {
+                  "key": "Content-Type",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "application/json",
+                  "inheritedFrom": "@commonRequestHeaders",
+                  "rules": [
+                    {
+                      "key": "const",
+                      "tokenType": "boolean",
+                      "scalarValue": "true"
+                    }
+                  ],
+                  "optional": false
+                },
+                {
+                  "key": "Authorization",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                  "inheritedFrom": "@commonRequestHeaders",
+                  "rules": [
+                    {
+                      "key": "regex",
+                      "tokenType": "string",
+                      "scalarValue": "^Basic [A-Za-z0-9+\\/=]+$"
+                    }
+                  ],
+                  "optional": false
+                },
+                {
+                  "key": "X-header",
+                  "tokenType": "string",
+                  "type": "string",
+                  "scalarValue": "Some additional header",
+                  "optional": false
+                }
+              ],
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@dog",
+              "scalarValue": "@dog",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@dog"
+            ]
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Success.",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "X-header",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "Some additional header",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          },
+          "body": {
+            "format": "plainString",
+            "schema": {
+              "content": "^OK$",
+              "notation": "regex"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "No entity found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@error",
+                "scalarValue": "@error",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorized.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "POST"
+    },
+    "http GET /dogs/{id}": {
+      "id": "http GET /dogs/{id}",
+      "protocol": "http",
+      "path": "/dogs/{id}",
+      "tags": [
+        "@dogs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Dog’s id.",
+                "key": "id",
+                "tokenType": "string",
+                "type": "@petId",
+                "scalarValue": "DOG-123",
+                "rules": [
+                  {
+                    "key": "type",
+                    "tokenType": "string",
+                    "scalarValue": "@petId"
+                  }
+                ],
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Get a dog by its id.",
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@commonRequestHeaders",
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Returns a dog.",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@commonResponseHeaders",
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@dog",
+                "scalarValue": "@dog",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@dog"
+              ]
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "No entity found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@error",
+                "scalarValue": "@error",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorized.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    },
+    "http PUT /dogs/{id}": {
+      "id": "http PUT /dogs/{id}",
+      "protocol": "http",
+      "path": "/dogs/{id}",
+      "tags": [
+        "@dogs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Dog’s id.",
+                "key": "id",
+                "tokenType": "string",
+                "type": "@petId",
+                "scalarValue": "DOG-123",
+                "rules": [
+                  {
+                    "key": "type",
+                    "tokenType": "string",
+                    "scalarValue": "@petId"
+                  }
+                ],
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Update a dog.",
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@commonRequestHeaders",
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "json",
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@dog",
+              "scalarValue": "@dog",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@dog"
+            ]
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "Success.",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@commonResponseHeaders",
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "No entity found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@error",
+                "scalarValue": "@error",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorized.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "PUT"
+    },
+    "http DELETE /dogs/{id}": {
+      "id": "http DELETE /dogs/{id}",
+      "protocol": "http",
+      "path": "/dogs/{id}",
+      "tags": [
+        "@dogs"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Dog’s id.",
+                "key": "id",
+                "tokenType": "string",
+                "type": "@petId",
+                "scalarValue": "DOG-123",
+                "rules": [
+                  {
+                    "key": "type",
+                    "tokenType": "string",
+                    "scalarValue": "@petId"
+                  }
+                ],
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@petId"
+          ]
+        }
+      },
+      "annotation": "Delete a dog.",
+      "request": {
+        "headers": {
+          "schema": {
+            "content": {
+              "tokenType": "reference",
+              "type": "@commonRequestHeaders",
+              "scalarValue": "@commonRequestHeaders",
+              "optional": false
+            },
+            "notation": "jsight",
+            "usedUserTypes": [
+              "@commonRequestHeaders"
+            ]
+          }
+        },
+        "body": {
+          "format": "binary",
+          "schema": {
+            "notation": "empty"
+          }
+        }
+      },
+      "responses": [
+        {
+          "code": "200",
+          "annotation": "OK.",
+          "headers": {
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@commonResponseHeaders",
+                "scalarValue": "@commonResponseHeaders",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@commonResponseHeaders"
+              ]
+            }
+          },
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "OK",
+                "rules": [
+                  {
+                    "key": "const",
+                    "tokenType": "boolean",
+                    "scalarValue": "true"
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        },
+        {
+          "code": "404",
+          "annotation": "No entity found.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "empty"
+            }
+          }
+        },
+        {
+          "code": "409",
+          "annotation": "Some error.",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "reference",
+                "type": "@error",
+                "scalarValue": "@error",
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@error"
+              ]
+            }
+          }
+        },
+        {
+          "code": "401",
+          "annotation": "Unauthorized.",
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "DELETE"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

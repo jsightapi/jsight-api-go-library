@@ -1,117 +1,119 @@
 {
-	"tags": {
-		"@admin": {
-			"name": "@admin",
-			"title": "/admin",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /admin"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@auth": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "Authorization",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-							"rules": [
-								{
-									"key": "const",
-									"tokenType": "boolean",
-									"scalarValue": "true"
-								}
-							],
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /admin": {
-			"path": "/admin",
-			"tags": [
-				"@admin"
-			],
-			"responses": [
-				{
-					"code": "200",
-					"headers": {
-						"schema": {
-							"content": {
-								"rules": [
-									{
-										"key": "allOf",
-										"tokenType": "string",
-										"scalarValue": "@auth"
-									}
-								],
-								"tokenType": "object",
-								"type": "object",
-								"children": [
-									{
-										"key": "Authorization",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
-										"inheritedFrom": "@auth",
-										"rules": [
-											{
-												"key": "const",
-												"tokenType": "boolean",
-												"scalarValue": "true"
-											}
-										],
-										"optional": false
-									},
-									{
-										"key": "Content-Type",
-										"tokenType": "string",
-										"type": "string",
-										"scalarValue": "application/json",
-										"rules": [
-											{
-												"key": "const",
-												"tokenType": "boolean",
-												"scalarValue": "true"
-											}
-										],
-										"optional": false
-									}
-								],
-								"optional": false
-							},
-							"notation": "jsight",
-							"usedUserTypes": [
-								"@auth"
-							]
-						}
-					},
-					"body": {
-						"format": "binary",
-						"schema": {
-							"notation": "any"
-						}
-					}
-				}
-			],
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@admin": {
+      "name": "@admin",
+      "title": "/admin",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /admin"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@auth": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "Authorization",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+              "rules": [
+                {
+                  "key": "const",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /admin": {
+      "id": "http GET /admin",
+      "protocol": "http",
+      "path": "/admin",
+      "tags": [
+        "@admin"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "headers": {
+            "schema": {
+              "content": {
+                "rules": [
+                  {
+                    "key": "allOf",
+                    "tokenType": "string",
+                    "scalarValue": "@auth"
+                  }
+                ],
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "Authorization",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "Basic dG9tQGNhdC5jb206YWJjMTIz=",
+                    "inheritedFrom": "@auth",
+                    "rules": [
+                      {
+                        "key": "const",
+                        "tokenType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    ],
+                    "optional": false
+                  },
+                  {
+                    "key": "Content-Type",
+                    "tokenType": "string",
+                    "type": "string",
+                    "scalarValue": "application/json",
+                    "rules": [
+                      {
+                        "key": "const",
+                        "tokenType": "boolean",
+                        "scalarValue": "true"
+                      }
+                    ],
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@auth"
+              ]
+            }
+          },
+          "body": {
+            "format": "binary",
+            "schema": {
+              "notation": "any"
+            }
+          }
+        }
+      ],
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

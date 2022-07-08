@@ -96,6 +96,8 @@
   },
   "interactions": {
     "http PUT /foo": {
+      "id": "http PUT /foo",
+      "protocol": "http",
       "path": "/foo",
       "tags": [
         "@foo"
@@ -141,6 +143,8 @@
       "httpMethod": "PUT"
     },
     "http DELETE /foo": {
+      "id": "http DELETE /foo",
+      "protocol": "http",
       "path": "/foo",
       "tags": [
         "@foo"
@@ -168,6 +172,8 @@
       "httpMethod": "DELETE"
     },
     "http GET /bar": {
+      "id": "http GET /bar",
+      "protocol": "http",
       "path": "/bar",
       "tags": [
         "@bar"
@@ -213,6 +219,8 @@
       "httpMethod": "GET"
     },
     "http POST /bar": {
+      "id": "http POST /bar",
+      "protocol": "http",
       "path": "/bar",
       "tags": [
         "@bar"
@@ -258,6 +266,8 @@
       "httpMethod": "POST"
     },
     "http GET /mixins": {
+      "id": "http GET /mixins",
+      "protocol": "http",
       "path": "/mixins",
       "tags": [
         "@mixins"
@@ -303,6 +313,8 @@
       "httpMethod": "GET"
     },
     "http POST /mixins": {
+      "id": "http POST /mixins",
+      "protocol": "http",
       "path": "/mixins",
       "tags": [
         "@mixins"

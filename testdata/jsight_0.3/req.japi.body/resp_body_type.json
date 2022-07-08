@@ -43,6 +43,8 @@
   },
   "interactions": {
     "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
       "path": "/cat",
       "tags": [
         "@cat"

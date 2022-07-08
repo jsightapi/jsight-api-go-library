@@ -1,75 +1,77 @@
 {
-	"tags": {
-		"@list": {
-			"name": "@list",
-			"title": "/list",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /list/{section}/{id}"
-					]
-				}
-			]
-		}
-	},
-	"userTypes": {
-		"@section": {
-			"schema": {
-				"content": {
-					"tokenType": "object",
-					"type": "object",
-					"children": [
-						{
-							"key": "section",
-							"tokenType": "string",
-							"type": "string",
-							"scalarValue": "abc",
-							"optional": false
-						}
-					],
-					"optional": false
-				},
-				"notation": "jsight"
-			}
-		}
-	},
-	"interactions": {
-		"http GET /list/{section}/{id}": {
-			"path": "/list/{section}/{id}",
-			"tags": [
-				"@list"
-			],
-			"pathVariables": {
-				"schema": {
-					"content": {
-						"tokenType": "object",
-						"type": "object",
-						"children": [
-							{
-								"key": "section",
-								"tokenType": "string",
-								"type": "string",
-								"scalarValue": "abc",
-								"inheritedFrom": "@section",
-								"optional": false
-							},
-							{
-								"key": "id",
-								"tokenType": "number",
-								"type": "integer",
-								"scalarValue": "1",
-								"optional": false
-							}
-						],
-						"optional": false
-					},
-					"notation": "jsight"
-				}
-			},
-			"httpMethod": "GET"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@list": {
+      "name": "@list",
+      "title": "/list",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /list/{section}/{id}"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@section": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "section",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "abc",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /list/{section}/{id}": {
+      "id": "http GET /list/{section}/{id}",
+      "protocol": "http",
+      "path": "/list/{section}/{id}",
+      "tags": [
+        "@list"
+      ],
+      "pathVariables": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "section",
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "abc",
+                "inheritedFrom": "@section",
+                "optional": false
+              },
+              {
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "httpMethod": "GET"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

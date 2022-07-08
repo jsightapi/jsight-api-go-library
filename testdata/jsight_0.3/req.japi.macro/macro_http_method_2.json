@@ -1,59 +1,69 @@
 {
-	"tags": {
-		"@cat": {
-			"name": "@cat",
-			"title": "/cat",
-			"interactionGroups": [
-				{
-					"protocol": "http",
-					"interactions": [
-						"http GET /cat",
-						"http POST /cat",
-						"http PUT /cat",
-						"http PATCH /cat",
-						"http DELETE /cat"
-					]
-				}
-			]
-		}
-	},
-	"interactions": {
-		"http GET /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"httpMethod": "GET"
-		},
-		"http POST /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"httpMethod": "POST"
-		},
-		"http PUT /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"httpMethod": "PUT"
-		},
-		"http PATCH /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"httpMethod": "PATCH"
-		},
-		"http DELETE /cat": {
-			"path": "/cat",
-			"tags": [
-				"@cat"
-			],
-			"httpMethod": "DELETE"
-		}
-	},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {
+    "@cat": {
+      "name": "@cat",
+      "title": "/cat",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cat",
+            "http POST /cat",
+            "http PUT /cat",
+            "http PATCH /cat",
+            "http DELETE /cat"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cat": {
+      "id": "http GET /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "GET"
+    },
+    "http POST /cat": {
+      "id": "http POST /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "POST"
+    },
+    "http PUT /cat": {
+      "id": "http PUT /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "PUT"
+    },
+    "http PATCH /cat": {
+      "id": "http PATCH /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "PATCH"
+    },
+    "http DELETE /cat": {
+      "id": "http DELETE /cat",
+      "protocol": "http",
+      "path": "/cat",
+      "tags": [
+        "@cat"
+      ],
+      "httpMethod": "DELETE"
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }
