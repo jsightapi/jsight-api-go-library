@@ -329,15 +329,15 @@ func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJ
 	}
 
 	if rule, ok := sc.Rules.Get("allOf"); ok {
-		switch rule.TokenType {
-		case jschema.JSONTypeArray:
+		switch rule.TokenType { //nolint:exhaustive // We expects only this types.
+		case catalog.RuleTokenTypeArray:
 			for i := len(rule.Children) - 1; i >= 0; i-- {
 				r := rule.Children[i]
 				if err := core.inheritPropertiesFromUserType(sc, uut, r.ScalarValue); err != nil {
 					return err
 				}
 			}
-		case jschema.JSONTypeString:
+		case catalog.RuleTokenTypeString:
 			if err := core.inheritPropertiesFromUserType(sc, uut, rule.ScalarValue); err != nil {
 				return err
 			}

@@ -220,7 +220,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 						[]catalog.Rule{
 							{
 								Key:         "allOf",
-								TokenType:   jschema.JSONTypeString,
+								TokenType:   catalog.RuleTokenTypeString,
 								ScalarValue: "@foo",
 							},
 						},
@@ -275,14 +275,14 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 						[]catalog.Rule{
 							{
 								Key:       "allOf",
-								TokenType: jschema.JSONTypeArray,
+								TokenType: catalog.RuleTokenTypeArray,
 								Children: []catalog.Rule{
 									{
-										TokenType:   jschema.JSONTypeString,
+										TokenType:   catalog.RuleTokenTypeString,
 										ScalarValue: "@foo",
 									},
 									{
-										TokenType:   jschema.JSONTypeString,
+										TokenType:   catalog.RuleTokenTypeString,
 										ScalarValue: "@bar",
 									},
 								},
