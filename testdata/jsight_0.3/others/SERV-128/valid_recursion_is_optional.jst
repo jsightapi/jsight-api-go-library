@@ -1,0 +1,24 @@
+# This is a valid case 'cause at some point a `bar` key of the `@bar` type might
+# not be defined because it's an optional.
+#
+# Example of valid document:
+#
+# {
+#   "foo": {
+#     "bar": {
+#       "foo": {}
+#     }
+#   {
+# }
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo // {optional: true}
+}

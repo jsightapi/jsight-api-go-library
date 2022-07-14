@@ -1,0 +1,26 @@
+# This is a valid case 'cause at some point a `bar` key in the `@bar` type might
+# have an integer value instead of `@foo` type.
+#
+# Example of valid document:
+#
+# {
+#   "foo": {
+#     "bar": {
+#       "foo": {
+#         "bar": 2022
+#       }
+#     }
+#   {
+# }
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": 42 // {or: ["integer", "@foo"]}
+}

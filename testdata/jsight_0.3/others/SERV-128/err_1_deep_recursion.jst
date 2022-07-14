@@ -1,0 +1,23 @@
+# Just a check for deep recursion, we should handle it too.
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @fizz
+}
+
+TYPE @fizz
+{
+  "fizz": @buzz
+}
+
+TYPE @buzz
+{
+  "buzz": @foo
+}

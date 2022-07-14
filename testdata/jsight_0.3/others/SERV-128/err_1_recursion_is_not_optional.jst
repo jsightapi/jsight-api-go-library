@@ -1,0 +1,15 @@
+# In this case we can't create a document which can satisfy this schema. Because
+# we doesn't have an reasonable end of the data. Type `@foo` is always must have
+# a `foo` key and type `@bar` is always must have a `bar` key.
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo
+}
