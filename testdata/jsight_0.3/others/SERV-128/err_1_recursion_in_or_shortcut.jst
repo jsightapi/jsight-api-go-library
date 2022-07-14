@@ -1,0 +1,19 @@
+# This isn't a valid case 'cause we have an infinity recursion at `bar` key in the
+# `@bar` type.
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo | @fizz
+}
+
+TYPE @fizz
+{
+  "fizz": @bar
+}

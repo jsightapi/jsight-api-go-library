@@ -1,0 +1,13 @@
+# The same as a case with non optional key but explicitly defined.
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo // {optional: false}
+}

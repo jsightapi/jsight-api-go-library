@@ -1,0 +1,33 @@
+# This is a valid case 'cause at some point a `bar` key in the `@bar` type might
+# have a `@fizz` type instead of `@foo`.
+#
+# Example of valid document:
+#
+# {
+#   "foo": {
+#     "bar": {
+#       "foo": {
+#         "bar": {
+#           "fizz": "the end of recursion"
+#         }
+#       }
+#     }
+#   {
+# }
+
+JSIGHT 0.3
+
+TYPE @foo
+{
+  "foo": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo | @fizz
+}
+
+TYPE @fizz
+{
+  "fizz": "buzz"
+}

@@ -1,0 +1,27 @@
+# This is a valid case 'cause at some point `@cat` might not have any friends :(
+# Too sad ...
+#
+# Example of valid document:
+#
+# {
+#   "id": 1,
+#   "name": "Fred",
+#   "friends": [
+#     {
+#       "id": 2,
+#       "name": "Tom",
+#       "friends": []
+#     }
+#   ]
+# }
+
+JSIGHT 0.3
+
+TYPE @cat
+{
+  "id": 123,
+  "name": "Tom",
+  "friends": [
+    @cat
+  ]
+}
