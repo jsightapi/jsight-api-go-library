@@ -1,0 +1,56 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@object": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@array": {
+      "schema": {
+        "content": {
+          "tokenType": "array",
+          "type": "array",
+          "children": [
+            {
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "",
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@scalar": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "",
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

@@ -397,7 +397,7 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:      "object",
 						Children: []*SchemaContentJSight{
 							{
-								Key:         "foo",
+								Key:         SrtPtr("foo"),
 								TokenType:   "string",
 								Type:        "string",
 								ScalarValue: "bar",
@@ -429,7 +429,7 @@ func TestUnmarshalSchema(t *testing.T) {
 						},
 						Children: []*SchemaContentJSight{
 							{
-								Key:         "foo",
+								Key:         SrtPtr("foo"),
 								TokenType:   "string",
 								Type:        "string",
 								ScalarValue: "bar",
@@ -460,13 +460,13 @@ func TestUnmarshalSchema(t *testing.T) {
 						Type:      "object",
 						Children: []*SchemaContentJSight{
 							{
-								Key:         "@foo",
+								Key:         SrtPtr("@foo"),
 								TokenType:   "string",
 								Type:        "string",
 								ScalarValue: "bar",
 							},
 							{
-								Key:              "@foo",
+								Key:              SrtPtr("@foo"),
 								IsKeyUserTypeRef: true,
 								TokenType:        "string",
 								Type:             "string",
@@ -905,7 +905,7 @@ func TestSchema_MarshalJSON_Order(t *testing.T) {
 
 			ss := make([]string, 0, len(s.ContentJSight.Children))
 			for _, v := range s.ContentJSight.Children {
-				ss = append(ss, v.Key)
+				ss = append(ss, *(v.Key))
 			}
 			assert.Equal(t, c.expected, ss)
 		})

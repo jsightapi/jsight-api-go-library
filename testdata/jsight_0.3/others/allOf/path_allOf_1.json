@@ -38,10 +38,8 @@
     "http GET /list/{section}/{id}": {
       "id": "http GET /list/{section}/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/list/{section}/{id}",
-      "tags": [
-        "@list"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -69,7 +67,9 @@
           "notation": "jsight"
         }
       },
-      "httpMethod": "GET"
+      "tags": [
+        "@list"
+      ]
     }
   },
   "jsight": "0.3",
