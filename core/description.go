@@ -44,10 +44,10 @@ func description(b []byte) ([]byte, error) {
 // line.
 func descriptionRemoveParentheses(b []byte) ([]byte, error) {
 	bb := bytes.TrimSpace(b) // trim whitespaces and new lines (outside parentheses)
-	if bb != nil && len(bb) >= 2 && bb[0] == '(' && bb[len(bb)-1] == ')' {
+	if len(bb) >= 2 && bb[0] == '(' && bb[len(bb)-1] == ')' {
 		bb = bb[1 : len(bb)-1]     // trim parentheses
 		bb = bytes.Trim(bb, " \t") // trim whitespaces (inside parentheses)
-		if bb == nil || len(bb) == 0 || !scanner.IsNewLine(bb[0]) || !scanner.IsNewLine(bb[len(bb)-1]) {
+		if len(bb) == 0 || !scanner.IsNewLine(bb[0]) || !scanner.IsNewLine(bb[len(bb)-1]) {
 			return bb, errors.New(jerr.ApartFromTheOpeningParenthesis)
 		}
 		return bytes.Trim(bb, "\r\n"), nil
