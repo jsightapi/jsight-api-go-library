@@ -306,7 +306,14 @@
               "tokenType": "reference",
               "type": "@cat",
               "scalarValue": "@cat",
-              "optional": false
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
             },
             {
               "rules": [

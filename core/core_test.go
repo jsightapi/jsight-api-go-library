@@ -10,6 +10,6 @@ import (
 )
 
 func TestWithBannedDirectives(t *testing.T) {
-	err := NewJApiCore(fs.NewFile("", []byte("JSIGHT 0.3")), WithBannedDirectives(directive.Jsight)).ValidateJAPI()
+	err := NewJApiCore(fs.NewFile("", "JSIGHT 0.3"), WithBannedDirectives(directive.Jsight)).ValidateJAPI()
 	assert.EqualError(t, err, "directive not allowed (JSIGHT)")
 }

@@ -13,7 +13,7 @@ func TestNewJApiError(t *testing.T) {
 		msg   = "fake error"
 		index = 1
 	)
-	file := fs.NewFile("foo", []byte("123456"))
+	file := fs.NewFile("foo", "123456")
 
 	je := NewJApiError(msg, file, index)
 
@@ -70,7 +70,7 @@ func TestJApiError_OccurredInFile(t *testing.T) {
 
 		for n, c := range cc {
 			t.Run(n, func(t *testing.T) {
-				c.je.OccurredInFile(fs.NewFile("/foo/bar", []byte("12\n34\n56")), 3)
+				c.je.OccurredInFile(fs.NewFile("/foo/bar", "12\n34\n56"), 3)
 
 				assert.Equal(t, c.expectedStackTrace, c.je.includeTrace)
 			})
@@ -129,17 +129,17 @@ func TestJApiError_Error(t *testing.T) {
 	t.Run("without stack trace", func(t *testing.T) {
 		const msg = "fake error"
 
-		je := NewJApiError(msg, fs.NewFile("foo", []byte("123456")), 1)
+		je := NewJApiError(msg, fs.NewFile("foo", "123456"), 1)
 
 		assert.Equal(t, msg, je.Error())
 	})
 
 	t.Run("with stack trace", func(t *testing.T) {
-		je := NewJApiError("fake error", fs.NewFile("foo", []byte("123456")), 1)
+		je := NewJApiError("fake error", fs.NewFile("foo", "123456"), 1)
 
-		je.OccurredInFile(fs.NewFile("bar", []byte("1\n2\n3\n4\n5\n6")), 4)
-		je.OccurredInFile(fs.NewFile("fizz", []byte("123456")), 4)
-		je.OccurredInFile(fs.NewFile("buzz", []byte("123\n456")), 4)
+		je.OccurredInFile(fs.NewFile("bar", "1\n2\n3\n4\n5\n6"), 4)
+		je.OccurredInFile(fs.NewFile("fizz", "123456"), 4)
+		je.OccurredInFile(fs.NewFile("buzz", "123\n456"), 4)
 
 		assert.Equal(t, `fake error
 foo:1

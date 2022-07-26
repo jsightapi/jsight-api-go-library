@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	jschema "github.com/jsightapi/jsight-schema-go-library"
-	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -65,7 +64,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 						pathDirective: *directive.New(
 							directive.Get,
 							directive.NewCoords(
-								fs.NewFile("foo", bytes.Bytes("/path/{foo}/{bar}")),
+								fs.NewFile("foo", "/path/{foo}/{bar}"),
 								0,
 								5,
 							),
@@ -177,7 +176,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 			expectedProperties []*catalog.SchemaContentJSight
 		}{
 			"not object": {
-				NewJApiCore(fs.NewFile("", []byte(`{}`))),
+				NewJApiCore(fs.NewFile("", `{}`)),
 				&catalog.SchemaContentJSight{
 					TokenType: "string",
 				},
@@ -186,7 +185,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 			},
 
 			"without allOf": {
-				NewJApiCore(fs.NewFile("", []byte(`{}`))),
+				NewJApiCore(fs.NewFile("", `{}`)),
 				&catalog.SchemaContentJSight{
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},

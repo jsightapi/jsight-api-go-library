@@ -8,7 +8,7 @@ import (
 )
 
 func TestNewCoords(t *testing.T) {
-	file := fs.NewFile("foo", []byte("123456"))
+	file := fs.NewFile("foo", "123456")
 	const begin = 1
 	const end = 2
 
@@ -22,7 +22,7 @@ func TestNewCoords(t *testing.T) {
 }
 
 func TestCoords_Read(t *testing.T) {
-	bytes := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 3).Read()
+	bytes := NewCoords(fs.NewFile("foo", "123456"), 1, 3).Read()
 	assert.EqualValues(t, "234", bytes)
 }
 
@@ -33,8 +33,8 @@ func TestCoords_IsSet(t *testing.T) {
 	}{
 		"without file, without end": {Coords{begin: 1}, false},
 		"without file, with end":    {Coords{begin: 1, end: 2}, false},
-		"with file, without end":    {Coords{file: fs.NewFile("", nil), begin: 1}, false},
-		"with file, with end":       {Coords{file: fs.NewFile("", nil), begin: 1, end: 2}, true},
+		"with file, without end":    {Coords{file: fs.NewFile("", "content"), begin: 1}, false},
+		"with file, with end":       {Coords{file: fs.NewFile("", "content"), begin: 1, end: 2}, true},
 	}
 
 	for n, c := range cc {
@@ -46,6 +46,6 @@ func TestCoords_IsSet(t *testing.T) {
 }
 
 func TestCoords_String(t *testing.T) {
-	bytes := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 3).String()
+	bytes := NewCoords(fs.NewFile("foo", "123456"), 1, 3).String()
 	assert.EqualValues(t, "[1:3]", bytes)
 }

@@ -350,7 +350,7 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
-		if s, err = catalog.UnmarshalSchema(typ, bytes.Bytes(typ), core.userTypes, core.rules); err == nil {
+		if s, err = catalog.UnmarshalSchema("", bytes.Bytes(typ), core.userTypes, core.rules); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 
@@ -417,13 +417,13 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
 
 	switch {
 	case typeParam != "":
-		je = core.catalog.AddResponseBody(typeParam, bytes.Bytes(typeParam), bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
+		je = core.catalog.AddResponseBody(bytes.Bytes(typeParam), bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
 
 	case d.BodyCoords.IsSet():
-		je = core.catalog.AddResponseBody("", d.BodyCoords.Read(), bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
+		je = core.catalog.AddResponseBody(d.BodyCoords.Read(), bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
 
 	case schemaNotation.IsAnyOrEmpty():
-		je = core.catalog.AddResponseBody("", bytes.Bytes{}, bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
+		je = core.catalog.AddResponseBody(nil, bodyFormat, schemaNotation, *d, core.userTypes, core.rules)
 
 	case d.Type() == directive.Body:
 		je = d.KeywordError("body is empty")

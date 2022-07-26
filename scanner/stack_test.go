@@ -12,7 +12,7 @@ import (
 
 func TestIncludedFileStack_Push(t *testing.T) {
 	newFile := func(path string) *fs.File {
-		return fs.NewFile(path, []byte("123456"))
+		return fs.NewFile(path, "123456")
 	}
 
 	newStack := func(pp ...string) func(*testing.T) *Stack {
@@ -80,7 +80,7 @@ func TestIncludedFileStack_Push(t *testing.T) {
 func TestStack_computeScannerHash(t *testing.T) {
 	t.Run("stability", func(t *testing.T) {
 		const times = 1000
-		scanner := &Scanner{file: fs.NewFile("/foo/bar", nil)}
+		scanner := &Scanner{file: fs.NewFile("/foo/bar", "content")}
 
 		origin, err := (&Stack{}).computeScannerHash(scanner)
 		require.NoError(t, err)
@@ -95,7 +95,7 @@ func TestStack_computeScannerHash(t *testing.T) {
 }
 
 func BenchmarkStack_computeScannerHash(b *testing.B) {
-	scanner := &Scanner{file: fs.NewFile("/foo/bar", nil)}
+	scanner := &Scanner{file: fs.NewFile("/foo/bar", "content")}
 	stack := &Stack{}
 
 	b.ReportAllocs()
@@ -112,7 +112,7 @@ func TestStack_AddIncludeTraceToError(t *testing.T) {
 		(&Stack{}).AddIncludeTraceToError(nil)
 	})
 
-	file := fs.NewFile("/foo/bar", []byte("12\n34\n56"))
+	file := fs.NewFile("/foo/bar", "12\n34\n56")
 
 	cc := map[string]struct {
 		je       *jerr.JApiError
@@ -126,7 +126,7 @@ func TestStack_AddIncludeTraceToError(t *testing.T) {
 		"error with trace, empty stack": {
 			je: func() *jerr.JApiError {
 				je := jerr.NewJApiError("fake error", file, 4)
-				je.OccurredInFile(fs.NewFile("/fizz/buzz", []byte("foo")), 1)
+				je.OccurredInFile(fs.NewFile("/fizz/buzz", "foo"), 1)
 				return je
 			}(),
 			expected: `fake error
@@ -136,7 +136,7 @@ func TestStack_AddIncludeTraceToError(t *testing.T) {
 		"error without trace, filled stack": {
 			je: jerr.NewJApiError("fake error", file, 4),
 			stack: []stackItem{
-				{NewJApiScanner(fs.NewFile("/from/tracer", []byte("aa\nbb\ncc"))), 7},
+				{NewJApiScanner(fs.NewFile("/from/tracer", "aa\nbb\ncc")), 7},
 			},
 			expected: `fake error
 /foo/bar:2
@@ -145,11 +145,11 @@ func TestStack_AddIncludeTraceToError(t *testing.T) {
 		"error with trace, filled stack": {
 			je: func() *jerr.JApiError {
 				je := jerr.NewJApiError("fake error", file, 4)
-				je.OccurredInFile(fs.NewFile("/fizz/buzz", []byte("foo")), 1)
+				je.OccurredInFile(fs.NewFile("/fizz/buzz", "foo"), 1)
 				return je
 			}(),
 			stack: []stackItem{
-				{NewJApiScanner(fs.NewFile("/from/tracer", []byte("aa\nbb\ncc"))), 7},
+				{NewJApiScanner(fs.NewFile("/from/tracer", "aa\nbb\ncc")), 7},
 			},
 			expected: `fake error
 /foo/bar:2
@@ -177,8 +177,8 @@ func TestStack_ToDirectiveIncludeTracer(t *testing.T) {
 			at1 = 42
 			at2 = 100500
 		)
-		fs1 := fs.NewFile("/foo", nil)
-		fs2 := fs.NewFile("/bar", nil)
+		fs1 := fs.NewFile("/foo", "content")
+		fs2 := fs.NewFile("/bar", "content")
 
 		s := &Stack{}
 		require.NoError(t, s.Push(NewJApiScanner(fs1), at1))
@@ -205,8 +205,8 @@ func Test_newDirectiveIncludeTracer(t *testing.T) {
 			at1 = 42
 			at2 = 100500
 		)
-		fs1 := fs.NewFile("/foo", nil)
-		fs2 := fs.NewFile("/bar", nil)
+		fs1 := fs.NewFile("/foo", "content")
+		fs2 := fs.NewFile("/bar", "content")
 
 		tracer := newDirectiveIncludeTracer([]stackItem{
 			{NewJApiScanner(fs1), at1},
@@ -224,7 +224,7 @@ func TestDirectiveIncludeTracer_AddIncludeTraceToError(t *testing.T) {
 		directiveIncludeTracer{}.AddIncludeTraceToError(nil)
 	})
 
-	file := fs.NewFile("/foo/bar", []byte("12\n34\n56"))
+	file := fs.NewFile("/foo/bar", "12\n34\n56")
 
 	cc := map[string]struct {
 		je       *jerr.JApiError
@@ -238,7 +238,7 @@ func TestDirectiveIncludeTracer_AddIncludeTraceToError(t *testing.T) {
 		"error with trace, empty stack": {
 			je: func() *jerr.JApiError {
 				je := jerr.NewJApiError("fake error", file, 4)
-				je.OccurredInFile(fs.NewFile("/fizz/buzz", []byte("foo")), 1)
+				je.OccurredInFile(fs.NewFile("/fizz/buzz", "foo"), 1)
 				return je
 			}(),
 			expected: `fake error
@@ -248,7 +248,7 @@ func TestDirectiveIncludeTracer_AddIncludeTraceToError(t *testing.T) {
 		"error without trace, filled stack": {
 			je: jerr.NewJApiError("fake error", file, 4),
 			stack: []directiveIncludeTracerItem{
-				{fs.NewFile("/from/tracer", []byte("aa\nbb\ncc")), 7},
+				{fs.NewFile("/from/tracer", "aa\nbb\ncc"), 7},
 			},
 			expected: `fake error
 /foo/bar:2
@@ -257,11 +257,11 @@ func TestDirectiveIncludeTracer_AddIncludeTraceToError(t *testing.T) {
 		"error with trace, filled stack": {
 			je: func() *jerr.JApiError {
 				je := jerr.NewJApiError("fake error", file, 4)
-				je.OccurredInFile(fs.NewFile("/fizz/buzz", []byte("foo")), 1)
+				je.OccurredInFile(fs.NewFile("/fizz/buzz", "foo"), 1)
 				return je
 			}(),
 			stack: []directiveIncludeTracerItem{
-				{fs.NewFile("/from/tracer", []byte("aa\nbb\ncc")), 7},
+				{fs.NewFile("/from/tracer", "aa\nbb\ncc"), 7},
 			},
 			expected: `fake error
 /foo/bar:2

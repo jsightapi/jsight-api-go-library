@@ -15,17 +15,17 @@ import (
 func TestJApiCore_compileUserTypes(t *testing.T) {
 	c := catalog.NewCatalog()
 
-	ut := map[string][]byte{
-		"@foo": []byte("42"),
-		"@bar": []byte(`{
+	ut := map[string]string{
+		"@foo": "42",
+		"@bar": `{
 	"foo": @foo
-}`),
-		"@fizz": []byte(`{
+}`,
+		"@fizz": `{
 		"bar": @bar
-}`),
-		"@buzz": []byte(`{
+}`,
+		"@buzz": `{
 		"fizz": @fizz
-}`),
+}`,
 	}
 
 	for n, p := range ut {

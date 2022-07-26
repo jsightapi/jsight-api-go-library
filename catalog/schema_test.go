@@ -635,7 +635,7 @@ func TestUnmarshalSchema(t *testing.T) {
 			t.Run(b, func(t *testing.T) {
 				tt := &UserSchemas{}
 				for n, p := range c.userTypes {
-					tt.Set(n, jschema.New(n, []byte(p)))
+					tt.Set(n, jschema.New(n, p))
 				}
 				actual, err := UnmarshalSchema("foo", []byte(b), tt, nil)
 				require.NoError(t, err)

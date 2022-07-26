@@ -50,7 +50,8 @@ func TestDirective_String(t *testing.T) {
 }
 
 func TestDirective_Equal(t *testing.T) {
-	file := fs.NewFile("file", nil)
+	const content = "content"
+	file := fs.NewFile("file", content)
 
 	cc := map[string]struct {
 		x, y     Directive
@@ -59,10 +60,10 @@ func TestDirective_Equal(t *testing.T) {
 		"empty": {expected: true},
 		"different file": {
 			x: Directive{
-				keywordCoords: NewCoords(fs.NewFile("foo", nil), 0, 1),
+				keywordCoords: NewCoords(fs.NewFile("foo", content), 0, 1),
 			},
 			y: Directive{
-				keywordCoords: NewCoords(fs.NewFile("bar", nil), 0, 1),
+				keywordCoords: NewCoords(fs.NewFile("bar", content), 0, 1),
 			},
 		},
 		"different begin": {

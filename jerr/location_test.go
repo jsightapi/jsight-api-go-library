@@ -11,7 +11,7 @@ import (
 func TestNewLocation(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		const index = bytes.Index(3)
-		file := fs.NewFile("foo", []byte("12\n34\n56"))
+		file := fs.NewFile("foo", "12\n34\n56")
 
 		l := NewLocation(file, index)
 

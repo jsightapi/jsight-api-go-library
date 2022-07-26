@@ -2,12 +2,12 @@ JSIGHT 0.3
 
 TYPE @testShortRecursion
 {
-  "testShortRecursion": @testShortRecursion,
+  "testShortRecursion": @testShortRecursion, // {optional: true}
   "testLongRecursion" : @testLongRecursion,
   "testBothRecursions": @testShortRecursion | @testLongRecursion
 }
 
 TYPE @testLongRecursion
 {
-  "testShortRecursion": @testShortRecursion
+  "testShortRecursion": @testShortRecursion // {optional: true}
 }
