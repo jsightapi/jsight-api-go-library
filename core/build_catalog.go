@@ -41,7 +41,7 @@ func (core *JApiCore) compileUserTypes() *jerr.JApiError {
 
 func (core *JApiCore) buildUserTypes() *jerr.JApiError {
 	core.Catalog().GetRawUserTypes().EachSafe(func(k string, v *directive.Directive) {
-		switch notation.SchemaNotation(v.Parameter("SchemaNotation")) {
+		switch notation.SchemaNotation(v.NamedParameter("SchemaNotation")) {
 		case "", notation.SchemaNotationJSight:
 			if v.BodyCoords.IsSet() {
 				core.userTypes.Set(k, jschema.New(k, v.BodyCoords.Read()))

@@ -1,3 +1,3 @@
-duplicate type name "@foo"
+duplicate names are not allowed ("@foo")
 mixins/types.jst:1
 err_0_type_name_duplication_2.jst:8

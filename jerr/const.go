@@ -24,4 +24,6 @@ const (
 	JsonRpcMethodNotFound                               = "JSON-RPC method not found"
 	JsonRpcResourceNotFound                             = "resource not found"
 	ApartFromTheOpeningParenthesis                      = "apart from the opening parenthesis, there should be nothing else on this line"
+	DuplicateNames                                      = "duplicate names are not allowed"
+	TagNotFound                                         = "tag not found"
 )

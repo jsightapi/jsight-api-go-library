@@ -42,7 +42,7 @@ func (core *JApiCore) checkMacroForRecursion() *jerr.JApiError {
 
 func findPaste(macroName string, d *directive.Directive) *jerr.JApiError {
 	if d.Type() == directive.Paste {
-		switch d.Parameter("Name") {
+		switch d.NamedParameter("Name") {
 		case "":
 			return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
 

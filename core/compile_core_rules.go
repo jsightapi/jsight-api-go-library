@@ -25,7 +25,7 @@ func (core *JApiCore) buildRule(d *directive.Directive) *jerr.JApiError {
 		return nil
 	}
 
-	name := d.Parameter("Name")
+	name := d.NamedParameter("Name")
 
 	r := enum.New(name, d.BodyCoords.Read())
 	if err := r.Check(); err != nil {

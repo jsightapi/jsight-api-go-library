@@ -35,7 +35,7 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 			0,
 			bytes.Index(len(p)-1),
 		)
-		require.NoError(t, d.SetParameter("Name", n))
+		require.NoError(t, d.SetNamedParameter("Name", n))
 		c.AddRawUserType(d)
 	}
 

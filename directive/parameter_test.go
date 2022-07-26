@@ -199,7 +199,7 @@ func TestDirective_AppendParameter(t *testing.T) {
 				err := c.directive.AppendParameter(bytes.Bytes(c.given))
 				require.NoError(t, err)
 
-				assert.Equal(t, c.expectedParameters, c.directive.parameters)
+				assert.Equal(t, c.expectedParameters, c.directive.namedParameters)
 			})
 		}
 	})

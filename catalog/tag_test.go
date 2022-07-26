@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_newEmptyTag(t *testing.T) {
-	tag := newEmptyTag(HttpInteractionId{
+func Test_newPathTag(t *testing.T) {
+	tag := newPathTag(HttpInteractionId{
 		protocol: HTTP,
 		path:     "/foo/bar",
 	})
@@ -18,7 +18,7 @@ func Test_newEmptyTag(t *testing.T) {
 	assert.Equal(t, TagName("@foo"), tag.Name)
 }
 
-func Test_tagTitle(t *testing.T) {
+func Test_pathTagTitle(t *testing.T) {
 	tests := []struct {
 		url  string
 		want string
@@ -86,8 +86,8 @@ func Test_tagTitle(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.url, func(t *testing.T) {
-			if got := tagTitle(tt.url); got != tt.want {
-				t.Errorf("tagTitle() = %v, want %v", got, tt.want)
+			if got := pathTagTitle(tt.url); got != tt.want {
+				t.Errorf("pathTagTitle() = %v, want %v", got, tt.want)
 			}
 		})
 	}

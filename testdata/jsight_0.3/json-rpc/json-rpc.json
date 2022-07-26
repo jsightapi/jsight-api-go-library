@@ -76,7 +76,8 @@
       "tags": [
         "@api"
       ],
-      "description": "Create a cat.",
+      "annotation": "Create a cat.",
+      "description": "The method creates a better cat.",
       "params": {
         "schema": {
           "content": {
@@ -128,7 +129,7 @@
       "tags": [
         "@api"
       ],
-      "description": "Get a cat by its id.",
+      "annotation": "Get a cat by its id.",
       "params": {
         "schema": {
           "content": {

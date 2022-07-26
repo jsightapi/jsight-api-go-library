@@ -18,7 +18,7 @@ func TestNew(t *testing.T) {
 	assert.EqualValues(t, e, d.type_)
 	assert.EqualValues(t, e, d.Type())
 
-	assert.NotNil(t, d.parameters)
+	assert.NotNil(t, d.namedParameters)
 	assert.Equal(t, e.String(), d.Keyword)
 	assert.Equal(t, coords, d.keywordCoords)
 	assert.IsType(t, nopIncludeTracer{}, d.includeTracer)
@@ -36,7 +36,7 @@ func TestNewWithCallStack(t *testing.T) {
 	assert.EqualValues(t, e, d.type_)
 	assert.EqualValues(t, e, d.Type())
 
-	assert.NotNil(t, d.parameters)
+	assert.NotNil(t, d.namedParameters)
 	assert.Equal(t, e.String(), d.Keyword)
 	assert.Equal(t, coords, d.keywordCoords)
 	assert.IsType(t, fakeCallStack{}, d.includeTracer)
@@ -93,59 +93,59 @@ func TestDirective_Equal(t *testing.T) {
 	}
 }
 
-func TestDirective_HasAnyParameters(t *testing.T) {
+func TestDirective_HasNamedParameters(t *testing.T) {
 	t.Run("true", func(t *testing.T) {
 		actual := Directive{
-			parameters: map[string]string{"foo": "bar"},
-		}.HasAnyParameters()
+			namedParameters: map[string]string{"foo": "bar"},
+		}.HasNamedParameter()
 		assert.True(t, actual)
 	})
 
 	t.Run("false", func(t *testing.T) {
-		actual := Directive{}.HasAnyParameters()
+		actual := Directive{}.HasNamedParameter()
 		assert.False(t, actual)
 	})
 }
 
-func TestDirective_Parameter(t *testing.T) {
+func TestDirective_NamedParameter(t *testing.T) {
 	t.Run("exists", func(t *testing.T) {
 		d := New(Jsight, Coords{})
-		require.NoError(t, d.SetParameter("foo", "bar"))
+		require.NoError(t, d.SetNamedParameter("foo", "bar"))
 
-		actual := d.HasAnyParameters()
+		actual := d.HasNamedParameter()
 		assert.True(t, actual)
 	})
 
 	t.Run("not exists", func(t *testing.T) {
-		actual := New(Jsight, Coords{}).HasAnyParameters()
+		actual := New(Jsight, Coords{}).HasNamedParameter()
 		assert.False(t, actual)
 	})
 }
 
-func TestDirective_SetParameter(t *testing.T) {
+func TestDirective_SetNamedParameter(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		d := New(Info, Coords{})
 
-		err := d.SetParameter("foo", "bar")
+		err := d.SetNamedParameter("foo", "bar")
 		require.NoError(t, err)
 
 		assert.Equal(t, map[string]string{
 			"foo": "bar",
-		}, d.parameters)
+		}, d.namedParameters)
 	})
 
 	t.Run("negative", func(t *testing.T) {
 		d := New(Info, Coords{})
 
-		err := d.SetParameter("foo", "bar")
+		err := d.SetNamedParameter("foo", "bar")
 		require.NoError(t, err)
 
-		err = d.SetParameter("foo", "bar")
+		err = d.SetNamedParameter("foo", "bar")
 		assert.EqualError(t, err, `the "foo" parameter is already defined for the "INFO" directive`)
 
 		assert.Equal(t, map[string]string{
 			"foo": "bar",
-		}, d.parameters)
+		}, d.namedParameters)
 	})
 }
 
@@ -181,7 +181,7 @@ func TestDirective_CopyWoParentAndChildren(t *testing.T) {
 	d := New(Jsight, Coords{})
 	d.Annotation = "annotation"
 	d.HasExplicitContext = true
-	d.parameters = map[string]string{"foo": "bar"}
+	d.namedParameters = map[string]string{"foo": "bar"}
 	d.BodyCoords = NewCoords(nil, 0, 1)
 	d.Children = []*Directive{c}
 	d.includeTracer = fakeCallStack{}
@@ -192,7 +192,7 @@ func TestDirective_CopyWoParentAndChildren(t *testing.T) {
 		Annotation:         d.Annotation,
 		Keyword:            d.Keyword,
 		HasExplicitContext: d.HasExplicitContext,
-		parameters:         d.parameters,
+		namedParameters:    d.namedParameters,
 		keywordCoords:      d.keywordCoords,
 		BodyCoords:         d.BodyCoords,
 		includeTracer:      fakeCallStack{},

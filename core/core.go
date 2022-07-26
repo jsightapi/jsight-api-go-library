@@ -126,6 +126,8 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		directive.Method:           core.addJsonRpcMethod,
 		directive.Params:           core.addJsonRpcParams,
 		directive.Result:           core.addJsonRpcResult,
+		directive.TAG:              core.addTag,
+		directive.Tags:             core.addTags,
 	}
 
 	for _, o := range oo {

@@ -53,7 +53,7 @@ func (core *JApiCore) processPasteDirective(paste *directive.Directive) *jerr.JA
 		return paste.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
 
-	name := paste.Parameter("Name")
+	name := paste.NamedParameter("Name")
 
 	if name == "" {
 		return paste.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))

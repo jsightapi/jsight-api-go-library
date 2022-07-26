@@ -3,16 +3,16 @@ package catalog
 import "github.com/jsightapi/jsight-api-go-library/directive"
 
 type JsonRpcInteraction struct { //nolint:govet
-	Id       string   `json:"id"`
-	Protocol Protocol `json:"protocol"`
-	PathVal  Path     `json:"path"`
-	// PathVariables *PathVariables `json:"pathVariables,omitempty"`
+	Id          string         `json:"id"`
+	Protocol    Protocol       `json:"protocol"`
+	PathVal     Path           `json:"path"`
 	Method      string         `json:"method"`
 	Tags        []TagName      `json:"tags"`
-	Description *string        `json:"annotation,omitempty"`
-	Annotation  *string        `json:"description,omitempty"`
+	Annotation  *string        `json:"annotation,omitempty"`
+	Description *string        `json:"description,omitempty"`
 	Params      *jsonRpcParams `json:"params,omitempty"`
 	Result      *jsonRpcResult `json:"result,omitempty"`
+	// PathVariables *PathVariables `json:"pathVariables,omitempty"`
 }
 
 type jsonRpcParams struct {
