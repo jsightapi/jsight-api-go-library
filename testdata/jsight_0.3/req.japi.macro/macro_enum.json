@@ -1,0 +1,83 @@
+{
+  "tags": {
+    "@catName": {
+      "name": "@catName",
+      "title": "/catName",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /catName"
+          ]
+        }
+      ]
+    }
+  },
+  "userEnums": {
+    "@catName": {
+      "annotation": "",
+      "description": "",
+      "value": {
+        "key": "@catName",
+        "tokenType": "object",
+        "children": [
+          {
+            "key": "Tom",
+            "tokenType": "string",
+            "scalarValue": "Tom"
+          },
+          {
+            "key": "Tim",
+            "tokenType": "string",
+            "scalarValue": "Tim"
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {
+    "http GET /catName": {
+      "id": "http GET /catName",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/catName",
+      "tags": [
+        "@catName"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "name",
+                    "tokenType": "string",
+                    "type": "enum",
+                    "scalarValue": "Tom",
+                    "rules": [
+                      {
+                        "key": "enum",
+                        "tokenType": "reference",
+                        "scalarValue": "@catName"
+                      }
+                    ],
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "notation": "jsight"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
