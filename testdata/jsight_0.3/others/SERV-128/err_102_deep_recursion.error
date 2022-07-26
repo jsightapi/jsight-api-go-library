@@ -1,0 +1,1 @@
+Infinity recursion detected @bar -> @fizz -> @buzz -> @foo -> @bar

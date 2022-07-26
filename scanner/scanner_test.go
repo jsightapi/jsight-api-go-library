@@ -56,10 +56,7 @@ func TestScanner_successes(t *testing.T) {
 }
 
 func TestScanner_Next(t *testing.T) {
-	str := `GET /users`
-	bytes := []byte(str)
-
-	file := fs.NewFile("dummy.jst", bytes)
+	file := fs.NewFile("dummy.jst", "GET /users")
 	s := NewJApiScanner(file)
 	scan(s)
 }
@@ -118,10 +115,6 @@ func scan(s *Scanner) {
 }
 
 func newTestScanner(s string) *Scanner {
-	return newTestScannerB([]byte(s))
-}
-
-func newTestScannerB(bytes []byte) *Scanner {
-	file := fs.NewFile("dummy.jst", bytes)
+	file := fs.NewFile("dummy.jst", s)
 	return NewJApiScanner(file)
 }

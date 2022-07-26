@@ -1,0 +1,24 @@
+# In this case we have an infinity recursions inside one of type which is embedded
+# into another.
+
+JSIGHT 0.3
+
+TYPE @foo
+{ // {allOf: ["@fizz", "@buzz"]}
+  "foo": 42
+}
+
+TYPE @fizz
+{
+  "fizz": "fizz"
+}
+
+TYPE @buzz
+{
+  "buzz": @bar
+}
+
+TYPE @bar
+{
+  "bar": @foo
+}

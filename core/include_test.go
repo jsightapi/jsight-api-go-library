@@ -20,10 +20,10 @@ func Test_isIncludeKeyword(t *testing.T) {
 				given: scanner.NewLexeme(scanner.Schema, 0, 0, nil),
 			},
 			"not an include keyword": {
-				given: scanner.NewLexeme(scanner.Keyword, 0, 1, fs.NewFile("", []byte("12"))),
+				given: scanner.NewLexeme(scanner.Keyword, 0, 1, fs.NewFile("", "12")),
 			},
 			"an include keyword": {
-				given:    scanner.NewLexeme(scanner.Keyword, 0, 6, fs.NewFile("", []byte("INCLUDE"))),
+				given:    scanner.NewLexeme(scanner.Keyword, 0, 6, fs.NewFile("", "INCLUDE")),
 				expected: true,
 			},
 		}

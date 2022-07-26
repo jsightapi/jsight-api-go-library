@@ -155,7 +155,6 @@ func (c *Catalog) AddResponse(code string, annotation string, d directive.Direct
 }
 
 func (c *Catalog) AddResponseBody(
-	schemaName string,
 	schemaBytes bytes.Bytes,
 	bodyFormat SerializeFormat,
 	sn notation.SchemaNotation,
@@ -179,7 +178,7 @@ func (c *Catalog) AddResponseBody(
 		return d.KeywordError(fmt.Sprintf("%s for %q", jerr.ResponsesIsEmpty, httpId.String()))
 	}
 
-	httpResponseBody, je := NewHTTPResponseBody(schemaName, schemaBytes, bodyFormat, sn, d, tt, rr)
+	httpResponseBody, je := NewHTTPResponseBody(schemaBytes, bodyFormat, sn, d, tt, rr)
 	if je != nil {
 		return je
 	}

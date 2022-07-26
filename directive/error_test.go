@@ -10,17 +10,17 @@ import (
 )
 
 func TestDirective_KeywordError(t *testing.T) {
-	coords := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 2)
+	coords := NewCoords(fs.NewFile("foo", "123456"), 1, 2)
 
 	je := New(Jsight, coords).KeywordError("fake error")
 	assert.Equal(t, jerr.NewJApiError("fake error", coords.file, coords.begin), je)
 }
 
 func TestDirective_BodyError(t *testing.T) {
-	coords := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 2)
+	coords := NewCoords(fs.NewFile("foo", "123456"), 1, 2)
 
 	t.Run("body coords is set", func(t *testing.T) {
-		d := New(Jsight, NewCoords(fs.NewFile("bar", []byte("123456")), 5, 6))
+		d := New(Jsight, NewCoords(fs.NewFile("bar", "123456"), 5, 6))
 		d.BodyCoords = coords
 
 		je := d.BodyError("fake error")
@@ -37,7 +37,7 @@ func TestDirective_BodyError(t *testing.T) {
 
 func TestDirective_BodyErrorIndex(t *testing.T) {
 	const idx = 3
-	coords := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 2)
+	coords := NewCoords(fs.NewFile("foo", "123456"), 1, 2)
 
 	d := New(Jsight, Coords{})
 	d.BodyCoords = coords
@@ -47,7 +47,7 @@ func TestDirective_BodyErrorIndex(t *testing.T) {
 }
 
 func TestDirective_ParameterError(t *testing.T) {
-	coords := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 2)
+	coords := NewCoords(fs.NewFile("foo", "123456"), 1, 2)
 
 	je := New(Jsight, coords).ParameterError("fake error")
 	assert.Equal(t, jerr.NewJApiError("fake error", coords.file, coords.begin), je)
@@ -63,7 +63,7 @@ func (m makeErrorCallStack) AddIncludeTraceToError(je *jerr.JApiError) {
 }
 
 func TestDirective_makeError(t *testing.T) {
-	coords := NewCoords(fs.NewFile("foo", []byte("123456")), 1, 2)
+	coords := NewCoords(fs.NewFile("foo", "123456"), 1, 2)
 	expected := jerr.NewJApiError("fake error", coords.File(), coords.begin)
 
 	d := New(Jsight, coords)
