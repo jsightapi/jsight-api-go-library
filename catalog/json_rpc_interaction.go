@@ -29,6 +29,10 @@ func (j JsonRpcInteraction) Path() Path {
 	return j.PathVal
 }
 
+func (j *JsonRpcInteraction) appendTagName(tn TagName) {
+	j.Tags = append(j.Tags, tn)
+}
+
 func newJsonRpcInteraction(id JsonRpcInteractionId, method string, annotation string, tn TagName) *JsonRpcInteraction {
 	j := &JsonRpcInteraction{
 		Id:          id.String(),

@@ -28,15 +28,37 @@ func (c *Catalog) pathTag(r InteractionId) *Tag {
 }
 
 func (c *Catalog) AddTag(name, title string) error {
-	n := TagName(name)
-
-	if c.Tags.Has(n) {
-		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, n)
+	if c.Tags.Has(TagName(name)) {
+		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, name)
 	}
 
-	t := newTag(name, title)
+	t := NewTag(name, title)
 
 	c.Tags.Set(t.Name, t)
+
+	return nil
+}
+
+func (c *Catalog) AddTags(d directive.Directive) error {
+	// TODO URL & RPC
+	id, err := newHttpInteractionId(*d.Parent)
+	if err != nil {
+		return err
+	}
+
+	for _, name := range d.UnnamedParameter() {
+		tn := TagName(name)
+		t, ok := c.Tags.Get(tn)
+		if !ok {
+			return fmt.Errorf("%s %q", jerr.TagNotFound, tn)
+		}
+		t.appendInteractionId(id)
+
+		c.Interactions.Update(id, func(v Interaction) Interaction {
+			v.appendTagName(tn)
+			return v
+		})
+	}
 
 	return nil
 }
@@ -45,9 +67,8 @@ func (c *Catalog) AddDescriptionToTag(name, description string) error {
 	n := TagName(name)
 
 	t, ok := c.Tags.Get(n)
-
 	if !ok {
-		return errors.New(jerr.TagNotFound)
+		return fmt.Errorf("%s (%q)", jerr.TagNotFound, n)
 	}
 
 	if t.Description != nil {
@@ -63,7 +84,7 @@ func (c *Catalog) AddDescriptionToTag(name, description string) error {
 }
 
 func (c *Catalog) AddTagDescription(name, title string) error {
-	t := newTag(name, title)
+	t := NewTag(name, title)
 
 	if _, ok := c.Tags.Get(t.Name); ok {
 		return errors.New("")

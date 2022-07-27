@@ -18,6 +18,10 @@ func (h HttpInteraction) Path() Path {
 	return h.PathVal
 }
 
+func (h *HttpInteraction) appendTagName(tn TagName) {
+	h.Tags = append(h.Tags, tn)
+}
+
 func (h *HttpInteraction) SetPathVariables(p *PathVariables) {
 	h.PathVariables = p
 }

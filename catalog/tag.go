@@ -15,7 +15,7 @@ type Tag struct { //nolint:govet
 
 var _ json.Marshaler = &Tags{}
 
-func newTag(name, title string) *Tag {
+func NewTag(name, title string) *Tag {
 	return &Tag{
 		InteractionGroups: make(map[Protocol]TagInteractionGroup),
 		Children:          &Tags{},

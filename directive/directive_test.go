@@ -183,18 +183,15 @@ func TestDirective_CopyWoParentAndChildren(t *testing.T) {
 	d.HasExplicitContext = true
 	d.namedParameters = map[string]string{"foo": "bar"}
 	d.BodyCoords = NewCoords(nil, 0, 1)
+	d.Parent = &Directive{}
 	d.Children = []*Directive{c}
 	d.includeTracer = fakeCallStack{}
 
 	actual := d.CopyWoParentAndChildren()
-	assert.Equal(t, Directive{
-		type_:              d.type_,
-		Annotation:         d.Annotation,
-		Keyword:            d.Keyword,
-		HasExplicitContext: d.HasExplicitContext,
-		namedParameters:    d.namedParameters,
-		keywordCoords:      d.keywordCoords,
-		BodyCoords:         d.BodyCoords,
-		includeTracer:      fakeCallStack{},
-	}, actual)
+
+	want := *d
+	want.Parent = nil
+	want.Children = nil
+
+	assert.Equal(t, want, actual)
 }

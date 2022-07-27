@@ -1,0 +1,35 @@
+JSIGHT 0.3
+
+TAG @catsBook // Catsbook API
+  Description
+    A set of methods for working with the Catsbook API
+
+GET /cats
+  Tags @catsBook
+
+URL /dogs
+  Tags @dogsBook
+
+  GET
+  POST
+  DELETE
+
+URL /rpc
+  Protocol json-rpc-2.0
+
+  Method createPig
+    Tags @pigsBook
+    Params
+      {
+        "name": "pig name"
+      }
+    Result
+      {
+        "id": 1
+      }
+
+TAG @dogsBook
+TAG @pigsBook
+
+GET /any
+  Tags @catsBook @dogsBook @pigsBook

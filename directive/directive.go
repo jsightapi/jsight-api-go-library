@@ -54,10 +54,6 @@ func (d Directive) HasNamedParameter() bool {
 	return len(d.namedParameters) != 0
 }
 
-func (d Directive) HasUnnamedParameter() bool {
-	return len(d.unnamedParameters) != 0
-}
-
 func (d Directive) NamedParameter(k string) string {
 	if v, ok := d.namedParameters[k]; ok {
 		return v
@@ -73,6 +69,14 @@ func (d *Directive) SetNamedParameter(k string, v string) error {
 	return nil
 }
 
+func (d Directive) HasUnnamedParameter() bool {
+	return len(d.unnamedParameters) != 0
+}
+
+func (d Directive) UnnamedParameter() []string {
+	return d.unnamedParameters
+}
+
 func (d *Directive) AppendUnnamedParameter(v string) {
 	d.unnamedParameters = append(d.unnamedParameters, v)
 }
@@ -85,16 +89,9 @@ func (d *Directive) AppendChild(child *Directive) {
 }
 
 func (d Directive) CopyWoParentAndChildren() Directive {
-	return Directive{
-		type_:              d.type_,
-		Annotation:         d.Annotation,
-		Keyword:            d.Keyword,
-		HasExplicitContext: d.HasExplicitContext,
-		namedParameters:    d.namedParameters,
-		keywordCoords:      d.keywordCoords,
-		BodyCoords:         d.BodyCoords,
-		includeTracer:      d.includeTracer,
-	}
+	d.Parent = nil
+	d.Children = nil
+	return d
 }
 
 // IncludeTracer represent the directive's call stack.

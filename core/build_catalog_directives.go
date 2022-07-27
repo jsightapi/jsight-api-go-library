@@ -576,21 +576,18 @@ func (core JApiCore) addJsonRpcResult(d *directive.Directive) *jerr.JApiError {
 	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcResult)
 }
 
-func (core JApiCore) addTag(d *directive.Directive) *jerr.JApiError {
-	if d.NamedParameter("TagName") == "" {
-		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "TagName"))
+func (core JApiCore) addTags(d *directive.Directive) *jerr.JApiError {
+	if d.Annotation != "" {
+		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
-	if err := core.catalog.AddTag(d.NamedParameter("TagName"), d.Annotation); err != nil {
+
+	if !d.HasUnnamedParameter() {
+		return d.KeywordError(jerr.RequiredParameterNotSpecified)
+	}
+
+	if err := core.catalog.AddTags(*d); err != nil {
 		return d.KeywordError(err.Error())
 	}
-	return nil
-}
 
-func (_ JApiCore) addTags(_ *directive.Directive) *jerr.JApiError {
-	// TODO addTags
-	// if !d.HasUnnamedParameter() {
-	// 	return d.KeywordError(jerr.RequiredParameterNotSpecified)
-	// }
-	// return core.catalog.AddTags(*d, core.userTypes, core.rules)
 	return nil
 }

@@ -2,7 +2,7 @@ package jerr
 
 const (
 	InternalServerError                                 = "internal server error" // should not occur
-	RequiredParameterNotSpecified                       = "required parameter not specified"
+	RequiredParameterNotSpecified                       = "required parameter(s) not specified"
 	ParametersAreForbiddenForTheDirective               = "parameters are forbidden for the directive"
 	AnnotationIsForbiddenForTheDirective                = "annotation is forbidden for the directive"
 	EmptyDescription                                    = "empty description"
