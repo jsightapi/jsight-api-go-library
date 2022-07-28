@@ -85,7 +85,7 @@ Editor](https://github.com/jsightapi/online-editor-frontend) applications.
 
 #### Prerequisites
 
-- Go >= 1.17 — [install](https://go.dev/doc/install).
+- Go >= 1.18 — [install](https://go.dev/doc/install).
 
 #### Installing
 
@@ -122,6 +122,22 @@ cd ./jsight-api-go-library/
 </td>
 </tr>
 <tr>
+</tr>
+<tr valign="top">
+<td>
+
+Install development dependencies:
+
+_(Make sure `$GOPATH/bin` is in the `$PATH`)_
+
+</td>
+<td>
+
+```
+make deps
+```
+
+</td>
 </tr>
 <tr valign="top">
 <td>
