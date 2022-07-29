@@ -33,36 +33,29 @@
       "annotation": "",
       "description": "",
       "value": {
-        "key": "@enum",
-        "tokenType": "object",
+        "tokenType": "array",
         "children": [
           {
-            "key": "foo",
             "tokenType": "string",
             "scalarValue": "foo"
           },
           {
-            "key": "42",
             "tokenType": "number",
             "scalarValue": "42"
           },
           {
-            "key": "3.14",
             "tokenType": "number",
             "scalarValue": "3.14"
           },
           {
-            "key": "true",
             "tokenType": "boolean",
             "scalarValue": "true"
           },
           {
-            "key": "false",
             "tokenType": "boolean",
             "scalarValue": "false"
           },
           {
-            "key": "null",
             "tokenType": "null",
             "scalarValue": "null"
           }

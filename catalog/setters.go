@@ -483,15 +483,14 @@ func (*Catalog) enumDirectiveToUserRule(d *directive.Directive, e *enum.Enum) (*
 	}
 
 	r := Rule{
-		Key:       d.Parameter("Name"),
-		TokenType: RuleTokenTypeObject,
+		TokenType: RuleTokenTypeArray,
 	}
 
 	for _, v := range vv {
 		r.Children = append(r.Children, Rule{
-			Key:         v.Value.Unquote().String(),
 			TokenType:   RuleTokenType(v.Type.ToTokenType()),
 			ScalarValue: v.Value.Unquote().String(),
+			Note:        v.Comment,
 		})
 	}
 
