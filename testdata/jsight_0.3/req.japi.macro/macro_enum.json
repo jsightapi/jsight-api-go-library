@@ -18,16 +18,13 @@
       "annotation": "",
       "description": "",
       "value": {
-        "key": "@catName",
-        "tokenType": "object",
+        "tokenType": "array",
         "children": [
           {
-            "key": "Tom",
             "tokenType": "string",
             "scalarValue": "Tom"
           },
           {
-            "key": "Tim",
             "tokenType": "string",
             "scalarValue": "Tim"
           }

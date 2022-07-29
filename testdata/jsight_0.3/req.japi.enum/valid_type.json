@@ -40,36 +40,29 @@
       "annotation": "",
       "description": "",
       "value": {
-        "key": "@animalKindEnum",
-        "tokenType": "object",
+        "tokenType": "array",
         "children": [
           {
-            "key": "CAT",
             "tokenType": "string",
             "scalarValue": "CAT"
           },
           {
-            "key": "DOG",
             "tokenType": "string",
             "scalarValue": "DOG"
           },
           {
-            "key": "PIG",
             "tokenType": "string",
             "scalarValue": "PIG"
           },
           {
-            "key": "WOLF",
             "tokenType": "string",
             "scalarValue": "WOLF"
           },
           {
-            "key": "LION",
             "tokenType": "string",
             "scalarValue": "LION"
           },
           {
-            "key": "TIGER",
             "tokenType": "string",
             "scalarValue": "TIGER"
           }
