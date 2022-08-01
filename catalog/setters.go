@@ -574,7 +574,6 @@ func (*Catalog) enumDirectiveToUserRule(d *directive.Directive, e *enum.Enum) (*
 	}
 
 	r := Rule{
-		Key:       d.NamedParameter("Name"),
 		TokenType: RuleTokenTypeArray,
 	}
 
