@@ -1,0 +1,70 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@bbb": {
+      "schema": {
+        "content": {
+          "tokenType": "number",
+          "type": "mixed",
+          "scalarValue": "1",
+          "rules": [
+            {
+              "key": "or",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "object",
+                  "children": [
+                    {
+                      "key": "type",
+                      "tokenType": "string",
+                      "scalarValue": "string"
+                    }
+                  ]
+                },
+                {
+                  "tokenType": "object",
+                  "children": [
+                    {
+                      "key": "enum",
+                      "tokenType": "reference",
+                      "scalarValue": "@enum"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "userEnums": {
+    "@enum": {
+      "annotation": "",
+      "description": "",
+      "value": {
+        "tokenType": "array",
+        "children": [
+          {
+            "tokenType": "number",
+            "scalarValue": "1"
+          },
+          {
+            "tokenType": "number",
+            "scalarValue": "2"
+          },
+          {
+            "tokenType": "number",
+            "scalarValue": "3"
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
