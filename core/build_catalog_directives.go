@@ -284,11 +284,7 @@ func (core JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError(err.Error())
 	}
 
-	if err = core.catalog.AddHTTPMethod(*d); err != nil {
-		return d.KeywordError(err.Error())
-	}
-
-	return nil
+	return core.catalog.AddHTTPMethod(*d)
 }
 
 func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
@@ -524,11 +520,7 @@ func (core JApiCore) addJsonRpcMethod(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError("the directive \"Protocol\" was not found")
 	}
 
-	if err := core.catalog.AddJsonRpcMethod(*d); err != nil {
-		return d.KeywordError(err.Error())
-	}
-
-	return nil
+	return core.catalog.AddJsonRpcMethod(*d)
 }
 
 func isProtocolExists(d *directive.Directive) bool {
@@ -574,20 +566,4 @@ func (core JApiCore) addJsonRpcParams(d *directive.Directive) *jerr.JApiError {
 
 func (core JApiCore) addJsonRpcResult(d *directive.Directive) *jerr.JApiError {
 	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcResult)
-}
-
-func (core JApiCore) addTags(d *directive.Directive) *jerr.JApiError {
-	if d.Annotation != "" {
-		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
-	}
-
-	if !d.HasUnnamedParameter() {
-		return d.KeywordError(jerr.RequiredParameterNotSpecified)
-	}
-
-	if err := core.catalog.AddTags(*d); err != nil {
-		return d.KeywordError(err.Error())
-	}
-
-	return nil
 }

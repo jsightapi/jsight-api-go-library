@@ -14,6 +14,47 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
+func (c *Catalog) AddTag(name, title string) error {
+	if c.Tags.Has(TagName(name)) {
+		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, name)
+	}
+
+	t := NewTag(name, title)
+
+	c.Tags.Set(t.Name, t)
+
+	return nil
+}
+
+func (c *Catalog) tagNames(d directive.Directive, id InteractionId) ([]TagName, *jerr.JApiError) {
+	tt, je := c.tags(d, id)
+	if je != nil {
+		return nil, je
+	}
+
+	tns := make([]TagName, 0, len(tt))
+
+	for _, t := range tt {
+		t.appendInteractionId(id)
+		tns = append(tns, t.Name)
+	}
+
+	return tns, nil
+}
+
+// tags return tag names for directives HTTP request method or JSON-RPC method.
+func (c *Catalog) tags(d directive.Directive, id InteractionId) ([]*Tag, *jerr.JApiError) {
+	if td := getChildrenTagsDirective(d); td != nil { // child directive Tags for HTTP or JSON-RPC methods
+		return c.tagsFromTagsDirective(td)
+	}
+
+	if td := getParentTagsDirective(d); td != nil { // parent URL
+		return c.tagsFromTagsDirective(td)
+	}
+
+	return []*Tag{c.pathTag(id)}, nil
+}
+
 // pathTag returns a Tag from the collection, or creates a new one and adds it to the collection
 func (c *Catalog) pathTag(r InteractionId) *Tag {
 	t := newPathTag(r)
@@ -27,37 +68,50 @@ func (c *Catalog) pathTag(r InteractionId) *Tag {
 	return t
 }
 
-func (c *Catalog) AddTag(name, title string) error {
-	if c.Tags.Has(TagName(name)) {
-		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, name)
+func getChildrenTagsDirective(d directive.Directive) *directive.Directive {
+	for _, dd := range d.Children {
+		if dd.Type() == directive.Tags {
+			return dd
+		}
 	}
-
-	t := NewTag(name, title)
-
-	c.Tags.Set(t.Name, t)
-
 	return nil
 }
 
-func (c *Catalog) AddTags(d directive.Directive) error {
-	// TODO URL & RPC
-	id, err := newHttpInteractionId(*d.Parent)
-	if err != nil {
-		return err
+func getParentTagsDirective(d directive.Directive) *directive.Directive {
+	if d.Parent != nil && d.Parent.Type() == directive.Url {
+		return getChildrenTagsDirective(*d.Parent)
 	}
+	return nil
+}
+
+func (c *Catalog) tagsFromTagsDirective(d *directive.Directive) ([]*Tag, *jerr.JApiError) {
+	if je := checkTagsDirective(d); je != nil {
+		return nil, je
+	}
+
+	tt := make([]*Tag, 0, d.UnnamedParametersLen())
 
 	for _, name := range d.UnnamedParameter() {
 		tn := TagName(name)
+
 		t, ok := c.Tags.Get(tn)
 		if !ok {
-			return fmt.Errorf("%s %q", jerr.TagNotFound, tn)
+			return nil, d.KeywordError(fmt.Sprintf("%s %q", jerr.TagNotFound, tn))
 		}
-		t.appendInteractionId(id)
 
-		c.Interactions.Update(id, func(v Interaction) Interaction {
-			v.appendTagName(tn)
-			return v
-		})
+		tt = append(tt, t)
+	}
+
+	return tt, nil
+}
+
+func checkTagsDirective(d *directive.Directive) *jerr.JApiError {
+	if d.Annotation != "" {
+		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
+	}
+
+	if !d.HasUnnamedParameter() {
+		return d.KeywordError(jerr.RequiredParameterNotSpecified)
 	}
 
 	return nil
@@ -139,20 +193,27 @@ func (c *Catalog) AddDescriptionToInfo(text string) error {
 	return nil
 }
 
-func (c *Catalog) AddHTTPMethod(d directive.Directive) error {
+func (c *Catalog) AddHTTPMethod(d directive.Directive) *jerr.JApiError {
 	httpId, err := newHttpInteractionId(d)
 	if err != nil {
-		return err
+		return d.KeywordError(err.Error())
 	}
 
 	if c.Interactions.Has(httpId) {
-		return fmt.Errorf("method is already defined in resource %s", httpId.String())
+		return d.KeywordError(fmt.Sprintf("method is already defined in resource %s", httpId.String()))
 	}
 
-	t := c.pathTag(httpId)
-	t.appendInteractionId(httpId)
+	in := newHttpInteraction(httpId, d.Annotation)
 
-	c.Interactions.Set(httpId, newHttpInteraction(httpId, d.Annotation, t.Name))
+	tns, je := c.tagNames(d, httpId)
+	if je != nil {
+		return je
+	}
+	for _, tn := range tns {
+		in.appendTagName(tn)
+	}
+
+	c.Interactions.Set(httpId, in)
 
 	return nil
 }
@@ -486,20 +547,27 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 	return nil
 }
 
-func (c *Catalog) AddJsonRpcMethod(d directive.Directive) error {
+func (c *Catalog) AddJsonRpcMethod(d directive.Directive) *jerr.JApiError {
 	rpcId, err := newJsonRpcInteractionId(d)
 	if err != nil {
-		return err
+		return d.KeywordError(err.Error())
 	}
 
 	if c.Interactions.Has(rpcId) {
-		return fmt.Errorf("method is already defined in resource %s", rpcId.String())
+		return d.KeywordError(fmt.Sprintf("method is already defined in resource %s", rpcId.String()))
 	}
 
-	t := c.pathTag(rpcId)
-	t.appendInteractionId(rpcId)
+	in := newJsonRpcInteraction(rpcId, d.NamedParameter("MethodName"), d.Annotation)
 
-	c.Interactions.Set(rpcId, newJsonRpcInteraction(rpcId, d.NamedParameter("MethodName"), d.Annotation, t.Name))
+	tns, je := c.tagNames(d, rpcId)
+	if je != nil {
+		return je
+	}
+	for _, tn := range tns {
+		in.appendTagName(tn)
+	}
+
+	c.Interactions.Set(rpcId, in)
 
 	return nil
 }

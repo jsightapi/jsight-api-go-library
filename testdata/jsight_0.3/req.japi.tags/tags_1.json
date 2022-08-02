@@ -1,1 +1,149 @@
-""
+{
+  "tags": {
+    "@catsBook": {
+      "name": "@catsBook",
+      "title": "Catsbook API",
+      "description": "A set of methods for working with the Catsbook API",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /cats",
+            "http GET /any"
+          ]
+        }
+      ]
+    },
+    "@dogsBook": {
+      "name": "@dogsBook",
+      "title": "",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /dogs",
+            "http POST /dogs",
+            "http DELETE /dogs",
+            "http GET /any"
+          ]
+        }
+      ]
+    },
+    "@pigsBook": {
+      "name": "@pigsBook",
+      "title": "",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /any"
+          ]
+        },
+        {
+          "protocol": "json-rpc-2.0",
+          "interactions": [
+            "json-rpc-2.0 createPig /rpc"
+          ]
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "http GET /cats": {
+      "id": "http GET /cats",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/cats",
+      "tags": [
+        "@catsBook"
+      ]
+    },
+    "http GET /dogs": {
+      "id": "http GET /dogs",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/dogs",
+      "tags": [
+        "@dogsBook"
+      ]
+    },
+    "http POST /dogs": {
+      "id": "http POST /dogs",
+      "protocol": "http",
+      "httpMethod": "POST",
+      "path": "/dogs",
+      "tags": [
+        "@dogsBook"
+      ]
+    },
+    "http DELETE /dogs": {
+      "id": "http DELETE /dogs",
+      "protocol": "http",
+      "httpMethod": "DELETE",
+      "path": "/dogs",
+      "tags": [
+        "@dogsBook"
+      ]
+    },
+    "json-rpc-2.0 createPig /rpc": {
+      "id": "json-rpc-2.0 createPig /rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/rpc",
+      "method": "createPig",
+      "tags": [
+        "@pigsBook"
+      ],
+      "params": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "name",
+                "tokenType": "string",
+                "type": "string",
+                "scalarValue": "pig name",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      }
+    },
+    "http GET /any": {
+      "id": "http GET /any",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/any",
+      "tags": [
+        "@catsBook",
+        "@dogsBook",
+        "@pigsBook"
+      ]
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

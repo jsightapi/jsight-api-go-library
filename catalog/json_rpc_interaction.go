@@ -33,13 +33,13 @@ func (j *JsonRpcInteraction) appendTagName(tn TagName) {
 	j.Tags = append(j.Tags, tn)
 }
 
-func newJsonRpcInteraction(id JsonRpcInteractionId, method string, annotation string, tn TagName) *JsonRpcInteraction {
+func newJsonRpcInteraction(id JsonRpcInteractionId, method string, annotation string) *JsonRpcInteraction {
 	j := &JsonRpcInteraction{
 		Id:          id.String(),
 		Protocol:    JsonRpc,
 		PathVal:     id.path,
 		Method:      method,
-		Tags:        []TagName{tn},
+		Tags:        make([]TagName, 0, 3),
 		Annotation:  nil,
 		Description: nil,
 		Params:      nil,

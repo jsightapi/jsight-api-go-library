@@ -73,6 +73,10 @@ func (d Directive) HasUnnamedParameter() bool {
 	return len(d.unnamedParameters) != 0
 }
 
+func (d Directive) UnnamedParametersLen() int {
+	return len(d.unnamedParameters)
+}
+
 func (d Directive) UnnamedParameter() []string {
 	return d.unnamedParameters
 }

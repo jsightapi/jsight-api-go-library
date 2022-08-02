@@ -26,13 +26,13 @@ func (h *HttpInteraction) SetPathVariables(p *PathVariables) {
 	h.PathVariables = p
 }
 
-func newHttpInteraction(id HttpInteractionId, annotation string, tn TagName) *HttpInteraction {
+func newHttpInteraction(id HttpInteractionId, annotation string) *HttpInteraction {
 	h := &HttpInteraction{
 		Id:            id.String(),
 		Protocol:      HTTP,
 		HttpMethod:    id.method,
 		PathVal:       id.path,
-		Tags:          []TagName{tn},
+		Tags:          make([]TagName, 0, 3),
 		PathVariables: nil,
 		Annotation:    nil,
 		Description:   nil,
