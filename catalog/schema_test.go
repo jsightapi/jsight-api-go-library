@@ -51,7 +51,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "integer",
 								},
 							},
@@ -87,7 +87,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "string",
 								},
 							},
@@ -123,7 +123,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "float",
 								},
 							},
@@ -159,7 +159,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "boolean",
 								},
 							},
@@ -195,7 +195,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "boolean",
 								},
 							},
@@ -245,12 +245,12 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "min",
-									TokenType:   "number",
+									TokenType:   RuleTokenTypeNumber,
 									ScalarValue: "1",
 								},
 								{
 									Key:         "max",
-									TokenType:   "number",
+									TokenType:   RuleTokenTypeNumber,
 									ScalarValue: "100",
 								},
 							},
@@ -273,12 +273,12 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "min",
-									TokenType:   "number",
+									TokenType:   RuleTokenTypeNumber,
 									ScalarValue: "1",
 								},
 								{
 									Key:         "max",
-									TokenType:   "number",
+									TokenType:   RuleTokenTypeNumber,
 									ScalarValue: "100",
 								},
 							},
@@ -302,14 +302,14 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:       "enum",
-									TokenType: "array",
+									TokenType: RuleTokenTypeArray,
 									Children: []Rule{
 										{
-											TokenType:   "string",
+											TokenType:   RuleTokenTypeString,
 											ScalarValue: "fizz",
 										},
 										{
-											TokenType:   "string",
+											TokenType:   RuleTokenTypeString,
 											ScalarValue: "buzz",
 										},
 									},
@@ -421,7 +421,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "additionalProperties",
-									TokenType:   "boolean",
+									TokenType:   RuleTokenTypeBoolean,
 									ScalarValue: "true",
 								},
 							},
@@ -438,7 +438,7 @@ func TestUnmarshalSchema(t *testing.T) {
 									data: []Rule{
 										{
 											Key:         "optional",
-											TokenType:   "boolean",
+											TokenType:   RuleTokenTypeBoolean,
 											ScalarValue: "true",
 										},
 									},
@@ -493,29 +493,29 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "type",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeString,
 									ScalarValue: "mixed",
 								},
 								{
 									Key:       "or",
-									TokenType: "array",
+									TokenType: RuleTokenTypeArray,
 									Children: []Rule{
 										{
-											TokenType: "object",
+											TokenType: RuleTokenTypeObject,
 											Children: []Rule{
 												{
 													Key:         "type",
-													TokenType:   "string",
+													TokenType:   RuleTokenTypeReference,
 													ScalarValue: "@foo",
 												},
 											},
 										},
 										{
-											TokenType: "object",
+											TokenType: RuleTokenTypeObject,
 											Children: []Rule{
 												{
 													Key:         "type",
-													TokenType:   "string",
+													TokenType:   RuleTokenTypeReference,
 													ScalarValue: "@bar",
 												},
 											},
@@ -578,7 +578,7 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:         "allOf",
-									TokenType:   "string",
+									TokenType:   RuleTokenTypeReference,
 									ScalarValue: "@foo",
 								},
 							},
@@ -604,14 +604,14 @@ func TestUnmarshalSchema(t *testing.T) {
 							data: []Rule{
 								{
 									Key:       "allOf",
-									TokenType: "array",
+									TokenType: RuleTokenTypeArray,
 									Children: []Rule{
 										{
-											TokenType:   "string",
+											TokenType:   RuleTokenTypeReference,
 											ScalarValue: "@foo",
 										},
 										{
-											TokenType:   "string",
+											TokenType:   RuleTokenTypeReference,
 											ScalarValue: "@bar",
 										},
 									},

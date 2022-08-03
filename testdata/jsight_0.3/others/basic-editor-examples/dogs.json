@@ -172,7 +172,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@pet"
             }
           ],
@@ -470,11 +470,11 @@
               "tokenType": "array",
               "children": [
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@contentTypeHeader"
                 },
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@authHeader"
                 }
               ]
@@ -529,7 +529,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@contentTypeHeader"
             }
           ],
@@ -688,7 +688,7 @@
             "rules": [
               {
                 "key": "allOf",
-                "tokenType": "string",
+                "tokenType": "reference",
                 "scalarValue": "@pageQuery"
               }
             ],
@@ -962,7 +962,7 @@
               "rules": [
                 {
                   "key": "allOf",
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@commonRequestHeaders"
                 }
               ],
@@ -1126,7 +1126,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],
@@ -1262,7 +1262,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],
@@ -1398,7 +1398,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],

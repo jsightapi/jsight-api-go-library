@@ -160,7 +160,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@pet"
             }
           ],
@@ -318,7 +318,7 @@
               "rules": [
                 {
                   "key": "type",
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@pigSize"
                 }
               ],
@@ -607,7 +607,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],
@@ -687,7 +687,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],
@@ -803,7 +803,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@petId"
                   }
                 ],

@@ -20,7 +20,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@item"
             }
           ],
@@ -87,7 +87,7 @@
               "rules": [
                 {
                   "key": "allOf",
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@user"
                 }
               ],

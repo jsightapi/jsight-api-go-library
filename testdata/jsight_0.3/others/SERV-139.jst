@@ -1,0 +1,19 @@
+JSIGHT 0.3
+
+TYPE @id
+{
+  "id": 1
+}
+
+TYPE @name
+{
+  "name": "Tom"
+}
+
+TYPE @t1
+{ // {allOf: "@id"}
+}
+
+TYPE @t2
+{ // {allOf: ["@id", "@name"]}
+}

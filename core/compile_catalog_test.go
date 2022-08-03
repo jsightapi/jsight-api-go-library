@@ -219,7 +219,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 						[]catalog.Rule{
 							{
 								Key:         "allOf",
-								TokenType:   catalog.RuleTokenTypeString,
+								TokenType:   catalog.RuleTokenTypeReference,
 								ScalarValue: "@foo",
 							},
 						},

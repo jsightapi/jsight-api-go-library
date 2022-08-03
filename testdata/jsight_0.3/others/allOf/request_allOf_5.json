@@ -76,11 +76,11 @@
                       "tokenType": "array",
                       "children": [
                         {
-                          "tokenType": "string",
+                          "tokenType": "reference",
                           "scalarValue": "@user"
                         },
                         {
-                          "tokenType": "string",
+                          "tokenType": "reference",
                           "scalarValue": "@item"
                         }
                       ]

@@ -55,7 +55,7 @@
                 "rules": [
                   {
                     "key": "type",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@catName"
                   }
                 ],

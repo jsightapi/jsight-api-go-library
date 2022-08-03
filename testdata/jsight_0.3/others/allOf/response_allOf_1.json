@@ -59,7 +59,7 @@
                 "rules": [
                   {
                     "key": "allOf",
-                    "tokenType": "string",
+                    "tokenType": "reference",
                     "scalarValue": "@user"
                   }
                 ],
