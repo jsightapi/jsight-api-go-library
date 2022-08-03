@@ -10,11 +10,10 @@ GET /cats
 URL /dogs
   Tags @dogsBook
 
-  GET
   POST
-  DELETE
+  PUT
 
-URL /rpc
+URL /pig/rpc
   Protocol json-rpc-2.0
 
   Method createPig
@@ -31,5 +30,7 @@ URL /rpc
 TAG @dogsBook
 TAG @pigsBook
 
-GET /any
+GET /all-tags
   Tags @catsBook @dogsBook @pigsBook
+
+DELETE /without-tag

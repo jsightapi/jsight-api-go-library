@@ -19,6 +19,10 @@ func (c *Catalog) AddTag(name, title string) error {
 		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, name)
 	}
 
+	if title == "" {
+		title = name
+	}
+
 	t := NewTag(name, title)
 
 	c.Tags.Set(t.Name, t)

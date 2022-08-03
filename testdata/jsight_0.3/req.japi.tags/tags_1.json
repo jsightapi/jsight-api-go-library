@@ -9,40 +9,51 @@
           "protocol": "http",
           "interactions": [
             "http GET /cats",
-            "http GET /any"
+            "http GET /all-tags"
           ]
         }
       ]
     },
     "@dogsBook": {
       "name": "@dogsBook",
-      "title": "",
+      "title": "@dogsBook",
       "interactionGroups": [
         {
           "protocol": "http",
           "interactions": [
-            "http GET /dogs",
             "http POST /dogs",
-            "http DELETE /dogs",
-            "http GET /any"
+            "http PUT /dogs",
+            "http GET /all-tags"
           ]
         }
       ]
     },
     "@pigsBook": {
       "name": "@pigsBook",
-      "title": "",
+      "title": "@pigsBook",
       "interactionGroups": [
         {
           "protocol": "http",
           "interactions": [
-            "http GET /any"
+            "http GET /all-tags"
           ]
         },
         {
           "protocol": "json-rpc-2.0",
           "interactions": [
-            "json-rpc-2.0 createPig /rpc"
+            "json-rpc-2.0 createPig /pig/rpc"
+          ]
+        }
+      ]
+    },
+    "@without-tag": {
+      "name": "@without-tag",
+      "title": "/without-tag",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http DELETE /without-tag"
           ]
         }
       ]
@@ -58,15 +69,6 @@
         "@catsBook"
       ]
     },
-    "http GET /dogs": {
-      "id": "http GET /dogs",
-      "protocol": "http",
-      "httpMethod": "GET",
-      "path": "/dogs",
-      "tags": [
-        "@dogsBook"
-      ]
-    },
     "http POST /dogs": {
       "id": "http POST /dogs",
       "protocol": "http",
@@ -76,19 +78,19 @@
         "@dogsBook"
       ]
     },
-    "http DELETE /dogs": {
-      "id": "http DELETE /dogs",
+    "http PUT /dogs": {
+      "id": "http PUT /dogs",
       "protocol": "http",
-      "httpMethod": "DELETE",
+      "httpMethod": "PUT",
       "path": "/dogs",
       "tags": [
         "@dogsBook"
       ]
     },
-    "json-rpc-2.0 createPig /rpc": {
-      "id": "json-rpc-2.0 createPig /rpc",
+    "json-rpc-2.0 createPig /pig/rpc": {
+      "id": "json-rpc-2.0 createPig /pig/rpc",
       "protocol": "json-rpc-2.0",
-      "path": "/rpc",
+      "path": "/pig/rpc",
       "method": "createPig",
       "tags": [
         "@pigsBook"
@@ -132,15 +134,24 @@
         }
       }
     },
-    "http GET /any": {
-      "id": "http GET /any",
+    "http GET /all-tags": {
+      "id": "http GET /all-tags",
       "protocol": "http",
       "httpMethod": "GET",
-      "path": "/any",
+      "path": "/all-tags",
       "tags": [
         "@catsBook",
         "@dogsBook",
         "@pigsBook"
+      ]
+    },
+    "http DELETE /without-tag": {
+      "id": "http DELETE /without-tag",
+      "protocol": "http",
+      "httpMethod": "DELETE",
+      "path": "/without-tag",
+      "tags": [
+        "@without-tag"
       ]
     }
   },
