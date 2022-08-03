@@ -33,7 +33,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@level1"
             }
           ],
@@ -85,7 +85,7 @@
           "rules": [
             {
               "key": "allOf",
-              "tokenType": "string",
+              "tokenType": "reference",
               "scalarValue": "@level2"
             }
           ],

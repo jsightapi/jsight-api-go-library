@@ -10,11 +10,11 @@
               "tokenType": "array",
               "children": [
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@1"
                 },
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@2"
                 }
               ]
@@ -74,11 +74,11 @@
               "tokenType": "array",
               "children": [
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@2"
                 },
                 {
-                  "tokenType": "string",
+                  "tokenType": "reference",
                   "scalarValue": "@1"
                 }
               ]
