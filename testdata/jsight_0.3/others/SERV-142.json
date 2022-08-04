@@ -1,0 +1,35 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@AnnotationDashTest": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "note": "comment after rules with dash",
+              "key": "field",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "value",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
