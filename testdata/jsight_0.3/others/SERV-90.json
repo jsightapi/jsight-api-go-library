@@ -16,6 +16,108 @@
           "type": "object",
           "children": [
             {
+              "key": "type",
+              "tokenType": "reference",
+              "type": "@animalType",
+              "scalarValue": "@animalType",
+              "inheritedFrom": "@pet",
+              "optional": false
+            },
+            {
+              "key": "moodStatus",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "happy",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "enum"
+                },
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "happy"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "gloomy"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "age",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "12",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "600"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "weight",
+              "tokenType": "number",
+              "type": "float",
+              "scalarValue": "2.5",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "min",
+                  "tokenType": "number",
+                  "scalarValue": "0"
+                },
+                {
+                  "key": "exclusiveMinimum",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                },
+                {
+                  "key": "max",
+                  "tokenType": "number",
+                  "scalarValue": "6000"
+                },
+                {
+                  "key": "exclusiveMaximum",
+                  "tokenType": "boolean",
+                  "scalarValue": "false"
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "birthday",
+              "tokenType": "string",
+              "type": "date",
+              "scalarValue": "2006-01-02",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "type",
+                  "tokenType": "string",
+                  "scalarValue": "date"
+                }
+              ],
+              "optional": false
+            },
+            {
               "key": "passportNumber",
               "tokenType": "number",
               "type": "mixed",
@@ -165,7 +267,8 @@
         "notation": "jsight",
         "usedUserTypes": [
           "@pet",
-          "@catId"
+          "@catId",
+          "@animal"
         ]
       }
     },

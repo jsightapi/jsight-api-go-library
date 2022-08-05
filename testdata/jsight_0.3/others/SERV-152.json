@@ -1,0 +1,156 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testAllOflevels": {
+      "annotation": "Test the fields order: 1-1-2-2-3-3.",
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "reference",
+              "scalarValue": "@level2"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "inheritedFrom": "@level2",
+              "optional": false
+            },
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "inheritedFrom": "@level2",
+              "optional": false
+            },
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "inheritedFrom": "@level2",
+              "optional": false
+            },
+            {
+              "key": "level2Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "inheritedFrom": "@level2",
+              "optional": false
+            },
+            {
+              "key": "level3Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "3",
+              "optional": false
+            },
+            {
+              "key": "level3Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "3",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@level2",
+          "@level1"
+        ]
+      }
+    },
+    "@level1": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            },
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@level2": {
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "reference",
+              "scalarValue": "@level1"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "inheritedFrom": "@level1",
+              "optional": false
+            },
+            {
+              "key": "level1Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "inheritedFrom": "@level1",
+              "optional": false
+            },
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "optional": false
+            },
+            {
+              "key": "level2Field2",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@level1"
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
