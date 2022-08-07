@@ -1,0 +1,190 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testMultipleAllOfOrder1": {
+      "annotation": "Must be 1-2-3-4.",
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "reference",
+                  "scalarValue": "@allOf1"
+                },
+                {
+                  "tokenType": "reference",
+                  "scalarValue": "@allOf2"
+                }
+              ]
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "C",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "1",
+              "inheritedFrom": "@allOf1",
+              "optional": false
+            },
+            {
+              "key": "8",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "2",
+              "inheritedFrom": "@allOf1",
+              "optional": false
+            },
+            {
+              "key": "5",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "3",
+              "inheritedFrom": "@allOf2",
+              "optional": false
+            },
+            {
+              "key": "e",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "4",
+              "inheritedFrom": "@allOf2",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@allOf1",
+          "@allOf2"
+        ]
+      }
+    },
+    "@testMultipleAllOfOrder2": {
+      "annotation": "Must be 3-4-1-2.",
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "reference",
+                  "scalarValue": "@allOf2"
+                },
+                {
+                  "tokenType": "reference",
+                  "scalarValue": "@allOf1"
+                }
+              ]
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "5",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "3",
+              "inheritedFrom": "@allOf2",
+              "optional": false
+            },
+            {
+              "key": "e",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "4",
+              "inheritedFrom": "@allOf2",
+              "optional": false
+            },
+            {
+              "key": "C",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "1",
+              "inheritedFrom": "@allOf1",
+              "optional": false
+            },
+            {
+              "key": "8",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "2",
+              "inheritedFrom": "@allOf1",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@allOf2",
+          "@allOf1"
+        ]
+      }
+    },
+    "@allOf1": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "C",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "1",
+              "optional": false
+            },
+            {
+              "key": "8",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "2",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    },
+    "@allOf2": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "5",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "3",
+              "optional": false
+            },
+            {
+              "key": "e",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "4",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
