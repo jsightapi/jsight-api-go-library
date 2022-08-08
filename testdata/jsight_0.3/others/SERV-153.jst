@@ -1,0 +1,21 @@
+JSIGHT 0.3
+
+TYPE @testMultipleAllOfOrder1 // Must be 1-2-3-4.
+{ // {allOf: ["@allOf1", "@allOf2"]}
+}
+
+TYPE @testMultipleAllOfOrder2 // Must be 3-4-1-2.
+{ // {allOf: ["@allOf2", "@allOf1"]}
+}
+
+TYPE @allOf1
+{
+  "C": "1",
+  "8": "2"
+}
+
+TYPE @allOf2
+{
+  "5": "3",
+  "e": "4"
+}
