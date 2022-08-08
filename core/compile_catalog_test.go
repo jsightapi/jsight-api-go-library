@@ -195,23 +195,22 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 			},
 
 			"with allOf, single": {
-				&JApiCore{
-					catalog: func() *catalog.Catalog {
-						c := catalog.NewCatalog()
-						c.UserTypes.Set("@foo", &catalog.UserType{
-							Schema: catalog.Schema{
-								ContentJSight: &catalog.SchemaContentJSight{
-									TokenType: jschema.JSONTypeObject,
-									Children: []*catalog.SchemaContentJSight{
-										{Key: catalog.SrtPtr("foo")},
-										{Key: catalog.SrtPtr("bar")},
-									},
+				func() *JApiCore {
+					core := NewJApiCore(fs.NewFile("", `{}`))
+					core.catalog = catalog.NewCatalog()
+					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
+						Schema: catalog.Schema{
+							ContentJSight: &catalog.SchemaContentJSight{
+								TokenType: jschema.JSONTypeObject,
+								Children: []*catalog.SchemaContentJSight{
+									{Key: catalog.SrtPtr("foo")},
+									{Key: catalog.SrtPtr("bar")},
 								},
 							},
-						})
-						return c
-					}(),
-				},
+						},
+					})
+					return core
+				}(),
 				&catalog.SchemaContentJSight{
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
@@ -239,34 +238,33 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 			},
 
 			"with allOf, array": {
-				&JApiCore{
-					catalog: func() *catalog.Catalog {
-						c := catalog.NewCatalog()
-						c.UserTypes.Set("@foo", &catalog.UserType{
-							Schema: catalog.Schema{
-								ContentJSight: &catalog.SchemaContentJSight{
-									TokenType: jschema.JSONTypeObject,
-									Children: []*catalog.SchemaContentJSight{
-										{Key: catalog.SrtPtr("foo1")},
-										{Key: catalog.SrtPtr("foo2")},
-									},
+				func() *JApiCore {
+					core := NewJApiCore(fs.NewFile("", `{}`))
+					core.catalog = catalog.NewCatalog()
+					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
+						Schema: catalog.Schema{
+							ContentJSight: &catalog.SchemaContentJSight{
+								TokenType: jschema.JSONTypeObject,
+								Children: []*catalog.SchemaContentJSight{
+									{Key: catalog.SrtPtr("foo1")},
+									{Key: catalog.SrtPtr("foo2")},
 								},
 							},
-						})
-						c.UserTypes.Set("@bar", &catalog.UserType{
-							Schema: catalog.Schema{
-								ContentJSight: &catalog.SchemaContentJSight{
-									TokenType: jschema.JSONTypeObject,
-									Children: []*catalog.SchemaContentJSight{
-										{Key: catalog.SrtPtr("bar1")},
-										{Key: catalog.SrtPtr("bar2")},
-									},
+						},
+					})
+					core.catalog.UserTypes.Set("@bar", &catalog.UserType{
+						Schema: catalog.Schema{
+							ContentJSight: &catalog.SchemaContentJSight{
+								TokenType: jschema.JSONTypeObject,
+								Children: []*catalog.SchemaContentJSight{
+									{Key: catalog.SrtPtr("bar1")},
+									{Key: catalog.SrtPtr("bar2")},
 								},
 							},
-						})
-						return c
-					}(),
-				},
+						},
+					})
+					return core
+				}(),
 				&catalog.SchemaContentJSight{
 					TokenType: jschema.JSONTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
@@ -376,9 +374,8 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 
 		for n, c := range cc {
 			t.Run(n, func(t *testing.T) {
-				core := &JApiCore{
-					catalog: catalog.NewCatalog(),
-				}
+				core := NewJApiCore(fs.NewFile("", `{}`))
+				core.catalog = catalog.NewCatalog()
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
 						ContentJSight: &catalog.SchemaContentJSight{
@@ -429,9 +426,8 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 		}
 
 		t.Run("property already set", func(t *testing.T) {
-			core := &JApiCore{
-				catalog: catalog.NewCatalog(),
-			}
+			core := NewJApiCore(fs.NewFile("", `{}`))
+			core.catalog = catalog.NewCatalog()
 			core.catalog.UserTypes.Set("foo", &catalog.UserType{
 				Schema: catalog.Schema{
 					ContentJSight: &catalog.SchemaContentJSight{
