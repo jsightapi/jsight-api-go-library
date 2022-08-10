@@ -5,17 +5,14 @@
       "title": "/api",
       "interactionGroups": [
         {
-          "protocol": "http",
-          "interactions": [
-            "http GET /api/http",
-            "http POST /api/http"
-          ]
-        },
-        {
           "protocol": "json-rpc-2.0",
           "interactions": [
-            "json-rpc-2.0 createCat /api/rpc",
-            "json-rpc-2.0 getCat /api/rpc"
+            "json-rpc-2.0 newCat /api/rpc",
+            "json-rpc-2.0 getCat /api/rpc",
+            "json-rpc-2.0 updateCatAge /api/rpc",
+            "json-rpc-2.0 getListOfCats /api/rpc",
+            "json-rpc-2.0 countCats /api/rpc",
+            "json-rpc-2.0 deleteAllCats /api/rpc"
           ]
         }
       ]
@@ -41,6 +38,13 @@
               "type": "string",
               "scalarValue": "Tom",
               "optional": false
+            },
+            {
+              "key": "age",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "8",
+              "optional": false
             }
           ],
           "optional": false
@@ -50,48 +54,22 @@
     }
   },
   "interactions": {
-    "http GET /api/http": {
-      "id": "http GET /api/http",
-      "protocol": "http",
-      "httpMethod": "GET",
-      "path": "/api/http",
-      "tags": [
-        "@api"
-      ]
-    },
-    "http POST /api/http": {
-      "id": "http POST /api/http",
-      "protocol": "http",
-      "httpMethod": "POST",
-      "path": "/api/http",
-      "tags": [
-        "@api"
-      ]
-    },
-    "json-rpc-2.0 createCat /api/rpc": {
-      "id": "json-rpc-2.0 createCat /api/rpc",
+    "json-rpc-2.0 newCat /api/rpc": {
+      "id": "json-rpc-2.0 newCat /api/rpc",
       "protocol": "json-rpc-2.0",
       "path": "/api/rpc",
-      "method": "createCat",
+      "method": "newCat",
       "tags": [
         "@api"
       ],
       "annotation": "Create a cat.",
-      "description": "The method creates a better cat.",
+      "description": "The method creates a cat and returns its ID.",
       "params": {
         "schema": {
           "content": {
-            "tokenType": "object",
-            "type": "object",
-            "children": [
-              {
-                "key": "cat",
-                "tokenType": "reference",
-                "type": "@cat",
-                "scalarValue": "@cat",
-                "optional": false
-              }
-            ],
+            "tokenType": "reference",
+            "type": "@cat",
+            "scalarValue": "@cat",
             "optional": false
           },
           "notation": "jsight",
@@ -103,18 +81,10 @@
       "result": {
         "schema": {
           "content": {
-            "tokenType": "object",
-            "type": "object",
-            "children": [
-              {
-                "note": "Cat’s id.",
-                "key": "id",
-                "tokenType": "number",
-                "type": "integer",
-                "scalarValue": "1",
-                "optional": false
-              }
-            ],
+            "note": "Cat’s id.",
+            "tokenType": "number",
+            "type": "integer",
+            "scalarValue": "1",
             "optional": false
           },
           "notation": "jsight"
@@ -129,22 +99,14 @@
       "tags": [
         "@api"
       ],
-      "annotation": "Get a cat by its id.",
+      "annotation": "Get a cat.",
       "params": {
         "schema": {
           "content": {
-            "tokenType": "object",
-            "type": "object",
-            "children": [
-              {
-                "note": "Cat’s id.",
-                "key": "id",
-                "tokenType": "number",
-                "type": "integer",
-                "scalarValue": "1",
-                "optional": false
-              }
-            ],
+            "note": "Cat’s id.",
+            "tokenType": "number",
+            "type": "integer",
+            "scalarValue": "1",
             "optional": false
           },
           "notation": "jsight"
@@ -164,6 +126,162 @@
           ]
         }
       }
+    },
+    "json-rpc-2.0 updateCatAge /api/rpc": {
+      "id": "json-rpc-2.0 updateCatAge /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "updateCatAge",
+      "tags": [
+        "@api"
+      ],
+      "annotation": "Update the information about the age of a cat.",
+      "params": {
+        "schema": {
+          "content": {
+            "tokenType": "object",
+            "type": "object",
+            "children": [
+              {
+                "note": "Cat’s id.",
+                "key": "id",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": false
+              },
+              {
+                "note": "Cat’s age.",
+                "key": "age",
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "9",
+                "optional": false
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "boolean",
+            "type": "boolean",
+            "scalarValue": "true",
+            "rules": [
+              {
+                "key": "const",
+                "tokenType": "boolean",
+                "scalarValue": "true"
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      }
+    },
+    "json-rpc-2.0 getListOfCats /api/rpc": {
+      "id": "json-rpc-2.0 getListOfCats /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "getListOfCats",
+      "tags": [
+        "@api"
+      ],
+      "annotation": "Get a list of cats by their IDs.",
+      "params": {
+        "schema": {
+          "content": {
+            "tokenType": "array",
+            "type": "array",
+            "children": [
+              {
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "1",
+                "optional": true
+              },
+              {
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "2",
+                "optional": true
+              },
+              {
+                "tokenType": "number",
+                "type": "integer",
+                "scalarValue": "3",
+                "optional": true
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      },
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "array",
+            "type": "array",
+            "children": [
+              {
+                "tokenType": "reference",
+                "type": "@cat",
+                "scalarValue": "@cat",
+                "optional": true
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight",
+          "usedUserTypes": [
+            "@cat"
+          ]
+        }
+      }
+    },
+    "json-rpc-2.0 countCats /api/rpc": {
+      "id": "json-rpc-2.0 countCats /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "countCats",
+      "tags": [
+        "@api"
+      ],
+      "annotation": "Returns the number of cats.",
+      "result": {
+        "schema": {
+          "content": {
+            "tokenType": "number",
+            "type": "integer",
+            "scalarValue": "19",
+            "rules": [
+              {
+                "key": "min",
+                "tokenType": "number",
+                "scalarValue": "0"
+              }
+            ],
+            "optional": false
+          },
+          "notation": "jsight"
+        }
+      }
+    },
+    "json-rpc-2.0 deleteAllCats /api/rpc": {
+      "id": "json-rpc-2.0 deleteAllCats /api/rpc",
+      "protocol": "json-rpc-2.0",
+      "path": "/api/rpc",
+      "method": "deleteAllCats",
+      "tags": [
+        "@api"
+      ],
+      "annotation": "Remove all cats.",
+      "description": "The method removes all cats without filtering."
     }
   },
   "jsight": "0.3",
