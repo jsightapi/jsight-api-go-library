@@ -1,0 +1,57 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testPseudoDuplicates": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "@catId",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "isKeyUserTypeRef": true,
+              "optional": false
+            },
+            {
+              "key": "@catId",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@catId"
+        ]
+      }
+    },
+    "@catId": {
+      "schema": {
+        "content": {
+          "note": "A cat's id.",
+          "tokenType": "number",
+          "type": "integer",
+          "scalarValue": "12",
+          "rules": [
+            {
+              "key": "min",
+              "tokenType": "number",
+              "scalarValue": "1"
+            }
+          ],
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
