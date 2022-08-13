@@ -44,6 +44,7 @@
           ],
           "optional": false
         },
+        "example": "{\"page\":1,\"per_page\":50}",
         "notation": "jsight"
       }
     }
@@ -52,6 +53,7 @@
     "http GET /list": {
       "id": "http GET /list",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/list",
       "tags": [
         "@list"
@@ -103,13 +105,13 @@
             ],
             "optional": false
           },
+          "example": "{\"section\":\"abc\",\"page\":1,\"per_page\":50}",
           "notation": "jsight",
           "usedUserTypes": [
             "@pager"
           ]
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

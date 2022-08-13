@@ -29,6 +29,7 @@
           ],
           "optional": false
         },
+        "example": "\"Tom\"",
         "notation": "jsight"
       }
     }
@@ -37,10 +38,8 @@
     "http GET /cats/{name}": {
       "id": "http GET /cats/{name}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats/{name}",
-      "tags": [
-        "@cats"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -70,7 +69,9 @@
           ]
         }
       },
-      "httpMethod": "GET"
+      "tags": [
+        "@cats"
+      ]
     }
   },
   "jsight": "0.3",

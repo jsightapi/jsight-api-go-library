@@ -30,6 +30,7 @@
           ],
           "optional": false
         },
+        "example": "{\"ok\":\"ok\"}",
         "notation": "jsight"
       }
     },
@@ -49,6 +50,7 @@
           ],
           "optional": false
         },
+        "example": "{\"ok\":\"ok\"}",
         "notation": "jsight"
       }
     }
@@ -57,6 +59,7 @@
     "http GET /cats/enemies": {
       "id": "http GET /cats/enemies",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats/enemies",
       "tags": [
         "@cats"
@@ -73,6 +76,7 @@
                 "scalarValue": "@dog | @pig",
                 "optional": false
               },
+              "example": "{\"ok\":\"ok\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog",
@@ -81,8 +85,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

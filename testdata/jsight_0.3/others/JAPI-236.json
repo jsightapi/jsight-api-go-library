@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":\"DOG-123\",\"name\":\"Doggie\"}",
         "notation": "jsight"
       }
     }
@@ -45,6 +46,7 @@
     "http GET /cats/{id}": {
       "id": "http GET /cats/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -90,6 +92,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"id\":1,\"name\":\"Tom\",\"enemy\":{\"id\":\"DOG-123\",\"name\":\"Doggie\"}}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog"
@@ -97,8 +100,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

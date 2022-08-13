@@ -22,6 +22,7 @@
           "scalarValue": "12",
           "optional": false
         },
+        "example": "12",
         "notation": "jsight"
       }
     },
@@ -33,6 +34,7 @@
           "scalarValue": "funtic",
           "optional": false
         },
+        "example": "\"funtic\"",
         "notation": "jsight"
       }
     }
@@ -41,6 +43,7 @@
     "http PUT /": {
       "id": "http PUT /",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/",
       "tags": [
         "@_"
@@ -57,6 +60,7 @@
                 "scalarValue": "@dog | @cat",
                 "optional": false
               },
+              "example": "\"funtic\"",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog",
@@ -65,8 +69,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     }
   },
   "jsight": "0.3",

@@ -114,6 +114,7 @@
           ],
           "optional": false
         },
+        "example": "{\"foo\":1}",
         "notation": "jsight"
       }
     },
@@ -133,6 +134,7 @@
           ],
           "optional": false
         },
+        "example": "{\"bar\":2}",
         "notation": "jsight"
       }
     }
@@ -141,6 +143,7 @@
     "http GET /get": {
       "id": "http GET /get",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/get",
       "tags": [
         "@get"
@@ -164,6 +167,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -205,6 +209,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -225,6 +230,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -269,6 +275,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -289,6 +296,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -332,6 +340,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -352,6 +361,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -395,6 +405,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -415,20 +426,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http GET /get/{id}": {
       "id": "http GET /get/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/get/{id}",
-      "tags": [
-        "@get"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -448,6 +457,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@get"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -467,6 +479,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -508,6 +521,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -528,6 +542,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -572,6 +587,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -592,6 +608,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -635,6 +652,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -655,6 +673,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -698,6 +717,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -718,16 +738,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /post": {
       "id": "http POST /post",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/post",
       "tags": [
         "@post"
@@ -751,6 +772,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -792,6 +814,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -812,6 +835,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -856,6 +880,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -876,6 +901,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -919,6 +945,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -939,6 +966,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -982,6 +1010,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1002,20 +1031,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http POST /post/{id}": {
       "id": "http POST /post/{id}",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/post/{id}",
-      "tags": [
-        "@post"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -1035,6 +1062,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@post"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -1054,6 +1084,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -1095,6 +1126,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -1115,6 +1147,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -1159,6 +1192,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1179,6 +1213,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1222,6 +1257,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1242,6 +1278,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1285,6 +1322,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1305,16 +1343,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http PUT /put": {
       "id": "http PUT /put",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/put",
       "tags": [
         "@put"
@@ -1338,6 +1377,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -1379,6 +1419,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -1399,6 +1440,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -1443,6 +1485,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1463,6 +1506,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1506,6 +1550,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1526,6 +1571,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1569,6 +1615,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1589,20 +1636,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http PUT /put/{id}": {
       "id": "http PUT /put/{id}",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/put/{id}",
-      "tags": [
-        "@put"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -1622,6 +1667,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@put"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -1641,6 +1689,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -1682,6 +1731,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -1702,6 +1752,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -1746,6 +1797,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1766,6 +1818,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1809,6 +1862,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1829,6 +1883,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -1872,6 +1927,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -1892,16 +1948,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http PATCH /patch": {
       "id": "http PATCH /patch",
       "protocol": "http",
+      "httpMethod": "PATCH",
       "path": "/patch",
       "tags": [
         "@patch"
@@ -1925,6 +1982,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -1966,6 +2024,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -1986,6 +2045,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -2030,6 +2090,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2050,6 +2111,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2093,6 +2155,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2113,6 +2176,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2156,6 +2220,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2176,20 +2241,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PATCH"
+      ]
     },
     "http PATCH /patch/{id}": {
       "id": "http PATCH /patch/{id}",
       "protocol": "http",
+      "httpMethod": "PATCH",
       "path": "/patch/{id}",
-      "tags": [
-        "@patch"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -2209,6 +2272,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@patch"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -2228,6 +2294,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -2269,6 +2336,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -2289,6 +2357,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -2333,6 +2402,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2353,6 +2423,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2396,6 +2467,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2416,6 +2488,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2459,6 +2532,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2479,16 +2553,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PATCH"
+      ]
     },
     "http DELETE /delete": {
       "id": "http DELETE /delete",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/delete",
       "tags": [
         "@delete"
@@ -2512,6 +2587,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -2553,6 +2629,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -2573,6 +2650,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -2617,6 +2695,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2637,6 +2716,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2680,6 +2760,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2700,6 +2781,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2743,6 +2825,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2763,20 +2846,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     },
     "http DELETE /delete/{id}": {
       "id": "http DELETE /delete/{id}",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/delete/{id}",
-      "tags": [
-        "@delete"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -2796,6 +2877,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@delete"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -2815,6 +2899,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -2856,6 +2941,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -2876,6 +2962,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -2920,6 +3007,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -2940,6 +3028,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -2983,6 +3072,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3003,6 +3093,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3046,6 +3137,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3066,16 +3158,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     },
     "http GET /url": {
       "id": "http GET /url",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/url",
       "tags": [
         "@url"
@@ -3099,6 +3192,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -3140,6 +3234,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -3160,6 +3255,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -3204,6 +3300,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3224,6 +3321,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3267,6 +3365,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3287,6 +3386,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3330,6 +3430,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3350,16 +3451,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /url": {
       "id": "http POST /url",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/url",
       "tags": [
         "@url"
@@ -3383,6 +3485,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -3424,6 +3527,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -3444,6 +3548,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -3488,6 +3593,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3508,6 +3614,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3551,6 +3658,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3571,6 +3679,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3614,6 +3723,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3634,16 +3744,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http PUT /url": {
       "id": "http PUT /url",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/url",
       "tags": [
         "@url"
@@ -3667,6 +3778,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -3708,6 +3820,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -3728,6 +3841,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -3772,6 +3886,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3792,6 +3907,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3835,6 +3951,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3855,6 +3972,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -3898,6 +4016,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -3918,16 +4037,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http PATCH /url": {
       "id": "http PATCH /url",
       "protocol": "http",
+      "httpMethod": "PATCH",
       "path": "/url",
       "tags": [
         "@url"
@@ -3951,6 +4071,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -3992,6 +4113,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -4012,6 +4134,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -4056,6 +4179,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4076,6 +4200,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4119,6 +4244,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4139,6 +4265,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4182,6 +4309,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4202,16 +4330,17 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PATCH"
+      ]
     },
     "http DELETE /url": {
       "id": "http DELETE /url",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/url",
       "tags": [
         "@url"
@@ -4235,6 +4364,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -4276,6 +4406,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -4296,6 +4427,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -4340,6 +4472,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4360,6 +4493,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4403,6 +4537,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4423,6 +4558,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4466,6 +4602,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4486,20 +4623,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     },
     "http GET /url/{id}": {
       "id": "http GET /url/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/url/{id}",
-      "tags": [
-        "@url"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -4519,6 +4654,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@url"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -4538,6 +4676,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -4579,6 +4718,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -4599,6 +4739,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -4643,6 +4784,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4663,6 +4805,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4706,6 +4849,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4726,6 +4870,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -4769,6 +4914,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4789,20 +4935,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /url/{id}": {
       "id": "http POST /url/{id}",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/url/{id}",
-      "tags": [
-        "@url"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -4822,6 +4966,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@url"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -4841,6 +4988,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -4882,6 +5030,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -4902,6 +5051,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -4946,6 +5096,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -4966,6 +5117,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5009,6 +5161,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5029,6 +5182,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5072,6 +5226,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5092,20 +5247,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http PUT /url/{id}": {
       "id": "http PUT /url/{id}",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/url/{id}",
-      "tags": [
-        "@url"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -5125,6 +5278,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@url"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -5144,6 +5300,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -5185,6 +5342,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -5205,6 +5363,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -5249,6 +5408,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5269,6 +5429,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5312,6 +5473,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5332,6 +5494,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5375,6 +5538,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5395,20 +5559,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http PATCH /url/{id}": {
       "id": "http PATCH /url/{id}",
       "protocol": "http",
+      "httpMethod": "PATCH",
       "path": "/url/{id}",
-      "tags": [
-        "@url"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -5428,6 +5590,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@url"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -5447,6 +5612,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -5488,6 +5654,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -5508,6 +5675,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -5552,6 +5720,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5572,6 +5741,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5615,6 +5785,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5635,6 +5806,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5678,6 +5850,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5698,20 +5871,18 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "PATCH"
+      ]
     },
     "http DELETE /url/{id}": {
       "id": "http DELETE /url/{id}",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/url/{id}",
-      "tags": [
-        "@url"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -5731,6 +5902,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@url"
+      ],
       "description": "HTTP Method description",
       "query": {
         "example": "page=1",
@@ -5750,6 +5924,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },
@@ -5791,6 +5966,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -5811,6 +5987,7 @@
               ],
               "optional": false
             },
+            "example": "{\"foo\":\"1\"}",
             "notation": "jsight"
           }
         }
@@ -5855,6 +6032,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5875,6 +6053,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5918,6 +6097,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -5938,6 +6118,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
@@ -5981,6 +6162,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -6001,12 +6183,12 @@
                 ],
                 "optional": false
               },
+              "example": "{\"foo\":\"1\"}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     }
   },
   "jsight": "0.3",

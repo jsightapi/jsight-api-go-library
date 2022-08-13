@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":12,\"name\":\"Tom\"}",
         "notation": "jsight"
       }
     }
@@ -45,6 +46,7 @@
     "http POST /cat": {
       "id": "http POST /cat",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -61,6 +63,7 @@
                 "scalarValue": "@cat",
                 "optional": false
               },
+              "example": "{\"id\":12,\"name\":\"Tom\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
@@ -68,8 +71,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     }
   },
   "jsight": "0.3",

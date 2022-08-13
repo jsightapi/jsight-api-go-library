@@ -30,6 +30,7 @@
           ],
           "optional": false
         },
+        "example": "{\"name\":\"kusja\"}",
         "notation": "jsight"
       }
     }
@@ -38,6 +39,7 @@
     "http POST /": {
       "id": "http POST /",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/",
       "tags": [
         "@_"
@@ -52,14 +54,14 @@
               "scalarValue": "@cat",
               "optional": false
             },
+            "example": "{\"name\":\"kusja\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@cat"
             ]
           }
         }
-      },
-      "httpMethod": "POST"
+      }
     }
   },
   "jsight": "0.3",

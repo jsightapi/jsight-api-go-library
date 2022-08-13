@@ -68,6 +68,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"name\":\"Tom\"}",
               "notation": "jsight"
             }
           }

@@ -118,6 +118,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -223,6 +224,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },

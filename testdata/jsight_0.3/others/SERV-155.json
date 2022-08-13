@@ -25,6 +25,7 @@
           ],
           "optional": false
         },
+        "example": "{\"12\":1,\"@catId\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@catId"
@@ -47,6 +48,7 @@
           ],
           "optional": false
         },
+        "example": "12",
         "notation": "jsight"
       }
     }
