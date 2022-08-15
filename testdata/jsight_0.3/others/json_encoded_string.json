@@ -1,0 +1,19 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@jsonEncoding": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "Hello, 世界 \" \\ / \u0008 \u000c \n \r \t",
+          "optional": false
+        },
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
