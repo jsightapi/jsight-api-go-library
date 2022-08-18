@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"optional3\":[\"optionalItem1\",\"optionalItem2\"]}",
         "notation": "jsight"
       }
     }

@@ -17,6 +17,7 @@
           "children": [],
           "optional": false
         },
+        "example": "[]",
         "notation": "jsight"
       }
     }

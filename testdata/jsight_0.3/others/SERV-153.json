@@ -59,6 +59,7 @@
           ],
           "optional": false
         },
+        "example": "{\"C\":\"1\",\"8\":\"2\",\"5\":\"3\",\"e\":\"4\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@allOf1",
@@ -124,6 +125,7 @@
           ],
           "optional": false
         },
+        "example": "{\"5\":\"3\",\"e\":\"4\",\"C\":\"1\",\"8\":\"2\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@allOf2",
@@ -154,6 +156,7 @@
           ],
           "optional": false
         },
+        "example": "{\"C\":\"1\",\"8\":\"2\"}",
         "notation": "jsight"
       }
     },
@@ -180,6 +183,7 @@
           ],
           "optional": false
         },
+        "example": "{\"5\":\"3\",\"e\":\"4\"}",
         "notation": "jsight"
       }
     }

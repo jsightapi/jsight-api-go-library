@@ -111,6 +111,7 @@
             ],
             "optional": false
           },
+          "example": "{\"name\":\"pig name\"}",
           "notation": "jsight"
         }
       },
@@ -130,6 +131,7 @@
             ],
             "optional": false
           },
+          "example": "{\"id\":1}",
           "notation": "jsight"
         }
       }

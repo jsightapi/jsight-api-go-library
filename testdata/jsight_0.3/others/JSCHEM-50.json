@@ -38,6 +38,7 @@
           ],
           "optional": false
         },
+        "example": "{\"optional\":42,\"non_optional\":42}",
         "notation": "jsight"
       }
     }

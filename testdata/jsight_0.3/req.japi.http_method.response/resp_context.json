@@ -17,6 +17,7 @@
     "http GET /": {
       "id": "http GET /",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/",
       "tags": [
         "@_"
@@ -33,12 +34,12 @@
                 "scalarValue": "12",
                 "optional": false
               },
+              "example": "12",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

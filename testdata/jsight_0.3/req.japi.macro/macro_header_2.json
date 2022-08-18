@@ -59,6 +59,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\",\"Content-Type\":\"application/json\"}",
             "notation": "jsight"
           }
         },
@@ -71,6 +72,7 @@
               "scalarValue": "Tom",
               "optional": false
             },
+            "example": "\"Tom\"",
             "notation": "jsight"
           }
         }

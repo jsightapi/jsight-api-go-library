@@ -25,6 +25,7 @@
           ],
           "optional": false
         },
+        "example": "\"A\"",
         "notation": "jsight"
       }
     }

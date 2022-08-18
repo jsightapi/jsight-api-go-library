@@ -17,6 +17,7 @@
     "@dogName": {
       "schema": {
         "content": "s+",
+        "example": "s",
         "notation": "regex"
       }
     }
@@ -25,11 +26,11 @@
     "http GET /": {
       "id": "http GET /",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/",
       "tags": [
         "@_"
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

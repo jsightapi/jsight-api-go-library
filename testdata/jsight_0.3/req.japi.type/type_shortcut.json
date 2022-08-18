@@ -17,6 +17,7 @@
 					],
 					"optional": false
 				},
+				"example": "{\"a\":1}",
 				"notation": "jsight"
 			}
 		},
@@ -28,6 +29,7 @@
 					"scalarValue": "@n",
 					"optional": false
 				},
+				"example": "{\"a\":1}",
 				"notation": "jsight",
 				"usedUserTypes": [
 					"@n"

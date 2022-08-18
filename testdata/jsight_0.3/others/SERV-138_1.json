@@ -50,6 +50,7 @@
           ],
           "optional": false
         },
+        "example": "1",
         "notation": "jsight"
       }
     }

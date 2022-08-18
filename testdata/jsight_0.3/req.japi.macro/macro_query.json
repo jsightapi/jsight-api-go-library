@@ -39,6 +39,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight"
         }
       },

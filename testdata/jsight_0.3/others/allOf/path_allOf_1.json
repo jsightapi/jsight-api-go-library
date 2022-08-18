@@ -30,6 +30,7 @@
           ],
           "optional": false
         },
+        "example": "{\"section\":\"abc\"}",
         "notation": "jsight"
       }
     }

@@ -264,6 +264,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":\"CAT-123\",\"passportNumber\":1234123212,\"name\":\"Thomas the Great\",\"email\":\"thomas@catsbook.com\",\"website\":\"http://www.thomas-the-great.com\",\"owners\":[{\"id\":\"550e8400-e29b-41d4-a716-446655440000\",\"name\":\"John\"}],\"type\":\"cat\",\"moodStatus\":\"happy\",\"age\":12,\"weight\":2.5,\"birthday\":\"2006-01-02\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@pet",
@@ -514,6 +515,7 @@
           ],
           "optional": false
         },
+        "example": "{\"passportNumber\":1234123212,\"name\":\"Thomas the Great\",\"email\":\"thomas@catsbook.com\",\"website\":\"http://www.thomas-the-great.com\",\"owners\":[{\"id\":\"550e8400-e29b-41d4-a716-446655440000\",\"name\":\"John\"}],\"type\":\"cat\",\"moodStatus\":\"happy\",\"age\":12,\"weight\":2.5,\"birthday\":\"2006-01-02\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@animal"
@@ -626,6 +628,7 @@
           ],
           "optional": false
         },
+        "example": "{\"type\":\"cat\",\"moodStatus\":\"happy\",\"age\":12,\"weight\":2.5,\"birthday\":\"2006-01-02\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@animalType"
@@ -635,6 +638,7 @@
     "@catId": {
       "schema": {
         "content": "CAT-\\d+",
+        "example": "CAT-4",
         "notation": "regex"
       }
     },
@@ -670,6 +674,7 @@
           ],
           "optional": false
         },
+        "example": "\"cat\"",
         "notation": "jsight"
       }
     }

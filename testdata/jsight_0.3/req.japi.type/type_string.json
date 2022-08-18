@@ -9,6 +9,7 @@
 					"scalarValue": "kusja",
 					"optional": false
 				},
+				"example": "\"kusja\"",
 				"notation": "jsight"
 			}
 		}

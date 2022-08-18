@@ -17,6 +17,7 @@
     "http GET /catsName": {
       "id": "http GET /catsName",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/catsName",
       "tags": [
         "@catsName"
@@ -28,12 +29,12 @@
             "format": "plainString",
             "schema": {
               "content": "[a-z]+",
+              "example": "u",
               "notation": "regex"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

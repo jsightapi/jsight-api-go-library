@@ -29,6 +29,7 @@
           ],
           "optional": false
         },
+        "example": "\"section0\"",
         "notation": "jsight"
       }
     }
@@ -37,10 +38,8 @@
     "http GET /list/{section}/": {
       "id": "http GET /list/{section}/",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/list/{section}/",
-      "tags": [
-        "@list"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -63,7 +62,9 @@
           ]
         }
       },
-      "httpMethod": "GET"
+      "tags": [
+        "@list"
+      ]
     }
   },
   "jsight": "0.3",

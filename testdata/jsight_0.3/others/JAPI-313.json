@@ -45,6 +45,7 @@
           ],
           "optional": false
         },
+        "example": "{\"orByValue\":123}",
         "notation": "jsight"
       }
     }

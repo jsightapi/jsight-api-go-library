@@ -16,6 +16,7 @@
 					],
 					"optional": false
 				},
+				"example": "[12]",
 				"notation": "jsight"
 			}
 		}

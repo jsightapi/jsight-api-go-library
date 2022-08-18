@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
+	"github.com/jsightapi/jsight-api-go-library/core"
 	"github.com/jsightapi/jsight-api-go-library/kit"
 )
 
@@ -22,7 +23,7 @@ func TestJDocExchange(t *testing.T) {
 			japiPath, err := japiFilePath(jsonPath)
 			require.NoError(t, err)
 
-			j, err := kit.NewJapi(japiPath)
+			j, err := kit.NewJapi(japiPath, core.WithFixedSeedForRegex())
 			require.NoError(t, err)
 
 			je := j.ValidateJAPI()

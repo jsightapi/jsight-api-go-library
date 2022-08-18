@@ -30,6 +30,7 @@
           ],
           "optional": false
         },
+        "example": "{\"page\":1}",
         "notation": "jsight"
       }
     }
@@ -38,6 +39,7 @@
     "http GET /cats": {
       "id": "http GET /cats",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats",
       "tags": [
         "@cats"
@@ -52,13 +54,13 @@
             "scalarValue": "@query",
             "optional": false
           },
+          "example": "{\"page\":1}",
           "notation": "jsight",
           "usedUserTypes": [
             "@query"
           ]
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

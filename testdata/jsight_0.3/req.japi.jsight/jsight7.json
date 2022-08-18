@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":\"DOG-123\",\"name\":\"Doggie\"}",
         "notation": "jsight"
       }
     }
@@ -69,6 +70,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"oneEnemy\":{\"id\":\"DOG-123\",\"name\":\"Doggie\"}}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog"

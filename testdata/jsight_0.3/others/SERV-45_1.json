@@ -4,6 +4,7 @@
     "@t": {
       "schema": {
         "content": "reg\\/",
+        "example": "reg/",
         "notation": "regex"
       }
     }
