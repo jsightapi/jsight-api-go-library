@@ -1,0 +1,27 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@str": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "\" \\ /",
+          "rules": [
+            {
+              "key": "regex",
+              "tokenType": "string",
+              "scalarValue": "\" \\\\ \\/"
+            }
+          ],
+          "optional": false
+        },
+        "example": "\"\\\" \\\\ /\"",
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
