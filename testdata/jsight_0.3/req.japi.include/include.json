@@ -71,6 +71,7 @@
           ],
           "optional": false
         },
+        "example": "{\"foo\":1}",
         "notation": "jsight"
       }
     },
@@ -90,6 +91,7 @@
           ],
           "optional": false
         },
+        "example": "{\"bar\":2}",
         "notation": "jsight"
       }
     }
@@ -98,6 +100,7 @@
     "http PUT /foo": {
       "id": "http PUT /foo",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/foo",
       "tags": [
         "@foo"
@@ -114,6 +117,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -132,6 +136,7 @@
                 "scalarValue": "@bar",
                 "optional": false
               },
+              "example": "{\"bar\":2}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@bar"
@@ -139,12 +144,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http DELETE /foo": {
       "id": "http DELETE /foo",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/foo",
       "tags": [
         "@foo"
@@ -161,6 +166,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -168,12 +174,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     },
     "http GET /bar": {
       "id": "http GET /bar",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/bar",
       "tags": [
         "@bar"
@@ -190,6 +196,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -208,6 +215,7 @@
                 "scalarValue": "@bar",
                 "optional": false
               },
+              "example": "{\"bar\":2}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@bar"
@@ -215,12 +223,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /bar": {
       "id": "http POST /bar",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/bar",
       "tags": [
         "@bar"
@@ -237,6 +245,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -255,6 +264,7 @@
                 "scalarValue": "@bar",
                 "optional": false
               },
+              "example": "{\"bar\":2}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@bar"
@@ -262,12 +272,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http GET /mixins": {
       "id": "http GET /mixins",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/mixins",
       "tags": [
         "@mixins"
@@ -284,6 +294,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -302,6 +313,7 @@
                 "scalarValue": "@bar",
                 "optional": false
               },
+              "example": "{\"bar\":2}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@bar"
@@ -309,12 +321,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /mixins": {
       "id": "http POST /mixins",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/mixins",
       "tags": [
         "@mixins"
@@ -331,6 +343,7 @@
                 "scalarValue": "@foo",
                 "optional": false
               },
+              "example": "{\"foo\":1}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@foo"
@@ -349,6 +362,7 @@
                 "scalarValue": "@bar",
                 "optional": false
               },
+              "example": "{\"bar\":2}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@bar"
@@ -356,8 +370,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     }
   },
   "jsight": "0.3",

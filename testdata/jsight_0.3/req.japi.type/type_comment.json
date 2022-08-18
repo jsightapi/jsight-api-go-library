@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"field\":\"value\"}",
         "notation": "jsight"
       }
     }
@@ -45,6 +46,7 @@
     "http GET /cat": {
       "id": "http GET /cat",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -61,6 +63,7 @@
                 "scalarValue": "@cat",
                 "optional": false
               },
+              "example": "{\"field\":\"value\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
@@ -68,8 +71,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

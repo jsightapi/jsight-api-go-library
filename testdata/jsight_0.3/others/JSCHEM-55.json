@@ -38,6 +38,7 @@
           ],
           "optional": false
         },
+        "example": "{\"properties\":{\"minLength\":{\"properties\":{\"minLength\":{\"properties\":{}}}}}}",
         "notation": "jsight",
         "usedUserTypes": [
           "@rule",
@@ -141,6 +142,7 @@
           ],
           "optional": false
         },
+        "example": "\"minLength\"",
         "notation": "jsight"
       }
     }

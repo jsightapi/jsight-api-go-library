@@ -1,170 +1,173 @@
 {
-    "tags": {},
-    "userTypes": {
-        "@cat": {
-            "annotation": "A cat.",
-            "schema": {
-                "content": {
-                    "rules": [
+  "tags": {},
+  "userTypes": {
+    "@cat": {
+      "annotation": "A cat.",
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "reference",
+              "scalarValue": "@pet"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "passportNumber",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1234123212",
+              "inheritedFrom": "@pet",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "object",
+                      "children": [
                         {
-                            "key": "allOf",
-                            "tokenType": "reference",
-                            "scalarValue": "@pet"
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "integer"
                         }
-                    ],
-                    "tokenType": "object",
-                    "type": "object",
-                    "children": [
+                      ]
+                    },
+                    {
+                      "tokenType": "object",
+                      "children": [
                         {
-                            "key": "passportNumber",
-                            "tokenType": "number",
-                            "type": "mixed",
-                            "scalarValue": "1234123212",
-                            "inheritedFrom": "@pet",
-                            "rules": [
-                                {
-                                    "key": "or",
-                                    "tokenType": "array",
-                                    "children": [
-                                        {
-                                            "tokenType": "object",
-                                            "children": [
-                                                {
-                                                    "key": "type",
-                                                    "tokenType": "string",
-                                                    "scalarValue": "integer"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "tokenType": "object",
-                                            "children": [
-                                                {
-                                                    "key": "type",
-                                                    "tokenType": "string",
-                                                    "scalarValue": "string"
-                                                },
-                                                {
-                                                    "key": "minLength",
-                                                    "tokenType": "number",
-                                                    "scalarValue": "10"
-                                                },
-                                                {
-                                                    "key": "maxLength",
-                                                    "tokenType": "number",
-                                                    "scalarValue": "10"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "optional": false
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "string"
                         },
                         {
-                            "key": "friends",
-                            "tokenType": "reference",
-                            "type": "@catList",
-                            "scalarValue": "@catList",
-                            "rules": [
-                                {
-                                    "key": "optional",
-                                    "tokenType": "boolean",
-                                    "scalarValue": "true"
-                                }
-                            ],
-                            "optional": true
-                        }
-                    ],
-                    "optional": false
-                },
-                "notation": "jsight",
-                "usedUserTypes": [
-                    "@pet",
-                    "@catList"
-                ]
-            }
-        },
-        "@pet": {
-            "schema": {
-                "content": {
-                    "tokenType": "object",
-                    "type": "object",
-                    "children": [
+                          "key": "minLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
+                        },
                         {
-                            "key": "passportNumber",
-                            "tokenType": "number",
-                            "type": "mixed",
-                            "scalarValue": "1234123212",
-                            "rules": [
-                                {
-                                    "key": "or",
-                                    "tokenType": "array",
-                                    "children": [
-                                        {
-                                            "tokenType": "object",
-                                            "children": [
-                                                {
-                                                    "key": "type",
-                                                    "tokenType": "string",
-                                                    "scalarValue": "integer"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "tokenType": "object",
-                                            "children": [
-                                                {
-                                                    "key": "type",
-                                                    "tokenType": "string",
-                                                    "scalarValue": "string"
-                                                },
-                                                {
-                                                    "key": "minLength",
-                                                    "tokenType": "number",
-                                                    "scalarValue": "10"
-                                                },
-                                                {
-                                                    "key": "maxLength",
-                                                    "tokenType": "number",
-                                                    "scalarValue": "10"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "optional": false
+                          "key": "maxLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
                         }
-                    ],
-                    "optional": false
-                },
-                "notation": "jsight"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            },
+            {
+              "key": "friends",
+              "tokenType": "reference",
+              "type": "@catList",
+              "scalarValue": "@catList",
+              "rules": [
+                {
+                  "key": "optional",
+                  "tokenType": "boolean",
+                  "scalarValue": "true"
+                }
+              ],
+              "optional": true
             }
+          ],
+          "optional": false
         },
-        "@catList": {
-            "schema": {
-                "content": {
-                    "tokenType": "array",
-                    "type": "array",
-                    "children": [
-                        {
-                            "tokenType": "reference",
-                            "type": "@cat",
-                            "scalarValue": "@cat",
-                            "optional": true
-                        }
-                    ],
-                    "optional": false
-                },
-                "notation": "jsight",
-                "usedUserTypes": [
-                    "@cat"
-                ]
-            }
-        }
+        "example": "{\"friends\":[{\"friends\":[{\"passportNumber\":1234123212}],\"passportNumber\":1234123212}],\"passportNumber\":1234123212}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@pet",
+          "@catList"
+        ]
+      }
     },
-    "interactions": {},
-    "jsight": "0.3",
-    "jdocExchangeVersion": "2.0.0"
+    "@pet": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "passportNumber",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1234123212",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "tokenType": "object",
+                      "children": [
+                        {
+                          "key": "type",
+                          "tokenType": "string",
+                          "scalarValue": "string"
+                        },
+                        {
+                          "key": "minLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
+                        },
+                        {
+                          "key": "maxLength",
+                          "tokenType": "number",
+                          "scalarValue": "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"passportNumber\":1234123212}",
+        "notation": "jsight"
+      }
+    },
+    "@catList": {
+      "schema": {
+        "content": {
+          "tokenType": "array",
+          "type": "array",
+          "children": [
+            {
+              "tokenType": "reference",
+              "type": "@cat",
+              "scalarValue": "@cat",
+              "optional": true
+            }
+          ],
+          "optional": false
+        },
+        "example": "[{\"friends\":[{\"friends\":[],\"passportNumber\":1234123212}],\"passportNumber\":1234123212}]",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@cat"
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

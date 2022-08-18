@@ -64,6 +64,7 @@
           ],
           "optional": false
         },
+        "example": "{\"level3Field1\":3,\"level3Field2\":3,\"level2Field1\":2,\"level2Field2\":2,\"level1Field1\":1,\"level1Field2\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@level2",
@@ -94,6 +95,7 @@
           ],
           "optional": false
         },
+        "example": "{\"level1Field1\":1,\"level1Field2\":1}",
         "notation": "jsight"
       }
     },
@@ -143,6 +145,7 @@
           ],
           "optional": false
         },
+        "example": "{\"level2Field1\":2,\"level2Field2\":2,\"level1Field1\":1,\"level1Field2\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@level1"

@@ -25,6 +25,7 @@
           ],
           "optional": false
         },
+        "example": "{\"field\":\"value\"}",
         "notation": "jsight"
       }
     }

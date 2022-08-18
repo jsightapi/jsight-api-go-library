@@ -17,6 +17,7 @@
     "http POST /catsName": {
       "id": "http POST /catsName",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/catsName",
       "tags": [
         "@catsName"
@@ -26,11 +27,11 @@
           "format": "plainString",
           "schema": {
             "content": "###",
+            "example": "###",
             "notation": "regex"
           }
         }
-      },
-      "httpMethod": "POST"
+      }
     }
   },
   "jsight": "0.3",

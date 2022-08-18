@@ -45,6 +45,7 @@
           ],
           "optional": false
         },
+        "example": "{\"section\":\"abc\",\"mode\":\"xyz\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@mode"
@@ -67,6 +68,7 @@
           ],
           "optional": false
         },
+        "example": "{\"mode\":\"xyz\"}",
         "notation": "jsight"
       }
     }
@@ -75,10 +77,8 @@
     "http GET /list/{section}/{mode}/{id}": {
       "id": "http GET /list/{section}/{mode}/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/list/{section}/{mode}/{id}",
-      "tags": [
-        "@list"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -114,7 +114,9 @@
           "notation": "jsight"
         }
       },
-      "httpMethod": "GET"
+      "tags": [
+        "@list"
+      ]
     }
   },
   "jsight": "0.3",

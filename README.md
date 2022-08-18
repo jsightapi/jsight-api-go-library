@@ -171,6 +171,22 @@ go test -cover ./...
 
 </td>
 </tr>
+<tr valign="top">
+<td>
+
+Update test snapshots
+
+If you made some significant change which has huge impact on generated JSON schema snapshots inside `./testdata` directory.
+
+</td>
+<td>
+
+```
+go run ./internal/cmd/snapshot_checker
+```
+
+</td>
+</tr>
 </tbody>
 </table>
 

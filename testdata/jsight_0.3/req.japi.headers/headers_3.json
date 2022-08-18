@@ -17,6 +17,7 @@
     "http GET /cat": {
       "id": "http GET /cat",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -41,6 +42,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -52,8 +54,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

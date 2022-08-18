@@ -41,6 +41,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"@cat\":\"Tom\"}",
               "notation": "jsight"
             }
           }

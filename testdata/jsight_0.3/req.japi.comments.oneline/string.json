@@ -17,6 +17,7 @@
     "http GET /special": {
       "id": "http GET /special",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/special",
       "tags": [
         "@special"
@@ -49,12 +50,12 @@
                 ],
                 "optional": false
               },
+              "example": "\"some # string\"",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

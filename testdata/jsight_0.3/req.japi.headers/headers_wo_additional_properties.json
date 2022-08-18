@@ -17,6 +17,7 @@
     "http GET /cats": {
       "id": "http GET /cats",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats",
       "tags": [
         "@cats"
@@ -48,6 +49,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"X-Header\":{\"header-property\":123}}",
               "notation": "jsight"
             }
           },
@@ -90,12 +92,12 @@
                 ],
                 "optional": false
               },
+              "example": "{\"id\":4,\"name\":\"Kittys\",\"Extra\":{\"body-property\":123}}",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

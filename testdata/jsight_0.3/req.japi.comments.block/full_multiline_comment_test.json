@@ -50,6 +50,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":12,\"name\":\"Tom\"}",
         "notation": "jsight"
       }
     },
@@ -69,6 +70,7 @@
           ],
           "optional": false
         },
+        "example": "{\"error\":\"str\"}",
         "notation": "jsight"
       }
     }
@@ -77,10 +79,8 @@
     "http GET /cats/{id}": {
       "id": "http GET /cats/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats/{id}",
-      "tags": [
-        "@cats"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -101,6 +101,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@cats"
+      ],
       "annotation": "annotation of GET method",
       "description": "With this method you can get\nlist of all cats that are registered\non Catsbook.",
       "query": {
@@ -121,6 +124,7 @@
             ],
             "optional": false
           },
+          "example": "{\"param\":\"str\"}",
           "notation": "jsight"
         }
       },
@@ -136,6 +140,7 @@
                 "scalarValue": "@cat",
                 "optional": false
               },
+              "example": "{\"id\":12,\"name\":\"Tom\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
@@ -143,16 +148,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /cats/{id}": {
       "id": "http POST /cats/{id}",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/cats/{id}",
-      "tags": [
-        "@cats"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -173,6 +175,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@cats"
+      ],
       "request": {
         "body": {
           "format": "json",
@@ -198,6 +203,7 @@
               ],
               "optional": false
             },
+            "example": "{\"id\":1,\"name\":\"Tom\"}",
             "notation": "jsight"
           }
         }
@@ -229,6 +235,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"Content-Type\":\"application/json\"}",
               "notation": "jsight"
             }
           },
@@ -241,6 +248,7 @@
                 "scalarValue": "ok",
                 "optional": false
               },
+              "example": "\"ok\"",
               "notation": "jsight"
             }
           }
@@ -254,16 +262,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http DELETE /cats/{id}": {
       "id": "http DELETE /cats/{id}",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/cats/{id}",
-      "tags": [
-        "@cats"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -284,6 +289,9 @@
           "notation": "jsight"
         }
       },
+      "tags": [
+        "@cats"
+      ],
       "responses": [
         {
           "code": "200",
@@ -296,6 +304,7 @@
                 "scalarValue": "@cat",
                 "optional": false
               },
+              "example": "{\"id\":12,\"name\":\"Tom\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@cat"
@@ -314,6 +323,7 @@
                 "scalarValue": "@err",
                 "optional": false
               },
+              "example": "{\"error\":\"str\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@err"
@@ -321,8 +331,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     }
   },
   "jsight": "0.3",

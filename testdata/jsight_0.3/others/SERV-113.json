@@ -17,6 +17,7 @@
           ],
           "optional": false
         },
+        "example": "{\"\":\"\"}",
         "notation": "jsight"
       }
     },
@@ -35,6 +36,7 @@
           ],
           "optional": false
         },
+        "example": "[\"\"]",
         "notation": "jsight"
       }
     },
@@ -46,6 +48,7 @@
           "scalarValue": "",
           "optional": false
         },
+        "example": "\"\"",
         "notation": "jsight"
       }
     }

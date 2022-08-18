@@ -37,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
         "notation": "jsight"
       }
     }
@@ -45,6 +46,7 @@
     "http GET /admin": {
       "id": "http GET /admin",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/admin",
       "tags": [
         "@admin"
@@ -95,6 +97,7 @@
               ],
               "optional": false
             },
+            "example": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@auth"
@@ -107,8 +110,7 @@
             "notation": "any"
           }
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

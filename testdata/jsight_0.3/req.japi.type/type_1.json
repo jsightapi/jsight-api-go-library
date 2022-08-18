@@ -38,6 +38,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":12,\"name\":\"Tom\"}",
         "notation": "jsight"
       }
     }

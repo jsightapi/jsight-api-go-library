@@ -17,6 +17,7 @@
     "http GET /dogs": {
       "id": "http GET /dogs",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -66,6 +67,7 @@
             ],
             "optional": false
           },
+          "example": "{\"page\":1,\"canHunt\":true}",
           "notation": "jsight"
         }
       },
@@ -79,8 +81,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

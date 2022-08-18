@@ -17,6 +17,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":1}",
         "notation": "jsight"
       }
     },
@@ -36,6 +37,7 @@
           ],
           "optional": false
         },
+        "example": "{\"name\":\"Tom\"}",
         "notation": "jsight"
       }
     },
@@ -63,6 +65,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@id"
@@ -110,6 +113,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":1,\"name\":\"Tom\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@id",
