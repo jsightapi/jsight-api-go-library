@@ -158,6 +158,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@petId"
@@ -392,6 +393,7 @@
           ],
           "optional": false
         },
+        "example": "{\"friendIds\":[\"GOAT-12345\"],\"isDangerous\":false,\"legacyId\":1,\"additionalData\":{},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@pet",
@@ -424,6 +426,7 @@
           ],
           "optional": false
         },
+        "example": "\"GOAT-12345\"",
         "notation": "jsight"
       }
     },
@@ -451,6 +454,7 @@
           ],
           "optional": false
         },
+        "example": "{\"code\":12,\"message\":\"Something bad had happened on server...\"}",
         "notation": "jsight"
       }
     },
@@ -509,6 +513,7 @@
           ],
           "optional": false
         },
+        "example": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@contentTypeHeader",
@@ -547,6 +552,7 @@
           ],
           "optional": false
         },
+        "example": "{\"Content-Type\":\"application/json\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@contentTypeHeader"
@@ -576,6 +582,7 @@
           ],
           "optional": false
         },
+        "example": "{\"Content-Type\":\"application/json\"}",
         "notation": "jsight"
       }
     },
@@ -603,6 +610,7 @@
           ],
           "optional": false
         },
+        "example": "{\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
         "notation": "jsight"
       }
     },
@@ -660,6 +668,7 @@
           ],
           "optional": false
         },
+        "example": "{\"page\":1,\"pageSize\":30}",
         "notation": "jsight"
       }
     }
@@ -668,6 +677,7 @@
     "http GET /dogs": {
       "id": "http GET /dogs",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -806,6 +816,7 @@
             ],
             "optional": false
           },
+          "example": "{\"filter\":{\"size\":\"S\",\"age\":12},\"page\":1,\"pageSize\":30}",
           "notation": "jsight",
           "usedUserTypes": [
             "@pageQuery"
@@ -821,6 +832,7 @@
               "scalarValue": "@commonRequestHeaders",
               "optional": false
             },
+            "example": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
@@ -846,6 +858,7 @@
                 "scalarValue": "@commonResponseHeaders",
                 "optional": false
               },
+              "example": "{\"Content-Type\":\"application/json\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
@@ -890,6 +903,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"items\":[{\"friendIds\":[\"GOAT-12345\"],\"isDangerous\":false,\"legacyId\":1,\"additionalData\":{},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}],\"page\":1,\"pageSize\":30}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog"
@@ -917,12 +931,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /dogs": {
       "id": "http POST /dogs",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/dogs",
       "tags": [
         "@dogs"
@@ -983,6 +997,7 @@
               ],
               "optional": false
             },
+            "example": "{\"X-header\":\"Some additional header\",\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
@@ -998,6 +1013,7 @@
               "scalarValue": "@dog",
               "optional": false
             },
+            "example": "{\"friendIds\":[\"GOAT-12345\"],\"isDangerous\":false,\"legacyId\":1,\"additionalData\":{},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@dog"
@@ -1025,6 +1041,7 @@
                 ],
                 "optional": false
               },
+              "example": "{\"X-header\":\"Some additional header\"}",
               "notation": "jsight"
             }
           },
@@ -1032,6 +1049,7 @@
             "format": "plainString",
             "schema": {
               "content": "^OK$",
+              "example": "OK",
               "notation": "regex"
             }
           }
@@ -1046,16 +1064,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http GET /dogs/{id}": {
       "id": "http GET /dogs/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/dogs/{id}",
-      "tags": [
-        "@dogs"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -1086,6 +1101,9 @@
           ]
         }
       },
+      "tags": [
+        "@dogs"
+      ],
       "annotation": "Get a dog by its id.",
       "request": {
         "headers": {
@@ -1096,6 +1114,7 @@
               "scalarValue": "@commonRequestHeaders",
               "optional": false
             },
+            "example": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
@@ -1121,6 +1140,7 @@
                 "scalarValue": "@commonResponseHeaders",
                 "optional": false
               },
+              "example": "{\"Content-Type\":\"application/json\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
@@ -1136,6 +1156,7 @@
                 "scalarValue": "@dog",
                 "optional": false
               },
+              "example": "{\"friendIds\":[\"GOAT-12345\"],\"isDangerous\":false,\"legacyId\":1,\"additionalData\":{},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@dog"
@@ -1163,16 +1184,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http DELETE /dogs/{id}": {
       "id": "http DELETE /dogs/{id}",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/dogs/{id}",
-      "tags": [
-        "@dogs"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -1203,6 +1221,9 @@
           ]
         }
       },
+      "tags": [
+        "@dogs"
+      ],
       "annotation": "Delete a dog.",
       "request": {
         "headers": {
@@ -1213,6 +1234,7 @@
               "scalarValue": "@commonRequestHeaders",
               "optional": false
             },
+            "example": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Basic dG9tQGNhdC5jb206YWJjMTIz=\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@commonRequestHeaders"
@@ -1238,6 +1260,7 @@
                 "scalarValue": "@commonResponseHeaders",
                 "optional": false
               },
+              "example": "{\"Content-Type\":\"application/json\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@commonResponseHeaders"
@@ -1260,6 +1283,7 @@
                 ],
                 "optional": false
               },
+              "example": "\"OK\"",
               "notation": "jsight"
             }
           }
@@ -1286,6 +1310,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -1303,8 +1328,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     }
   },
   "jsight": "0.3",

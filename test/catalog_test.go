@@ -14,7 +14,7 @@ import (
 func TestGetAllTypesSchemas(t *testing.T) {
 	filename := filepath.Join(GetTestDataDir(), "jsight_0.3", "others", "full.jst")
 	f := reader.Read(filename)
-	japi := core.NewJApiCore(f)
+	japi := core.NewJApiCore(f, core.WithFixedSeedForRegex())
 	err := japi.ValidateJAPI()
 	require.Nil(t, err)
 
@@ -28,5 +28,5 @@ func TestGetAllTypesSchemas(t *testing.T) {
 	assert.True(t, types.Has("@profile"))
 	assert.True(t, types.Has("@task"))
 	assert.True(t, types.Has("@attachment"))
-	// assert.True(t, types.Has("@userType")) // enum
+	assert.True(t, c.UserEnums.Has("@userType"))
 }

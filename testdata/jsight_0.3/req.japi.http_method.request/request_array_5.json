@@ -29,6 +29,7 @@
     "http POST /cats": {
       "id": "http POST /cats",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/cats",
       "tags": [
         "@cats"
@@ -50,15 +51,16 @@
               ],
               "optional": false
             },
+            "example": "[\"sinus\"]",
             "notation": "jsight"
           }
         }
-      },
-      "httpMethod": "POST"
+      }
     },
     "http GET /cat": {
       "id": "http GET /cat",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -80,11 +82,11 @@
               ],
               "optional": false
             },
+            "example": "[1]",
             "notation": "jsight"
           }
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

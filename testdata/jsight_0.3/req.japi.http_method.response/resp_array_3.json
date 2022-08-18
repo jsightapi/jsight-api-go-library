@@ -17,6 +17,7 @@
     "http POST /cat": {
       "id": "http POST /cat",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/cat",
       "tags": [
         "@cat"
@@ -59,12 +60,12 @@
                 ],
                 "optional": false
               },
+              "example": "[[1,2,3]]",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     }
   },
   "jsight": "0.3",

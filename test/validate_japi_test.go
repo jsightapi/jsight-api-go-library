@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
+	"github.com/jsightapi/jsight-api-go-library/core"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/kit"
 )
@@ -84,7 +85,7 @@ func cutRepositoryPath(p string) string {
 }
 
 func requireNewJapi(t *testing.T, filename string) kit.JApi {
-	j, err := kit.NewJapi(filename)
+	j, err := kit.NewJapi(filename, core.WithFixedSeedForRegex())
 	require.Nil(t, err, "NewJapi should not return an error")
 	return j
 }

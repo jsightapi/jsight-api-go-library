@@ -17,6 +17,7 @@
     "http POST /scalar/mixed": {
       "id": "http POST /scalar/mixed",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/scalar/mixed",
       "tags": [
         "@scalar"
@@ -59,10 +60,10 @@
             ],
             "optional": false
           },
+          "example": "\"A\"",
           "notation": "jsight"
         }
-      },
-      "httpMethod": "POST"
+      }
     }
   },
   "jsight": "0.3",

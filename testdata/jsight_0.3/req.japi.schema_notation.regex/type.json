@@ -1,14 +1,15 @@
 {
-	"tags": {},
-	"userTypes": {
-		"@catName": {
-			"schema": {
-				"content": "[a-z]+",
-				"notation": "regex"
-			}
-		}
-	},
-	"interactions": {},
-	"jsight": "0.3",
-	"jdocExchangeVersion": "2.0.0"
+  "tags": {},
+  "userTypes": {
+    "@catName": {
+      "schema": {
+        "content": "[a-z]+",
+        "example": "u",
+        "notation": "regex"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
 }

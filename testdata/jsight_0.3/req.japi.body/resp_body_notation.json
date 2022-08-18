@@ -17,6 +17,7 @@
     "http GET /catName": {
       "id": "http GET /catName",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/catName",
       "tags": [
         "@catName"
@@ -33,12 +34,12 @@
                 "scalarValue": "Tom",
                 "optional": false
               },
+              "example": "\"Tom\"",
               "notation": "jsight"
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     }
   },
   "jsight": "0.3",

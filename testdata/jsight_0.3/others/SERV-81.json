@@ -58,6 +58,7 @@
           ],
           "optional": false
         },
+        "example": "{\"1-field1\":1,\"1-field2\":1,\"2-field1\":2,\"2-field2\":2}",
         "notation": "jsight",
         "usedUserTypes": [
           "@1",
@@ -122,6 +123,7 @@
           ],
           "optional": false
         },
+        "example": "{\"2-field1\":2,\"2-field2\":2,\"1-field1\":1,\"1-field2\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@2",
@@ -152,6 +154,7 @@
           ],
           "optional": false
         },
+        "example": "{\"1-field1\":1,\"1-field2\":1}",
         "notation": "jsight"
       }
     },
@@ -178,6 +181,7 @@
           ],
           "optional": false
         },
+        "example": "{\"2-field1\":2,\"2-field2\":2}",
         "notation": "jsight"
       }
     }

@@ -147,6 +147,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@petId"
@@ -363,6 +364,7 @@
           ],
           "optional": false
         },
+        "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
         "notation": "jsight",
         "usedUserTypes": [
           "@pet",
@@ -414,6 +416,7 @@
           ],
           "optional": false
         },
+        "example": "\"S\"",
         "notation": "jsight"
       }
     },
@@ -442,12 +445,14 @@
           ],
           "optional": false
         },
+        "example": "\"GOAT-12345\"",
         "notation": "jsight"
       }
     },
     "@petName": {
       "schema": {
         "content": "^[A-Z][a-z]*( [A-Z][a-z]*)*$",
+        "example": "C Yi",
         "notation": "regex"
       }
     },
@@ -475,6 +480,7 @@
           ],
           "optional": false
         },
+        "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
         "notation": "jsight"
       }
     }
@@ -483,6 +489,7 @@
     "http GET /pigs": {
       "id": "http GET /pigs",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/pigs",
       "tags": [
         "@pigs"
@@ -508,6 +515,7 @@
                 ],
                 "optional": false
               },
+              "example": "[{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}]",
               "notation": "jsight",
               "usedUserTypes": [
                 "@pig"
@@ -515,12 +523,12 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http POST /pigs": {
       "id": "http POST /pigs",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/pigs",
       "tags": [
         "@pigs"
@@ -536,6 +544,7 @@
               "scalarValue": "@pig",
               "optional": false
             },
+            "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@pig"
@@ -556,6 +565,7 @@
                 "scalarValue": "@pig",
                 "optional": false
               },
+              "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@pig"
@@ -575,6 +585,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -582,16 +593,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "POST"
+      ]
     },
     "http GET /pigs/{id}": {
       "id": "http GET /pigs/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/pigs/{id}",
-      "tags": [
-        "@pigs"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -622,6 +630,9 @@
           ]
         }
       },
+      "tags": [
+        "@pigs"
+      ],
       "annotation": "Get a pig by its id.",
       "responses": [
         {
@@ -636,6 +647,7 @@
                 "scalarValue": "@pig",
                 "optional": false
               },
+              "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@pig"
@@ -655,6 +667,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -662,16 +675,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "GET"
+      ]
     },
     "http PUT /pigs/{id}": {
       "id": "http PUT /pigs/{id}",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/pigs/{id}",
-      "tags": [
-        "@pigs"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -702,6 +712,9 @@
           ]
         }
       },
+      "tags": [
+        "@pigs"
+      ],
       "annotation": "Change a pig by its id.",
       "request": {
         "body": {
@@ -713,6 +726,7 @@
               "scalarValue": "@pig",
               "optional": false
             },
+            "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
             "notation": "jsight",
             "usedUserTypes": [
               "@pig"
@@ -733,6 +747,7 @@
                 "scalarValue": "@pig",
                 "optional": false
               },
+              "example": "{\"temperature\":35.6,\"pigSize\":\"S\",\"lastWashTime\":\"2021-01-02T15:04:05+03:00\",\"additionalData\":{\"key\":\"value\"},\"id\":\"GOAT-12345\",\"name\":\"Tom\",\"type\":\"PIG\",\"age\":10,\"email\":\"tom@pets.com\",\"uri\":\"http://tom.pets.com\",\"birthday\":\"2012-01-03\",\"uuid\":\"550e8400-e29b-41d4-a716-446655440000\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@pig"
@@ -752,6 +767,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -771,6 +787,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -778,16 +795,13 @@
             }
           }
         }
-      ],
-      "httpMethod": "PUT"
+      ]
     },
     "http DELETE /pigs/{id}": {
       "id": "http DELETE /pigs/{id}",
       "protocol": "http",
+      "httpMethod": "DELETE",
       "path": "/pigs/{id}",
-      "tags": [
-        "@pigs"
-      ],
       "pathVariables": {
         "schema": {
           "content": {
@@ -818,6 +832,9 @@
           ]
         }
       },
+      "tags": [
+        "@pigs"
+      ],
       "annotation": "Delete a pig by its id.",
       "responses": [
         {
@@ -842,6 +859,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -861,6 +879,7 @@
                 "scalarValue": "@error",
                 "optional": false
               },
+              "example": "{\"code\":12,\"message\":\"Something bad had happened on the server...\"}",
               "notation": "jsight",
               "usedUserTypes": [
                 "@error"
@@ -868,8 +887,7 @@
             }
           }
         }
-      ],
-      "httpMethod": "DELETE"
+      ]
     }
   },
   "jsight": "0.3",

@@ -17,6 +17,7 @@
     "http PUT /": {
       "id": "http PUT /",
       "protocol": "http",
+      "httpMethod": "PUT",
       "path": "/",
       "tags": [
         "@_"
@@ -31,11 +32,11 @@
               "scalarValue": "12",
               "optional": false
             },
+            "example": "12",
             "notation": "jsight"
           }
         }
-      },
-      "httpMethod": "PUT"
+      }
     }
   },
   "jsight": "0.3",

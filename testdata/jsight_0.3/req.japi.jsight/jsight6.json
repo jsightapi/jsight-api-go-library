@@ -16,6 +16,7 @@
           ],
           "optional": false
         },
+        "example": "\"DOG-123\"",
         "notation": "jsight"
       }
     }

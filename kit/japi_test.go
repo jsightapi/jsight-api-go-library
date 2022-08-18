@@ -2,6 +2,8 @@ package kit
 
 import (
 	"testing"
+
+	"github.com/jsightapi/jsight-schema-go-library/fs"
 )
 
 func BenchmarkJApi_ValidateJAPI(b *testing.B) {
@@ -2011,7 +2013,7 @@ TYPE @type998
 
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
-		japi := NewJapiFromBytes(content)
+		japi := NewJApiFromFile(fs.NewFile("", content))
 		b.StartTimer()
 
 		_ = japi.ValidateJAPI()

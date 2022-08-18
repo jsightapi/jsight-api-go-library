@@ -9,6 +9,7 @@
 					"scalarValue": "1",
 					"optional": false
 				},
+				"example": "1",
 				"notation": "jsight"
 			}
 		}

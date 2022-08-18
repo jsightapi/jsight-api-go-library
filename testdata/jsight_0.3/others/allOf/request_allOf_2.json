@@ -45,6 +45,7 @@
           ],
           "optional": false
         },
+        "example": "{\"name\":\"Max\",\"id\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@item"
@@ -67,6 +68,7 @@
           ],
           "optional": false
         },
+        "example": "{\"id\":1}",
         "notation": "jsight"
       }
     }
@@ -75,6 +77,7 @@
     "http GET /admin": {
       "id": "http GET /admin",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/admin",
       "tags": [
         "@admin"
@@ -120,14 +123,14 @@
               ],
               "optional": false
             },
+            "example": "{\"status\":\"admin\",\"name\":\"Max\",\"id\":1}",
             "notation": "jsight",
             "usedUserTypes": [
               "@user"
             ]
           }
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

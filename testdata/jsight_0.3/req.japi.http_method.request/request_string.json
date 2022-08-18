@@ -17,6 +17,7 @@
     "http POST /": {
       "id": "http POST /",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/",
       "tags": [
         "@_"
@@ -31,11 +32,11 @@
               "scalarValue": "reg",
               "optional": false
             },
+            "example": "\"reg\"",
             "notation": "jsight"
           }
         }
-      },
-      "httpMethod": "POST"
+      }
     }
   },
   "jsight": "0.3",

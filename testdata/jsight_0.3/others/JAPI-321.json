@@ -17,6 +17,7 @@
     "http GET /cats/{id}": {
       "id": "http GET /cats/{id}",
       "protocol": "http",
+      "httpMethod": "GET",
       "path": "/cats/{id}",
       "tags": [
         "@cats"
@@ -38,10 +39,10 @@
             ],
             "optional": false
           },
+          "example": "{\"@debug\":1}",
           "notation": "jsight"
         }
-      },
-      "httpMethod": "GET"
+      }
     }
   },
   "jsight": "0.3",

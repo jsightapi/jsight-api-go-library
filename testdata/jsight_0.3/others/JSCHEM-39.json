@@ -17,6 +17,7 @@
     "http POST /arrayOfEverything": {
       "id": "http POST /arrayOfEverything",
       "protocol": "http",
+      "httpMethod": "POST",
       "path": "/arrayOfEverything",
       "tags": [
         "@arrayOfEverything"
@@ -45,10 +46,10 @@
             ],
             "optional": false
           },
+          "example": "{\"decimalField\":1.23}",
           "notation": "jsight"
         }
-      },
-      "httpMethod": "POST"
+      }
     }
   },
   "jsight": "0.3",
