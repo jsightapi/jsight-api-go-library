@@ -9,6 +9,7 @@
           "scalarValue": "Hello, 世界 \" \\ / \u0008 \u000c \n \r \t",
           "optional": false
         },
+        "example": "\"Hello, \\u4e16\\u754c \\\" \\\\ \\/ \\b \\f \\n \\r \\t\"",
         "notation": "jsight"
       }
     }
