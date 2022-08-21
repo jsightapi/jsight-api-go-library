@@ -1,7 +1,5 @@
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220815152145-06fa8b53347e h1:oFCR//r5pfpH4cFgidZt8qMvtBByfaew64To/s6MVgQ=
-github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220815152145-06fa8b53347e/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
 github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220818142844-24bd788793e9 h1:RS6R5tLfwylqrPG0lMXvxS1lnsnQ2rbhmk9iKzE9+ug=
 github.com/jsightapi/jsight-schema-go-library v1.0.1-0.20220818142844-24bd788793e9/go.mod h1:OO00XD+yMOCPSWZy3EpsknpHKL9U67CeAuFwTThJk4w=
 github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb h1:w1g9wNDIE/pHSTmAaUhv4TZQuPBS6GV3mMz5hkgziIU=
