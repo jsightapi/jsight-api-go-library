@@ -25,7 +25,7 @@
           ],
           "optional": false
         },
-        "example": "{\"12\":1,\"@catId\":1}",
+        "example": "{\"foo\":1,\"@catId\":1}",
         "notation": "jsight",
         "usedUserTypes": [
           "@catId"
@@ -35,20 +35,12 @@
     "@catId": {
       "schema": {
         "content": {
-          "note": "A cat's id.",
-          "tokenType": "number",
-          "type": "integer",
-          "scalarValue": "12",
-          "rules": [
-            {
-              "key": "min",
-              "tokenType": "number",
-              "scalarValue": "1"
-            }
-          ],
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "foo",
           "optional": false
         },
-        "example": "12",
+        "example": "\"foo\"",
         "notation": "jsight"
       }
     }
