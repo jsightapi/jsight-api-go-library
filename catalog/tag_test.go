@@ -7,7 +7,7 @@ import (
 )
 
 func Test_newPathTag(t *testing.T) {
-	tag := newPathTag(HttpInteractionId{
+	tag := newPathTag(HTTPInteractionID{
 		protocol: HTTP,
 		path:     "/foo/bar",
 	})
