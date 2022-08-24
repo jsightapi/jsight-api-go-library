@@ -20,8 +20,7 @@ output:
 linters-settings:
   gomoddirectives:
     # Allow local `replace` directives. Default is false.
-    # todo replace-local: false
-    replace-local: true
+    replace-local: false
     # List of allowed `replace` directives. Default is empty.
     replace-allow-list:
       - launchpad.net/gocheck
@@ -35,10 +34,6 @@ linters-settings:
     check-type-assertions: true
     # Report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`.
     check-blank: true
-    # List of functions to exclude from checking, where each entry is a single
-    # function to exclude.
-    # see https://github.com/kisielk/errcheck#excluding-functions for details.
-    # Works in golangci-lint >= v1.42.1
 
   errorlint:
     # Report non-wrapping error creation using fmt.Errorf, for instance:
@@ -339,7 +334,6 @@ linters:
     - structcheck
 
     # Is a replacement for golint.
-#     todo too many issues
     - stylecheck
 
     # Like the front-end of a Go compiler, parses and type-checks Go code.
@@ -384,10 +378,6 @@ linters:
 issues:
   # Maximum count of issues with the same text. Set to 0 to disable.
   max-same-issues: 0
-# todo remove
-#  exclude:
-#    # In many cases it's normal to have 0644 permissions on file.
-#    - "G306: Expect WriteFile permissions to be 0600 or less"
 
   include:
     # ```
