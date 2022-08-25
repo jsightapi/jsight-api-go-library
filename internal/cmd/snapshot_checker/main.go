@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -118,7 +117,7 @@ func (c *snapshotChecker) collectActualJSON(ev testEvent) error {
 		c.state = c.waitTestRun
 		if c.actualJSON.Len() != 0 {
 			path := strings.ReplaceAll(c.currentTest, "TestJDocExchange", "testdata")
-			expectedJSON, err := ioutil.ReadFile(path)
+			expectedJSON, err := os.ReadFile(path)
 			if err != nil {
 				return fmt.Errorf("read file %q: %w", path, err)
 			}
@@ -155,7 +154,7 @@ func (c *snapshotChecker) collectActualJSON(ev testEvent) error {
 				break
 			}
 
-			if err := ioutil.WriteFile(path, c.actualJSON.Bytes(), 0644); err != nil { //nolint:gosec // It's safe to have 0644 permission.
+			if err := os.WriteFile(path, c.actualJSON.Bytes(), 0644); err != nil { //nolint:gosec // It's safe to have 0644 permission.
 				return fmt.Errorf("write file %q: %w", path, err)
 			}
 		}

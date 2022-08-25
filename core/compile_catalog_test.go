@@ -187,7 +187,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 			"without allOf": {
 				NewJApiCore(fs.NewFile("", `{}`)),
 				&catalog.SchemaContentJSight{
-					TokenType: jschema.JSONTypeObject,
+					TokenType: jschema.TokenTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
 				},
 				catalog.NewStringSet(),
@@ -201,7 +201,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
 						Schema: catalog.Schema{
 							ContentJSight: &catalog.SchemaContentJSight{
-								TokenType: jschema.JSONTypeObject,
+								TokenType: jschema.TokenTypeObject,
 								Children: []*catalog.SchemaContentJSight{
 									{Key: catalog.SrtPtr("foo")},
 									{Key: catalog.SrtPtr("bar")},
@@ -212,7 +212,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					return core
 				}(),
 				&catalog.SchemaContentJSight{
-					TokenType: jschema.JSONTypeObject,
+					TokenType: jschema.TokenTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
 					Rules: catalog.NewRules(
 						[]catalog.Rule{
@@ -244,7 +244,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
 						Schema: catalog.Schema{
 							ContentJSight: &catalog.SchemaContentJSight{
-								TokenType: jschema.JSONTypeObject,
+								TokenType: jschema.TokenTypeObject,
 								Children: []*catalog.SchemaContentJSight{
 									{Key: catalog.SrtPtr("foo1")},
 									{Key: catalog.SrtPtr("foo2")},
@@ -255,7 +255,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					core.catalog.UserTypes.Set("@bar", &catalog.UserType{
 						Schema: catalog.Schema{
 							ContentJSight: &catalog.SchemaContentJSight{
-								TokenType: jschema.JSONTypeObject,
+								TokenType: jschema.TokenTypeObject,
 								Children: []*catalog.SchemaContentJSight{
 									{Key: catalog.SrtPtr("bar1")},
 									{Key: catalog.SrtPtr("bar2")},
@@ -266,7 +266,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					return core
 				}(),
 				&catalog.SchemaContentJSight{
-					TokenType: jschema.JSONTypeObject,
+					TokenType: jschema.TokenTypeObject,
 					Children:  []*catalog.SchemaContentJSight{},
 					Rules: catalog.NewRules(
 						[]catalog.Rule{
@@ -326,7 +326,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 		assert.Panics(t, func() {
 			var core *JApiCore
 
-			core.processSchemaContentJSightAllOf(nil, nil)
+			_ = core.processSchemaContentJSightAllOf(nil, nil)
 		})
 	})
 }
@@ -379,7 +379,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
 						ContentJSight: &catalog.SchemaContentJSight{
-							TokenType: jschema.JSONTypeObject,
+							TokenType: jschema.TokenTypeObject,
 							Children: []*catalog.SchemaContentJSight{
 								{Key: catalog.SrtPtr("bar")},
 							},
@@ -409,7 +409,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 					c.UserTypes.Set("foo", &catalog.UserType{
 						Schema: catalog.Schema{
 							ContentJSight: &catalog.SchemaContentJSight{
-								TokenType: jschema.JSONTypeString,
+								TokenType: jschema.TokenTypeString,
 							},
 						},
 					})
@@ -431,7 +431,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 			core.catalog.UserTypes.Set("foo", &catalog.UserType{
 				Schema: catalog.Schema{
 					ContentJSight: &catalog.SchemaContentJSight{
-						TokenType: jschema.JSONTypeObject,
+						TokenType: jschema.TokenTypeObject,
 						Children: []*catalog.SchemaContentJSight{
 							{Key: catalog.SrtPtr("bar")},
 						},
@@ -447,13 +447,13 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				&catalog.StringSet{},
 				"foo",
 			)
-			assert.EqualError(t, err, `it is not allowed to override the "bar" property from the user type "foo"`) //nolint:lll
+			assert.EqualError(t, err, `it is not allowed to override the "bar" property from the user type "foo"`)
 		})
 
 		t.Run("core is nil", func(t *testing.T) {
 			assert.Panics(t, func() {
 				var core *JApiCore
-				core.inheritPropertiesFromUserType(
+				_ = core.inheritPropertiesFromUserType(
 					&catalog.SchemaContentJSight{},
 					&catalog.StringSet{},
 					"foo",
@@ -469,11 +469,11 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
 						ContentJSight: &catalog.SchemaContentJSight{
-							TokenType: jschema.JSONTypeObject,
+							TokenType: jschema.TokenTypeObject,
 						},
 					},
 				})
-				core.inheritPropertiesFromUserType(
+				_ = core.inheritPropertiesFromUserType(
 					nil,
 					&catalog.StringSet{},
 					"foo",
@@ -489,14 +489,14 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
 						ContentJSight: &catalog.SchemaContentJSight{
-							TokenType: jschema.JSONTypeObject,
+							TokenType: jschema.TokenTypeObject,
 							Children: []*catalog.SchemaContentJSight{
 								{Key: catalog.SrtPtr("foo")},
 							},
 						},
 					},
 				})
-				core.inheritPropertiesFromUserType(
+				_ = core.inheritPropertiesFromUserType(
 					&catalog.SchemaContentJSight{},
 					nil,
 					"foo",

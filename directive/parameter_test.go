@@ -139,8 +139,8 @@ func TestDirective_AppendParameter(t *testing.T) {
 				},
 			},
 
-			BaseUrl.String(): {
-				New(BaseUrl, Coords{}),
+			BaseURL.String(): {
+				New(BaseURL, Coords{}),
 				"foo",
 				map[string]string{
 					"Path": "foo",
@@ -148,7 +148,7 @@ func TestDirective_AppendParameter(t *testing.T) {
 			},
 		}
 
-		for _, typ := range []Enumeration{Url, Get, Post, Put, Patch, Delete} {
+		for _, typ := range []Enumeration{URL, Get, Post, Put, Patch, Delete} {
 			cc[typ.String()] = testCase{
 				New(typ, Coords{}),
 				"foo",
