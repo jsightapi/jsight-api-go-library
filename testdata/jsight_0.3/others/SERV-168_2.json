@@ -1,0 +1,64 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testRuleOrStandardTypes": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "key1",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "1",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "any"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "date"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "datetime"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "email"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "uri"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "uuid"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "integer"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"key1\":1}",
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
