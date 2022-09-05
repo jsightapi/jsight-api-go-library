@@ -1,0 +1,25 @@
+{
+    "tags": {},
+    "userEnums": {
+        "@e": {
+            "annotation": "",
+            "description": "",
+            "value": {
+                "tokenType": "array",
+                "children": [
+                    {
+                        "tokenType": "string",
+                        "scalarValue": ""
+                    },
+                    {
+                        "tokenType": "string",
+                        "scalarValue": "abc"
+                    }
+                ]
+            }
+        }
+    },
+    "interactions": {},
+    "jsight": "0.3",
+    "jdocExchangeVersion": "2.0.0"
+}
