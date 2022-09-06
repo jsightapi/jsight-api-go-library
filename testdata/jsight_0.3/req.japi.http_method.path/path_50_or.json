@@ -76,11 +76,11 @@
                     "tokenType": "array",
                     "children": [
                       {
-                        "tokenType": "string",
+                        "tokenType": "reference",
                         "scalarValue": "@catName"
                       },
                       {
-                        "tokenType": "string",
+                        "tokenType": "reference",
                         "scalarValue": "@dogName"
                       }
                     ]

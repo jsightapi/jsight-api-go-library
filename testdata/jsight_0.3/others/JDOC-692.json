@@ -1,0 +1,81 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testExpandTypesDoNotExpandOrRule": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "data",
+              "tokenType": "number",
+              "type": "mixed",
+              "scalarValue": "123",
+              "rules": [
+                {
+                  "key": "or",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "reference",
+                      "scalarValue": "@dogId"
+                    },
+                    {
+                      "tokenType": "reference",
+                      "scalarValue": "@catId"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"data\":123}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@dogId",
+          "@catId"
+        ]
+      }
+    },
+    "@catId": {
+      "schema": {
+        "content": {
+          "note": "A cat's id.",
+          "tokenType": "number",
+          "type": "integer",
+          "scalarValue": "12",
+          "rules": [
+            {
+              "key": "min",
+              "tokenType": "number",
+              "scalarValue": "1"
+            }
+          ],
+          "optional": false
+        },
+        "example": "12",
+        "notation": "jsight"
+      }
+    },
+    "@dogId": {
+      "schema": {
+        "content": {
+          "note": "Dog's id.",
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "DOG-123",
+          "optional": false
+        },
+        "example": "\"DOG-123\"",
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
