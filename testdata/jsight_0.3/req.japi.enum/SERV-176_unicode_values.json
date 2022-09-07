@@ -1,0 +1,303 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@ttt": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "enum",
+          "scalarValue": "\u0001",
+          "rules": [
+            {
+              "key": "enum",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0001"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0002"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0003"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0004"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0005"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0006"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0007"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0008"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\t"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\n"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u000b"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u000c"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\r"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u000e"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u000f"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0010"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0011"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0012"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0013"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0014"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0015"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0016"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0017"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0018"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u0019"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001a"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001b"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001c"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001d"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001e"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "\u001f"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "€"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "🏆"
+                }
+              ]
+            }
+          ],
+          "optional": false
+        },
+        "example": "\"\\u0001\"",
+        "notation": "jsight"
+      }
+    }
+  },
+  "userEnums": {
+    "@enumWithUnicodeControlCharacters": {
+      "annotation": "",
+      "description": "",
+      "value": {
+        "tokenType": "array",
+        "children": [
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0001"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0002"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0003"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0004"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0005"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0006"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0007"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0008"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\t"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\n"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u000b"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u000c"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\r"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u000e"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u000f"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0010"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0011"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0012"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0013"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0014"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0015"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0016"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0017"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0018"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0019"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001a"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001b"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001c"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001d"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001e"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u001f"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "€"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "🏆"
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
