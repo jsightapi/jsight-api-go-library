@@ -9,41 +9,43 @@
         "children": [
           {
             "tokenType": "annotation",
-            "note": "My\n\t\t   Pets"
+            "note": "My\n\t\t   Pets",
+            "scalarValue": ""
           },
           {
             "tokenType": "string",
-            "scalarValue": "CAT",
-            "note": "My\n\t\t          Cat"
+            "note": "My\n\t\t          Cat",
+            "scalarValue": "CAT"
           },
           {
             "tokenType": "string",
-            "scalarValue": "DOG",
-            "note": "Dog"
+            "note": "Dog",
+            "scalarValue": "DOG"
           },
           {
             "tokenType": "string",
-            "scalarValue": "PIG",
-            "note": "Pig"
+            "note": "Pig",
+            "scalarValue": "PIG"
           },
           {
             "tokenType": "annotation",
-            "note": "Wild animals"
+            "note": "Wild animals",
+            "scalarValue": ""
           },
           {
             "tokenType": "string",
-            "scalarValue": "WOLF",
-            "note": "Wolf"
+            "note": "Wolf",
+            "scalarValue": "WOLF"
           },
           {
             "tokenType": "string",
-            "scalarValue": "LION",
-            "note": "Lion"
+            "note": "Lion",
+            "scalarValue": "LION"
           },
           {
             "tokenType": "string",
-            "scalarValue": "TIGER",
-            "note": "Tiger"
+            "note": "Tiger",
+            "scalarValue": "TIGER"
           }
         ]
       }
