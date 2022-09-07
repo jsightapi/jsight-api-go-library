@@ -1,0 +1,55 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@ttt": {
+      "schema": {
+        "content": {
+          "tokenType": "number",
+          "type": "enum",
+          "scalarValue": "1",
+          "rules": [
+            {
+              "key": "enum",
+              "tokenType": "array",
+              "children": [
+                {
+                  "tokenType": "number",
+                  "scalarValue": "1"
+                },
+                {
+                  "tokenType": "string",
+                  "scalarValue": "1"
+                }
+              ]
+            }
+          ],
+          "optional": false
+        },
+        "example": "1",
+        "notation": "jsight"
+      }
+    }
+  },
+  "userEnums": {
+    "@eee": {
+      "annotation": "",
+      "description": "",
+      "value": {
+        "tokenType": "array",
+        "children": [
+          {
+            "tokenType": "number",
+            "scalarValue": "1"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "1"
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

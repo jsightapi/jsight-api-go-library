@@ -1,0 +1,9 @@
+JSIGHT 0.3
+
+TYPE @testEnumWithNewLineSymbols
+{
+  "enumWith\nSymbol": "\n" // {enum: ["\u0001", "\u0002", "\n", "\t", "n \n nn n", "b \n b", "a \\n a"]}
+}
+
+ENUM @e
+  ["\u0001", "\u0002", "\n", "\t", "n \n nn n", "b \n b", "a \\n a"]

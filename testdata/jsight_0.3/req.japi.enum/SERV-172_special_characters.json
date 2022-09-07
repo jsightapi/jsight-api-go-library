@@ -1,0 +1,103 @@
+{
+  "tags": {},
+  "userTypes": {
+    "@testEnumWithNewLineSymbols": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "enumWith\nSymbol",
+              "tokenType": "string",
+              "type": "enum",
+              "scalarValue": "\n",
+              "rules": [
+                {
+                  "key": "enum",
+                  "tokenType": "array",
+                  "children": [
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "\u0001"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "\u0002"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "\n"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "\t"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "n \n nn n"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "b \n b"
+                    },
+                    {
+                      "tokenType": "string",
+                      "scalarValue": "a \\n a"
+                    }
+                  ]
+                }
+              ],
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"enumWith\nSymbol\":\"\\n\"}",
+        "notation": "jsight"
+      }
+    }
+  },
+  "userEnums": {
+    "@e": {
+      "annotation": "",
+      "description": "",
+      "value": {
+        "tokenType": "array",
+        "children": [
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0001"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\u0002"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\n"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "\t"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "n \n nn n"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "b \n b"
+          },
+          {
+            "tokenType": "string",
+            "scalarValue": "a \\n a"
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {},
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}
