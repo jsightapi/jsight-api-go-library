@@ -14,13 +14,15 @@ import (
 // comments for custom types and generate all necessary code to this type.
 //
 // Requirements:
-// * Custom type should be a struct with exactly two fields: "data" anf "order";
-// * Field "data" should be a map;
-// * Field "order" should be a slice of map keys.
+//
+//   - Custom type should be a struct with exactly two fields: "data" anf "order";
+//   - Field "data" should be a map;
+//   - Field "order" should be a slice of map keys.
 //
 // Known limitations:
-// * Unfortunately "omitempty" tag won't work as expected for ordered maps, so
-//   you should add specific code for marshaling.
+//
+//   - Unfortunately "omitempty" tag won't work as expected for ordered maps, so
+//     you should add specific code for marshaling.
 //
 // Added because we should preserve keys order in the map, but Golang don't
 // gave to us such ability out of the box. And we want more efficient and clean
