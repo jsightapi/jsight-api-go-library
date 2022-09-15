@@ -46,7 +46,7 @@ workflows:
 
       - common/go-lint:
           <<: *common-params
-          golangci-lint-version: 1.47.2
+          golangci-lint-version: 1.49.0
 
 
   feature-qa:
@@ -67,4 +67,4 @@ workflows:
           pre-steps:
             - checkout-schema:
                 branch: dev # for feature branches we use dev jschema branch
-          golangci-lint-version: 1.47.2 # temp until lint is fixed or go is updated
+          golangci-lint-version: 1.49.0
