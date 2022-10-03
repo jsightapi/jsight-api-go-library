@@ -1,0 +1,107 @@
+{
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@id": {
+      "schema": {
+        "content": {
+          "tokenType": "number",
+          "type": "integer",
+          "scalarValue": "123",
+          "optional": false
+        },
+        "example": "123",
+        "notation": "jsight"
+      }
+    },
+    "@name": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "tom",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"name\":\"tom\"}",
+        "notation": "jsight"
+      }
+    }
+  },
+  "interactions": {
+    "http GET /": {
+      "id": "http GET /",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "rules": [
+                  {
+                    "key": "additionalProperties",
+                    "tokenType": "string",
+                    "scalarValue": "@name"
+                  }
+                ],
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "id",
+                    "tokenType": "number",
+                    "type": "@id",
+                    "scalarValue": "1",
+                    "rules": [
+                      {
+                        "key": "type",
+                        "tokenType": "reference",
+                        "scalarValue": "@id"
+                      }
+                    ],
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "example": "{\"id\":1}",
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@name",
+                "@id"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

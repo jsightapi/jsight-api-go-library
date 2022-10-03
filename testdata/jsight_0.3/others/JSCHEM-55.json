@@ -41,8 +41,8 @@
         "example": "{\"properties\":{\"minLength\":{\"properties\":{\"minLength\":{\"properties\":{}}}}}}",
         "notation": "jsight",
         "usedUserTypes": [
-          "@rule",
-          "@ruleNameEnum"
+          "@ruleNameEnum",
+          "@rule"
         ]
       }
     },

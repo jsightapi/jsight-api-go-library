@@ -372,6 +372,36 @@
           "optional": false
         },
         "example": "{\"enabled\":{},\"disabled\":{},\"string\":{},\"integer\":{},\"float\":{},\"decimal\":{},\"boolean\":{},\"object\":{},\"array\":{},\"null\":{},\"email\":{},\"uri\":{},\"uuid\":{},\"date\":{},\"datetime\":{},\"enum\":{},\"mixed\":{},\"any\":{},\"userType\":{}}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@cat"
+        ]
+      }
+    },
+    "@cat": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "id",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "1",
+              "optional": false
+            },
+            {
+              "key": "name",
+              "tokenType": "string",
+              "type": "string",
+              "scalarValue": "Tom",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"id\":1,\"name\":\"Tom\"}",
         "notation": "jsight"
       }
     }
