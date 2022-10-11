@@ -35,6 +35,23 @@ func NewHTTPMethod(de directive.Enumeration) (HTTPMethod, error) {
 	}
 }
 
+func NewHTTPMethodFromString(s string) (HTTPMethod, error) {
+	switch s {
+	case directive.Get.String():
+		return GET, nil
+	case directive.Post.String():
+		return POST, nil
+	case directive.Put.String():
+		return PUT, nil
+	case directive.Patch.String():
+		return PATCH, nil
+	case directive.Delete.String():
+		return DELETE, nil
+	default:
+		return GET, errors.New(jerr.IsNotHTTPRequestMethod)
+	}
+}
+
 func (e HTTPMethod) String() string {
 	switch e {
 	case GET:

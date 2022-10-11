@@ -20,6 +20,10 @@ func (h HTTPInteractionID) Path() Path {
 	return h.path
 }
 
+func (h HTTPInteractionID) Method() HTTPMethod {
+	return h.method
+}
+
 func (h HTTPInteractionID) String() string {
 	return fmt.Sprintf("http %s %s", h.method.String(), h.path.String())
 }

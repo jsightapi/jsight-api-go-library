@@ -2,10 +2,12 @@ package kit
 
 import (
 	"fmt"
+	"net/http"
 
+	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/core"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-
+	"github.com/jsightapi/jsight-api-go-library/validator"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/jsightapi/jsight-schema-go-library/reader"
 )
@@ -15,14 +17,12 @@ type JApi struct {
 	core *core.JApiCore
 }
 
-// NewJapi returns interface-level wrapper for JApiCore
-// Does not include .jst file validation. File validation should be called explicitly.
-func NewJapi(filepath string, oo ...core.Option) (JApi, error) {
+func NewJapi(filepath string, oo ...core.Option) (JApi, *jerr.JApiError) {
 	f, err := readPanicFree(filepath)
 	if err != nil {
-		return JApi{}, err
+		return JApi{}, jerr.NewJApiError(err.Error(), f, 0)
 	}
-	return NewJApiFromFile(f, oo...), nil
+	return NewJApiFromFile(f, oo...)
 }
 
 func readPanicFree(filename string) (f *fs.File, err error) {
@@ -35,28 +35,37 @@ func readPanicFree(filename string) (f *fs.File, err error) {
 	return f, err
 }
 
-func NewJApiFromFile(file *fs.File, oo ...core.Option) JApi {
-	return JApi{
+func NewJApiFromFile(file *fs.File, oo ...core.Option) (JApi, *jerr.JApiError) {
+	j := JApi{
 		core.NewJApiCore(file, oo...),
 	}
+	je := j.core.BuildCatalog()
+	if je != nil {
+		return j, je
+	}
+	return j, nil
 }
 
-// ValidateJAPI validates .jst file
-func (j *JApi) ValidateJAPI() *jerr.JApiError {
-	return j.core.ValidateJAPI()
+func (j *JApi) ValidateHTTPRequest(r *http.Request) error {
+	v := validator.NewHTTPRequestValidator(j.Catalog(), r)
+	return v.Process()
 }
 
-func (j JApi) ToJson() ([]byte, error) {
-	return j.core.Catalog().ToJson()
+func (j *JApi) Catalog() *catalog.Catalog {
+	return j.core.Catalog()
 }
 
-func (j JApi) Title() string {
-	if j.core != nil && j.core.Catalog() != nil && j.core.Catalog().Info != nil {
-		return j.core.Catalog().Info.Title
+func (j *JApi) Title() string {
+	if j.core != nil && j.Catalog() != nil && j.Catalog().Info != nil {
+		return j.Catalog().Info.Title
 	}
 	return ""
 }
 
-func (j JApi) ToJsonIndent() ([]byte, error) {
-	return j.core.Catalog().ToJsonIndent()
+func (j *JApi) ToJson() ([]byte, error) {
+	return j.Catalog().ToJson()
+}
+
+func (j *JApi) ToJsonIndent() ([]byte, error) {
+	return j.Catalog().ToJsonIndent()
 }

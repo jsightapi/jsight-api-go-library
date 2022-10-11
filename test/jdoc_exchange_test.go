@@ -23,10 +23,7 @@ func TestJDocExchange(t *testing.T) {
 			japiPath, err := japiFilePath(jsonPath)
 			require.NoError(t, err)
 
-			j, err := kit.NewJapi(japiPath, core.WithFixedSeedForRegex())
-			require.NoError(t, err)
-
-			je := j.ValidateJAPI()
+			j, je := kit.NewJapi(japiPath, core.WithFixedSeedForRegex())
 			if je != nil {
 				logJAPIError(t, je)
 				t.FailNow()

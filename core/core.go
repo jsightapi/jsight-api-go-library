@@ -152,8 +152,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 	return core
 }
 
-// ValidateJAPI should be used to check if .jst file is valid according to specification
-func (core *JApiCore) ValidateJAPI() *jerr.JApiError {
+func (core *JApiCore) BuildCatalog() *jerr.JApiError {
 	return core.processJApiProject()
 }
 

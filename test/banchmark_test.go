@@ -15,17 +15,12 @@ func BenchmarkJAPI(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		j, err := kit.NewJapi(filename, core.WithFixedSeedForRegex())
-		if err != nil {
-			b.Error(err)
-		}
-
-		je := j.ValidateJAPI()
+		j, je := kit.NewJapi(filename, core.WithFixedSeedForRegex())
 		if je != nil {
 			b.Error(je)
 		}
 
-		_, err = j.ToJson()
+		_, err := j.ToJson()
 		if err != nil {
 			b.Error(je)
 		}

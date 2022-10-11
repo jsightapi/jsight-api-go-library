@@ -23,10 +23,7 @@ func TestValidateJapi(t *testing.T) {
 		positive := positiveJstFilenames(filenames)
 		for _, f := range positive {
 			t.Run(cutRepositoryPath(f), func(t *testing.T) {
-				j := requireNewJapi(t, f)
-				je := assertValidateJapi(t, j)
-
-				// show debug info
+				_, je := kit.NewJapi(f, core.WithFixedSeedForRegex())
 				if je != nil {
 					logJAPIError(t, je)
 					t.FailNow()
@@ -39,8 +36,7 @@ func TestValidateJapi(t *testing.T) {
 		negative := negativeJstFilenames(filenames)
 		for _, f := range negative {
 			t.Run(cutRepositoryPath(f), func(t *testing.T) {
-				j := requireNewJapi(t, f)
-				je := requireValidateJapiError(t, j)
+				_, je := kit.NewJapi(f, core.WithFixedSeedForRegex())
 				logJAPIError(t, je)
 
 				want, err := wantIndex(f)
@@ -82,26 +78,6 @@ func cutRepositoryPath(p string) string {
 	}
 
 	return filepath.Join(parts[idx:]...)
-}
-
-func requireNewJapi(t *testing.T, filename string) kit.JApi {
-	j, err := kit.NewJapi(filename, core.WithFixedSeedForRegex())
-	require.Nil(t, err, "NewJapi should not return an error")
-	return j
-}
-
-func assertValidateJapi(t *testing.T, j kit.JApi) *jerr.JApiError {
-	je := j.ValidateJAPI()
-	if je != nil {
-		t.Log("ValidateJAPI should NOT return an error")
-	}
-	return je
-}
-
-func requireValidateJapiError(t *testing.T, j kit.JApi) *jerr.JApiError {
-	je := j.ValidateJAPI()
-	require.NotNil(t, je, "ValidateJAPI should return an error")
-	return je
 }
 
 func wantIndex(filename string) (int, error) {
