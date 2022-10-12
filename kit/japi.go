@@ -2,12 +2,10 @@ package kit
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/core"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	"github.com/jsightapi/jsight-api-go-library/validator"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/jsightapi/jsight-schema-go-library/reader"
 )
@@ -44,11 +42,6 @@ func NewJApiFromFile(file *fs.File, oo ...core.Option) (JApi, *jerr.JApiError) {
 		return j, je
 	}
 	return j, nil
-}
-
-func (j *JApi) ValidateHTTPRequest(r *http.Request) error {
-	v := validator.NewHTTPRequestValidator(j.Catalog(), r)
-	return v.Process()
 }
 
 func (j *JApi) Catalog() *catalog.Catalog {
