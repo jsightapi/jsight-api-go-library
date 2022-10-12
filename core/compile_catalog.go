@@ -3,9 +3,10 @@ package core
 import (
 	"errors"
 	"fmt"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"strings"
 
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
@@ -17,77 +18,78 @@ func (core *JApiCore) compileCatalog() *jerr.JApiError {
 		return je
 	}
 
-	// TODO
-	// if je := core.ExpandRawPathVariableShortcuts(); je != nil {
-	// 	return je
-	// }
-	//
-	// if je := core.CheckRawPathVariableSchemas(); je != nil {
-	// 	return je
-	// }
+	if je := core.ExpandRawPathVariableShortcuts(); je != nil {
+		return je
+	}
+
+	if je := core.CheckRawPathVariableSchemas(); je != nil {
+		return je
+	}
 
 	return core.BuildResourceMethodsPathVariables()
 }
 
-// func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
-// 	for i := 0; i < len(core.rawPathVariables); i++ {
-// 		r := &core.rawPathVariables[i]
-//
-// 		for r.schema.ContentJSight.TokenType == jschema.TokenTypeShortcut {
-// 			typeName := r.schema.ContentJSight.Type
-// 			if typeName == "mixed" {
-// 				return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
-// 			}
-//
-// 			ut, ok := core.catalog.UserTypes.Get(typeName)
-// 			if !ok {
-// 				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
-// 			}
-//
-// 			r.schema = ut.Schema // copy schema
-// 		}
-//
-// 		if err := checkPathSchema(r.schema); err != nil {
-// 			return r.pathDirective.KeywordError(err.Error())
-// 		}
-// 	}
-//
-// 	return nil
-// }
-//
-// func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
-// 	for i := 0; i < len(core.rawPathVariables); i++ {
-// 		if err := checkPathSchema(core.rawPathVariables[i].schema); err != nil {
-// 			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
-// 		}
-// 	}
-// 	return nil
-// }
+func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
+	for i := 0; i < len(core.rawPathVariables); i++ {
+		r := &core.rawPathVariables[i]
 
-func checkPathSchema(s catalog.Schema) error {
-	if s.ContentJSight.TokenType != jschema.TokenTypeObject {
+		for r.schema.AstNode.TokenType == jschemaLib.TokenTypeShortcut {
+			typeName := r.schema.AstNode.SchemaType
+			if typeName == "mixed" {
+				return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
+			}
+
+			ut, ok := core.catalog.UserTypes.Get(typeName)
+			if !ok {
+				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
+			}
+
+			x := ut.Schema.JSchema.(*jschema.Schema)
+			r.schema = x // copy schema
+		}
+
+		// TODO
+		// if err := checkPathSchema(r.schema); err != nil {
+		// 	return r.pathDirective.KeywordError(err.Error())
+		// }
+	}
+
+	return nil
+}
+
+func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
+	for i := 0; i < len(core.rawPathVariables); i++ {
+		if err := checkPathSchema(core.rawPathVariables[i].schema); err != nil {
+			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
+		}
+	}
+	return nil
+}
+
+func checkPathSchema(s *jschema.Schema) error {
+	if s.AstNode.TokenType != jschemaLib.TokenTypeObject {
 		return errors.New("the body of the Path DIRECTIVE must be an object")
 	}
 
-	if s.ContentJSight.Rules.Has("additionalProperties") {
+	if s.AstNode.Rules.Has("additionalProperties") {
 		return errors.New(`the "additionalProperties" rule is invalid in the Path directive`)
 	}
 
-	if s.ContentJSight.Rules.Has("nullable") {
+	if s.AstNode.Rules.Has("nullable") {
 		return errors.New(`the "nullable" rule is invalid in the Path directive`)
 	}
 
-	if s.ContentJSight.Rules.Has("or") {
+	if s.AstNode.Rules.Has("or") {
 		return errors.New(`the "or" rule is invalid in the Path directive`)
 	}
 
-	if s.ContentJSight.Children == nil || len(s.ContentJSight.Children) == 0 {
+	if s.AstNode.Children == nil || len(s.AstNode.Children) == 0 {
 		return errors.New("an empty object in the Path directive")
 	}
 
-	for _, v := range s.ContentJSight.Children {
-		if v.TokenType == jschema.TokenTypeObject || v.TokenType == jschema.TokenTypeArray {
-			return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", *(v.Key))
+	for _, v := range s.AstNode.Children {
+		if v.TokenType == jschemaLib.TokenTypeObject || v.TokenType == jschemaLib.TokenTypeArray {
+			return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", v.Key)
 		}
 	}
 
@@ -157,19 +159,19 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	return nil
 }
 
-func (*JApiCore) propertiesToMap(n jschema.ASTNode) map[string]jschema.ASTNode {
+func (*JApiCore) propertiesToMap(n jschemaLib.ASTNode) map[string]jschemaLib.ASTNode {
 	if len(n.Children) == 0 {
 		return nil
 	}
 
-	res := make(map[string]jschema.ASTNode, len(n.Children))
+	res := make(map[string]jschemaLib.ASTNode, len(n.Children))
 	for _, v := range n.Children {
 		res[v.Key] = v
 	}
 	return res
 }
 
-func (*JApiCore) getPropertiesNames(m map[string]jschema.ASTNode) string {
+func (*JApiCore) getPropertiesNames(m map[string]jschemaLib.ASTNode) string {
 	if len(m) == 0 {
 		return ""
 	}
@@ -342,7 +344,7 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJSight, uut *catalog.StringSet) error {
-	if sc.TokenType != jschema.TokenTypeObject {
+	if sc.TokenType != jschemaLib.TokenTypeObject {
 		return nil
 	}
 
@@ -383,7 +385,7 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 		return fmt.Errorf(`the user type %q not found`, userTypeName)
 	}
 
-	if ut.Schema.ContentJSight.TokenType != jschema.TokenTypeObject {
+	if ut.Schema.ContentJSight.TokenType != jschemaLib.TokenTypeObject {
 		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
 	}
 

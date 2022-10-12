@@ -12,6 +12,8 @@ import (
 
 // Schema represent a user defined schema.
 type Schema struct {
+	JSchema jschemaLib.Schema
+
 	// Notation used notation for this schema.
 	Notation notation.SchemaNotation
 

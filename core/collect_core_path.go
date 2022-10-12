@@ -56,18 +56,6 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError(err.Error())
 	}
 
-	// TODO remove
-	// s := jschema.New("", d.BodyCoords.Read())
-
-	// s, err := catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
-	// if err != nil {
-	// 	var e kit.Error
-	// 	if errors.As(err, &e) {
-	// 		return d.BodyErrorIndex(e.Message(), e.Position())
-	// 	}
-	// 	return d.KeywordError(err.Error())
-	// }
-
 	path, err := d.Path()
 	if err != nil {
 		return d.KeywordError(err.Error())

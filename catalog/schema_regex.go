@@ -45,6 +45,7 @@ func (m regexMarshaller) Marshal(name string, regexStr bytes.Bytes) (schema Sche
 	schema = NewSchema(notation.SchemaNotationRegex)
 	schema.ContentRegexp = strings.TrimPrefix(n.Value, "/")
 	schema.ContentRegexp = strings.TrimSuffix(schema.ContentRegexp, "/")
+	schema.JSchema = s
 
 	example, err := s.Example()
 	if err != nil {

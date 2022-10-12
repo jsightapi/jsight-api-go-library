@@ -71,12 +71,13 @@ func convertJSightSchema(s *jschema.Schema) (Schema, error) {
 	}
 
 	ret := NewSchema(notation.SchemaNotationJSight)
-	ret.ContentJSight = AstNodeToJsightContent(n, ret.UsedUserTypes, ret.UsedUserEnums)
+	ret.ContentJSight = astNodeToJsightContent(n, ret.UsedUserTypes, ret.UsedUserEnums)
 	ret.Example = string(example)
+	ret.JSchema = s
 	return ret, nil
 }
 
-func AstNodeToJsightContent(
+func astNodeToJsightContent(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) *SchemaContentJSight {
@@ -244,7 +245,7 @@ func (c *SchemaContentJSight) collectJSightContentObjectProperties(
 			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
 		for _, v := range node.Children {
-			an := AstNodeToJsightContent(v, usedUserTypes, usedUserEnums)
+			an := astNodeToJsightContent(v, usedUserTypes, usedUserEnums)
 			an.Key = SrtPtr(v.Key)
 
 			c.Children = append(c.Children, an)
@@ -265,7 +266,7 @@ func (c *SchemaContentJSight) collectJSightContentArrayItems(
 			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
 		for _, n := range node.Children {
-			an := AstNodeToJsightContent(n, usedUserTypes, usedUserEnums)
+			an := astNodeToJsightContent(n, usedUserTypes, usedUserEnums)
 			an.Optional = true
 			c.Children = append(c.Children, an)
 		}

@@ -31,7 +31,7 @@ func (p *PathVariables) MarshalJSON() ([]byte, error) {
 	}
 
 	data.Schema = NewSchema(notation.SchemaNotationJSight)
-	data.Schema.ContentJSight = AstNodeToJsightContent(n, data.Schema.UsedUserTypes, data.Schema.UsedUserEnums)
+	data.Schema.ContentJSight = astNodeToJsightContent(n, data.Schema.UsedUserTypes, data.Schema.UsedUserEnums)
 
 	return json.Marshal(data)
 }
