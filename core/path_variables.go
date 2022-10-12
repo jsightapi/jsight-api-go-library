@@ -8,36 +8,23 @@ import (
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
-	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 type prop struct {
-	parameter           string
-	schemaContentJSight *catalog.SchemaContentJSight
-	directive           directive.Directive
+	parameter string
+	astNode   jschema.ASTNode
+	directive directive.Directive
 }
 
-func (core *JApiCore) newPathVariables(properties []prop) (*catalog.PathVariables, *jerr.JApiError) {
-	s := catalog.NewSchema(notation.SchemaNotationJSight)
-	s.ContentJSight = &catalog.SchemaContentJSight{
-		IsKeyUserTypeRef: false,
-		TokenType:        jschema.TokenTypeObject,
-		Type:             jschema.TokenTypeObject,
-		Optional:         false,
-		Children:         make([]*catalog.SchemaContentJSight, 0, len(properties)),
-	}
+func (core *JApiCore) newPathVariables(properties []prop) *catalog.PathVariables {
+	n := &jschema.ASTNodes{}
 
 	for _, p := range properties {
-		if err := core.collectUsedUserTypes(p.schemaContentJSight, s.UsedUserTypes /* &s.UsedUserEnums */); err != nil {
-			return nil, p.directive.KeywordError(err.Error())
-		}
-
-		p.schemaContentJSight.Key = catalog.SrtPtr(p.parameter)
-		s.ContentJSight.Children = append(s.ContentJSight.Children, p.schemaContentJSight)
+		n.Set(p.parameter, p.astNode)
 	}
 
-	return &catalog.PathVariables{Schema: s}, nil
+	return &catalog.PathVariables{ASTNodes: n}
 }
 
 func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, usedUserTypes *catalog.StringSet) error {

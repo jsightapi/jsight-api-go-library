@@ -17,51 +17,52 @@ func (core *JApiCore) compileCatalog() *jerr.JApiError {
 		return je
 	}
 
-	if je := core.ExpandRawPathVariableShortcuts(); je != nil {
-		return je
-	}
-
-	if je := core.CheckRawPathVariableSchemas(); je != nil {
-		return je
-	}
+	// TODO
+	// if je := core.ExpandRawPathVariableShortcuts(); je != nil {
+	// 	return je
+	// }
+	//
+	// if je := core.CheckRawPathVariableSchemas(); je != nil {
+	// 	return je
+	// }
 
 	return core.BuildResourceMethodsPathVariables()
 }
 
-func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
-	for i := 0; i < len(core.rawPathVariables); i++ {
-		r := &core.rawPathVariables[i]
-
-		for r.schema.ContentJSight.TokenType == jschema.TokenTypeShortcut {
-			typeName := r.schema.ContentJSight.Type
-			if typeName == "mixed" {
-				return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
-			}
-
-			ut, ok := core.catalog.UserTypes.Get(typeName)
-			if !ok {
-				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
-			}
-
-			r.schema = ut.Schema // copy schema
-		}
-
-		if err := checkPathSchema(r.schema); err != nil {
-			return r.pathDirective.KeywordError(err.Error())
-		}
-	}
-
-	return nil
-}
-
-func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
-	for i := 0; i < len(core.rawPathVariables); i++ {
-		if err := checkPathSchema(core.rawPathVariables[i].schema); err != nil {
-			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
-		}
-	}
-	return nil
-}
+// func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
+// 	for i := 0; i < len(core.rawPathVariables); i++ {
+// 		r := &core.rawPathVariables[i]
+//
+// 		for r.schema.ContentJSight.TokenType == jschema.TokenTypeShortcut {
+// 			typeName := r.schema.ContentJSight.Type
+// 			if typeName == "mixed" {
+// 				return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
+// 			}
+//
+// 			ut, ok := core.catalog.UserTypes.Get(typeName)
+// 			if !ok {
+// 				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
+// 			}
+//
+// 			r.schema = ut.Schema // copy schema
+// 		}
+//
+// 		if err := checkPathSchema(r.schema); err != nil {
+// 			return r.pathDirective.KeywordError(err.Error())
+// 		}
+// 	}
+//
+// 	return nil
+// }
+//
+// func (core *JApiCore) CheckRawPathVariableSchemas() *jerr.JApiError {
+// 	for i := 0; i < len(core.rawPathVariables); i++ {
+// 		if err := checkPathSchema(core.rawPathVariables[i].schema); err != nil {
+// 			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
+// 		}
+// 	}
+// 	return nil
+// }
 
 func checkPathSchema(s catalog.Schema) error {
 	if s.ContentJSight.TokenType != jschema.TokenTypeObject {
@@ -96,10 +97,15 @@ func checkPathSchema(s catalog.Schema) error {
 func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	allProjectProperties := make(map[catalog.Path]prop)
 	for _, v := range core.rawPathVariables {
-		pp := core.propertiesToMap(v.schema.ContentJSight.Children)
+		n, err := v.schema.GetAST()
+		if err != nil {
+			return v.pathDirective.KeywordError(jerr.InternalServerError)
+		}
+
+		pp := core.propertiesToMap(n)
 
 		for _, p := range v.parameters {
-			if sc, ok := pp[p.parameter]; ok {
+			if nn, ok := pp[p.parameter]; ok {
 				if _, ok := allProjectProperties[p.path]; ok {
 					return v.pathDirective.KeywordError(fmt.Sprintf(
 						"The parameter %q has already been defined earlier",
@@ -108,8 +114,8 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 				}
 
 				allProjectProperties[p.path] = prop{
-					schemaContentJSight: sc,
-					directive:           v.pathDirective,
+					astNode:   nn,
+					directive: v.pathDirective,
 				}
 
 				delete(pp, p.parameter)
@@ -138,11 +144,7 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 				}
 
 				if len(properties) != 0 {
-					pv, err := core.newPathVariables(properties)
-					if err != nil {
-						return nil, err
-					}
-					hi.SetPathVariables(pv)
+					hi.SetPathVariables(core.newPathVariables(properties))
 				}
 			}
 			return v, nil
@@ -155,25 +157,25 @@ func (core *JApiCore) BuildResourceMethodsPathVariables() *jerr.JApiError {
 	return nil
 }
 
-func (*JApiCore) propertiesToMap(pp []*catalog.SchemaContentJSight) map[string]*catalog.SchemaContentJSight {
-	if len(pp) == 0 {
+func (*JApiCore) propertiesToMap(n jschema.ASTNode) map[string]jschema.ASTNode {
+	if len(n.Children) == 0 {
 		return nil
 	}
 
-	res := make(map[string]*catalog.SchemaContentJSight, len(pp))
-	for _, v := range pp {
-		res[*(v.Key)] = v
+	res := make(map[string]jschema.ASTNode, len(n.Children))
+	for _, v := range n.Children {
+		res[v.Key] = v
 	}
 	return res
 }
 
-func (*JApiCore) getPropertiesNames(pp map[string]*catalog.SchemaContentJSight) string {
-	if len(pp) == 0 {
+func (*JApiCore) getPropertiesNames(m map[string]jschema.ASTNode) string {
+	if len(m) == 0 {
 		return ""
 	}
 
 	buf := strings.Builder{}
-	for k := range pp {
+	for k := range m {
 		buf.WriteString(k)
 		buf.WriteString(", ")
 	}
@@ -236,13 +238,14 @@ func (core *JApiCore) processBaseUrlAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JApiError {
-	for _, r := range core.rawPathVariables {
-		if r.schema.Notation == notation.SchemaNotationJSight {
-			if err := core.processSchemaContentJSightAllOf(r.schema.ContentJSight, r.schema.UsedUserTypes); err != nil {
-				return r.pathDirective.BodyError(err.Error())
-			}
-		}
-	}
+	// TODO
+	// for _, r := range core.rawPathVariables {
+	// 	if r.schema.Notation == notation.SchemaNotationJSight {
+	// 		if err := core.processSchemaContentJSightAllOf(r.schema.ContentJSight, r.schema.UsedUserTypes); err != nil {
+	// 			return r.pathDirective.BodyError(err.Error())
+	// 		}
+	// 	}
+	// }
 	return nil
 }
 

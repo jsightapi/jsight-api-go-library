@@ -28,20 +28,20 @@ func UnmarshalJSightSchema(
 		}
 	}()
 
-	s, err := prepareJSightSchema(name, b, userTypes, enumRules)
+	s, err := PrepareJSightSchema(name, b, userTypes, enumRules)
 	if err != nil {
 		return Schema{}, err
 	}
 
-	return unmarshalJSightSchema(s)
+	return convertJSightSchema(s)
 }
 
-func prepareJSightSchema(
+func PrepareJSightSchema(
 	name string,
 	b []byte,
 	userTypes *UserSchemas,
 	enumRules map[string]jschemaLib.Rule,
-) (jschemaLib.Schema, error) {
+) (*jschema.Schema, error) {
 	s := jschema.New(name, b)
 
 	for n, v := range enumRules {
@@ -59,7 +59,7 @@ func prepareJSightSchema(
 	return s, nil
 }
 
-func unmarshalJSightSchema(s jschemaLib.Schema) (Schema, error) {
+func convertJSightSchema(s *jschema.Schema) (Schema, error) {
 	n, err := s.GetAST()
 	if err != nil {
 		return Schema{}, err
@@ -71,12 +71,12 @@ func unmarshalJSightSchema(s jschemaLib.Schema) (Schema, error) {
 	}
 
 	ret := NewSchema(notation.SchemaNotationJSight)
-	ret.ContentJSight = astNodeToJsightContent(n, ret.UsedUserTypes, ret.UsedUserEnums)
+	ret.ContentJSight = AstNodeToJsightContent(n, ret.UsedUserTypes, ret.UsedUserEnums)
 	ret.Example = string(example)
 	return ret, nil
 }
 
-func astNodeToJsightContent(
+func AstNodeToJsightContent(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) *SchemaContentJSight {
@@ -244,7 +244,7 @@ func (c *SchemaContentJSight) collectJSightContentObjectProperties(
 			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
 		for _, v := range node.Children {
-			an := astNodeToJsightContent(v, usedUserTypes, usedUserEnums)
+			an := AstNodeToJsightContent(v, usedUserTypes, usedUserEnums)
 			an.Key = SrtPtr(v.Key)
 
 			c.Children = append(c.Children, an)
@@ -265,7 +265,7 @@ func (c *SchemaContentJSight) collectJSightContentArrayItems(
 			c.Children = make([]*SchemaContentJSight, 0, len(node.Children))
 		}
 		for _, n := range node.Children {
-			an := astNodeToJsightContent(n, usedUserTypes, usedUserEnums)
+			an := AstNodeToJsightContent(n, usedUserTypes, usedUserEnums)
 			an.Optional = true
 			c.Children = append(c.Children, an)
 		}

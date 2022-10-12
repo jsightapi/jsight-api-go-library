@@ -2,12 +2,10 @@ package core
 
 import (
 	"errors"
-
-	"github.com/jsightapi/jsight-schema-go-library/kit"
-
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
 )
 
 func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JApiError {
@@ -40,7 +38,7 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError("there is no body for the Path directive")
 	}
 
-	s, err := catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err := catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -48,6 +46,27 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		}
 		return d.KeywordError(err.Error())
 	}
+
+	err = s.Build()
+	if err != nil {
+		var e kit.Error
+		if errors.As(err, &e) {
+			return d.BodyErrorIndex(e.Message(), e.Position())
+		}
+		return d.KeywordError(err.Error())
+	}
+
+	// TODO remove
+	// s := jschema.New("", d.BodyCoords.Read())
+
+	// s, err := catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	// if err != nil {
+	// 	var e kit.Error
+	// 	if errors.As(err, &e) {
+	// 		return d.BodyErrorIndex(e.Message(), e.Position())
+	// 	}
+	// 	return d.KeywordError(err.Error())
+	// }
 
 	path, err := d.Path()
 	if err != nil {
