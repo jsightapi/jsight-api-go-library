@@ -59,7 +59,9 @@ func camelCaseToUnderscore(s string) string {
 		}
 		buf.WriteRune(r)
 	}
-	return buf.String()
+
+	// Replace common abbreviations.
+	return strings.ReplaceAll(buf.String(), "a_s_t", "ast")
 }
 
 func renderTemplateToFile(tmpl, path string, data interface{}) error {

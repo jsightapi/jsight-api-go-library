@@ -2,10 +2,11 @@ package core
 
 import (
 	"fmt"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func (core *JApiCore) validateCatalog() *jerr.JApiError {
@@ -25,7 +26,8 @@ func (core *JApiCore) validateCatalog() *jerr.JApiError {
 		return je
 	}
 
-	return core.validateUsedUserTypes()
+	// TODO return core.validateUsedUserTypes()
+	return nil
 }
 
 func (core *JApiCore) validateInfo() *jerr.JApiError {
@@ -40,71 +42,71 @@ func (core *JApiCore) validateInfo() *jerr.JApiError {
 	return nil
 }
 
-func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
-	err := core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
-		if err := core.findUserTypes(v.Schema.UsedUserTypes); err != nil {
-			return v.Directive.BodyError(err.Error())
-		}
-		return nil
-	})
-	if err != nil {
-		return adoptError(err)
-	}
-
-	err = core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
-		s := v.BaseUrlVariables
-		if s != nil && s.Schema != nil {
-			if err := core.findUserTypes(s.Schema.UsedUserTypes); err != nil {
-				return s.Directive.BodyError(err.Error())
-			}
-		}
-		return nil
-	})
-	if err != nil {
-		return adoptError(err)
-	}
-
-	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionID, v catalog.Interaction) error {
-		hi, ok := v.(*catalog.HTTPInteraction)
-		if !ok {
-			return nil
-		}
-		if hi.Query != nil && hi.Query.Schema != nil {
-			if err := core.findUserTypes(hi.Query.Schema.UsedUserTypes); err != nil {
-				return hi.Query.Directive.BodyError(err.Error())
-			}
-		}
-
-		if hi.Request != nil {
-			if hi.Request.HTTPRequestHeaders != nil && hi.Request.HTTPRequestHeaders.Schema != nil {
-				if err := core.findUserTypes(hi.Request.HTTPRequestHeaders.Schema.UsedUserTypes); err != nil {
-					return hi.Request.HTTPRequestHeaders.Directive.BodyError(err.Error())
-				}
-			}
-
-			if hi.Request.HTTPRequestBody != nil && hi.Request.HTTPRequestBody.Schema != nil {
-				if err := core.findUserTypes(hi.Request.HTTPRequestBody.Schema.UsedUserTypes); err != nil {
-					return hi.Request.HTTPRequestBody.Directive.BodyError(err.Error())
-				}
-			}
-		}
-
-		for _, r := range hi.Responses {
-			if r.Headers != nil && r.Headers.Schema != nil {
-				if err := core.findUserTypes(r.Headers.Schema.UsedUserTypes); err != nil {
-					return r.Headers.Directive.BodyError(err.Error())
-				}
-			}
-
-			if r.Body != nil && r.Body.Schema != nil {
-				if err := core.findUserTypes(r.Body.Schema.UsedUserTypes); err != nil {
-					return r.Body.Directive.BodyError(err.Error())
-				}
-			}
-		}
-		return nil
-	}))
-}
+// func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
+// 	err := core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
+// 		if err := core.findUserTypes(v.Schema.UsedUserTypes); err != nil {
+// 			return v.Directive.BodyError(err.Error())
+// 		}
+// 		return nil
+// 	})
+// 	if err != nil {
+// 		return adoptError(err)
+// 	}
+//
+// 	err = core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
+// 		s := v.BaseUrlVariables
+// 		if s != nil && s.Schema != nil {
+// 			if err := core.findUserTypes(s.Schema.UsedUserTypes); err != nil {
+// 				return s.Directive.BodyError(err.Error())
+// 			}
+// 		}
+// 		return nil
+// 	})
+// 	if err != nil {
+// 		return adoptError(err)
+// 	}
+//
+// 	return adoptError(core.catalog.Interactions.Each(func(k catalog.InteractionID, v catalog.Interaction) error {
+// 		hi, ok := v.(*catalog.HTTPInteraction)
+// 		if !ok {
+// 			return nil
+// 		}
+// 		if hi.Query != nil && hi.Query.Schema != nil {
+// 			if err := core.findUserTypes(hi.Query.Schema.UsedUserTypes); err != nil {
+// 				return hi.Query.Directive.BodyError(err.Error())
+// 			}
+// 		}
+//
+// 		if hi.Request != nil {
+// 			if hi.Request.HTTPRequestHeaders != nil && hi.Request.HTTPRequestHeaders.Schema != nil {
+// 				if err := core.findUserTypes(hi.Request.HTTPRequestHeaders.Schema.UsedUserTypes); err != nil {
+// 					return hi.Request.HTTPRequestHeaders.Directive.BodyError(err.Error())
+// 				}
+// 			}
+//
+// 			if hi.Request.HTTPRequestBody != nil && hi.Request.HTTPRequestBody.Schema != nil {
+// 				if err := core.findUserTypes(hi.Request.HTTPRequestBody.Schema.UsedUserTypes); err != nil {
+// 					return hi.Request.HTTPRequestBody.Directive.BodyError(err.Error())
+// 				}
+// 			}
+// 		}
+//
+// 		for _, r := range hi.Responses {
+// 			if r.Headers != nil && r.Headers.Schema != nil {
+// 				if err := core.findUserTypes(r.Headers.Schema.UsedUserTypes); err != nil {
+// 					return r.Headers.Directive.BodyError(err.Error())
+// 				}
+// 			}
+//
+// 			if r.Body != nil && r.Body.Schema != nil {
+// 				if err := core.findUserTypes(r.Body.Schema.UsedUserTypes); err != nil {
+// 					return r.Body.Directive.BodyError(err.Error())
+// 				}
+// 			}
+// 		}
+// 		return nil
+// 	}))
+// }
 
 // findUserTypes returns an error if a user type cannot be found
 func (core *JApiCore) findUserTypes(uu *catalog.StringSet) error {
@@ -145,17 +147,25 @@ func (core *JApiCore) validateResponseBody() *jerr.JApiError {
 	}))
 }
 
-func (core *JApiCore) isJsightCastToObject(schema *catalog.Schema) bool {
-	if schema != nil && schema.ContentJSight != nil && schema.Notation == notation.SchemaNotationJSight {
-		switch schema.ContentJSight.TokenType {
-		case "object":
-			return true
-		case "reference":
-			if userType, ok := core.catalog.UserTypes.Get(schema.ContentJSight.ScalarValue); ok {
-				return core.isJsightCastToObject(&userType.Schema)
-			}
+func (core *JApiCore) isJsightCastToObject(schema jschemaLib.Schema) bool {
+	if schema == nil {
+		return false
+	}
+
+	s, ok := schema.(*jschema.Schema)
+	if !ok {
+		return false
+	}
+
+	switch s.AstNode.TokenType {
+	case "object":
+		return true
+	case "reference":
+		if userType, ok := core.catalog.UserTypes.Get(s.AstNode.Value); ok {
+			return core.isJsightCastToObject(userType.Schema)
 		}
 	}
+
 	return false
 }
 

@@ -26,7 +26,6 @@ func run() error {
 	gg := []generator{
 		newOrderMapGenerator(),
 		newUnsafeOrderMapGenerator(),
-		newSetGenerator(),
 	}
 
 	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {

@@ -10,7 +10,6 @@ import (
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
 func (core *JApiCore) compileCatalog() *jerr.JApiError {
@@ -44,7 +43,7 @@ func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
 				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
 			}
 
-			r.schema = ut.Schema.JSchema.(*jschema.Schema) // copy schema TODO ???
+			r.schema = ut.Schema.(*jschema.Schema) // copy schema
 		}
 
 		// TODO
@@ -217,8 +216,8 @@ func (core *JApiCore) ProcessAllOf() *jerr.JApiError {
 
 func (core *JApiCore) processUserTypes() *jerr.JApiError {
 	return adoptError(core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
-		if v.Schema.Notation == notation.SchemaNotationJSight {
-			if err := core.processSchemaContentJSightAllOf(v.Schema.ContentJSight, v.Schema.UsedUserTypes); err != nil {
+		if s, ok := v.Schema.(*jschema.Schema); ok {
+			if err := core.processSchemaContentJSightAllOf(s.AstNode, nil); err != nil {
 				return v.Directive.BodyError(err.Error())
 			}
 		}
@@ -229,8 +228,8 @@ func (core *JApiCore) processUserTypes() *jerr.JApiError {
 func (core *JApiCore) processBaseUrlAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
 		s := v.BaseUrlVariables
-		if s != nil && s.Schema != nil && s.Schema.Notation == notation.SchemaNotationJSight {
-			if err := core.processSchemaContentJSightAllOf(s.Schema.ContentJSight, s.Schema.UsedUserTypes); err != nil {
+		if s != nil && s.Schema != nil {
+			if err := core.processSchemaContentJSightAllOf(s.Schema.AstNode, nil); err != nil {
 				return s.Directive.BodyError(err.Error())
 			}
 		}
@@ -251,8 +250,8 @@ func (core *JApiCore) processQueryAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionID, v catalog.Interaction) error {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			q := hi.Query
-			if q != nil && q.Schema != nil && q.Schema.Notation == notation.SchemaNotationJSight {
-				err := core.processSchemaContentJSightAllOf(q.Schema.ContentJSight, q.Schema.UsedUserTypes)
+			if q != nil && q.Schema != nil {
+				err := core.processSchemaContentJSightAllOf(q.Schema.AstNode, nil)
 				if err != nil {
 					return q.Directive.BodyError(err.Error())
 				}
@@ -266,13 +265,9 @@ func (core *JApiCore) processRequestHeaderAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionID, v catalog.Interaction) error {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			r := hi.Request
-			isJSight := r != nil &&
-				r.HTTPRequestHeaders != nil &&
-				r.HTTPRequestHeaders.Schema != nil &&
-				r.HTTPRequestHeaders.Schema.Notation == notation.SchemaNotationJSight
-			if isJSight {
+			if r != nil && r.HTTPRequestHeaders != nil && r.HTTPRequestHeaders.Schema != nil {
 				h := r.HTTPRequestHeaders
-				err := core.processSchemaContentJSightAllOf(h.Schema.ContentJSight, h.Schema.UsedUserTypes)
+				err := core.processSchemaContentJSightAllOf(h.Schema.AstNode, nil)
 				if err != nil {
 					return r.HTTPRequestHeaders.Directive.BodyError(err.Error())
 				}
@@ -286,15 +281,12 @@ func (core *JApiCore) processRequestAllOf() *jerr.JApiError {
 	return adoptError(core.catalog.Interactions.Each(func(_ catalog.InteractionID, v catalog.Interaction) error {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			r := hi.Request
-			isJSight := r != nil &&
-				r.HTTPRequestBody != nil &&
-				r.HTTPRequestBody.Schema != nil &&
-				r.HTTPRequestBody.Schema.Notation == notation.SchemaNotationJSight
-			if isJSight {
-				b := r.HTTPRequestBody
-				err := core.processSchemaContentJSightAllOf(b.Schema.ContentJSight, b.Schema.UsedUserTypes)
-				if err != nil {
-					return r.HTTPRequestBody.Directive.BodyError(err.Error())
+			if r != nil && r.HTTPRequestBody != nil && r.HTTPRequestBody.Schema != nil {
+				if s, ok := r.HTTPRequestBody.Schema.(*jschema.Schema); ok {
+					err := core.processSchemaContentJSightAllOf(s.AstNode, nil)
+					if err != nil {
+						return r.HTTPRequestBody.Directive.BodyError(err.Error())
+					}
 				}
 			}
 		}
@@ -307,8 +299,8 @@ func (core *JApiCore) processResponseHeaderAllOf() *jerr.JApiError {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			for _, resp := range hi.Responses {
 				h := resp.Headers
-				if h != nil && h.Schema != nil && h.Schema.Notation == notation.SchemaNotationJSight {
-					err := core.processSchemaContentJSightAllOf(h.Schema.ContentJSight, h.Schema.UsedUserTypes)
+				if h != nil && h.Schema != nil {
+					err := core.processSchemaContentJSightAllOf(h.Schema.AstNode, nil)
 					if err != nil {
 						return resp.Headers.Directive.BodyError(err.Error())
 					}
@@ -324,10 +316,12 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			for _, resp := range hi.Responses {
 				b := resp.Body
-				if b != nil && b.Schema != nil && b.Schema.Notation == notation.SchemaNotationJSight {
-					err := core.processSchemaContentJSightAllOf(b.Schema.ContentJSight, b.Schema.UsedUserTypes)
-					if err != nil {
-						return resp.Body.Directive.BodyError(err.Error())
+				if b != nil && b.Schema != nil {
+					if s, ok := b.Schema.(*jschema.Schema); ok {
+						err := core.processSchemaContentJSightAllOf(s.AstNode, nil)
+						if err != nil {
+							return resp.Body.Directive.BodyError(err.Error())
+						}
 					}
 				}
 			}
@@ -336,6 +330,7 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 	}))
 }
 
+// TODO - remove uut ??? node => schema ???
 func (core *JApiCore) processSchemaContentJSightAllOf(node jschemaLib.ASTNode, uut *catalog.StringSet) error {
 	if node.TokenType != jschemaLib.TokenTypeObject {
 		return nil
@@ -378,17 +373,18 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 		return fmt.Errorf(`the user type %q not found`, userTypeName)
 	}
 
-	if ut.Schema.ContentJSight.TokenType != jschemaLib.TokenTypeObject {
+	uts, ok := ut.Schema.(*jschema.Schema)
+	if !ok {
+		return fmt.Errorf(`the JSight user type %q not found`, userTypeName)
+	}
+
+	if uts.AstNode.TokenType != jschemaLib.TokenTypeObject {
 		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
 	}
 
 	if _, ok := core.processedByAllOf[userTypeName]; !ok {
 		core.processedByAllOf[userTypeName] = struct{}{}
-		n, err := ut.Schema.JSchema.GetAST()
-		if err != nil {
-			return err
-		}
-		if err := core.processSchemaContentJSightAllOf(n, uut); err != nil {
+		if err := core.processSchemaContentJSightAllOf(uts.AstNode, uut); err != nil {
 			return err
 		}
 	}
@@ -397,19 +393,15 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 		node.Children = make([]jschemaLib.ASTNode, 0, 10)
 	}
 
-	for i := len(ut.Schema.ContentJSight.Children) - 1; i >= 0; i-- {
-		v := ut.Schema.ContentJSight.Children[i]
+	for i := len(uts.AstNode.Children) - 1; i >= 0; i-- {
+		c := uts.AstNode.Children[i]
 
-		if v.Key == nil {
-			return fmt.Errorf(jerr.InternalServerError)
-		}
-
-		p := node.ObjectProperty(*(v.Key))
+		p := node.ObjectProperty(c.Key)
 		if p != nil && p.InheritedFrom == "" {
 			// Don't allow to override original properties.
 			return fmt.Errorf(
 				"it is not allowed to override the %q property from the user type %q",
-				*(v.Key),
+				c.Key,
 				userTypeName,
 			)
 		}
@@ -419,12 +411,12 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 			continue
 		}
 
-		vv := *v
-		if vv.InheritedFrom == "" {
-			uut.Add(userTypeName)
+		cc := c // copy
+		if cc.InheritedFrom == "" {
+			// TODO  uut.Add(userTypeName)
 		}
-		vv.InheritedFrom = userTypeName
-		node.Unshift(&vv)
+		cc.InheritedFrom = userTypeName
+		node.Unshift(&cc)
 	}
 
 	return nil

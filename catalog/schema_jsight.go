@@ -12,6 +12,7 @@ import (
 
 // UnmarshalJSightSchema unmarshal a schema from the given slice of bytes.
 // Marshaled schema shouldn't contain any trailing symbols.
+// TODO remove
 func UnmarshalJSightSchema(
 	name string,
 	b []byte,

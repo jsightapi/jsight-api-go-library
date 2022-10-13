@@ -3,9 +3,8 @@ package catalog
 import (
 	"encoding/json"
 	"fmt"
-	"sync"
-
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"sync"
 
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
@@ -44,6 +43,7 @@ func NewSchema(n notation.SchemaNotation) Schema {
 }
 
 // StringSet a set of strings.
+// TODO remove ???
 // gen:Set
 type StringSet struct {
 	data  map[string]struct{}
