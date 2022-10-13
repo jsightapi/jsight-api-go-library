@@ -2,7 +2,6 @@ package catalog
 
 import (
 	"errors"
-
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
@@ -14,7 +13,7 @@ import (
 
 type HTTPResponseBody struct {
 	Format    SerializeFormat     `json:"format"`
-	Schema    *Schema             `json:"schema"`
+	Schema    jschemaLib.Schema   `json:"schema"`
 	Directive directive.Directive `json:"-"`
 }
 
@@ -32,25 +31,25 @@ func NewHTTPResponseBody(
 		Directive: d,
 	}
 
-	var s Schema
+	var s jschemaLib.Schema
+	var err error
+
 	switch f {
 	case SerializeFormatJSON:
-		var err error
-		s, err = UnmarshalJSightSchema("", b, tt, rr)
+		s, err = PrepareJSightSchema("", b, tt, rr)
 		if err != nil {
 			return HTTPResponseBody{}, adoptErrorForResponseBody(d, err)
 		}
 	case SerializeFormatPlainString:
-		var err error
-		s, err = UnmarshalRegexSchema("", b)
+		s, err = PrepareRegexSchema("", b)
 		if err != nil {
 			return HTTPResponseBody{}, adoptErrorForResponseBody(d, err)
 		}
-	default:
-		s = NewSchema(sn)
+		// default:
+		// 	s = NewSchema(sn)
 	}
 
-	body.Schema = &s
+	body.Schema = s
 
 	return body, nil
 }

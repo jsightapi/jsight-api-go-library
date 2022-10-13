@@ -44,8 +44,7 @@ func (core *JApiCore) ExpandRawPathVariableShortcuts() *jerr.JApiError {
 				return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
 			}
 
-			x := ut.Schema.JSchema.(*jschema.Schema)
-			r.schema = x // copy schema
+			r.schema = ut.Schema.JSchema.(*jschema.Schema) // copy schema TODO ???
 		}
 
 		// TODO
@@ -240,14 +239,11 @@ func (core *JApiCore) processBaseUrlAllOf() *jerr.JApiError {
 }
 
 func (core *JApiCore) processRawPathVariablesAllOf() *jerr.JApiError {
-	// TODO
-	// for _, r := range core.rawPathVariables {
-	// 	if r.schema.Notation == notation.SchemaNotationJSight {
-	// 		if err := core.processSchemaContentJSightAllOf(r.schema.ContentJSight, r.schema.UsedUserTypes); err != nil {
-	// 			return r.pathDirective.BodyError(err.Error())
-	// 		}
-	// 	}
-	// }
+	for _, r := range core.rawPathVariables {
+		if err := core.processSchemaContentJSightAllOf(r.schema.AstNode, r.UsedUserTypes); err != nil {
+			return r.pathDirective.BodyError(err.Error())
+		}
+	}
 	return nil
 }
 
@@ -328,10 +324,7 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			for _, resp := range hi.Responses {
 				b := resp.Body
-				isJSight := b != nil &&
-					b.Schema != nil &&
-					b.Schema.Notation == notation.SchemaNotationJSight
-				if isJSight {
+				if b != nil && b.Schema != nil && b.Schema.Notation == notation.SchemaNotationJSight {
 					err := core.processSchemaContentJSightAllOf(b.Schema.ContentJSight, b.Schema.UsedUserTypes)
 					if err != nil {
 						return resp.Body.Directive.BodyError(err.Error())
@@ -343,32 +336,32 @@ func (core *JApiCore) processResponseAllOf() *jerr.JApiError {
 	}))
 }
 
-func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJSight, uut *catalog.StringSet) error {
-	if sc.TokenType != jschemaLib.TokenTypeObject {
+func (core *JApiCore) processSchemaContentJSightAllOf(node jschemaLib.ASTNode, uut *catalog.StringSet) error {
+	if node.TokenType != jschemaLib.TokenTypeObject {
 		return nil
 	}
 
-	for _, v := range sc.Children {
+	for _, v := range node.Children {
 		if err := core.processSchemaContentJSightAllOf(v, uut); err != nil {
 			return err
 		}
 	}
 
-	rule, ok := sc.Rules.Get("allOf")
+	rule, ok := node.Rules.Get("allOf")
 	if !ok {
 		return nil
 	}
 
 	switch rule.TokenType { //nolint:exhaustive // We expects only this types.
-	case catalog.RuleTokenTypeArray:
-		for i := len(rule.Children) - 1; i >= 0; i-- {
-			r := rule.Children[i]
-			if err := core.inheritPropertiesFromUserType(sc, uut, r.ScalarValue); err != nil {
+	case jschemaLib.TokenTypeArray:
+		for i := len(rule.Items) - 1; i >= 0; i-- {
+			r := rule.Items[i]
+			if err := core.inheritPropertiesFromUserType(node, uut, r.Value); err != nil {
 				return err
 			}
 		}
-	case catalog.RuleTokenTypeReference:
-		if err := core.inheritPropertiesFromUserType(sc, uut, rule.ScalarValue); err != nil {
+	case jschemaLib.TokenTypeShortcut:
+		if err := core.inheritPropertiesFromUserType(node, uut, rule.Value); err != nil {
 			return err
 		}
 	}
@@ -376,7 +369,7 @@ func (core *JApiCore) processSchemaContentJSightAllOf(sc *catalog.SchemaContentJ
 }
 
 func (core *JApiCore) inheritPropertiesFromUserType(
-	sc *catalog.SchemaContentJSight,
+	node jschemaLib.ASTNode,
 	uut *catalog.StringSet,
 	userTypeName string,
 ) error {
@@ -391,13 +384,17 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 
 	if _, ok := core.processedByAllOf[userTypeName]; !ok {
 		core.processedByAllOf[userTypeName] = struct{}{}
-		if err := core.processSchemaContentJSightAllOf(ut.Schema.ContentJSight, uut); err != nil {
+		n, err := ut.Schema.JSchema.GetAST()
+		if err != nil {
+			return err
+		}
+		if err := core.processSchemaContentJSightAllOf(n, uut); err != nil {
 			return err
 		}
 	}
 
-	if sc.Children == nil {
-		sc.Children = make([]*catalog.SchemaContentJSight, 0, 10)
+	if node.Children == nil {
+		node.Children = make([]jschemaLib.ASTNode, 0, 10)
 	}
 
 	for i := len(ut.Schema.ContentJSight.Children) - 1; i >= 0; i-- {
@@ -407,7 +404,7 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 			return fmt.Errorf(jerr.InternalServerError)
 		}
 
-		p := sc.ObjectProperty(*(v.Key))
+		p := node.ObjectProperty(*(v.Key))
 		if p != nil && p.InheritedFrom == "" {
 			// Don't allow to override original properties.
 			return fmt.Errorf(
@@ -427,7 +424,7 @@ func (core *JApiCore) inheritPropertiesFromUserType(
 			uut.Add(userTypeName)
 		}
 		vv.InheritedFrom = userTypeName
-		sc.Unshift(&vv)
+		node.Unshift(&vv)
 	}
 
 	return nil

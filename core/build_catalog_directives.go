@@ -3,6 +3,8 @@ package core
 import (
 	"errors"
 	"fmt"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
@@ -307,7 +309,7 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 		q.Example = example
 	}
 
-	s, err := catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err := catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -316,7 +318,7 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 		return d.BodyError(err.Error())
 	}
 
-	q.Schema = &s
+	q.Schema = s
 
 	if err = core.catalog.AddQueryToCurrentMethod(*d, q); err != nil {
 		return d.KeywordError(err.Error())
@@ -353,16 +355,16 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 		}
 	}
 
-	var s catalog.Schema
+	var s jschemaLib.Schema
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
-		if s, err = catalog.UnmarshalJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules); err == nil {
+		if s, err = catalog.PrepareJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 
 	case sn == notation.SchemaNotationJSight && typ == "" && d.BodyCoords.IsSet():
-		if s, err = catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules); err == nil {
+		if s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 		var e kit.Error
@@ -371,7 +373,7 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 		}
 
 	case sn == notation.SchemaNotationRegex && typ == "" && d.BodyCoords.IsSet():
-		if s, err = catalog.UnmarshalRegexSchema("", d.BodyCoords.Read()); err == nil {
+		if s, err = catalog.PrepareRegexSchema("", d.BodyCoords.Read()); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 		var e kit.Error
@@ -380,7 +382,6 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 		}
 
 	case (sn == notation.SchemaNotationAny || sn == notation.SchemaNotationEmpty) && !d.BodyCoords.IsSet():
-		s = catalog.NewSchema(sn)
 		err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 
 	case d.Type() == directive.Body:
@@ -475,10 +476,10 @@ func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError(jerr.EmptyBody)
 	}
 
-	var s catalog.Schema
+	var s *jschema.Schema
 	var err error
 
-	s, err = catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -562,7 +563,7 @@ func isProtocolExists(d *directive.Directive) bool {
 
 func (core JApiCore) addJsonRpcSchema(
 	d *directive.Directive,
-	f func(catalog.Schema, directive.Directive) error,
+	f func(*jschema.Schema, directive.Directive) error,
 ) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
@@ -571,10 +572,10 @@ func (core JApiCore) addJsonRpcSchema(
 		return d.KeywordError(jerr.EmptyBody)
 	}
 
-	var s catalog.Schema
+	var s *jschema.Schema
 	var err error
 
-	s, err = catalog.UnmarshalJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {

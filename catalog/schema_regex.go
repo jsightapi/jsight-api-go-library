@@ -9,6 +9,22 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/notation"
 )
 
+func PrepareRegexSchema(name string, regexStr bytes.Bytes) (*regex.Schema, error) {
+	var oo []regex.Option
+	oo = append(oo, regex.WithGeneratorSeed(0))
+
+	s := regex.New(name, regexStr, oo...)
+
+	// n, err := s.GetAST()
+	// if err != nil {
+	// 	return Schema{}, err
+	// }
+
+	return s, nil
+}
+
+// TODO remove the following ???
+
 func UnmarshalRegexSchema(name string, regexStr bytes.Bytes) (schema Schema, err error) {
 	return mainRegexMarshaller.Marshal(name, regexStr)
 }

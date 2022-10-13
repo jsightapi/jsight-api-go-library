@@ -3,6 +3,7 @@ package catalog
 import (
 	"errors"
 	"fmt"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
@@ -347,7 +348,7 @@ func (c *Catalog) AddResponseBody(
 	return nil
 }
 
-func (c *Catalog) AddResponseHeaders(s Schema, d directive.Directive) error {
+func (c *Catalog) AddResponseHeaders(s *jschema.Schema, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -369,7 +370,7 @@ func (c *Catalog) AddResponseHeaders(s Schema, d directive.Directive) error {
 	}
 
 	c.Interactions.Update(httpID, func(v Interaction) Interaction {
-		v.(*HTTPInteraction).Responses[i].Headers = &HTTPResponseHeaders{Schema: &s, Directive: d}
+		v.(*HTTPInteraction).Responses[i].Headers = &HTTPResponseHeaders{Schema: s, Directive: d}
 		return v
 	})
 
@@ -453,7 +454,7 @@ func (c *Catalog) AddType(
 		if !d.BodyCoords.IsSet() {
 			return d.KeywordError(jerr.EmptyBody)
 		}
-		schema, err := UnmarshalJSightSchema(name, d.BodyCoords.Read(), tt, rr)
+		schema, err := PrepareJSightSchema(name, d.BodyCoords.Read(), tt, rr)
 		if err != nil {
 			return adoptErrorForAddType(d, err)
 		}
@@ -462,13 +463,13 @@ func (c *Catalog) AddType(
 		if !d.BodyCoords.IsSet() {
 			return d.KeywordError(jerr.EmptyBody)
 		}
-		schema, err := UnmarshalRegexSchema(name, d.BodyCoords.Read())
+		schema, err := PrepareRegexSchema(name, d.BodyCoords.Read())
 		if err != nil {
 			return adoptErrorForAddType(d, err)
 		}
 		userType.Schema = schema
-	case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
-		userType.Schema = NewSchema(typeNotation)
+		// case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
+		// 	userType.Schema = NewSchema(typeNotation)
 	}
 
 	c.UserTypes.Set(name, userType)
@@ -494,7 +495,7 @@ func (c *Catalog) AddRequest(d directive.Directive) error {
 	return nil
 }
 
-func (c *Catalog) AddRequestBody(s Schema, f SerializeFormat, d directive.Directive) error {
+func (c *Catalog) AddRequestBody(s jschemaLib.Schema, f SerializeFormat, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -515,14 +516,14 @@ func (c *Catalog) AddRequestBody(s Schema, f SerializeFormat, d directive.Direct
 	}
 
 	c.Interactions.Update(httpID, func(v Interaction) Interaction {
-		v.(*HTTPInteraction).Request.HTTPRequestBody = &HTTPRequestBody{Format: f, Schema: &s, Directive: d}
+		v.(*HTTPInteraction).Request.HTTPRequestBody = &HTTPRequestBody{Format: f, Schema: s, Directive: d}
 		return v
 	})
 
 	return nil
 }
 
-func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
+func (c *Catalog) AddRequestHeaders(s *jschema.Schema, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -543,7 +544,7 @@ func (c *Catalog) AddRequestHeaders(s Schema, d directive.Directive) error {
 	}
 
 	c.Interactions.Update(httpID, func(v Interaction) Interaction {
-		v.(*HTTPInteraction).Request.HTTPRequestHeaders = &HTTPRequestHeaders{Schema: &s, Directive: d}
+		v.(*HTTPInteraction).Request.HTTPRequestHeaders = &HTTPRequestHeaders{Schema: s, Directive: d}
 		return v
 	})
 
@@ -575,7 +576,7 @@ func (c *Catalog) AddJsonRpcMethod(d directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (c *Catalog) AddJsonRpcParams(s Schema, d directive.Directive) error {
+func (c *Catalog) AddJsonRpcParams(s *jschema.Schema, d directive.Directive) error {
 	rpcId, err := newJsonRpcInteractionId(d)
 	if err != nil {
 		return err
@@ -592,14 +593,14 @@ func (c *Catalog) AddJsonRpcParams(s Schema, d directive.Directive) error {
 	}
 
 	c.Interactions.Update(rpcId, func(v Interaction) Interaction {
-		v.(*JsonRpcInteraction).Params = &jsonRpcParams{Schema: &s, Directive: d}
+		v.(*JsonRpcInteraction).Params = &jsonRpcParams{Schema: s, Directive: d}
 		return v
 	})
 
 	return nil
 }
 
-func (c *Catalog) AddJsonRpcResult(s Schema, d directive.Directive) error {
+func (c *Catalog) AddJsonRpcResult(s *jschema.Schema, d directive.Directive) error {
 	rpcId, err := newJsonRpcInteractionId(d)
 	if err != nil {
 		return err
@@ -616,7 +617,7 @@ func (c *Catalog) AddJsonRpcResult(s Schema, d directive.Directive) error {
 	}
 
 	c.Interactions.Update(rpcId, func(v Interaction) Interaction {
-		v.(*JsonRpcInteraction).Result = &jsonRpcResult{Schema: &s, Directive: d}
+		v.(*JsonRpcInteraction).Result = &jsonRpcResult{Schema: s, Directive: d}
 		return v
 	})
 

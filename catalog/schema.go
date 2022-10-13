@@ -11,8 +11,8 @@ import (
 )
 
 // Schema represent a user defined schema.
-type Schema struct {
-	JSchema jschemaLib.Schema `json:"-"`
+type Schema struct { // TODO move to a separate package
+	JSchema jschemaLib.Schema
 
 	// Notation used notation for this schema.
 	Notation notation.SchemaNotation
@@ -20,7 +20,7 @@ type Schema struct {
 	// JSight notation specific fields.
 
 	// ContentJSight a JSight schema.
-	ContentJSight *SchemaContentJSight
+	ContentJSight *SchemaContentJSight // TODO rename to ContentJSchema
 	// UsedUserTypes a list of used user types.
 	UsedUserTypes *StringSet
 	// UserUserTypes a list of used user enums.

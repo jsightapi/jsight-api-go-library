@@ -1,6 +1,7 @@
 package catalog
 
 import (
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"sync"
 
 	"github.com/jsightapi/jsight-api-go-library/directive"
@@ -13,7 +14,7 @@ type Server struct {
 }
 
 type baseURLVariables struct {
-	Schema    *Schema             `json:"schema"`
+	Schema    jschemaLib.Schema   `json:"schema"`
 	Directive directive.Directive `json:"-"`
 }
 

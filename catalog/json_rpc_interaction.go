@@ -1,6 +1,9 @@
 package catalog
 
-import "github.com/jsightapi/jsight-api-go-library/directive"
+import (
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+)
 
 type JsonRpcInteraction struct { //nolint:govet
 	Id          string         `json:"id"`
@@ -16,12 +19,12 @@ type JsonRpcInteraction struct { //nolint:govet
 }
 
 type jsonRpcParams struct {
-	Schema    *Schema             `json:"schema"`
+	Schema    *jschema.Schema     `json:"schema"`
 	Directive directive.Directive `json:"-"`
 }
 
 type jsonRpcResult struct {
-	Schema    *Schema             `json:"schema"`
+	Schema    *jschema.Schema     `json:"schema"`
 	Directive directive.Directive `json:"-"`
 }
 
