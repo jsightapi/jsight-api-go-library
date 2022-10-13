@@ -647,6 +647,7 @@ func TestUnmarshalJSightSchema(t *testing.T) {
 					tt.Set(n, jschema.New(n, p))
 				}
 				actual, err := UnmarshalJSightSchema("foo", []byte(b), tt, nil)
+				actual.JSchema = nil
 				require.NoError(t, err)
 				assert.EqualValues(t, c.expected, actual)
 			})

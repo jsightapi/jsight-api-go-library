@@ -12,7 +12,7 @@ import (
 
 // Schema represent a user defined schema.
 type Schema struct {
-	JSchema jschemaLib.Schema
+	JSchema jschemaLib.Schema `json:"-"`
 
 	// Notation used notation for this schema.
 	Notation notation.SchemaNotation
