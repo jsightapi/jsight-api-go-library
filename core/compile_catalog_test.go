@@ -48,8 +48,8 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 				rawPathVariables: []rawPathVariable{
 					{
 						schema: catalog.Schema{
-							ContentJSight: &catalog.SchemaContentJSight{
-								Children: []*catalog.SchemaContentJSight{
+							ContentJSight: &catalog.ExchangeSchemaContentJSight{
+								Children: []*catalog.ExchangeSchemaContentJSight{
 									{Key: catalog.SrtPtr("foo")},
 									{Key: catalog.SrtPtr("bar")},
 								},
@@ -98,7 +98,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 // TODO func TestCore_propertiesToMap(t *testing.T) {
 // 	cc := map[string]struct {
 // 		given    *catalog.Properties
-// 		expected map[string]*catalog.SchemaContentJSight
+// 		expected map[string]*catalog.ExchangeSchemaContentJSight
 // 	}{
 // 		"nil": {},
 //
@@ -108,7 +108,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 //
 // 		"with data": {
 // 			given: catalog.NewProperties(
-// 				map[string]*catalog.SchemaContentJSight{
+// 				map[string]*catalog.ExchangeSchemaContentJSight{
 // 					"foo": nil,
 // 					"bar": {
 // 						Note: "fake",
@@ -116,7 +116,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 // 				},
 // 				[]string{"foo", "bar"},
 // 			),
-// 			expected: map[string]*catalog.SchemaContentJSight{
+// 			expected: map[string]*catalog.ExchangeSchemaContentJSight{
 // 				"foo": nil,
 // 				"bar": {
 // 					Note: "fake",
@@ -135,17 +135,17 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 
 // TODO func TestCore_getPropertiesNames(t *testing.T) {
 // 	cc := map[string]struct {
-// 		given    map[string]*catalog.SchemaContentJSight
+// 		given    map[string]*catalog.ExchangeSchemaContentJSight
 // 		expected string
 // 	}{
 // 		"nil": {},
 //
 // 		"empty": {
-// 			given: map[string]*catalog.SchemaContentJSight{},
+// 			given: map[string]*catalog.ExchangeSchemaContentJSight{},
 // 		},
 //
 // 		"with data": {
-// 			given: map[string]*catalog.SchemaContentJSight{
+// 			given: map[string]*catalog.ExchangeSchemaContentJSight{
 // 				"foo":  nil,
 // 				"bar":  nil,
 // 				"fizz": nil,
@@ -171,13 +171,13 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		cc := map[string]struct {
 			core               *JApiCore
-			given              *catalog.SchemaContentJSight
+			given              *catalog.ExchangeSchemaContentJSight
 			expectedUUT        *catalog.StringSet
-			expectedProperties []*catalog.SchemaContentJSight
+			expectedProperties []*catalog.ExchangeSchemaContentJSight
 		}{
 			"not object": {
 				NewJApiCore(fs.NewFile("", `{}`)),
-				&catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
 					TokenType: "string",
 				},
 				catalog.NewStringSet(),
@@ -186,12 +186,12 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 
 			"without allOf": {
 				NewJApiCore(fs.NewFile("", `{}`)),
-				&catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
 					TokenType: jschema.TokenTypeObject,
-					Children:  []*catalog.SchemaContentJSight{},
+					Children:  []*catalog.ExchangeSchemaContentJSight{},
 				},
 				catalog.NewStringSet(),
-				[]*catalog.SchemaContentJSight{},
+				[]*catalog.ExchangeSchemaContentJSight{},
 			},
 
 			"with allOf, single": {
@@ -200,9 +200,9 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					core.catalog = catalog.NewCatalog()
 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
 						Schema: catalog.Schema{
-							ContentJSight: &catalog.SchemaContentJSight{
+							ContentJSight: &catalog.ExchangeSchemaContentJSight{
 								TokenType: jschema.TokenTypeObject,
-								Children: []*catalog.SchemaContentJSight{
+								Children: []*catalog.ExchangeSchemaContentJSight{
 									{Key: catalog.SrtPtr("foo")},
 									{Key: catalog.SrtPtr("bar")},
 								},
@@ -211,9 +211,9 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					})
 					return core
 				}(),
-				&catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
 					TokenType: jschema.TokenTypeObject,
-					Children:  []*catalog.SchemaContentJSight{},
+					Children:  []*catalog.ExchangeSchemaContentJSight{},
 					Rules: catalog.NewRules(
 						[]catalog.Rule{
 							{
@@ -225,7 +225,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					),
 				},
 				catalog.NewStringSet("@foo"),
-				[]*catalog.SchemaContentJSight{
+				[]*catalog.ExchangeSchemaContentJSight{
 					{
 						Key:           catalog.SrtPtr("foo"),
 						InheritedFrom: "@foo",
@@ -243,9 +243,9 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					core.catalog = catalog.NewCatalog()
 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
 						Schema: catalog.Schema{
-							ContentJSight: &catalog.SchemaContentJSight{
+							ContentJSight: &catalog.ExchangeSchemaContentJSight{
 								TokenType: jschema.TokenTypeObject,
-								Children: []*catalog.SchemaContentJSight{
+								Children: []*catalog.ExchangeSchemaContentJSight{
 									{Key: catalog.SrtPtr("foo1")},
 									{Key: catalog.SrtPtr("foo2")},
 								},
@@ -254,9 +254,9 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					})
 					core.catalog.UserTypes.Set("@bar", &catalog.UserType{
 						Schema: catalog.Schema{
-							ContentJSight: &catalog.SchemaContentJSight{
+							ContentJSight: &catalog.ExchangeSchemaContentJSight{
 								TokenType: jschema.TokenTypeObject,
-								Children: []*catalog.SchemaContentJSight{
+								Children: []*catalog.ExchangeSchemaContentJSight{
 									{Key: catalog.SrtPtr("bar1")},
 									{Key: catalog.SrtPtr("bar2")},
 								},
@@ -265,9 +265,9 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					})
 					return core
 				}(),
-				&catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
 					TokenType: jschema.TokenTypeObject,
-					Children:  []*catalog.SchemaContentJSight{},
+					Children:  []*catalog.ExchangeSchemaContentJSight{},
 					Rules: catalog.NewRules(
 						[]catalog.Rule{
 							{
@@ -288,7 +288,7 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 					),
 				},
 				catalog.NewStringSet("@bar", "@foo"),
-				[]*catalog.SchemaContentJSight{
+				[]*catalog.ExchangeSchemaContentJSight{
 					{
 						Key:           catalog.SrtPtr("foo1"),
 						InheritedFrom: "@foo",
@@ -334,14 +334,14 @@ func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
 func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		cc := map[string]struct {
-			given              *catalog.SchemaContentJSight
+			given              *catalog.ExchangeSchemaContentJSight
 			expectedUUT        *catalog.StringSet
-			expectedProperties []*catalog.SchemaContentJSight
+			expectedProperties []*catalog.ExchangeSchemaContentJSight
 		}{
 			"sc.properties is nil": {
-				&catalog.SchemaContentJSight{},
+				&catalog.ExchangeSchemaContentJSight{},
 				catalog.NewStringSet("foo"),
-				[]*catalog.SchemaContentJSight{
+				[]*catalog.ExchangeSchemaContentJSight{
 					{
 						Key:           catalog.SrtPtr("bar"),
 						InheritedFrom: "foo",
@@ -350,14 +350,14 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 			},
 
 			"sc.properties isn't nil": {
-				&catalog.SchemaContentJSight{
-					Children: []*catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
+					Children: []*catalog.ExchangeSchemaContentJSight{
 						{Key: catalog.SrtPtr("fizz")},
 						{Key: catalog.SrtPtr("buzz")},
 					},
 				},
 				catalog.NewStringSet("foo"),
-				[]*catalog.SchemaContentJSight{
+				[]*catalog.ExchangeSchemaContentJSight{
 					{
 						Key:           catalog.SrtPtr("bar"),
 						InheritedFrom: "foo",
@@ -378,9 +378,9 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				core.catalog = catalog.NewCatalog()
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
-						ContentJSight: &catalog.SchemaContentJSight{
+						ContentJSight: &catalog.ExchangeSchemaContentJSight{
 							TokenType: jschema.TokenTypeObject,
-							Children: []*catalog.SchemaContentJSight{
+							Children: []*catalog.ExchangeSchemaContentJSight{
 								{Key: catalog.SrtPtr("bar")},
 							},
 						},
@@ -408,7 +408,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 					c := catalog.NewCatalog()
 					c.UserTypes.Set("foo", &catalog.UserType{
 						Schema: catalog.Schema{
-							ContentJSight: &catalog.SchemaContentJSight{
+							ContentJSight: &catalog.ExchangeSchemaContentJSight{
 								TokenType: jschema.TokenTypeString,
 							},
 						},
@@ -430,17 +430,17 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 			core.catalog = catalog.NewCatalog()
 			core.catalog.UserTypes.Set("foo", &catalog.UserType{
 				Schema: catalog.Schema{
-					ContentJSight: &catalog.SchemaContentJSight{
+					ContentJSight: &catalog.ExchangeSchemaContentJSight{
 						TokenType: jschema.TokenTypeObject,
-						Children: []*catalog.SchemaContentJSight{
+						Children: []*catalog.ExchangeSchemaContentJSight{
 							{Key: catalog.SrtPtr("bar")},
 						},
 					},
 				},
 			})
 			err := core.inheritPropertiesFromUserType(
-				&catalog.SchemaContentJSight{
-					Children: []*catalog.SchemaContentJSight{
+				&catalog.ExchangeSchemaContentJSight{
+					Children: []*catalog.ExchangeSchemaContentJSight{
 						{Key: catalog.SrtPtr("bar")},
 					},
 				},
@@ -454,7 +454,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 			assert.Panics(t, func() {
 				var core *JApiCore
 				_ = core.inheritPropertiesFromUserType(
-					&catalog.SchemaContentJSight{},
+					&catalog.ExchangeSchemaContentJSight{},
 					&catalog.StringSet{},
 					"foo",
 				)
@@ -468,7 +468,7 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				}
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
-						ContentJSight: &catalog.SchemaContentJSight{
+						ContentJSight: &catalog.ExchangeSchemaContentJSight{
 							TokenType: jschema.TokenTypeObject,
 						},
 					},
@@ -488,16 +488,16 @@ func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
 				}
 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
 					Schema: catalog.Schema{
-						ContentJSight: &catalog.SchemaContentJSight{
+						ContentJSight: &catalog.ExchangeSchemaContentJSight{
 							TokenType: jschema.TokenTypeObject,
-							Children: []*catalog.SchemaContentJSight{
+							Children: []*catalog.ExchangeSchemaContentJSight{
 								{Key: catalog.SrtPtr("foo")},
 							},
 						},
 					},
 				})
 				_ = core.inheritPropertiesFromUserType(
-					&catalog.SchemaContentJSight{},
+					&catalog.ExchangeSchemaContentJSight{},
 					nil,
 					"foo",
 				)

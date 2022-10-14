@@ -13,7 +13,7 @@ import (
 
 type HTTPResponseBody struct {
 	Format    SerializeFormat     `json:"format"`
-	Schema    jschemaLib.Schema   `json:"schema"`
+	Schema    ExchangeSchema      `json:"schema"`
 	Directive directive.Directive `json:"-"`
 }
 
@@ -31,7 +31,7 @@ func NewHTTPResponseBody(
 		Directive: d,
 	}
 
-	var s jschemaLib.Schema
+	var s ExchangeSchema
 	var err error
 
 	switch f {
@@ -45,8 +45,8 @@ func NewHTTPResponseBody(
 		if err != nil {
 			return HTTPResponseBody{}, adoptErrorForResponseBody(d, err)
 		}
-		// default:
-		// 	s = NewSchema(sn)
+	default:
+		s = NewExchangePseudoSchema(sn)
 	}
 
 	body.Schema = s

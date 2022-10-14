@@ -44,7 +44,7 @@ func (core *JApiCore) validateInfo() *jerr.JApiError {
 
 // func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
 // 	err := core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
-// 		if err := core.findUserTypes(v.Schema.UsedUserTypes); err != nil {
+// 		if err := core.findUserTypes(v.ExchangeSchema.UsedUserTypes); err != nil {
 // 			return v.Directive.BodyError(err.Error())
 // 		}
 // 		return nil
@@ -55,8 +55,8 @@ func (core *JApiCore) validateInfo() *jerr.JApiError {
 //
 // 	err = core.catalog.Servers.Each(func(k string, v *catalog.Server) error {
 // 		s := v.BaseUrlVariables
-// 		if s != nil && s.Schema != nil {
-// 			if err := core.findUserTypes(s.Schema.UsedUserTypes); err != nil {
+// 		if s != nil && s.ExchangeSchema != nil {
+// 			if err := core.findUserTypes(s.ExchangeSchema.UsedUserTypes); err != nil {
 // 				return s.Directive.BodyError(err.Error())
 // 			}
 // 		}
@@ -71,35 +71,35 @@ func (core *JApiCore) validateInfo() *jerr.JApiError {
 // 		if !ok {
 // 			return nil
 // 		}
-// 		if hi.Query != nil && hi.Query.Schema != nil {
-// 			if err := core.findUserTypes(hi.Query.Schema.UsedUserTypes); err != nil {
+// 		if hi.Query != nil && hi.Query.ExchangeSchema != nil {
+// 			if err := core.findUserTypes(hi.Query.ExchangeSchema.UsedUserTypes); err != nil {
 // 				return hi.Query.Directive.BodyError(err.Error())
 // 			}
 // 		}
 //
 // 		if hi.Request != nil {
-// 			if hi.Request.HTTPRequestHeaders != nil && hi.Request.HTTPRequestHeaders.Schema != nil {
-// 				if err := core.findUserTypes(hi.Request.HTTPRequestHeaders.Schema.UsedUserTypes); err != nil {
+// 			if hi.Request.HTTPRequestHeaders != nil && hi.Request.HTTPRequestHeaders.ExchangeSchema != nil {
+// 				if err := core.findUserTypes(hi.Request.HTTPRequestHeaders.ExchangeSchema.UsedUserTypes); err != nil {
 // 					return hi.Request.HTTPRequestHeaders.Directive.BodyError(err.Error())
 // 				}
 // 			}
 //
-// 			if hi.Request.HTTPRequestBody != nil && hi.Request.HTTPRequestBody.Schema != nil {
-// 				if err := core.findUserTypes(hi.Request.HTTPRequestBody.Schema.UsedUserTypes); err != nil {
+// 			if hi.Request.HTTPRequestBody != nil && hi.Request.HTTPRequestBody.ExchangeSchema != nil {
+// 				if err := core.findUserTypes(hi.Request.HTTPRequestBody.ExchangeSchema.UsedUserTypes); err != nil {
 // 					return hi.Request.HTTPRequestBody.Directive.BodyError(err.Error())
 // 				}
 // 			}
 // 		}
 //
 // 		for _, r := range hi.Responses {
-// 			if r.Headers != nil && r.Headers.Schema != nil {
-// 				if err := core.findUserTypes(r.Headers.Schema.UsedUserTypes); err != nil {
+// 			if r.Headers != nil && r.Headers.ExchangeSchema != nil {
+// 				if err := core.findUserTypes(r.Headers.ExchangeSchema.UsedUserTypes); err != nil {
 // 					return r.Headers.Directive.BodyError(err.Error())
 // 				}
 // 			}
 //
-// 			if r.Body != nil && r.Body.Schema != nil {
-// 				if err := core.findUserTypes(r.Body.Schema.UsedUserTypes); err != nil {
+// 			if r.Body != nil && r.Body.ExchangeSchema != nil {
+// 				if err := core.findUserTypes(r.Body.ExchangeSchema.UsedUserTypes); err != nil {
 // 					return r.Body.Directive.BodyError(err.Error())
 // 				}
 // 			}

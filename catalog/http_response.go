@@ -2,7 +2,6 @@ package catalog
 
 import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
 type HTTPResponse struct {
@@ -14,6 +13,6 @@ type HTTPResponse struct {
 }
 
 type HTTPResponseHeaders struct {
-	Schema    *jschema.Schema     `json:"schema"`
-	Directive directive.Directive `json:"-"`
+	Schema    *ExchangeJSightSchema `json:"schema"`
+	Directive directive.Directive   `json:"-"`
 }

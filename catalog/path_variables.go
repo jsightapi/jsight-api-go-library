@@ -1,37 +1,31 @@
 package catalog
 
 import (
-	"encoding/json"
-	"github.com/jsightapi/jsight-api-go-library/notation"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
 type PathVariables struct {
-	ASTNodes *jschemaLib.ASTNodes
+	ExchangeJSightSchema
 }
 
-func (p *PathVariables) MarshalJSON() ([]byte, error) {
-	var data struct {
-		Schema Schema `json:"schema"`
-	}
-
+func NewPathVariables(properties []Prop) *PathVariables {
 	n := jschemaLib.ASTNode{
 		TokenType:  jschemaLib.TokenTypeObject,
 		SchemaType: "object",
 		Rules:      jschemaLib.MakeRuleASTNodes(0),
-		Children:   make([]jschemaLib.ASTNode, 0, p.ASTNodes.Len()),
+		Children:   make([]jschemaLib.ASTNode, 0, len(properties)),
 	}
 
-	err := p.ASTNodes.Each(func(k string, v jschemaLib.ASTNode) error {
-		n.Children = append(n.Children, v)
-		return nil
-	})
-	if err != nil {
-		return []byte{}, err
+	for _, p := range properties {
+		n.Children = append(n.Children, p.ASTNode)
 	}
 
-	data.Schema = NewSchema(notation.SchemaNotationJSight)
-	data.Schema.ContentJSight = astNodeToJsightContent(n, data.Schema.UsedUserTypes, data.Schema.UsedUserEnums)
-
-	return json.Marshal(data)
+	return &PathVariables{
+		ExchangeJSightSchema: ExchangeJSightSchema{
+			Schema: &jschema.Schema{
+				AstNode: n,
+			},
+		},
+	}
 }

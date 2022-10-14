@@ -3,8 +3,6 @@ package catalog
 import (
 	"errors"
 	"fmt"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
-
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
@@ -348,7 +346,7 @@ func (c *Catalog) AddResponseBody(
 	return nil
 }
 
-func (c *Catalog) AddResponseHeaders(s *jschema.Schema, d directive.Directive) error {
+func (c *Catalog) AddResponseHeaders(s *ExchangeJSightSchema, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -419,7 +417,7 @@ func (c *Catalog) AddBaseURL(serverName string, path string) error {
 	//
 	// 	c.Servers.Update(serverName, func(v *Server) *Server {
 	// 		v.BaseUrlVariables = &baseURLVariables{
-	// 			Schema:    &s,
+	// 			ExchangeSchema:    &s,
 	// 			directive: d,
 	// 		}
 	// 		return v
@@ -469,7 +467,7 @@ func (c *Catalog) AddType(
 		}
 		userType.Schema = schema
 		// case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
-		// 	userType.Schema = NewSchema(typeNotation)
+		// 	userType.ExchangeSchema = NewSchema(typeNotation)
 	}
 
 	c.UserTypes.Set(name, userType)
@@ -495,7 +493,7 @@ func (c *Catalog) AddRequest(d directive.Directive) error {
 	return nil
 }
 
-func (c *Catalog) AddRequestBody(s jschemaLib.Schema, f SerializeFormat, d directive.Directive) error {
+func (c *Catalog) AddRequestBody(s ExchangeSchema, f SerializeFormat, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -523,7 +521,7 @@ func (c *Catalog) AddRequestBody(s jschemaLib.Schema, f SerializeFormat, d direc
 	return nil
 }
 
-func (c *Catalog) AddRequestHeaders(s *jschema.Schema, d directive.Directive) error {
+func (c *Catalog) AddRequestHeaders(s *ExchangeJSightSchema, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -576,7 +574,7 @@ func (c *Catalog) AddJsonRpcMethod(d directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (c *Catalog) AddJsonRpcParams(s *jschema.Schema, d directive.Directive) error {
+func (c *Catalog) AddJsonRpcParams(s *ExchangeJSightSchema, d directive.Directive) error {
 	rpcId, err := newJsonRpcInteractionId(d)
 	if err != nil {
 		return err
@@ -600,7 +598,7 @@ func (c *Catalog) AddJsonRpcParams(s *jschema.Schema, d directive.Directive) err
 	return nil
 }
 
-func (c *Catalog) AddJsonRpcResult(s *jschema.Schema, d directive.Directive) error {
+func (c *Catalog) AddJsonRpcResult(s *ExchangeJSightSchema, d directive.Directive) error {
 	rpcId, err := newJsonRpcInteractionId(d)
 	if err != nil {
 		return err

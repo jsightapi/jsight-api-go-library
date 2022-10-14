@@ -2,33 +2,14 @@ package core
 
 import (
 	"fmt"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
-	"github.com/jsightapi/jsight-schema-go-library/notations/regex"
 	"strings"
 
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
-	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
-type prop struct {
-	parameter string
-	astNode   jschemaLib.ASTNode
-	directive directive.Directive
-}
-
-func (core *JApiCore) newPathVariables(properties []prop) *catalog.PathVariables {
-	n := &jschemaLib.ASTNodes{}
-
-	for _, p := range properties {
-		n.Set(p.parameter, p.astNode)
-	}
-
-	return &catalog.PathVariables{ASTNodes: n}
-}
-
-func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, usedUserTypes *catalog.StringSet) error {
+func (core *JApiCore) collectUsedUserTypes(sc *catalog.ExchangeSchemaContentJSight, usedUserTypes *catalog.StringSet) error {
 	if sc.TokenType == jschemaLib.TokenTypeShortcut {
 		// We have two different cases under "reference" type:
 		// 1. Single type like "@foo"
@@ -67,7 +48,7 @@ func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, used
 					}
 				}
 
-				// Schema types shouldn't be added.
+				// ExchangeSchema types shouldn't be added.
 				if jschemaLib.IsValidType(userType) {
 					continue
 				}
@@ -89,7 +70,7 @@ func (core *JApiCore) collectUsedUserTypes(sc *catalog.SchemaContentJSight, used
 func (core *JApiCore) appendUsedUserType(usedUserTypes *catalog.StringSet, s string) error {
 	if t, ok := core.catalog.UserTypes.Get(s); ok {
 		switch sc := t.Schema.(type) {
-		case *jschema.Schema:
+		case *catalog.ExchangeJSightSchema:
 			switch sc.AstNode.TokenType {
 			case "string", "number", "boolean", "null":
 				usedUserTypes.Add(s)
@@ -101,7 +82,7 @@ func (core *JApiCore) appendUsedUserType(usedUserTypes *catalog.StringSet, s str
 					s,
 				)
 			}
-		case *regex.Schema:
+		case *catalog.ExchangeRegexSchema:
 			usedUserTypes.Add(s)
 			return nil
 		default:

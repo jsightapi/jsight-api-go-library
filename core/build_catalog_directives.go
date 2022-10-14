@@ -3,14 +3,10 @@ package core
 import (
 	"errors"
 	"fmt"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
-
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/notation"
-
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
 )
@@ -355,7 +351,7 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 		}
 	}
 
-	var s jschemaLib.Schema
+	var s catalog.ExchangeSchema
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
@@ -476,7 +472,7 @@ func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError(jerr.EmptyBody)
 	}
 
-	var s *jschema.Schema
+	var s *catalog.ExchangeJSightSchema
 	var err error
 
 	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
@@ -563,7 +559,7 @@ func isProtocolExists(d *directive.Directive) bool {
 
 func (core JApiCore) addJsonRpcSchema(
 	d *directive.Directive,
-	f func(*jschema.Schema, directive.Directive) error,
+	f func(*catalog.ExchangeJSightSchema, directive.Directive) error,
 ) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
@@ -572,7 +568,7 @@ func (core JApiCore) addJsonRpcSchema(
 		return d.KeywordError(jerr.EmptyBody)
 	}
 
-	var s *jschema.Schema
+	var s *catalog.ExchangeJSightSchema
 	var err error
 
 	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
