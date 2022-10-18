@@ -6,11 +6,14 @@ import (
 )
 
 type PathVariables struct {
-	ExchangeJSightSchema
+	*ExchangeJSightSchema
 }
 
 func NewPathVariables(properties []Prop) *PathVariables {
-	n := jschemaLib.ASTNode{
+	s := jschema.New("", "")
+	_ = s.Build()
+
+	s.ASTNode = jschemaLib.ASTNode{
 		TokenType:  jschemaLib.TokenTypeObject,
 		SchemaType: "object",
 		Rules:      jschemaLib.MakeRuleASTNodes(0),
@@ -18,14 +21,22 @@ func NewPathVariables(properties []Prop) *PathVariables {
 	}
 
 	for _, p := range properties {
-		n.Children = append(n.Children, p.ASTNode)
+		s.ASTNode.Children = append(s.ASTNode.Children, p.ASTNode)
 	}
 
 	return &PathVariables{
-		ExchangeJSightSchema: ExchangeJSightSchema{
-			Schema: &jschema.Schema{
-				AstNode: n,
-			},
+		ExchangeJSightSchema: &ExchangeJSightSchema{
+			Schema: s,
+			// TODO Exchange: NewExchange(),
 		},
 	}
+}
+
+func (p *PathVariables) Validate(key, value []byte) error {
+	return p.Schema.ValidateObjectProperty(key, value)
+}
+
+func (p *PathVariables) MarshalJSON() ([]byte, error) {
+	// TODO
+	return []byte(`{}`), nil
 }

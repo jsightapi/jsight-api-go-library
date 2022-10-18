@@ -9,7 +9,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 )
 
-func (core *JApiCore) collectUsedUserTypes(sc *catalog.ExchangeSchemaContentJSight, usedUserTypes *catalog.StringSet) error {
+func (core *JApiCore) collectUsedUserTypes(sc *catalog.ExchangeContent, usedUserTypes *catalog.StringSet) error {
 	if sc.TokenType == jschemaLib.TokenTypeShortcut {
 		// We have two different cases under "reference" type:
 		// 1. Single type like "@foo"
@@ -71,14 +71,14 @@ func (core *JApiCore) appendUsedUserType(usedUserTypes *catalog.StringSet, s str
 	if t, ok := core.catalog.UserTypes.Get(s); ok {
 		switch sc := t.Schema.(type) {
 		case *catalog.ExchangeJSightSchema:
-			switch sc.AstNode.TokenType {
+			switch sc.ASTNode.TokenType {
 			case "string", "number", "boolean", "null":
 				usedUserTypes.Add(s)
 				return nil
 			default:
 				return fmt.Errorf(
 					"unavailable JSON type %q of the UserType %q in Path directive",
-					sc.AstNode.TokenType,
+					sc.ASTNode.TokenType,
 					s,
 				)
 			}

@@ -305,7 +305,7 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 		q.Example = example
 	}
 
-	s, err := catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err := catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -355,12 +355,12 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
-		if s, err = catalog.PrepareJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules); err == nil {
+		if s, err = catalog.NewExchangeJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules, core.catalog.UserTypes); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 
 	case sn == notation.SchemaNotationJSight && typ == "" && d.BodyCoords.IsSet():
-		if s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules); err == nil {
+		if s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 		var e kit.Error
@@ -475,7 +475,7 @@ func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 	var s *catalog.ExchangeJSightSchema
 	var err error
 
-	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -571,7 +571,7 @@ func (core JApiCore) addJsonRpcSchema(
 	var s *catalog.ExchangeJSightSchema
 	var err error
 
-	s, err = catalog.PrepareJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules)
+	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {

@@ -24,6 +24,7 @@ func NewHTTPResponseBody(
 	d directive.Directive,
 	tt *UserSchemas,
 	rr map[string]jschemaLib.Rule,
+	catalogUserTypes *UserTypes,
 ) (HTTPResponseBody, *jerr.JApiError) {
 	body := HTTPResponseBody{
 		Format:    f,
@@ -36,7 +37,7 @@ func NewHTTPResponseBody(
 
 	switch f {
 	case SerializeFormatJSON:
-		s, err = PrepareJSightSchema("", b, tt, rr)
+		s, err = NewExchangeJSightSchema("", b, tt, rr, catalogUserTypes)
 		if err != nil {
 			return HTTPResponseBody{}, adoptErrorForResponseBody(d, err)
 		}

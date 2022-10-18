@@ -2,11 +2,13 @@ package catalog
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/jsightapi/jsight-api-go-library/jerr"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"strconv"
 )
 
-type ExchangeSchemaContentJSight struct {
+type ExchangeContent struct {
 	// Key is key of object element.
 	Key *string
 
@@ -30,7 +32,7 @@ type ExchangeSchemaContentJSight struct {
 	Rules *Rules
 
 	// Children represent available object properties or array items.
-	Children []*ExchangeSchemaContentJSight
+	Children []*ExchangeContent
 
 	// IsKeyUserTypeRef indicates that this is an object property which is described
 	// by user defined type.
@@ -40,12 +42,119 @@ type ExchangeSchemaContentJSight struct {
 	Optional bool
 }
 
-var (
-	_ json.Marshaler = ExchangeSchemaContentJSight{}
-	_ json.Marshaler = &ExchangeSchemaContentJSight{}
-)
+var _ json.Marshaler = &ExchangeContent{}
 
-func (c ExchangeSchemaContentJSight) MarshalJSON() (b []byte, err error) {
+func (c *ExchangeContent) processAllOf(uut *StringSet, catalogUserTypes *UserTypes) error {
+	if c.TokenType != jschemaLib.TokenTypeObject {
+		return nil
+	}
+
+	for _, cc := range c.Children {
+		if err := cc.processAllOf(uut, catalogUserTypes); err != nil {
+			return err
+		}
+	}
+
+	rule, ok := c.Rules.Get("allOf")
+	if !ok {
+		return nil
+	}
+
+	switch rule.TokenType { //nolint:exhaustive // We expects only this types.
+	case RuleTokenTypeArray:
+		for i := len(rule.Children) - 1; i >= 0; i-- {
+			r := rule.Children[i]
+			if err := c.inheritPropertiesFromUserType(uut, r.ScalarValue, catalogUserTypes); err != nil {
+				return err
+			}
+		}
+	case RuleTokenTypeReference:
+		if err := c.inheritPropertiesFromUserType(uut, rule.ScalarValue, catalogUserTypes); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (c *ExchangeContent) inheritPropertiesFromUserType(
+	uut *StringSet,
+	userTypeName string,
+	catalogUserTypes *UserTypes,
+) error {
+	ut, ok := catalogUserTypes.Get(userTypeName)
+	if !ok {
+		return fmt.Errorf(`the user type %q not found`, userTypeName)
+	}
+
+	uts, ok := ut.Schema.(*ExchangeJSightSchema)
+	if !ok {
+		return fmt.Errorf(`the user type %q have wrong notation`, userTypeName)
+	}
+
+	err := uts.Compile()
+	if err != nil {
+		return err
+	}
+
+	if uts.ExchangeContent.TokenType != jschemaLib.TokenTypeObject {
+		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
+	}
+
+	if c.Children == nil {
+		c.Children = make([]*ExchangeContent, 0, 10)
+	}
+
+	for i := len(uts.ExchangeContent.Children) - 1; i >= 0; i-- {
+		cc := uts.ExchangeContent.Children[i]
+
+		if cc.Key == nil {
+			return fmt.Errorf(jerr.InternalServerError)
+		}
+
+		p := c.ObjectProperty(*(cc.Key))
+		if p != nil && p.InheritedFrom == "" {
+			// Don't allow to override original properties.
+			return fmt.Errorf(
+				"it is not allowed to override the %q property from the user type %q",
+				*(cc.Key),
+				userTypeName,
+			)
+		}
+
+		if p != nil && p.InheritedFrom != "" {
+			// This property already defined, skip.
+			continue
+		}
+
+		dup := *cc
+		if dup.InheritedFrom == "" {
+			uut.Add(userTypeName)
+		}
+		dup.InheritedFrom = userTypeName
+		c.Unshift(&dup)
+	}
+
+	return nil
+}
+
+func (c *ExchangeContent) IsObjectHaveProperty(k string) bool {
+	return c.ObjectProperty(k) != nil
+}
+
+func (c *ExchangeContent) ObjectProperty(k string) *ExchangeContent {
+	for _, v := range c.Children {
+		if *(v.Key) == k {
+			return v
+		}
+	}
+	return nil
+}
+
+func (c *ExchangeContent) Unshift(v *ExchangeContent) {
+	c.Children = append([]*ExchangeContent{v}, c.Children...)
+}
+
+func (c *ExchangeContent) MarshalJSON() (b []byte, err error) {
 	switch c.TokenType {
 	case jschemaLib.TokenTypeObject, jschemaLib.TokenTypeArray:
 		b, err = c.marshalJSONObjectOrArray()
@@ -56,17 +165,17 @@ func (c ExchangeSchemaContentJSight) MarshalJSON() (b []byte, err error) {
 	return b, err
 }
 
-func (c ExchangeSchemaContentJSight) marshalJSONObjectOrArray() ([]byte, error) {
+func (c *ExchangeContent) marshalJSONObjectOrArray() ([]byte, error) {
 	var data struct {
-		Rules            []Rule                         `json:"rules,omitempty"`
-		Key              *string                        `json:"key,omitempty"`
-		TokenType        string                         `json:"tokenType,omitempty"`
-		Type             string                         `json:"type,omitempty"`
-		InheritedFrom    string                         `json:"inheritedFrom,omitempty"`
-		Note             string                         `json:"note,omitempty"`
-		Children         []*ExchangeSchemaContentJSight `json:"children"`
-		IsKeyUserTypeRef bool                           `json:"isKeyUserTypeRef,omitempty"`
-		Optional         bool                           `json:"optional"`
+		Rules            []Rule             `json:"rules,omitempty"`
+		Key              *string            `json:"key,omitempty"`
+		TokenType        string             `json:"tokenType,omitempty"`
+		Type             string             `json:"type,omitempty"`
+		InheritedFrom    string             `json:"inheritedFrom,omitempty"`
+		Note             string             `json:"note,omitempty"`
+		Children         []*ExchangeContent `json:"children"`
+		IsKeyUserTypeRef bool               `json:"isKeyUserTypeRef,omitempty"`
+		Optional         bool               `json:"optional"`
 	}
 
 	data.Key = c.Key
@@ -80,7 +189,7 @@ func (c ExchangeSchemaContentJSight) marshalJSONObjectOrArray() ([]byte, error) 
 		data.Rules = c.Rules.data
 	}
 	if len(c.Children) == 0 {
-		data.Children = make([]*ExchangeSchemaContentJSight, 0)
+		data.Children = make([]*ExchangeContent, 0)
 	} else {
 		data.Children = c.Children
 	}
@@ -88,7 +197,7 @@ func (c ExchangeSchemaContentJSight) marshalJSONObjectOrArray() ([]byte, error) 
 	return json.Marshal(data)
 }
 
-func (c ExchangeSchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
+func (c *ExchangeContent) marshalJSONLiteral() ([]byte, error) {
 	var data struct {
 		Note             string  `json:"note,omitempty"`
 		Key              *string `json:"key,omitempty"`
@@ -119,7 +228,7 @@ func (c ExchangeSchemaContentJSight) marshalJSONLiteral() ([]byte, error) {
 func astNodeToJsightContent(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
-) *ExchangeSchemaContentJSight {
+) *ExchangeContent {
 	rules := collectJSightContentRules(node, usedUserTypes)
 
 	var isOptional bool
@@ -136,13 +245,13 @@ func astNodeToJsightContent(
 		rules = nil
 	}
 
-	c := &ExchangeSchemaContentJSight{
+	c := &ExchangeContent{
 		IsKeyUserTypeRef: node.IsKeyShortcut,
 		TokenType:        node.TokenType,
 		Type:             node.SchemaType,
 		Optional:         isOptional,
 		ScalarValue:      node.Value,
-		InheritedFrom:    node.InheritedFrom,
+		InheritedFrom:    "", // TODO node.InheritedFrom
 		Note:             Annotation(node.Comment),
 		Rules:            rules,
 	}
@@ -219,13 +328,13 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 	return rr.Rules()
 }
 
-func (c *ExchangeSchemaContentJSight) collectJSightContentObjectProperties(
+func (c *ExchangeContent) collectJSightContentObjectProperties(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
 	if len(node.Children) > 0 {
 		if c.Children == nil {
-			c.Children = make([]*ExchangeSchemaContentJSight, 0, len(node.Children))
+			c.Children = make([]*ExchangeContent, 0, len(node.Children))
 		}
 		for _, v := range node.Children {
 			an := astNodeToJsightContent(v, usedUserTypes, usedUserEnums)
@@ -240,13 +349,13 @@ func (c *ExchangeSchemaContentJSight) collectJSightContentObjectProperties(
 	}
 }
 
-func (c *ExchangeSchemaContentJSight) collectJSightContentArrayItems(
+func (c *ExchangeContent) collectJSightContentArrayItems(
 	node jschemaLib.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
 	if len(node.Children) > 0 {
 		if c.Children == nil {
-			c.Children = make([]*ExchangeSchemaContentJSight, 0, len(node.Children))
+			c.Children = make([]*ExchangeContent, 0, len(node.Children))
 		}
 		for _, n := range node.Children {
 			an := astNodeToJsightContent(n, usedUserTypes, usedUserEnums)
@@ -282,4 +391,8 @@ func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
 		Note:        node.Comment,
 		Children:    children,
 	}
+}
+
+func SrtPtr(s string) *string {
+	return &s
 }

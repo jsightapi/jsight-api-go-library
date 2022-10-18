@@ -2,8 +2,6 @@ package core
 
 import (
 	"fmt"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
@@ -147,21 +145,21 @@ func (core *JApiCore) validateResponseBody() *jerr.JApiError {
 	}))
 }
 
-func (core *JApiCore) isJsightCastToObject(schema jschemaLib.Schema) bool {
+func (core *JApiCore) isJsightCastToObject(schema catalog.ExchangeSchema) bool {
 	if schema == nil {
 		return false
 	}
 
-	s, ok := schema.(*jschema.Schema)
+	s, ok := schema.(*catalog.ExchangeJSightSchema)
 	if !ok {
 		return false
 	}
 
-	switch s.AstNode.TokenType {
+	switch s.ASTNode.TokenType {
 	case "object":
 		return true
 	case "reference":
-		if userType, ok := core.catalog.UserTypes.Get(s.AstNode.Value); ok {
+		if userType, ok := core.catalog.UserTypes.Get(s.ASTNode.Value); ok {
 			return core.isJsightCastToObject(userType.Schema)
 		}
 	}

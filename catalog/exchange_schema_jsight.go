@@ -5,32 +5,42 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/notation"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+	"sync"
 )
 
 type ExchangeJSightSchema struct {
 	*jschema.Schema
-	Exchange Exchange
+
+	onceCompile      sync.Once
+	catalogUserTypes *UserTypes
+
+	// TODO make the following properties private
+
+	// ExchangeContent a JSight schema.
+	ExchangeContent *ExchangeContent
+	// UsedUserTypes a list of used user types.
+	ExchangeUsedUserTypes *StringSet
+	// UserUserTypes a list of used user enums.
+	ExchangeUsedUserEnums *StringSet
+	// ExchangeExample of schema.
+	ExchangeExample []byte
 }
 
-func NewExchangeJSightSchema() ExchangeJSightSchema {
-	return ExchangeJSightSchema{
-		Schema: nil,
-		Exchange: Exchange{
-			ContentJSight: nil,
-			UsedUserTypes: &StringSet{},
-			UsedUserEnums: &StringSet{},
-		},
-	}
-}
-
-func PrepareJSightSchema(
+func NewExchangeJSightSchema(
 	name string,
 	b []byte,
 	userTypes *UserSchemas,
 	enumRules map[string]jschemaLib.Rule,
+	catalogUserTypes *UserTypes,
 ) (*ExchangeJSightSchema, error) {
-	s := NewExchangeJSightSchema()
-	s.Schema = jschema.New(name, b)
+	s := ExchangeJSightSchema{
+		Schema:                jschema.New(name, b),
+		catalogUserTypes:      catalogUserTypes,
+		ExchangeContent:       nil,
+		ExchangeUsedUserTypes: &StringSet{},
+		ExchangeUsedUserEnums: &StringSet{},
+		ExchangeExample:       nil,
+	}
 
 	for n, v := range enumRules {
 		if err := s.Schema.AddRule(n, v); err != nil {
@@ -44,29 +54,64 @@ func PrepareJSightSchema(
 	if err != nil {
 		return nil, err
 	}
+
+	err = s.Build() // TODO is there a place for this?
+	if err != nil {
+		return nil, err
+	}
+
 	return &s, nil
 }
 
-func (s *ExchangeJSightSchema) buildExchangeContent() error {
-	var err error
-	s.Exchange.once.Do(func() {
-		n, err := s.Schema.GetAST()
+func (e *ExchangeJSightSchema) Compile() (err error) {
+	e.onceCompile.Do(func() {
+		err = e.buildContent()
 		if err != nil {
 			return
 		}
 
-		example, err := s.Schema.Example()
+		err = e.processAllOf(e.ExchangeUsedUserTypes)
 		if err != nil {
 			return
 		}
-
-		s.Exchange.ContentJSight = astNodeToJsightContent(n, s.Exchange.UsedUserTypes, s.Exchange.UsedUserEnums)
-		s.Exchange.Example = string(example)
 	})
+
+	// TODO once
+	err = e.buildExample()
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func (e *ExchangeJSightSchema) buildContent() error {
+	n, err := e.Schema.GetAST()
+	if err != nil {
+		return err
+	}
+	e.ExchangeContent = astNodeToJsightContent(n, e.ExchangeUsedUserTypes, e.ExchangeUsedUserEnums)
+	return nil
+}
+
+func (e *ExchangeJSightSchema) processAllOf(uut *StringSet) error {
+	return e.ExchangeContent.processAllOf(uut, e.catalogUserTypes)
+}
+
+func (e *ExchangeJSightSchema) buildExample() error {
+	b, err := e.Schema.Example()
+	if err == nil {
+		e.ExchangeExample = b
+	}
 	return err
 }
 
-func (s *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {
+func (e *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {
+	err := e.Compile()
+	if err != nil {
+		return nil, err
+	}
+
 	data := struct {
 		Content       interface{}             `json:"content,omitempty"`
 		Example       string                  `json:"example,omitempty"`
@@ -74,23 +119,18 @@ func (s *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {
 		UsedUserTypes []string                `json:"usedUserTypes,omitempty"`
 		UsedUserEnums []string                `json:"usedUserEnums,omitempty"`
 	}{
+		Content:  e.ExchangeContent,
+		Example:  string(e.ExchangeExample),
 		Notation: notation.SchemaNotationJSight,
 	}
 
-	err := s.buildExchangeContent()
-	if err != nil {
-		return nil, err
+	if e.ExchangeUsedUserTypes != nil && e.ExchangeUsedUserTypes.Len() > 0 {
+		data.UsedUserTypes = e.ExchangeUsedUserTypes.Data()
+	}
+	if e.ExchangeUsedUserEnums != nil && e.ExchangeUsedUserEnums.Len() > 0 {
+		data.UsedUserEnums = e.ExchangeUsedUserEnums.Data()
 	}
 
-	data.Content = s.Exchange.ContentJSight
-	if s.Exchange.UsedUserTypes != nil && s.Exchange.UsedUserTypes.Len() > 0 {
-		data.UsedUserTypes = s.Exchange.UsedUserTypes.Data()
-	}
-	if s.Exchange.UsedUserEnums != nil && s.Exchange.UsedUserEnums.Len() > 0 {
-		data.UsedUserEnums = s.Exchange.UsedUserEnums.Data()
-	}
-
-	data.Example = s.Exchange.Example
-
-	return json.Marshal(data)
+	b, err := json.Marshal(data) // TODO return
+	return b, err
 }

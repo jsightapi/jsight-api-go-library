@@ -333,7 +333,7 @@ func (c *Catalog) AddResponseBody(
 		return d.KeywordError(fmt.Sprintf("%s for %q", jerr.ResponsesIsEmpty, httpID.String()))
 	}
 
-	httpResponseBody, je := NewHTTPResponseBody(schemaBytes, bodyFormat, sn, d, tt, rr)
+	httpResponseBody, je := NewHTTPResponseBody(schemaBytes, bodyFormat, sn, d, tt, rr, c.UserTypes)
 	if je != nil {
 		return je
 	}
@@ -411,7 +411,7 @@ func (c *Catalog) AddBaseURL(serverName string, path string) error {
 	// 		return c.japiError(err.Error(), d.BodyBegin())
 	// 	}
 	//
-	// 	if s.ContentJSight.TokenType != objectStr && s.ContentJSight.TokenType != shortcutStr {
+	// 	if s.ExchangeContent.TokenType != objectStr && s.ExchangeContent.TokenType != shortcutStr {
 	// 		return c.japiError("the body of the BaseUrl directive can contain an object schema", d.BodyBegin())
 	// 	}
 	//
@@ -452,22 +452,20 @@ func (c *Catalog) AddType(
 		if !d.BodyCoords.IsSet() {
 			return d.KeywordError(jerr.EmptyBody)
 		}
-		schema, err := PrepareJSightSchema(name, d.BodyCoords.Read(), tt, rr)
+		userType.Schema, err = NewExchangeJSightSchema(name, d.BodyCoords.Read(), tt, rr, c.UserTypes)
 		if err != nil {
 			return adoptErrorForAddType(d, err)
 		}
-		userType.Schema = schema
 	case notation.SchemaNotationRegex:
 		if !d.BodyCoords.IsSet() {
 			return d.KeywordError(jerr.EmptyBody)
 		}
-		schema, err := PrepareRegexSchema(name, d.BodyCoords.Read())
+		userType.Schema, err = PrepareRegexSchema(name, d.BodyCoords.Read())
 		if err != nil {
 			return adoptErrorForAddType(d, err)
 		}
-		userType.Schema = schema
-		// case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
-		// 	userType.ExchangeSchema = NewSchema(typeNotation)
+	case notation.SchemaNotationAny, notation.SchemaNotationEmpty:
+		userType.Schema = NewExchangePseudoSchema(typeNotation)
 	}
 
 	c.UserTypes.Set(name, userType)

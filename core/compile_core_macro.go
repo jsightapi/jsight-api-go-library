@@ -43,3 +43,31 @@ func (core *JApiCore) addMacro(d *directive.Directive) *jerr.JApiError {
 
 	return nil
 }
+
+func (core *JApiCore) checkMacroForRecursion() *jerr.JApiError {
+	for macroName, macro := range core.macro {
+		if je := findPaste(macroName, macro); je != nil {
+			return je
+		}
+	}
+	return nil
+}
+
+func findPaste(macroName string, d *directive.Directive) *jerr.JApiError {
+	if d.Type() == directive.Paste {
+		switch d.NamedParameter("Name") {
+		case "":
+			return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
+
+		case macroName:
+			return d.KeywordError("recursion is prohibited")
+		}
+	} else if d.Children != nil {
+		for _, c := range d.Children {
+			if je := findPaste(macroName, c); je != nil {
+				return je
+			}
+		}
+	}
+	return nil
+}

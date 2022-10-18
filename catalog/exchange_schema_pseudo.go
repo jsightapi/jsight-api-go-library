@@ -18,15 +18,15 @@ func NewExchangePseudoSchema(n notation.SchemaNotation) *ExchangePseudoSchema {
 	}
 }
 
-func (s ExchangePseudoSchema) MarshalJSON() ([]byte, error) {
+func (e ExchangePseudoSchema) MarshalJSON() ([]byte, error) {
 	data := struct {
 		Notation notation.SchemaNotation `json:"notation"`
 	}{
-		Notation: s.notation,
+		Notation: e.notation,
 	}
 
-	if s.notation != notation.SchemaNotationAny && s.notation != notation.SchemaNotationEmpty {
-		return nil, fmt.Errorf(`invalid schema notation "%s"`, s.notation)
+	if e.notation != notation.SchemaNotationAny && e.notation != notation.SchemaNotationEmpty {
+		return nil, fmt.Errorf(`invalid schema notation "%s"`, e.notation)
 	}
 
 	return json.Marshal(data)

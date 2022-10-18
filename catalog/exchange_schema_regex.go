@@ -11,7 +11,7 @@ type ExchangeRegexSchema struct {
 	*regex.Schema
 }
 
-func (s ExchangeRegexSchema) MarshalJSON() ([]byte, error) {
+func (e ExchangeRegexSchema) MarshalJSON() ([]byte, error) {
 	data := struct {
 		Content  interface{}             `json:"content,omitempty"`
 		Example  string                  `json:"example,omitempty"`
@@ -20,9 +20,9 @@ func (s ExchangeRegexSchema) MarshalJSON() ([]byte, error) {
 		Notation: notation.SchemaNotationRegex,
 	}
 
-	data.Content, _ = s.Pattern()
+	data.Content, _ = e.Pattern()
 
-	ex, _ := s.Example()
+	ex, _ := e.Example()
 	data.Example = string(ex)
 
 	return json.Marshal(data)
