@@ -9,7 +9,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 )
 
-func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
+func TestJApiCore_buildPathVariables(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		cc := map[string]struct {
 			given    *JApiCore
@@ -31,7 +31,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 
 		for n, c := range cc {
 			t.Run(n, func(t *testing.T) {
-				err := c.given.BuildResourceMethodsPathVariables()
+				err := c.given.buildPathVariables()
 				require.Nil(t, err)
 
 				assert.Equal(t, c.expected, c.given)
@@ -77,7 +77,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 	//
 	// 	for expected, core := range cc {
 	// 		t.Run(expected, func(t *testing.T) {
-	// 			err := core.BuildResourceMethodsPathVariables()
+	// 			err := core.buildPathVariables()
 	// 			assert.EqualError(t, err, expected)
 	// 		})
 	// 	}
@@ -86,7 +86,7 @@ func TestJApiCore_BuildResourceMethodsPathVariables(t *testing.T) {
 	// 		assert.Panics(t, func() {
 	// 			var core *JApiCore
 	//
-	// 			_ = core.BuildResourceMethodsPathVariables()
+	// 			_ = core.buildPathVariables()
 	// 		})
 	// 	})
 	// })

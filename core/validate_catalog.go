@@ -40,6 +40,7 @@ func (core *JApiCore) validateInfo() *jerr.JApiError {
 	return nil
 }
 
+// TODO
 // func (core *JApiCore) validateUsedUserTypes() *jerr.JApiError {
 // 	err := core.catalog.UserTypes.Each(func(k string, v *catalog.UserType) error {
 // 		if err := core.findUserTypes(v.ExchangeSchema.UsedUserTypes); err != nil {

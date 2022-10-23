@@ -378,6 +378,7 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 		}
 
 	case (sn == notation.SchemaNotationAny || sn == notation.SchemaNotationEmpty) && !d.BodyCoords.IsSet():
+		s = catalog.NewExchangePseudoSchema(sn)
 		err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 
 	case d.Type() == directive.Body:

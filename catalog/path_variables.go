@@ -6,12 +6,12 @@ import (
 )
 
 type PathVariables struct {
-	*ExchangeJSightSchema
+	Schema *ExchangeJSightSchema `json:"schema"`
 }
 
-func NewPathVariables(properties []Prop) *PathVariables {
+func NewPathVariables(properties []Prop, catalogUserTypes *UserTypes) *PathVariables {
 	s := jschema.New("", "")
-	_ = s.Build()
+	_ = s.Build() // TODO It's necessary?
 
 	s.ASTNode = jschemaLib.ASTNode{
 		TokenType:  jschemaLib.TokenTypeObject,
@@ -24,19 +24,15 @@ func NewPathVariables(properties []Prop) *PathVariables {
 		s.ASTNode.Children = append(s.ASTNode.Children, p.ASTNode)
 	}
 
+	es := newExchangeJSightSchema(s)
+	es.DisableExchangeExample = true
+	es.catalogUserTypes = catalogUserTypes
+
 	return &PathVariables{
-		ExchangeJSightSchema: &ExchangeJSightSchema{
-			Schema: s,
-			// TODO Exchange: NewExchange(),
-		},
+		Schema: es,
 	}
 }
 
 func (p *PathVariables) Validate(key, value []byte) error {
 	return p.Schema.ValidateObjectProperty(key, value)
-}
-
-func (p *PathVariables) MarshalJSON() ([]byte, error) {
-	// TODO
-	return []byte(`{}`), nil
 }

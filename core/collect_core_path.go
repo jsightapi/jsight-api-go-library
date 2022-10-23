@@ -48,14 +48,6 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 	}
 
 	s := es.Schema
-	err = s.Build()
-	if err != nil {
-		var e kit.Error
-		if errors.As(err, &e) {
-			return d.BodyErrorIndex(e.Message(), e.Position())
-		}
-		return d.KeywordError(err.Error())
-	}
 
 	path, err := d.Path()
 	if err != nil {

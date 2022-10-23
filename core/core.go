@@ -16,9 +16,6 @@ type JApiCore struct {
 	// processedUserTypes a "set" of already build user types.
 	processedUserTypes map[string]struct{}
 
-	// processedByAllOf a "set" of already processed types by allOf.
-	processedByAllOf map[string]struct{}
-
 	// onlyOneProtocolIntoURL to verify the uniqueness of a directive Protocol within a directive URL
 	onlyOneProtocolIntoURL map[*directive.Directive]struct{}
 
@@ -61,8 +58,11 @@ type JApiCore struct {
 	// to accumulate directive data pieces from scanner.
 	currentDirective *directive.Directive
 
-	// rawPathVariables contains properties of the Path directive.
+	// rawPathVariables contains properties of the Path directives.
 	rawPathVariables []rawPathVariable
+
+	// allProjectProperties one more container for the properties of Path directives.
+	allProjectProperties map[catalog.Path]catalog.Prop
 
 	// directives from loaded from project.
 	directives []*directive.Directive
@@ -106,7 +106,6 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 	core := &JApiCore{
 		userTypes:              &catalog.UserSchemas{},
 		processedUserTypes:     make(map[string]struct{}, 30),
-		processedByAllOf:       map[string]struct{}{},
 		scanner:                scanner.NewJApiScanner(file),
 		catalog:                catalog.NewCatalog(),
 		currentDirective:       nil,
@@ -115,6 +114,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		uniqURLPath:            make(map[catalog.Path]struct{}, 20),
 		similarPaths:           make(map[string]string, 20),
 		rawPathVariables:       make([]rawPathVariable, 0, 40),
+		allProjectProperties:   make(map[catalog.Path]catalog.Prop, 20),
 		macro:                  make(map[string]*directive.Directive, 20),
 		scannersStack:          &scanner.Stack{},
 		rules:                  map[string]jschema.Rule{},

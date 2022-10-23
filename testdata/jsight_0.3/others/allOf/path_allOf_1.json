@@ -48,14 +48,6 @@
             "type": "object",
             "children": [
               {
-                "key": "section",
-                "tokenType": "string",
-                "type": "string",
-                "scalarValue": "abc",
-                "inheritedFrom": "@section",
-                "optional": false
-              },
-              {
                 "key": "id",
                 "tokenType": "number",
                 "type": "integer",

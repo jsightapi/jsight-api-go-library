@@ -182,6 +182,6 @@ func makePathVariables(t *testing.T, b []byte) PathVariables {
 		t.Fatal(err)
 	}
 	return PathVariables{
-		ExchangeJSightSchema: es,
+		Schema: es,
 	}
 }
