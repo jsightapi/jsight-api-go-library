@@ -411,7 +411,7 @@ func (c *Catalog) AddBaseURL(serverName string, path string) error {
 	// 		return c.japiError(err.Error(), d.BodyBegin())
 	// 	}
 	//
-	// 	if s.ExchangeContent.TokenType != objectStr && s.ExchangeContent.TokenType != shortcutStr {
+	// 	if s.exchangeContent.TokenType != objectStr && s.exchangeContent.TokenType != shortcutStr {
 	// 		return c.japiError("the body of the BaseUrl directive can contain an object schema", d.BodyBegin())
 	// 	}
 	//

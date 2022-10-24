@@ -239,7 +239,7 @@ linters:
     - gocritic
     - gocyclo
     - gofmt
-    - goimports
+#    - goimports
 #    - gomnd
     - goprintffuncname
     - gosec

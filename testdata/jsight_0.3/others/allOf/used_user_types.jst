@@ -1,0 +1,38 @@
+JSIGHT 0.3
+
+TYPE @str
+  "qqq"
+
+TYPE @int
+  "qqq"
+
+TYPE @mixed
+{
+  "level1Field1": @str | @int
+}
+
+TYPE @reference
+{
+  "level1Field1": @str
+}
+
+TYPE @level2mixed
+{ // {allOf: "@mixed"}
+  "level2Field1": 2
+}
+
+TYPE @level2reference
+{ // {allOf: "@reference"}
+  "level2Field1": 2
+}
+
+GET /
+  200
+    { // {allOf: "@mixed"}
+      "level2Field1": 2
+    }
+
+  200
+    { // {allOf: "@reference"}
+      "level2Field1": 2
+    }

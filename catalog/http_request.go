@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
+	"github.com/jsightapi/jsight-schema-go-library/formats/json"
 )
 
 type HTTPRequest struct {
@@ -19,4 +20,8 @@ type HTTPRequestBody struct {
 	Format    SerializeFormat     `json:"format"`
 	Schema    ExchangeSchema      `json:"schema"`
 	Directive directive.Directive `json:"-"`
+}
+
+func (h *HTTPRequestBody) Validate(value []byte) error {
+	return h.Schema.Validate(json.New("", value))
 }

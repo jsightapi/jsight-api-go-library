@@ -37,6 +37,8 @@ func TestValidateJapi(t *testing.T) {
 		for _, f := range negative {
 			t.Run(cutRepositoryPath(f), func(t *testing.T) {
 				_, je := kit.NewJapi(f, core.WithFixedSeedForRegex())
+				require.NotNil(t, je)
+
 				logJAPIError(t, je)
 
 				want, err := wantIndex(f)

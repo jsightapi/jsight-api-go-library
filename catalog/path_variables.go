@@ -11,7 +11,7 @@ type PathVariables struct {
 
 func NewPathVariables(properties []Prop, catalogUserTypes *UserTypes) *PathVariables {
 	s := jschema.New("", "")
-	_ = s.Build() // TODO It's necessary?
+	_ = s.Build() //nolint:errcheck
 
 	s.ASTNode = jschemaLib.ASTNode{
 		TokenType:  jschemaLib.TokenTypeObject,
@@ -25,7 +25,7 @@ func NewPathVariables(properties []Prop, catalogUserTypes *UserTypes) *PathVaria
 	}
 
 	es := newExchangeJSightSchema(s)
-	es.DisableExchangeExample = true
+	es.disableExchangeExample = true
 	es.catalogUserTypes = catalogUserTypes
 
 	return &PathVariables{

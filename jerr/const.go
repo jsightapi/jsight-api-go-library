@@ -26,4 +26,8 @@ const (
 	ApartFromTheOpeningParenthesis                      = "apart from the opening parenthesis, there should be nothing else on this line" //nolint:lll
 	DuplicateNames                                      = "duplicate names are not allowed"
 	TagNotFound                                         = "tag not found"
+	UserTypeIsNotAnObject                               = "the user type is not an object"
+	UserTypeNotFound                                    = "user type not found"
+	NotAllowedToOverrideTheProperty                     = "it is not allowed to override the %q property from the user type %q" //nolint:lll
+	MultiLevelPropertyIsNotAllowed                      = "the multi-level property is not allowed in the Path directive"       //nolint:lll
 )

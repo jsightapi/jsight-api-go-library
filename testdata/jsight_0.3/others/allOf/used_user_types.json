@@ -1,0 +1,270 @@
+{
+  "tags": {
+    "@_": {
+      "name": "@_",
+      "title": "/",
+      "interactionGroups": [
+        {
+          "protocol": "http",
+          "interactions": [
+            "http GET /"
+          ]
+        }
+      ]
+    }
+  },
+  "userTypes": {
+    "@str": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "qqq",
+          "optional": false
+        },
+        "example": "\"qqq\"",
+        "notation": "jsight"
+      }
+    },
+    "@int": {
+      "schema": {
+        "content": {
+          "tokenType": "string",
+          "type": "string",
+          "scalarValue": "qqq",
+          "optional": false
+        },
+        "example": "\"qqq\"",
+        "notation": "jsight"
+      }
+    },
+    "@mixed": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "reference",
+              "type": "mixed",
+              "scalarValue": "@str | @int",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"level1Field1\":\"qqq\"}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@str",
+          "@int"
+        ]
+      }
+    },
+    "@reference": {
+      "schema": {
+        "content": {
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "reference",
+              "type": "@str",
+              "scalarValue": "@str",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"level1Field1\":\"qqq\"}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@str"
+        ]
+      }
+    },
+    "@level2mixed": {
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "reference",
+              "scalarValue": "@mixed"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "reference",
+              "type": "mixed",
+              "scalarValue": "@str | @int",
+              "inheritedFrom": "@mixed",
+              "optional": false
+            },
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"level2Field1\":2,\"level1Field1\":\"qqq\"}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@mixed",
+          "@str",
+          "@int"
+        ]
+      }
+    },
+    "@level2reference": {
+      "schema": {
+        "content": {
+          "rules": [
+            {
+              "key": "allOf",
+              "tokenType": "reference",
+              "scalarValue": "@reference"
+            }
+          ],
+          "tokenType": "object",
+          "type": "object",
+          "children": [
+            {
+              "key": "level1Field1",
+              "tokenType": "reference",
+              "type": "@str",
+              "scalarValue": "@str",
+              "inheritedFrom": "@reference",
+              "optional": false
+            },
+            {
+              "key": "level2Field1",
+              "tokenType": "number",
+              "type": "integer",
+              "scalarValue": "2",
+              "optional": false
+            }
+          ],
+          "optional": false
+        },
+        "example": "{\"level2Field1\":2,\"level1Field1\":\"qqq\"}",
+        "notation": "jsight",
+        "usedUserTypes": [
+          "@reference",
+          "@str"
+        ]
+      }
+    }
+  },
+  "interactions": {
+    "http GET /": {
+      "id": "http GET /",
+      "protocol": "http",
+      "httpMethod": "GET",
+      "path": "/",
+      "tags": [
+        "@_"
+      ],
+      "responses": [
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "rules": [
+                  {
+                    "key": "allOf",
+                    "tokenType": "reference",
+                    "scalarValue": "@mixed"
+                  }
+                ],
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "level1Field1",
+                    "tokenType": "reference",
+                    "type": "mixed",
+                    "scalarValue": "@str | @int",
+                    "inheritedFrom": "@mixed",
+                    "optional": false
+                  },
+                  {
+                    "key": "level2Field1",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "2",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "example": "{\"level2Field1\":2,\"level1Field1\":\"qqq\"}",
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@mixed",
+                "@str",
+                "@int"
+              ]
+            }
+          }
+        },
+        {
+          "code": "200",
+          "body": {
+            "format": "json",
+            "schema": {
+              "content": {
+                "rules": [
+                  {
+                    "key": "allOf",
+                    "tokenType": "reference",
+                    "scalarValue": "@reference"
+                  }
+                ],
+                "tokenType": "object",
+                "type": "object",
+                "children": [
+                  {
+                    "key": "level1Field1",
+                    "tokenType": "reference",
+                    "type": "@str",
+                    "scalarValue": "@str",
+                    "inheritedFrom": "@reference",
+                    "optional": false
+                  },
+                  {
+                    "key": "level2Field1",
+                    "tokenType": "number",
+                    "type": "integer",
+                    "scalarValue": "2",
+                    "optional": false
+                  }
+                ],
+                "optional": false
+              },
+              "example": "{\"level2Field1\":2,\"level1Field1\":\"qqq\"}",
+              "notation": "jsight",
+              "usedUserTypes": [
+                "@reference",
+                "@str"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "jsight": "0.3",
+  "jdocExchangeVersion": "2.0.0"
+}

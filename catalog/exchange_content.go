@@ -2,10 +2,13 @@ package catalog
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"strconv"
+	"strings"
 )
 
 type ExchangeContent struct {
@@ -83,7 +86,7 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 ) error {
 	ut, ok := catalogUserTypes.Get(userTypeName)
 	if !ok {
-		return fmt.Errorf(`the user type %q not found`, userTypeName)
+		return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, userTypeName)
 	}
 
 	uts, ok := ut.Schema.(*ExchangeJSightSchema)
@@ -96,7 +99,7 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 		return err
 	}
 
-	if uts.ExchangeContent.TokenType != jschemaLib.TokenTypeObject {
+	if uts.exchangeContent.TokenType != jschemaLib.TokenTypeObject {
 		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
 	}
 
@@ -104,18 +107,17 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 		c.Children = make([]*ExchangeContent, 0, 10)
 	}
 
-	for i := len(uts.ExchangeContent.Children) - 1; i >= 0; i-- {
-		cc := uts.ExchangeContent.Children[i]
+	for i := len(uts.exchangeContent.Children) - 1; i >= 0; i-- {
+		cc := uts.exchangeContent.Children[i]
 
 		if cc.Key == nil {
-			return fmt.Errorf(jerr.InternalServerError)
+			return errors.New(jerr.InternalServerError)
 		}
 
 		p := c.ObjectProperty(*(cc.Key))
 		if p != nil && p.InheritedFrom == "" {
 			// Don't allow to override original properties.
-			return fmt.Errorf(
-				"it is not allowed to override the %q property from the user type %q",
+			return fmt.Errorf(jerr.NotAllowedToOverrideTheProperty,
 				*(cc.Key),
 				userTypeName,
 			)
@@ -127,14 +129,27 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 		}
 
 		dup := *cc
-		if dup.InheritedFrom == "" {
-			uut.Add(userTypeName)
-		}
+		dup.ToUsedUserTypes(uut)
 		dup.InheritedFrom = userTypeName
 		c.Unshift(&dup)
 	}
 
 	return nil
+}
+
+func (c *ExchangeContent) ToUsedUserTypes(uut *StringSet) {
+	if c.TokenType == jschemaLib.TokenTypeShortcut {
+		if c.Type == "mixed" {
+			for _, ut := range strings.Split(c.ScalarValue, "|") {
+				s := strings.TrimSpace(ut)
+				if bytes.Bytes(s).IsUserTypeName() {
+					uut.Add(s)
+				}
+			}
+		} else {
+			uut.Add(c.Type)
+		}
+	}
 }
 
 func (c *ExchangeContent) IsObjectHaveProperty(k string) bool {
@@ -251,7 +266,7 @@ func astNodeToJsightContent(
 		Type:             node.SchemaType,
 		Optional:         isOptional,
 		ScalarValue:      node.Value,
-		InheritedFrom:    "", // TODO node.InheritedFrom
+		InheritedFrom:    node.InheritedFrom,
 		Note:             Annotation(node.Comment),
 		Rules:            rules,
 	}
@@ -338,7 +353,7 @@ func (c *ExchangeContent) collectJSightContentObjectProperties(
 		}
 		for _, v := range node.Children {
 			an := astNodeToJsightContent(v, usedUserTypes, usedUserEnums)
-			an.Key = SrtPtr(v.Key)
+			an.Key = StrPtr(v.Key)
 
 			c.Children = append(c.Children, an)
 
@@ -393,6 +408,6 @@ func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
 	}
 }
 
-func SrtPtr(s string) *string {
+func StrPtr(s string) *string {
 	return &s
 }

@@ -16,16 +16,16 @@ func (core *JApiCore) compileCatalog() *jerr.JApiError {
 	return core.buildPathVariables()
 }
 
-func (core *JApiCore) expandRawPathVariableShortcuts(r *rawPathVariable) *jerr.JApiError {
+func (core *JApiCore) expandRawPathVariableShortcuts(r *rawPathVariable) error {
 	for r.schema.ASTNode.TokenType == jschemaLib.TokenTypeShortcut {
 		typeName := r.schema.ASTNode.SchemaType
 		if typeName == "mixed" {
-			return r.pathDirective.KeywordError("The root schema object cannot have an OR rule")
+			return errors.New("The root schema object cannot have an OR rule")
 		}
 
 		ut, ok := core.catalog.UserTypes.Get(typeName)
 		if !ok {
-			return r.pathDirective.KeywordError(fmt.Sprintf(`User type "%s" not found`, typeName))
+			return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
 		}
 
 		r.schema = ut.Schema.(*catalog.ExchangeJSightSchema).Schema // copy schema
@@ -33,7 +33,114 @@ func (core *JApiCore) expandRawPathVariableShortcuts(r *rawPathVariable) *jerr.J
 	return nil
 }
 
-func checkPathSchema(s *jschema.Schema) error {
+func (core *JApiCore) expandRawPathVariableAllOf(r *rawPathVariable) error {
+	return core.expandASTNodeAllOf(&r.schema.ASTNode, r.schema)
+}
+
+func (core *JApiCore) expandASTNodeAllOf(an *jschemaLib.ASTNode, s *jschema.Schema) error {
+	for i := range an.Children {
+		if err := core.expandASTNodeAllOf(&(an.Children[i]), s); err != nil {
+			return err
+		}
+	}
+
+	allOf, ok := an.Rules.Get("allOf")
+	if !ok {
+		return nil
+	}
+
+	switch allOf.TokenType { //nolint:exhaustive // We expects only this types.
+	case jschemaLib.TokenTypeArray:
+		for i := len(allOf.Items) - 1; i >= 0; i-- {
+			r := allOf.Items[i]
+			if err := core.inheritPropertiesFromASTNode(an, r.Value, s); err != nil {
+				return err
+			}
+		}
+	case jschemaLib.TokenTypeShortcut:
+		if err := core.inheritPropertiesFromASTNode(an, allOf.Value, s); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (core *JApiCore) inheritPropertiesFromASTNode(
+	an *jschemaLib.ASTNode,
+	userTypeName string,
+	s *jschema.Schema,
+) error {
+	ut, ok := core.catalog.UserTypes.Get(userTypeName)
+	if !ok {
+		return fmt.Errorf(`the user type %q not found`, userTypeName)
+	}
+
+	utn, err := ut.Schema.GetAST()
+	if err != nil {
+		return err
+	}
+
+	err = core.expandASTNodeAllOf(&utn, s)
+	if err != nil {
+		return err
+	}
+
+	if utn.TokenType != jschemaLib.TokenTypeObject {
+		return fmt.Errorf(`%s (%s)`, jerr.UserTypeIsNotAnObject, userTypeName)
+	}
+
+	if an.Children == nil {
+		an.Children = make([]jschemaLib.ASTNode, 0, 10)
+	}
+
+	for i := len(utn.Children) - 1; i >= 0; i-- {
+		child := utn.Children[i]
+
+		if child.Key == "" {
+			return errors.New(jerr.InternalServerError)
+		}
+
+		p := an.ObjectProperty(child.Key)
+		if p != nil && p.InheritedFrom == "" {
+			// Don't allow to override original properties.
+			return fmt.Errorf(jerr.NotAllowedToOverrideTheProperty,
+				child.Key,
+				userTypeName,
+			)
+		}
+
+		if p != nil && p.InheritedFrom != "" {
+			// This property already defined, skip.
+			continue
+		}
+
+		dup := child
+		if dup.InheritedFrom == "" {
+			s.AddUserTypeName(userTypeName)
+		}
+		dup.InheritedFrom = userTypeName
+		an.Children = append(an.Children, dup)
+	}
+
+	return nil
+}
+
+func (core *JApiCore) checkPathSchema(s *jschema.Schema) error {
+	if err := core.checkPathSchemaRoot(s); err != nil {
+		return err
+	}
+
+	for _, an := range s.ASTNode.Children {
+		if err := core.checkPathSchemaProperty(an); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (core *JApiCore) checkPathSchemaRoot(s *jschema.Schema) error {
 	if s.ASTNode.TokenType != jschemaLib.TokenTypeObject {
 		return errors.New("the body of the Path DIRECTIVE must be an object")
 	}
@@ -50,24 +157,66 @@ func checkPathSchema(s *jschema.Schema) error {
 		return errors.New(`the "or" rule is invalid in the Path directive`)
 	}
 
-	// TODO remove condition allOf
-	if (s.ASTNode.Children == nil || len(s.ASTNode.Children) == 0) && !s.ASTNode.Rules.Has("allOf") {
+	if s.ASTNode.Children == nil || len(s.ASTNode.Children) == 0 {
 		return errors.New("an empty object in the Path directive")
 	}
 
-	for _, v := range s.ASTNode.Children {
-		if v.TokenType == jschemaLib.TokenTypeObject || v.TokenType == jschemaLib.TokenTypeArray {
-			return fmt.Errorf("the multi-level property %q is not allowed in the Path directive", v.Key)
+	return nil
+}
+
+func (core *JApiCore) checkPathSchemaProperty(an jschemaLib.ASTNode) error {
+	if an.TokenType == jschemaLib.TokenTypeObject || an.TokenType == jschemaLib.TokenTypeArray {
+		return fmt.Errorf("%s (%s)", jerr.MultiLevelPropertyIsNotAllowed, an.Key)
+	}
+
+	rule, ok := an.Rules.Get("or")
+	if ok {
+		for _, v := range rule.Items {
+			switch v.TokenType {
+			case jschemaLib.TokenTypeShortcut:
+				if err := core.checkPathSchemaPropertyUserType(v.Value); err != nil {
+					return err
+				}
+			case jschemaLib.TokenTypeObject:
+				if t, ok := v.Properties.Get("type"); ok {
+					if t.TokenType == "string" && (t.Value == jschemaLib.TokenTypeObject ||
+						t.Value == jschemaLib.TokenTypeArray) {
+						return fmt.Errorf("%s (%s)", jerr.MultiLevelPropertyIsNotAllowed, an.Key)
+					}
+				}
+			}
+		}
+	} else if an.TokenType == jschemaLib.TokenTypeShortcut {
+		if err := core.checkPathSchemaPropertyUserType(an.Value); err != nil {
+			return err
 		}
 	}
 
 	return nil
 }
 
-func (core *JApiCore) collectAllProjectProperties(v rawPathVariable) *jerr.JApiError {
+func (core *JApiCore) checkPathSchemaPropertyUserType(typeName string) error {
+	ut, ok := core.catalog.UserTypes.Get(typeName)
+	if !ok {
+		return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
+	}
+
+	rootNode, err := ut.Schema.GetAST()
+	if err != nil {
+		return errors.New(jerr.InternalServerError)
+	}
+
+	if err := core.checkPathSchemaProperty(rootNode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (core *JApiCore) collectAllProjectProperties(v *rawPathVariable) error {
 	n, err := v.schema.GetAST()
 	if err != nil {
-		return v.pathDirective.KeywordError(jerr.InternalServerError)
+		return errors.New(jerr.InternalServerError)
 	}
 
 	pp := core.propertiesToMap(n)
@@ -75,10 +224,10 @@ func (core *JApiCore) collectAllProjectProperties(v rawPathVariable) *jerr.JApiE
 	for _, p := range v.parameters {
 		if nn, ok := pp[p.parameter]; ok {
 			if _, ok := core.allProjectProperties[p.path]; ok {
-				return v.pathDirective.KeywordError(fmt.Sprintf(
+				return fmt.Errorf(
 					"The parameter %q has already been defined earlier",
 					p.parameter,
-				))
+				)
 			}
 
 			core.allProjectProperties[p.path] = catalog.Prop{
@@ -93,26 +242,30 @@ func (core *JApiCore) collectAllProjectProperties(v rawPathVariable) *jerr.JApiE
 	// Check that all path properties in schema is exists in the path.
 	if len(pp) > 0 {
 		ss := core.getPropertiesNames(pp)
-		return v.pathDirective.KeywordError(fmt.Sprintf("Has unused parameters %q in schema", ss))
+		return fmt.Errorf("Has unused parameters %q in schema", ss)
 	}
 
 	return nil
 }
 
 func (core *JApiCore) buildPathVariables() *jerr.JApiError {
-	for _, v := range core.rawPathVariables {
-		if je := core.expandRawPathVariableShortcuts(&v); je != nil {
-			return je
-		}
+	for i := 0; i < len(core.rawPathVariables); i++ {
+		v := &core.rawPathVariables[i]
 
-		// TODO allOf
-
-		if err := checkPathSchema(v.schema); err != nil {
+		if err := core.expandRawPathVariableShortcuts(v); err != nil {
 			return v.pathDirective.KeywordError(err.Error())
 		}
 
-		if je := core.collectAllProjectProperties(v); je != nil {
-			return je
+		if err := core.expandRawPathVariableAllOf(v); err != nil {
+			return v.pathDirective.KeywordError(err.Error())
+		}
+
+		if err := core.checkPathSchema(v.schema); err != nil {
+			return v.pathDirective.KeywordError(err.Error())
+		}
+
+		if err := core.collectAllProjectProperties(v); err != nil {
+			return v.pathDirective.KeywordError(err.Error())
 		}
 	}
 

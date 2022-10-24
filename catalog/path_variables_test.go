@@ -57,7 +57,7 @@ func TestPathVariables_Validate(t *testing.T) {
 			},
 		}
 		for _, tt := range tests {
-			name := fmt.Sprintf("schema: %s; key: %s, val: %s", tt.schema, tt.key, tt.value)
+			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
 				p := makePathVariables(t, []byte(tt.schema))
 				assert.NoError(
@@ -163,7 +163,7 @@ func TestPathVariables_Validate(t *testing.T) {
 			},
 		}
 		for _, tt := range tests {
-			name := fmt.Sprintf("schema: %s; key: %s, val: %s", tt.schema, tt.key, tt.value)
+			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
 				p := makePathVariables(t, []byte(tt.schema))
 				assert.Error(

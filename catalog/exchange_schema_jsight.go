@@ -8,38 +8,34 @@ import (
 	"sync"
 )
 
-type ExchangeJSightSchema struct {
+type ExchangeJSightSchema struct { //nolint:govet
 	*jschema.Schema
 
 	onceCompile            sync.Once
 	catalogUserTypes       *UserTypes
-	DisableExchangeExample bool
+	disableExchangeExample bool
 
-	// TODO make the following properties private
-
-	// ExchangeContent a JSight schema.
-	ExchangeContent *ExchangeContent
+	// exchangeContent a JSight schema.
+	exchangeContent *ExchangeContent
 	// UsedUserTypes a list of used user types.
-	ExchangeUsedUserTypes *StringSet
+	exchangeUsedUserTypes *StringSet
 	// UserUserTypes a list of used user enums.
-	ExchangeUsedUserEnums *StringSet
-	// ExchangeExample of schema.
-	// ExchangeExample []byte
+	exchangeUsedUserEnums *StringSet
 }
 
 func newExchangeJSightSchema(s *jschema.Schema) *ExchangeJSightSchema {
 	return &ExchangeJSightSchema{
 		Schema:                s,
-		ExchangeContent:       nil,
-		ExchangeUsedUserTypes: &StringSet{},
-		ExchangeUsedUserEnums: &StringSet{},
+		exchangeContent:       nil,
+		exchangeUsedUserTypes: &StringSet{},
+		exchangeUsedUserEnums: &StringSet{},
 	}
 }
 
 func NewExchangeJSightSchema(
 	name string,
 	b []byte,
-	userTypes *UserSchemas,
+	userTypes *UserSchemas, // TODO think about user type transfer
 	enumRules map[string]jschemaLib.Rule,
 	catalogUserTypes *UserTypes,
 ) (*ExchangeJSightSchema, error) {
@@ -74,12 +70,12 @@ func (e *ExchangeJSightSchema) Compile() (err error) {
 			return
 		}
 
-		err = e.processAllOf(e.ExchangeUsedUserTypes)
+		err = e.processAllOf(e.exchangeUsedUserTypes)
 		if err != nil {
 			return
 		}
 	})
-	return
+	return err
 }
 
 func (e *ExchangeJSightSchema) buildContent() error {
@@ -87,12 +83,12 @@ func (e *ExchangeJSightSchema) buildContent() error {
 	if err != nil {
 		return err
 	}
-	e.ExchangeContent = astNodeToJsightContent(n, e.ExchangeUsedUserTypes, e.ExchangeUsedUserEnums)
+	e.exchangeContent = astNodeToJsightContent(n, e.exchangeUsedUserTypes, e.exchangeUsedUserEnums)
 	return nil
 }
 
 func (e *ExchangeJSightSchema) processAllOf(uut *StringSet) error {
-	return e.ExchangeContent.processAllOf(uut, e.catalogUserTypes)
+	return e.exchangeContent.processAllOf(uut, e.catalogUserTypes)
 }
 
 func (e *ExchangeJSightSchema) Example() ([]byte, error) {
@@ -113,11 +109,11 @@ func (e *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {
 		UsedUserTypes []string                `json:"usedUserTypes,omitempty"`
 		UsedUserEnums []string                `json:"usedUserEnums,omitempty"`
 	}{
-		Content:  e.ExchangeContent,
+		Content:  e.exchangeContent,
 		Notation: notation.SchemaNotationJSight,
 	}
 
-	if !e.DisableExchangeExample {
+	if !e.disableExchangeExample {
 		example, err := e.Example()
 		if err != nil {
 			return nil, err
@@ -125,11 +121,11 @@ func (e *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {
 		data.Example = string(example)
 	}
 
-	if e.ExchangeUsedUserTypes != nil && e.ExchangeUsedUserTypes.Len() > 0 {
-		data.UsedUserTypes = e.ExchangeUsedUserTypes.Data()
+	if e.exchangeUsedUserTypes != nil && e.exchangeUsedUserTypes.Len() > 0 {
+		data.UsedUserTypes = e.exchangeUsedUserTypes.Data()
 	}
-	if e.ExchangeUsedUserEnums != nil && e.ExchangeUsedUserEnums.Len() > 0 {
-		data.UsedUserEnums = e.ExchangeUsedUserEnums.Data()
+	if e.exchangeUsedUserEnums != nil && e.exchangeUsedUserEnums.Len() > 0 {
+		data.UsedUserEnums = e.exchangeUsedUserEnums.Data()
 	}
 
 	return json.Marshal(data)

@@ -305,7 +305,13 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 		q.Example = example
 	}
 
-	s, err := catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
+	s, err := catalog.NewExchangeJSightSchema(
+		"",
+		d.BodyCoords.Read(),
+		core.userTypes,
+		core.rules,
+		core.catalog.UserTypes,
+	)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -355,12 +361,12 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
-		if s, err = catalog.NewExchangeJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules, core.catalog.UserTypes); err == nil {
+		if s, err = catalog.NewExchangeJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules, core.catalog.UserTypes); err == nil { //nolint:lll
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 
 	case sn == notation.SchemaNotationJSight && typ == "" && d.BodyCoords.IsSet():
-		if s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes); err == nil {
+		if s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes); err == nil { //nolint:lll
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 		var e kit.Error
@@ -476,7 +482,7 @@ func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 	var s *catalog.ExchangeJSightSchema
 	var err error
 
-	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
+	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes) //nolint:lll
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
@@ -572,7 +578,7 @@ func (core JApiCore) addJsonRpcSchema(
 	var s *catalog.ExchangeJSightSchema
 	var err error
 
-	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
+	s, err = catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes) //nolint:lll
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {

@@ -20,10 +20,19 @@ func (e ExchangeRegexSchema) MarshalJSON() ([]byte, error) {
 		Notation: notation.SchemaNotationRegex,
 	}
 
-	data.Content, _ = e.Pattern()
+	var err error
 
-	ex, _ := e.Example()
-	data.Example = string(ex)
+	data.Content, err = e.Pattern()
+	if err != nil {
+		return []byte{}, err
+	}
+
+	example, err := e.Example()
+	if err != nil {
+		return []byte{}, err
+	}
+
+	data.Example = string(example)
 
 	return json.Marshal(data)
 }
@@ -33,11 +42,6 @@ func PrepareRegexSchema(name string, regexStr bytes.Bytes) (*ExchangeRegexSchema
 	oo = append(oo, regex.WithGeneratorSeed(0))
 
 	s := regex.New(name, regexStr, oo...)
-
-	// n, err := s.GetAST()
-	// if err != nil {
-	// 	return Schema{}, err
-	// }
 
 	return &ExchangeRegexSchema{Schema: s}, nil
 }

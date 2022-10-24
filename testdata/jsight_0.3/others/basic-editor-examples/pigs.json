@@ -368,7 +368,8 @@
         "notation": "jsight",
         "usedUserTypes": [
           "@pet",
-          "@pigSize"
+          "@pigSize",
+          "@petId"
         ]
       }
     },

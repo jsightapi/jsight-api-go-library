@@ -38,7 +38,13 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError("there is no body for the Path directive")
 	}
 
-	es, err := catalog.NewExchangeJSightSchema("", d.BodyCoords.Read(), core.userTypes, core.rules, core.catalog.UserTypes)
+	es, err := catalog.NewExchangeJSightSchema(
+		"",
+		d.BodyCoords.Read(),
+		core.userTypes,
+		core.rules,
+		core.catalog.UserTypes,
+	)
 	if err != nil {
 		var e kit.Error
 		if errors.As(err, &e) {
