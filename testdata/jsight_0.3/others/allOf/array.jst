@@ -1,0 +1,14 @@
+JSIGHT 0.3
+
+TYPE @cat
+{
+  "id": 1,
+  "name": "Tom"
+}
+
+GET /cats
+  200
+    [
+      { // {allOf: "@cat"}
+      }
+    ]

@@ -9,7 +9,12 @@ import (
 	"github.com/jsightapi/jsight-schema-go-library/notations/regex"
 )
 
-func (core *JApiCore) collectUserTypes() {
+func (core *JApiCore) collectUserTypes() *jerr.JApiError {
+	core.collectRawUserTypes()
+	return core.compileUserTypes()
+}
+
+func (core *JApiCore) collectRawUserTypes() {
 	for _, d := range core.directivesWithPastes {
 		if d.Type() == directive.Type {
 			core.catalog.AddRawUserType(d)

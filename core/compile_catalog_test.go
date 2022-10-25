@@ -1,6 +1,11 @@
 package core
 
 import (
+	"github.com/jsightapi/jsight-api-go-library/directive"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -39,468 +44,87 @@ func TestJApiCore_buildPathVariables(t *testing.T) {
 		}
 	})
 
-	// TODO t.Run("negative", func(t *testing.T) {
-	// 	cc := map[string]*JApiCore{
-	// 		`Has unused parameters "bar" in schema`: {
-	// 			rawPathVariables: []rawPathVariable{
-	// 				{
-	// 					schema: catalog.Schema{
-	// 						exchangeContent: &catalog.exchangeContent{
-	// 							Children: []*catalog.exchangeContent{
-	// 								{Key: catalog.StrPtr("foo")},
-	// 								{Key: catalog.StrPtr("bar")},
-	// 							},
-	// 						},
-	// 					},
-	// 					parameters: []PathParameter{
-	// 						{
-	// 							path:      "/path/{foo}/{bar}",
-	// 							parameter: "foo",
-	// 						},
-	// 					},
-	// 					pathDirective: *directive.New(
-	// 						directive.Get,
-	// 						directive.NewCoords(
-	// 							fs.NewFile("foo", "/path/{foo}/{bar}"),
-	// 							0,
-	// 							5,
-	// 						),
-	// 					),
-	// 				},
-	// 			},
-	//
-	// 			catalog: &catalog.Catalog{
-	// 				Interactions: &catalog.Interactions{},
-	// 			},
-	// 		},
-	// 	}
-	//
-	// 	for expected, core := range cc {
-	// 		t.Run(expected, func(t *testing.T) {
-	// 			err := core.buildPathVariables()
-	// 			assert.EqualError(t, err, expected)
-	// 		})
-	// 	}
-	//
-	// 	t.Run("nil", func(t *testing.T) {
-	// 		assert.Panics(t, func() {
-	// 			var core *JApiCore
-	//
-	// 			_ = core.buildPathVariables()
-	// 		})
-	// 	})
-	// })
+	t.Run("negative", func(t *testing.T) {
+		cc := map[string]*JApiCore{
+			`Has unused parameters "bar" in schema`: {
+				rawPathVariables: []rawPathVariable{
+					{
+						schema: jschema.New("", `{"foo": 1, "bar": 2}`),
+						parameters: []PathParameter{
+							{
+								path:      "/path/{foo}/{bar}",
+								parameter: "foo",
+							},
+						},
+						pathDirective: *directive.New(
+							directive.Get,
+							directive.NewCoords(
+								fs.NewFile("foo", "/path/{foo}/{bar}"),
+								0,
+								5,
+							),
+						),
+					},
+				},
+
+				catalog: &catalog.Catalog{
+					Interactions: &catalog.Interactions{},
+				},
+
+				allProjectProperties: make(map[catalog.Path]catalog.Prop, 20),
+			},
+		}
+
+		for expected, core := range cc {
+			t.Run(expected, func(t *testing.T) {
+				for i := range core.rawPathVariables {
+					_ = core.rawPathVariables[i].schema.Build()
+				}
+				err := core.buildPathVariables()
+				assert.EqualError(t, err, expected)
+			})
+		}
+
+		t.Run("nil", func(t *testing.T) {
+			assert.Panics(t, func() {
+				var core *JApiCore
+
+				_ = core.buildPathVariables()
+			})
+		})
+	})
 }
 
-// TODO func TestCore_propertiesToMap(t *testing.T) {
-// 	cc := map[string]struct {
-// 		given    *catalog.Properties
-// 		expected map[string]*catalog.exchangeContent
-// 	}{
-// 		"nil": {},
-//
-// 		"empty": {
-// 			given: &catalog.Properties{},
-// 		},
-//
-// 		"with data": {
-// 			given: catalog.NewProperties(
-// 				map[string]*catalog.exchangeContent{
-// 					"foo": nil,
-// 					"bar": {
-// 						Note: "fake",
-// 					},
-// 				},
-// 				[]string{"foo", "bar"},
-// 			),
-// 			expected: map[string]*catalog.exchangeContent{
-// 				"foo": nil,
-// 				"bar": {
-// 					Note: "fake",
-// 				},
-// 			},
-// 		},
-// 	}
-//
-// 	for n, c := range cc {
-// 		t.Run(n, func(t *testing.T) {
-// 			actual := (&JApiCore{}).propertiesToMap(c.given)
-// 			assert.Equal(t, c.expected, actual)
-// 		})
-// 	}
-// }
+func TestCore_getPropertiesNames(t *testing.T) {
+	cc := map[string]struct {
+		given    map[string]jschemaLib.ASTNode
+		expected string
+	}{
+		"nil": {},
 
-// TODO func TestCore_getPropertiesNames(t *testing.T) {
-// 	cc := map[string]struct {
-// 		given    map[string]*catalog.exchangeContent
-// 		expected string
-// 	}{
-// 		"nil": {},
-//
-// 		"empty": {
-// 			given: map[string]*catalog.exchangeContent{},
-// 		},
-//
-// 		"with data": {
-// 			given: map[string]*catalog.exchangeContent{
-// 				"foo":  nil,
-// 				"bar":  nil,
-// 				"fizz": nil,
-// 				"buzz": nil,
-// 			},
-// 			expected: "foo, bar, fizz, buzz",
-// 		},
-// 	}
-//
-// 	split := func(s string) []string {
-// 		return strings.Split(s, ", ")
-// 	}
-//
-// 	for n, c := range cc {
-// 		t.Run(n, func(t *testing.T) {
-// 			actual := (&JApiCore{}).getPropertiesNames(c.given)
-// 			assert.ElementsMatch(t, split(c.expected), split(actual))
-// 		})
-// 	}
-// }
+		"empty": {
+			given: map[string]jschemaLib.ASTNode{},
+		},
 
-// TODO move to catalog
-// func TestJApiCore_processSchemaContentJSightAllOf(t *testing.T) {
-// 	t.Run("positive", func(t *testing.T) {
-// 		cc := map[string]struct {
-// 			core               *JApiCore
-// 			given              *catalog.exchangeContent
-// 			expectedUUT        *catalog.StringSet
-// 			expectedProperties []*catalog.exchangeContent
-// 		}{
-// 			"not object": {
-// 				NewJApiCore(fs.NewFile("", `{}`)),
-// 				&catalog.exchangeContent{
-// 					TokenType: "string",
-// 				},
-// 				catalog.NewStringSet(),
-// 				nil,
-// 			},
-//
-// 			"without allOf": {
-// 				NewJApiCore(fs.NewFile("", `{}`)),
-// 				&catalog.exchangeContent{
-// 					TokenType: jschema.TokenTypeObject,
-// 					Children:  []*catalog.exchangeContent{},
-// 				},
-// 				catalog.NewStringSet(),
-// 				[]*catalog.exchangeContent{},
-// 			},
-//
-// 			"with allOf, single": {
-// 				func() *JApiCore {
-// 					core := NewJApiCore(fs.NewFile("", `{}`))
-// 					core.catalog = catalog.NewCatalog()
-// 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
-// 						Schema: &catalog.ExchangeJSightSchema{
-// 							exchangeContent: &catalog.exchangeContent{
-// 								TokenType: jschema.TokenTypeObject,
-// 								Children: []*catalog.exchangeContent{
-// 									{Key: catalog.StrPtr("foo")},
-// 									{Key: catalog.StrPtr("bar")},
-// 								},
-// 							},
-// 						},
-// 					})
-// 					return core
-// 				}(),
-// 				&catalog.exchangeContent{
-// 					TokenType: jschema.TokenTypeObject,
-// 					Children:  []*catalog.exchangeContent{},
-// 					Rules: catalog.NewRules(
-// 						[]catalog.Rule{
-// 							{
-// 								Key:         "allOf",
-// 								TokenType:   catalog.RuleTokenTypeReference,
-// 								ScalarValue: "@foo",
-// 							},
-// 						},
-// 					),
-// 				},
-// 				catalog.NewStringSet("@foo"),
-// 				[]*catalog.exchangeContent{
-// 					{
-// 						Key:           catalog.StrPtr("foo"),
-// 						InheritedFrom: "@foo",
-// 					},
-// 					{
-// 						Key:           catalog.StrPtr("bar"),
-// 						InheritedFrom: "@foo",
-// 					},
-// 				},
-// 			},
-//
-// 			"with allOf, array": {
-// 				func() *JApiCore {
-// 					core := NewJApiCore(fs.NewFile("", `{}`))
-// 					core.catalog = catalog.NewCatalog()
-// 					core.catalog.UserTypes.Set("@foo", &catalog.UserType{
-// 						Schema: &catalog.ExchangeJSightSchema{
-// 							exchangeContent: &catalog.exchangeContent{
-// 								TokenType: jschema.TokenTypeObject,
-// 								Children: []*catalog.exchangeContent{
-// 									{Key: catalog.StrPtr("foo1")},
-// 									{Key: catalog.StrPtr("foo2")},
-// 								},
-// 							},
-// 						},
-// 					})
-// 					core.catalog.UserTypes.Set("@bar", &catalog.UserType{
-// 						Schema: &catalog.ExchangeJSightSchema{
-// 							exchangeContent: &catalog.exchangeContent{
-// 								TokenType: jschema.TokenTypeObject,
-// 								Children: []*catalog.exchangeContent{
-// 									{Key: catalog.StrPtr("bar1")},
-// 									{Key: catalog.StrPtr("bar2")},
-// 								},
-// 							},
-// 						},
-// 					})
-// 					return core
-// 				}(),
-// 				&catalog.exchangeContent{
-// 					TokenType: jschema.TokenTypeObject,
-// 					Children:  []*catalog.exchangeContent{},
-// 					Rules: catalog.NewRules(
-// 						[]catalog.Rule{
-// 							{
-// 								Key:       "allOf",
-// 								TokenType: catalog.RuleTokenTypeArray,
-// 								Children: []catalog.Rule{
-// 									{
-// 										TokenType:   catalog.RuleTokenTypeString,
-// 										ScalarValue: "@foo",
-// 									},
-// 									{
-// 										TokenType:   catalog.RuleTokenTypeString,
-// 										ScalarValue: "@bar",
-// 									},
-// 								},
-// 							},
-// 						},
-// 					),
-// 				},
-// 				catalog.NewStringSet("@bar", "@foo"),
-// 				[]*catalog.exchangeContent{
-// 					{
-// 						Key:           catalog.StrPtr("foo1"),
-// 						InheritedFrom: "@foo",
-// 					},
-// 					{
-// 						Key:           catalog.StrPtr("foo2"),
-// 						InheritedFrom: "@foo",
-// 					},
-// 					{
-// 						Key:           catalog.StrPtr("bar1"),
-// 						InheritedFrom: "@bar",
-// 					},
-// 					{
-// 						Key:           catalog.StrPtr("bar2"),
-// 						InheritedFrom: "@bar",
-// 					},
-// 				},
-// 			},
-// 		}
-//
-// 		for n, c := range cc {
-// 			t.Run(n, func(t *testing.T) {
-// 				uut := catalog.NewStringSet()
-//
-// 				err := c.core.processExchangeContentAllOf(c.given, uut)
-// 				require.NoError(t, err)
-//
-// 				assert.Equal(t, c.expectedUUT, uut)
-// 				assert.Equal(t, c.expectedProperties, c.given.Children)
-// 			})
-// 		}
-// 	})
-//
-// 	t.Run("negative", func(t *testing.T) {
-// 		assert.Panics(t, func() {
-// 			var core *JApiCore
-//
-// 			_ = core.processExchangeContentAllOf(nil, nil)
-// 		})
-// 	})
-// }
+		"with data": {
+			given: map[string]jschemaLib.ASTNode{
+				"foo":  {},
+				"bar":  {},
+				"fizz": {},
+				"buzz": {},
+			},
+			expected: "foo, bar, fizz, buzz",
+		},
+	}
 
-// TODO move to catalog
-// func TestJApiCore_inheritPropertiesFromUserType(t *testing.T) {
-// 	t.Run("positive", func(t *testing.T) {
-// 		cc := map[string]struct {
-// 			given              *catalog.exchangeContent
-// 			expectedUUT        *catalog.StringSet
-// 			expectedProperties []*catalog.exchangeContent
-// 		}{
-// 			"sc.properties is nil": {
-// 				&catalog.exchangeContent{},
-// 				catalog.NewStringSet("foo"),
-// 				[]*catalog.exchangeContent{
-// 					{
-// 						Key:           catalog.StrPtr("bar"),
-// 						InheritedFrom: "foo",
-// 					},
-// 				},
-// 			},
-//
-// 			"sc.properties isn't nil": {
-// 				&catalog.exchangeContent{
-// 					Children: []*catalog.exchangeContent{
-// 						{Key: catalog.StrPtr("fizz")},
-// 						{Key: catalog.StrPtr("buzz")},
-// 					},
-// 				},
-// 				catalog.NewStringSet("foo"),
-// 				[]*catalog.exchangeContent{
-// 					{
-// 						Key:           catalog.StrPtr("bar"),
-// 						InheritedFrom: "foo",
-// 					},
-// 					{
-// 						Key: catalog.StrPtr("fizz"),
-// 					},
-// 					{
-// 						Key: catalog.StrPtr("buzz"),
-// 					},
-// 				},
-// 			},
-// 		}
-//
-// 		for n, c := range cc {
-// 			t.Run(n, func(t *testing.T) {
-// 				core := NewJApiCore(fs.NewFile("", `{}`))
-// 				core.catalog = catalog.NewCatalog()
-// 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
-// 					Schema: &catalog.ExchangeJSightSchema{
-// 						exchangeContent: &catalog.exchangeContent{
-// 							TokenType: jschema.TokenTypeObject,
-// 							Children: []*catalog.exchangeContent{
-// 								{Key: catalog.StrPtr("bar")},
-// 							},
-// 						},
-// 					},
-// 				})
-// 				uut := &catalog.StringSet{}
-//
-// 				err := core.inheritPropertiesFromUserType(c.given, uut, "foo")
-// 				require.NoError(t, err)
-//
-// 				assert.Equal(t, c.expectedUUT, uut)
-// 				assert.Equal(t, c.expectedProperties, c.given.Children)
-// 			})
-// 		}
-// 	})
-//
-// 	t.Run("negative", func(t *testing.T) {
-// 		cc := map[string]*JApiCore{
-// 			`the user type "foo" not found`: {
-// 				catalog: catalog.NewCatalog(),
-// 			},
-//
-// 			`the user type "foo" is not an object`: {
-// 				catalog: func() *catalog.Catalog {
-// 					c := catalog.NewCatalog()
-// 					c.UserTypes.Set("foo", &catalog.UserType{
-// 						Schema: &catalog.ExchangeJSightSchema{
-// 							exchangeContent: &catalog.exchangeContent{
-// 								TokenType: jschema.TokenTypeString,
-// 							},
-// 						},
-// 					})
-// 					return c
-// 				}(),
-// 			},
-// 		}
-//
-// 		for expected, core := range cc {
-// 			t.Run(expected, func(t *testing.T) {
-// 				err := core.inheritPropertiesFromUserType(nil, nil, "foo")
-// 				assert.EqualError(t, err, expected)
-// 			})
-// 		}
-//
-// 		t.Run("property already set", func(t *testing.T) {
-// 			core := NewJApiCore(fs.NewFile("", `{}`))
-// 			core.catalog = catalog.NewCatalog()
-// 			core.catalog.UserTypes.Set("foo", &catalog.UserType{
-// 				Schema: &catalog.ExchangeJSightSchema{
-// 					exchangeContent: &catalog.exchangeContent{
-// 						TokenType: jschema.TokenTypeObject,
-// 						Children: []*catalog.exchangeContent{
-// 							{Key: catalog.StrPtr("bar")},
-// 						},
-// 					},
-// 				},
-// 			})
-// 			err := core.inheritPropertiesFromUserType(
-// 				&catalog.exchangeContent{
-// 					Children: []*catalog.exchangeContent{
-// 						{Key: catalog.StrPtr("bar")},
-// 					},
-// 				},
-// 				&catalog.StringSet{},
-// 				"foo",
-// 			)
-// 			assert.EqualError(t, err, `it is not allowed to override the "bar" property from the user type "foo"`)
-// 		})
-//
-// 		t.Run("core is nil", func(t *testing.T) {
-// 			assert.Panics(t, func() {
-// 				var core *JApiCore
-// 				_ = core.inheritPropertiesFromUserType(
-// 					&catalog.exchangeContent{},
-// 					&catalog.StringSet{},
-// 					"foo",
-// 				)
-// 			})
-// 		})
-//
-// 		t.Run("sc is nil", func(t *testing.T) {
-// 			assert.Panics(t, func() {
-// 				core := &JApiCore{
-// 					catalog: catalog.NewCatalog(),
-// 				}
-// 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
-// 					Schema: &catalog.ExchangeJSightSchema{
-// 						exchangeContent: &catalog.exchangeContent{
-// 							TokenType: jschema.TokenTypeObject,
-// 						},
-// 					},
-// 				})
-// 				_ = core.inheritPropertiesFromUserType(
-// 					nil,
-// 					&catalog.StringSet{},
-// 					"foo",
-// 				)
-// 			})
-// 		})
-//
-// 		t.Run("uut is nil", func(t *testing.T) {
-// 			assert.Panics(t, func() {
-// 				core := &JApiCore{
-// 					catalog: catalog.NewCatalog(),
-// 				}
-// 				core.catalog.UserTypes.Set("foo", &catalog.UserType{
-// 					Schema: &catalog.ExchangeJSightSchema{
-// 						exchangeContent: &catalog.exchangeContent{
-// 							TokenType: jschema.TokenTypeObject,
-// 							Children: []*catalog.exchangeContent{
-// 								{Key: catalog.StrPtr("foo")},
-// 							},
-// 						},
-// 					},
-// 				})
-// 				_ = core.inheritPropertiesFromUserType(
-// 					&catalog.exchangeContent{},
-// 					nil,
-// 					"foo",
-// 				)
-// 			})
-// 		})
-// 	})
-// }
+	split := func(s string) []string {
+		return strings.Split(s, ", ")
+	}
+
+	for n, c := range cc {
+		t.Run(n, func(t *testing.T) {
+			actual := (&JApiCore{}).getPropertiesNames(c.given)
+			assert.ElementsMatch(t, split(c.expected), split(actual))
+		})
+	}
+}

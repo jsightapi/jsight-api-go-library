@@ -55,7 +55,7 @@ func NewExchangeJSightSchema(
 		return nil, err
 	}
 
-	err = s.Build() // TODO is there a place for this?
+	err = s.Build()
 	if err != nil {
 		return nil, err
 	}

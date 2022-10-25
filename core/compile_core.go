@@ -25,10 +25,7 @@ func (core *JApiCore) compileCore() *jerr.JApiError {
 		return je
 	}
 
-	// TODO make refactoring - collect+compile USER TYPEs
-	core.collectUserTypes()
-
-	if je := core.compileUserTypes(); je != nil {
+	if je := core.collectUserTypes(); je != nil {
 		return je
 	}
 
