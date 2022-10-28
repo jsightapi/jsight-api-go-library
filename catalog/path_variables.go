@@ -2,6 +2,7 @@ package catalog
 
 import (
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/kit"
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
@@ -33,6 +34,6 @@ func NewPathVariables(properties []Prop, catalogUserTypes *UserTypes) *PathVaria
 	}
 }
 
-func (p *PathVariables) Validate(key, value []byte) error {
+func (p *PathVariables) Validate(key, value string) kit.Error {
 	return p.Schema.ValidateObjectProperty(key, value)
 }

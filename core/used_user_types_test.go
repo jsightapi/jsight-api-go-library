@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -45,19 +45,19 @@ func Test_fetchUsedUserTypes(t *testing.T) {
 func TestUsedUserTypeFetcher_fetch(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		cc := map[string]struct {
-			given          func(*testing.T) jschema.Schema
+			given          func(*testing.T) jschemaLib.Schema
 			setupUserTypes func(*testing.T) *catalog.UserSchemas
 
 			expectedAlreadyProcessed map[string]struct{}
 			expectedUsedUserTypes    []string
 		}{
 			"nil schema": {
-				given:          func(*testing.T) jschema.Schema { return nil },
+				given:          func(*testing.T) jschemaLib.Schema { return nil },
 				setupUserTypes: func(*testing.T) *catalog.UserSchemas { return nil },
 			},
 
 			"there are no any user types": {
-				given: func(t *testing.T) jschema.Schema {
+				given: func(t *testing.T) jschemaLib.Schema {
 					s := mocks.NewSchema(t)
 					s.On("UsedUserTypes").Return(nil, nil)
 					return s
@@ -66,7 +66,7 @@ func TestUsedUserTypeFetcher_fetch(t *testing.T) {
 			},
 
 			"there are user types": {
-				given: func(t *testing.T) jschema.Schema {
+				given: func(t *testing.T) jschemaLib.Schema {
 					s := mocks.NewSchema(t)
 					s.On("UsedUserTypes").Return([]string{"foo", "bar"}, nil)
 					return s
@@ -128,11 +128,11 @@ func TestUsedUserTypeFetcher_fetch(t *testing.T) {
 
 	t.Run("negative", func(t *testing.T) {
 		cc := map[string]struct {
-			newSchema      func(*testing.T) jschema.Schema
+			newSchema      func(*testing.T) jschemaLib.Schema
 			setupUserTypes func(*testing.T) *catalog.UserSchemas
 		}{
 			"fake error": {
-				newSchema: func(t *testing.T) jschema.Schema {
+				newSchema: func(t *testing.T) jschemaLib.Schema {
 					s := mocks.NewSchema(t)
 					s.On("UsedUserTypes").Return(nil, errors.New("fake error"))
 					return s
@@ -143,7 +143,7 @@ func TestUsedUserTypeFetcher_fetch(t *testing.T) {
 			},
 
 			`process type "foo": fake error`: {
-				newSchema: func(t *testing.T) jschema.Schema {
+				newSchema: func(t *testing.T) jschemaLib.Schema {
 					s := mocks.NewSchema(t)
 					s.On("UsedUserTypes").Return([]string{"foo"}, nil)
 					return s

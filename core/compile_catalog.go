@@ -3,8 +3,10 @@ package core
 import (
 	"errors"
 	"fmt"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"strings"
+
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
 
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 
@@ -13,114 +15,69 @@ import (
 )
 
 func (core *JApiCore) compileCatalog() *jerr.JApiError {
-	return core.buildPathVariables()
-}
-
-func (core *JApiCore) expandRawPathVariableShortcuts(r *rawPathVariable) error {
-	for r.schema.ASTNode.TokenType == jschemaLib.TokenTypeShortcut {
-		typeName := r.schema.ASTNode.SchemaType
-		if typeName == "mixed" {
-			return errors.New("The root schema object cannot have an OR rule")
-		}
-
-		ut, ok := core.catalog.UserTypes.Get(typeName)
-		if !ok {
-			return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
-		}
-
-		r.schema = ut.Schema.(*catalog.ExchangeJSightSchema).Schema // copy schema
-	}
-	return nil
-}
-
-func (core *JApiCore) expandRawPathVariableAllOf(r *rawPathVariable) error {
-	return core.expandASTNodeAllOf(&r.schema.ASTNode, r.schema)
-}
-
-func (core *JApiCore) expandASTNodeAllOf(an *jschemaLib.ASTNode, s *jschema.Schema) error {
-	for i := range an.Children {
-		if err := core.expandASTNodeAllOf(&(an.Children[i]), s); err != nil {
-			return err
-		}
+	je := core.collectAllPathVariables()
+	if je != nil {
+		return je
 	}
 
-	allOf, ok := an.Rules.Get("allOf")
-	if !ok {
-		return nil
-	}
+	return core.setPathVariablesToCatalog()
+}
 
-	switch allOf.TokenType { //nolint:exhaustive // We expects only this types.
-	case jschemaLib.TokenTypeArray:
-		for i := len(allOf.Items) - 1; i >= 0; i-- {
-			r := allOf.Items[i]
-			if err := core.inheritPropertiesFromASTNode(an, r.Value, s); err != nil {
-				return err
+func (core *JApiCore) collectAllPathVariables() *jerr.JApiError {
+	ut := core.UserTypesData()
+
+	for i := 0; i < len(core.rawPathVariables); i++ {
+		if err := core.checkPathSchema(core.rawPathVariables[i].schema); err != nil {
+			return core.rawPathVariables[i].pathDirective.KeywordError(err.Error())
+		}
+
+		schemaProps := core.rawPathVariables[i].schema.ObjectFirstLevelProperties(ut)
+
+		for _, pp := range core.rawPathVariables[i].parameters {
+			if v, ok := schemaProps[pp.parameter]; ok {
+				if _, ok := core.allPathVariables[pp]; ok {
+					return core.rawPathVariables[i].pathDirective.KeywordError(
+						fmt.Sprintf("The parameter %q has already been defined earlier",
+							pp.path))
+				}
+
+				core.allPathVariables[pp] = v
 			}
+
+			delete(schemaProps, pp.parameter)
 		}
-	case jschemaLib.TokenTypeShortcut:
-		if err := core.inheritPropertiesFromASTNode(an, allOf.Value, s); err != nil {
-			return err
+
+		if len(schemaProps) != 0 {
+			ss := core.getPropertiesNames(schemaProps)
+			return core.rawPathVariables[i].pathDirective.KeywordError(
+				fmt.Sprintf("Has unused parameters %q in schema", ss))
 		}
 	}
 
 	return nil
 }
 
-func (core *JApiCore) inheritPropertiesFromASTNode(
-	an *jschemaLib.ASTNode,
-	userTypeName string,
-	s *jschema.Schema,
-) error {
-	ut, ok := core.catalog.UserTypes.Get(userTypeName)
-	if !ok {
-		return fmt.Errorf(`the user type %q not found`, userTypeName)
-	}
+func (core *JApiCore) setPathVariablesToCatalog() *jerr.JApiError {
+	err := core.catalog.Interactions.Map(
+		func(_ catalog.InteractionID, v catalog.Interaction) (catalog.Interaction, error) {
+			if hi, ok := v.(*catalog.HTTPInteraction); ok {
+				pp := pathParameters(v.Path().String())
 
-	utn, err := ut.Schema.GetAST()
+				b := catalog.NewPathVariablesBuilder(core.catalog.UserTypes)
+				for _, p := range pp {
+					if node, ok := core.allPathVariables[p]; ok {
+						b.AddProperty(p.parameter, node)
+					}
+				}
+				if b.Len() != 0 {
+					hi.SetPathVariables(b.Build())
+				}
+			}
+			return v, nil
+		},
+	)
 	if err != nil {
-		return err
-	}
-
-	err = core.expandASTNodeAllOf(&utn, s)
-	if err != nil {
-		return err
-	}
-
-	if utn.TokenType != jschemaLib.TokenTypeObject {
-		return fmt.Errorf(`%s (%s)`, jerr.UserTypeIsNotAnObject, userTypeName)
-	}
-
-	if an.Children == nil {
-		an.Children = make([]jschemaLib.ASTNode, 0, 10)
-	}
-
-	for i := len(utn.Children) - 1; i >= 0; i-- {
-		child := utn.Children[i]
-
-		if child.Key == "" {
-			return errors.New(jerr.InternalServerError)
-		}
-
-		p := an.ObjectProperty(child.Key)
-		if p != nil && p.InheritedFrom == "" {
-			// Don't allow to override original properties.
-			return fmt.Errorf(jerr.NotAllowedToOverrideTheProperty,
-				child.Key,
-				userTypeName,
-			)
-		}
-
-		if p != nil && p.InheritedFrom != "" {
-			// This property already defined, skip.
-			continue
-		}
-
-		dup := child
-		if dup.InheritedFrom == "" {
-			s.AddUserTypeName(userTypeName)
-		}
-		dup.InheritedFrom = userTypeName
-		an.Children = append(an.Children, dup)
+		return err.(*jerr.JApiError) //nolint:errorlint
 	}
 
 	return nil
@@ -141,6 +98,20 @@ func (core *JApiCore) checkPathSchema(s *jschema.Schema) error {
 }
 
 func (core *JApiCore) checkPathSchemaRoot(s *jschema.Schema) error {
+	if s.ASTNode.TokenType == jschemaLib.TokenTypeShortcut {
+		typeName := s.ASTNode.SchemaType
+		if typeName == "mixed" {
+			return errors.New("The root schema object cannot have an OR rule")
+		}
+
+		ut, ok := core.catalog.UserTypes.Get(typeName)
+		if !ok {
+			return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
+		}
+
+		return core.checkPathSchemaRoot(ut.Schema.(*catalog.ExchangeJSightSchema).Schema)
+	}
+
 	if s.ASTNode.TokenType != jschemaLib.TokenTypeObject {
 		return errors.New("the body of the Path DIRECTIVE must be an object")
 	}
@@ -157,8 +128,44 @@ func (core *JApiCore) checkPathSchemaRoot(s *jschema.Schema) error {
 		return errors.New(`the "or" rule is invalid in the Path directive`)
 	}
 
-	if s.ASTNode.Children == nil || len(s.ASTNode.Children) == 0 {
+	if len(s.ASTNode.Children) == 0 && !s.ASTNode.Rules.Has("allOf") {
 		return errors.New("an empty object in the Path directive")
+	}
+
+	if s.ASTNode.Rules.Has("allOf") {
+		allOf, _ := s.ASTNode.Rules.Get("allOf")
+
+		switch allOf.TokenType { //nolint:exhaustive // We expects only this types.
+		case jschemaLib.TokenTypeArray:
+			for i := len(allOf.Items) - 1; i >= 0; i-- {
+				r := allOf.Items[i]
+				if err := core.checkPathSchemaPropertyInAllOf(r.Value); err != nil {
+					return err
+				}
+			}
+		case jschemaLib.TokenTypeShortcut:
+			if err := core.checkPathSchemaPropertyInAllOf(allOf.Value); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+func (core *JApiCore) checkPathSchemaPropertyInAllOf(typeName string) error {
+	ut, ok := core.catalog.UserTypes.Get(typeName)
+	if !ok {
+		return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
+	}
+
+	es, ok := ut.Schema.(*catalog.ExchangeJSightSchema)
+	if !ok {
+		return fmt.Errorf(`%s (%s)`, jerr.UserTypeNotFound, typeName)
+	}
+
+	if err := core.checkPathSchema(es.Schema); err != nil {
+		return err
 	}
 
 	return nil
@@ -179,8 +186,8 @@ func (core *JApiCore) checkPathSchemaProperty(an jschemaLib.ASTNode) error {
 				}
 			case jschemaLib.TokenTypeObject:
 				if t, ok := v.Properties.Get("type"); ok {
-					if t.TokenType == "string" && (t.Value == jschemaLib.TokenTypeObject ||
-						t.Value == jschemaLib.TokenTypeArray) {
+					if t.TokenType == "string" &&
+						(t.Value == jschemaLib.TokenTypeObject || t.Value == jschemaLib.TokenTypeArray) {
 						return fmt.Errorf("%s (%s)", jerr.MultiLevelPropertyIsNotAllowed, an.Key)
 					}
 				}
@@ -213,103 +220,7 @@ func (core *JApiCore) checkPathSchemaPropertyUserType(typeName string) error {
 	return nil
 }
 
-func (core *JApiCore) collectAllProjectProperties(v *rawPathVariable) error {
-	n, err := v.schema.GetAST()
-	if err != nil {
-		return errors.New(jerr.InternalServerError)
-	}
-
-	pp := core.propertiesToMap(n)
-
-	for _, p := range v.parameters {
-		if nn, ok := pp[p.parameter]; ok {
-			if _, ok := core.allProjectProperties[p.path]; ok {
-				return fmt.Errorf(
-					"The parameter %q has already been defined earlier",
-					p.parameter,
-				)
-			}
-
-			core.allProjectProperties[p.path] = catalog.Prop{
-				ASTNode:   nn,
-				Directive: v.pathDirective,
-			}
-
-			delete(pp, p.parameter)
-		}
-	}
-
-	// Check that all path properties in schema is exists in the path.
-	if len(pp) > 0 {
-		ss := core.getPropertiesNames(pp)
-		return fmt.Errorf("Has unused parameters %q in schema", ss)
-	}
-
-	return nil
-}
-
-func (core *JApiCore) buildPathVariables() *jerr.JApiError {
-	for i := 0; i < len(core.rawPathVariables); i++ {
-		v := &core.rawPathVariables[i]
-
-		if err := core.expandRawPathVariableShortcuts(v); err != nil {
-			return v.pathDirective.KeywordError(err.Error())
-		}
-
-		if err := core.expandRawPathVariableAllOf(v); err != nil {
-			return v.pathDirective.KeywordError(err.Error())
-		}
-
-		if err := core.checkPathSchema(v.schema); err != nil {
-			return v.pathDirective.KeywordError(err.Error())
-		}
-
-		if err := core.collectAllProjectProperties(v); err != nil {
-			return v.pathDirective.KeywordError(err.Error())
-		}
-	}
-
-	// set PathVariables
-	err := core.catalog.Interactions.Map(
-		func(_ catalog.InteractionID, v catalog.Interaction) (catalog.Interaction, error) {
-			if hi, ok := v.(*catalog.HTTPInteraction); ok {
-				pp := pathParameters(v.Path().String())
-				properties := make([]catalog.Prop, 0, len(pp))
-
-				for _, p := range pp {
-					if pr, ok := core.allProjectProperties[p.path]; ok {
-						pr.Parameter = p.parameter
-						properties = append(properties, pr)
-					}
-				}
-
-				if len(properties) != 0 {
-					hi.SetPathVariables(catalog.NewPathVariables(properties, core.catalog.UserTypes))
-				}
-			}
-			return v, nil
-		},
-	)
-	if err != nil {
-		return err.(*jerr.JApiError) //nolint:errorlint
-	}
-
-	return nil
-}
-
-func (*JApiCore) propertiesToMap(n jschemaLib.ASTNode) map[string]jschemaLib.ASTNode {
-	if len(n.Children) == 0 {
-		return nil
-	}
-
-	res := make(map[string]jschemaLib.ASTNode, len(n.Children))
-	for _, v := range n.Children {
-		res[v.Key] = v
-	}
-	return res
-}
-
-func (*JApiCore) getPropertiesNames(m map[string]jschemaLib.ASTNode) string {
+func (*JApiCore) getPropertiesNames(m map[string]schema.Node) string {
 	if len(m) == 0 {
 		return ""
 	}

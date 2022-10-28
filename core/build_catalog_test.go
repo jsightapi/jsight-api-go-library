@@ -3,7 +3,7 @@ package core
 import (
 	"testing"
 
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/stretchr/testify/require"
@@ -48,7 +48,7 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 	err := core.compileUserTypes()
 	require.Nil(t, err)
 
-	_ = core.userTypes.Each(func(k string, v jschema.Schema) error {
+	_ = core.userTypes.Each(func(k string, v jschemaLib.Schema) error {
 		require.NoErrorf(t, v.Check(), "Check %q user type", k)
 		return nil
 	})

@@ -24,7 +24,6 @@ func (core *JApiCore) validateCatalog() *jerr.JApiError {
 		return je
 	}
 
-	// TODO return core.validateUsedUserTypes()
 	return nil
 }
 

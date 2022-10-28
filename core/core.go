@@ -1,8 +1,9 @@
 package core
 
 import (
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
@@ -36,7 +37,7 @@ type JApiCore struct {
 	bannedDirectives map[directive.Enumeration]struct{}
 
 	// rules all defined rules.
-	rules map[string]jschema.Rule
+	rules map[string]jschemaLib.Rule
 
 	// userTypes represent all user types.
 	userTypes *catalog.UserSchemas
@@ -61,8 +62,7 @@ type JApiCore struct {
 	// rawPathVariables contains properties of the Path directives.
 	rawPathVariables []rawPathVariable
 
-	// allProjectProperties one more container for the properties of Path directives.
-	allProjectProperties map[catalog.Path]catalog.Prop
+	allPathVariables map[PathParameter]schema.Node
 
 	// directives from loaded from project.
 	directives []*directive.Directive
@@ -114,10 +114,10 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		uniqURLPath:            make(map[catalog.Path]struct{}, 20),
 		similarPaths:           make(map[string]string, 20),
 		rawPathVariables:       make([]rawPathVariable, 0, 40),
-		allProjectProperties:   make(map[catalog.Path]catalog.Prop, 20),
+		allPathVariables:       make(map[PathParameter]schema.Node, 20),
 		macro:                  make(map[string]*directive.Directive, 20),
 		scannersStack:          &scanner.Stack{},
-		rules:                  map[string]jschema.Rule{},
+		rules:                  map[string]jschemaLib.Rule{},
 	}
 	core.directiveFunctions = map[directive.Enumeration]func(*directive.Directive) *jerr.JApiError{
 		directive.Jsight:           core.addJSight,

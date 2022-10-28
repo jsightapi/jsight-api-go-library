@@ -2,9 +2,10 @@ package catalog
 
 import (
 	"fmt"
-	jschema "github.com/jsightapi/jsight-schema-go-library"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPathVariables_Validate(t *testing.T) {
@@ -60,9 +61,9 @@ func TestPathVariables_Validate(t *testing.T) {
 			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
 				p := makePathVariables(t, []byte(tt.schema))
-				assert.NoError(
+				assert.Nil(
 					t,
-					p.Validate([]byte(tt.key), []byte(tt.value)),
+					p.Validate(tt.key, tt.value),
 					fmt.Sprintf("Validate(%s, %s)", tt.key, tt.value),
 				)
 			})
@@ -166,9 +167,9 @@ func TestPathVariables_Validate(t *testing.T) {
 			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
 				p := makePathVariables(t, []byte(tt.schema))
-				assert.Error(
+				assert.NotNil(
 					t,
-					p.Validate([]byte(tt.key), []byte(tt.value)),
+					p.Validate(tt.key, tt.value),
 					fmt.Sprintf("Validate(%s, %s)", tt.key, tt.value),
 				)
 			})
@@ -177,7 +178,7 @@ func TestPathVariables_Validate(t *testing.T) {
 }
 
 func makePathVariables(t *testing.T, b []byte) PathVariables {
-	es, err := NewExchangeJSightSchema("", b, &UserSchemas{}, map[string]jschema.Rule{}, &UserTypes{})
+	es, err := NewExchangeJSightSchema("", b, &UserSchemas{}, map[string]jschemaLib.Rule{}, &UserTypes{})
 	if err != nil {
 		t.Fatal(err)
 	}

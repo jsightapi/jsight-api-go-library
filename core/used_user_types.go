@@ -3,12 +3,12 @@ package core
 import (
 	"fmt"
 
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 )
 
-func fetchUsedUserTypes(ut jschema.Schema, userTypes *catalog.UserSchemas) ([]string, error) {
+func fetchUsedUserTypes(ut jschemaLib.Schema, userTypes *catalog.UserSchemas) ([]string, error) {
 	f := &usedUserTypeFetcher{
 		userTypes:        userTypes,
 		alreadyProcessed: map[string]struct{}{},
@@ -25,7 +25,7 @@ type usedUserTypeFetcher struct {
 	usedUserTypes    []string
 }
 
-func (f *usedUserTypeFetcher) fetch(ut jschema.Schema) error {
+func (f *usedUserTypeFetcher) fetch(ut jschemaLib.Schema) error {
 	if ut == nil {
 		return nil
 	}

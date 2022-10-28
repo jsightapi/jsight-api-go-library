@@ -1,11 +1,9 @@
 package core
 
 import (
-	"errors"
-	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	"github.com/jsightapi/jsight-schema-go-library/kit"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
 func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JApiError {
@@ -38,22 +36,10 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError("there is no body for the Path directive")
 	}
 
-	es, err := catalog.NewExchangeJSightSchema(
-		"",
-		d.BodyCoords.Read(),
-		core.userTypes,
-		core.rules,
-		core.catalog.UserTypes,
-	)
+	s, err := jschema.NewPathVariablesSchema(d.BodyCoords.Read(), core.UserTypesData())
 	if err != nil {
-		var e kit.Error
-		if errors.As(err, &e) {
-			return d.BodyErrorIndex(e.Message(), e.Position())
-		}
 		return d.KeywordError(err.Error())
 	}
-
-	s := es.Schema
 
 	path, err := d.Path()
 	if err != nil {
