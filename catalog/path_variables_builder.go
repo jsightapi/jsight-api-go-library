@@ -17,8 +17,8 @@ func NewPathVariablesBuilder(catalogUserTypes *UserTypes) PathVariablesBuilder {
 	}
 }
 
-func (b PathVariablesBuilder) AddProperty(key string, value innerSchema.Node) {
-	b.objectBuilder.AddProperty(key, value)
+func (b PathVariablesBuilder) AddProperty(key string, node innerSchema.Node, types map[string]innerSchema.Type) {
+	b.objectBuilder.AddProperty(key, node, types)
 }
 
 func (b PathVariablesBuilder) Len() int {
@@ -26,6 +26,15 @@ func (b PathVariablesBuilder) Len() int {
 }
 
 func (b PathVariablesBuilder) Build() *PathVariables {
+	uutNames := b.objectBuilder.UserTypeNames()
+	for _, name := range uutNames {
+		if ut, ok := b.catalogUserTypes.Get(name); ok {
+			if es, ok := ut.Schema.(*ExchangeJSightSchema); ok {
+				b.objectBuilder.AddType(name, es.Schema)
+			}
+		}
+	}
+
 	s := b.objectBuilder.Build()
 
 	es := newExchangeJSightSchema(s)

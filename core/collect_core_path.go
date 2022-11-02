@@ -36,7 +36,7 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError("there is no body for the Path directive")
 	}
 
-	s, err := jschema.NewPathVariablesSchema(d.BodyCoords.Read(), core.UserTypesData())
+	s, err := jschema.NewRawPathVariablesSchema(d.BodyCoords.Read(), core.UserTypesData())
 	if err != nil {
 		return d.KeywordError(err.Error())
 	}

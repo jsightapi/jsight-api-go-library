@@ -15,7 +15,7 @@ import (
 )
 
 func (core *JApiCore) compileCatalog() *jerr.JApiError {
-	je := core.collectAllPathVariables()
+	je := core.collectPiecesOfPathVariables()
 	if je != nil {
 		return je
 	}
@@ -23,7 +23,7 @@ func (core *JApiCore) compileCatalog() *jerr.JApiError {
 	return core.setPathVariablesToCatalog()
 }
 
-func (core *JApiCore) collectAllPathVariables() *jerr.JApiError {
+func (core *JApiCore) collectPiecesOfPathVariables() *jerr.JApiError {
 	ut := core.UserTypesData()
 
 	for i := 0; i < len(core.rawPathVariables); i++ {
@@ -32,16 +32,20 @@ func (core *JApiCore) collectAllPathVariables() *jerr.JApiError {
 		}
 
 		schemaProps := core.rawPathVariables[i].schema.ObjectFirstLevelProperties(ut)
+		types := core.rawPathVariables[i].schema.InnerTypesList()
 
 		for _, pp := range core.rawPathVariables[i].parameters {
 			if v, ok := schemaProps[pp.parameter]; ok {
-				if _, ok := core.allPathVariables[pp]; ok {
+				if _, ok := core.piecesOfPathVariables[pp]; ok {
 					return core.rawPathVariables[i].pathDirective.KeywordError(
 						fmt.Sprintf("The parameter %q has already been defined earlier",
 							pp.path))
 				}
 
-				core.allPathVariables[pp] = v
+				core.piecesOfPathVariables[pp] = PieceOfPathVariable{
+					node:  v,
+					types: types,
+				}
 			}
 
 			delete(schemaProps, pp.parameter)
@@ -65,8 +69,8 @@ func (core *JApiCore) setPathVariablesToCatalog() *jerr.JApiError {
 
 				b := catalog.NewPathVariablesBuilder(core.catalog.UserTypes)
 				for _, p := range pp {
-					if node, ok := core.allPathVariables[p]; ok {
-						b.AddProperty(p.parameter, node)
+					if piece, ok := core.piecesOfPathVariables[p]; ok {
+						b.AddProperty(p.parameter, piece.node.Copy(), piece.types)
 					}
 				}
 				if b.Len() != 0 {

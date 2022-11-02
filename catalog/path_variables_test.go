@@ -5,15 +5,17 @@ import (
 	"testing"
 
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestPathVariables_Validate(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		tests := []struct {
-			schema string
-			key    string
-			value  string
+			schema    string
+			userTypes map[string]string
+			key       string
+			value     string
 		}{
 			// int
 			{
@@ -56,11 +58,24 @@ func TestPathVariables_Validate(t *testing.T) {
 				key:   `id`,
 				value: `100`,
 			},
+
+			// user type
+			{
+				schema: `{
+	"id": @uint,
+	"name": "Tom"
+}`,
+				userTypes: map[string]string{
+					"@uint": "1 // {min: 0}",
+				},
+				key:   `id`,
+				value: `100`,
+			},
 		}
 		for _, tt := range tests {
 			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
-				p := makePathVariables(t, []byte(tt.schema))
+				p := makePathVariables(t, tt.schema, tt.userTypes)
 				assert.Nil(
 					t,
 					p.Validate(tt.key, tt.value),
@@ -72,9 +87,10 @@ func TestPathVariables_Validate(t *testing.T) {
 
 	t.Run("negative", func(t *testing.T) {
 		tests := []struct {
-			schema string
-			key    string
-			value  string
+			schema    string
+			userTypes map[string]string
+			key       string
+			value     string
 		}{
 			// int
 			{
@@ -166,7 +182,7 @@ func TestPathVariables_Validate(t *testing.T) {
 		for _, tt := range tests {
 			name := fmt.Sprintf("schema: %s; key: %s; val: %s", tt.schema, tt.key, tt.value)
 			t.Run(name, func(t *testing.T) {
-				p := makePathVariables(t, []byte(tt.schema))
+				p := makePathVariables(t, tt.schema, tt.userTypes)
 				assert.NotNil(
 					t,
 					p.Validate(tt.key, tt.value),
@@ -177,11 +193,31 @@ func TestPathVariables_Validate(t *testing.T) {
 	})
 }
 
-func makePathVariables(t *testing.T, b []byte) PathVariables {
-	es, err := NewExchangeJSightSchema("", b, &UserSchemas{}, map[string]jschemaLib.Rule{}, &UserTypes{})
+func makePathVariables(t *testing.T, schema string, userTypes map[string]string) PathVariables {
+	uss := &UserSchemas{}
+	uts := &UserTypes{}
+	enumRules := map[string]jschemaLib.Rule{}
+
+	if userTypes != nil {
+		for k, v := range userTypes {
+			uss.Set(k, jschema.New(k, v))
+		}
+		for k, v := range userTypes {
+			ut := &UserType{}
+			var err error
+			ut.Schema, err = NewExchangeJSightSchema(k, []byte(v), uss, enumRules, uts)
+			if err != nil {
+				t.Fatal(err)
+			}
+			uts.Set(k, ut)
+		}
+	}
+
+	es, err := NewExchangeJSightSchema("", []byte(schema), uss, enumRules, uts)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	return PathVariables{
 		Schema: es,
 	}

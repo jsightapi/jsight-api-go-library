@@ -16,7 +16,7 @@ const JDocExchangeVersion = "2.0.0"
 // Each Resource has Requests — available http methods and their properties.
 // Each Resource or Request has it its own complex properties, which can be added through dedicated methods.
 type Catalog struct {
-	rawUserTypes *directive.Directives
+	rawUserTypes *directive.Directives // TODO move to core
 
 	// Info represent "INFO" directive structure.
 	Info *Info

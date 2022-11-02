@@ -1,14 +1,12 @@
 package core
 
 import (
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
-	"github.com/jsightapi/jsight-schema-go-library/fs"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
-
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/scanner"
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/fs"
 )
 
 // JApiCore the Brain and heart of jApi. Collects lexemes from scanner, validates document logic and structure,
@@ -62,7 +60,7 @@ type JApiCore struct {
 	// rawPathVariables contains properties of the Path directives.
 	rawPathVariables []rawPathVariable
 
-	allPathVariables map[PathParameter]schema.Node
+	piecesOfPathVariables map[PathParameter]PieceOfPathVariable
 
 	// directives from loaded from project.
 	directives []*directive.Directive
@@ -114,7 +112,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		uniqURLPath:            make(map[catalog.Path]struct{}, 20),
 		similarPaths:           make(map[string]string, 20),
 		rawPathVariables:       make([]rawPathVariable, 0, 40),
-		allPathVariables:       make(map[PathParameter]schema.Node, 20),
+		piecesOfPathVariables:  make(map[PathParameter]PieceOfPathVariable, 20),
 		macro:                  make(map[string]*directive.Directive, 20),
 		scannersStack:          &scanner.Stack{},
 		rules:                  map[string]jschemaLib.Rule{},
