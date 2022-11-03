@@ -3,30 +3,31 @@ package catalog
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/jsightapi/jsight-api-go-library/notation"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 )
 
 type ExchangePseudoSchema struct {
 	jschemaLib.Schema
-	notation notation.SchemaNotation
+	Notation notation.SchemaNotation
 }
 
 func NewExchangePseudoSchema(n notation.SchemaNotation) *ExchangePseudoSchema {
 	return &ExchangePseudoSchema{
-		notation: n,
+		Notation: n,
 	}
 }
 
 func (e ExchangePseudoSchema) MarshalJSON() ([]byte, error) {
-	if e.notation != notation.SchemaNotationAny && e.notation != notation.SchemaNotationEmpty {
-		return nil, fmt.Errorf(`invalid schema notation "%s"`, e.notation)
+	if e.Notation != notation.SchemaNotationAny && e.Notation != notation.SchemaNotationEmpty {
+		return nil, fmt.Errorf(`invalid schema notation "%s"`, e.Notation)
 	}
 
 	data := struct {
 		Notation notation.SchemaNotation `json:"notation"`
 	}{
-		Notation: e.notation,
+		Notation: e.Notation,
 	}
 
 	return json.Marshal(data)
