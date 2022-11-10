@@ -2,10 +2,12 @@ package catalog
 
 import (
 	"encoding/json"
+	"sync"
+
 	"github.com/jsightapi/jsight-api-go-library/notation"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
-	"sync"
 )
 
 type ExchangeJSightSchema struct { //nolint:govet
@@ -32,9 +34,9 @@ func newExchangeJSightSchema(s *jschema.Schema) *ExchangeJSightSchema {
 	}
 }
 
-func NewExchangeJSightSchema(
+func NewExchangeJSightSchema[T bytes.Byter](
 	name string,
-	b []byte,
+	b T,
 	userTypes *UserSchemas, // TODO think about user type transfer
 	enumRules map[string]jschemaLib.Rule,
 	catalogUserTypes *UserTypes,

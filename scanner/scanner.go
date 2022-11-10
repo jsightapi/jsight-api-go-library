@@ -9,7 +9,7 @@ import (
 
 type stepFunc func(*Scanner, byte) *jerr.JApiError
 
-type Scanner struct {
+type Scanner struct { //nolint:govet // It's ok.
 	data bytes.Bytes
 	file *fs.File
 
@@ -40,7 +40,7 @@ func NewJApiScanner(file *fs.File) *Scanner {
 		lastDirectiveParameters: make([]*Lexeme, 0, 5),
 		stack:                   make(eventStack, 0, 5),
 	}
-	s.dataSize = bytes.Index(len(s.data))
+	s.dataSize = s.data.LenIndex()
 	return &s
 }
 
@@ -67,7 +67,7 @@ func (s *Scanner) Next() (*Lexeme, *jerr.JApiError) {
 			// s.closeAllOpenedLexemeEvent()
 			c = EOF
 		} else {
-			c = s.data[s.curIndex]
+			c = s.data.Byte(s.curIndex)
 			if c == EOF { // we use it to imitate end of file but strictly under our control
 				return nil, s.japiErrorBasic("File cannot contain byte zero")
 			}

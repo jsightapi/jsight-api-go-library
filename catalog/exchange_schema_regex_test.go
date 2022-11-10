@@ -2,6 +2,8 @@ package catalog
 
 import (
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/bytes"
+
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,7 +12,7 @@ import (
 
 func TestRegexMarshaller_Marshal(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
-		s, err := PrepareRegexSchema("foo", []byte("/bar-\\d/"))
+		s, err := PrepareRegexSchema("foo", bytes.NewBytes("/bar-\\d/"))
 		require.NoError(t, err)
 
 		n, err := s.GetAST()
@@ -27,7 +29,7 @@ func TestRegexMarshaller_Marshal(t *testing.T) {
 	})
 
 	t.Run("negative", func(t *testing.T) {
-		s, err := PrepareRegexSchema("", []byte("invalid"))
+		s, err := PrepareRegexSchema("", bytes.NewBytes("invalid"))
 		require.NoError(t, err)
 
 		_, err = s.GetAST()

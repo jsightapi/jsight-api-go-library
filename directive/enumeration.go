@@ -190,18 +190,18 @@ func createEnumerationSet(ee ...Enumeration) map[Enumeration]struct{} {
 }
 
 func IsStartWithDirective(b bytes.Bytes) bool {
-	if len(b) < 3 {
+	if b.Len() < 3 {
 		return false
 	}
 
-	switch b[0] { // response directive 100, 200, 300 etc
+	switch b.FirstByte() { // response directive 100, 200, 300 etc
 	case '1', '2', '3', '4', '5':
-		if IsHTTPResponseCode(string(b[0:3])) {
+		if IsHTTPResponseCode(b.Sub(0, 3).String()) {
 			return true
 		}
 	}
 
-	s := string(b)
+	s := b.String()
 
 	for i := 0; i < len(ss); i++ {
 		de := Enumeration(i)

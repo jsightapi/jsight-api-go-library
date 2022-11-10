@@ -12,17 +12,19 @@ import (
 
 func unescapeParameter(b bytes.Bytes) bytes.Bytes {
 	c := b.Unquote()
-	if len(c) != 0 && len(c) != len(b) {
-		c = stdBytes.ReplaceAll(c, []byte(`\"`), []byte(`"`))
-		c = stdBytes.ReplaceAll(c, []byte(`\\`), []byte(`\`))
+	if c.Len() != 0 && c.Len() != b.Len() {
+		cc := c.Data()
+		cc = stdBytes.ReplaceAll(cc, []byte(`\"`), []byte(`"`))
+		cc = stdBytes.ReplaceAll(cc, []byte(`\\`), []byte(`\`))
+		c = bytes.NewBytes(cc)
 	}
 	return c
 }
 
 func IsArrayOfTypes(b bytes.Bytes) bool {
-	l := len(b)
-	if l >= 4 && b[0] == '[' && b[l-1] == ']' {
-		c := b[1 : l-1]
+	l := b.Len()
+	if l >= 4 && b.FirstByte() == '[' && b.LastByte() == ']' {
+		c := b.Sub(1, l-1)
 		if c.IsUserTypeName() {
 			return true
 		}

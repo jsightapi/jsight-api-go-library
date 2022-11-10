@@ -180,7 +180,7 @@ func stateDescriptionTextNewline(s *Scanner, c byte) *jerr.JApiError {
 }
 
 func (s *Scanner) isDirective() bool {
-	b, err := s.data.LineFrom(s.curIndex)
+	b, err := s.data.SubToEndOfLine(s.curIndex)
 	if err != nil {
 		return false
 	}

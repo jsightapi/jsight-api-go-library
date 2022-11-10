@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"errors"
+
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
@@ -37,7 +38,7 @@ func NewHTTPResponseBody(
 
 	switch f {
 	case SerializeFormatJSON:
-		s, err = NewExchangeJSightSchema("", b, tt, rr, catalogUserTypes)
+		s, err = NewExchangeJSightSchema("", b.Data(), tt, rr, catalogUserTypes)
 		if err != nil {
 			return HTTPResponseBody{}, adoptErrorForResponseBody(d, err)
 		}

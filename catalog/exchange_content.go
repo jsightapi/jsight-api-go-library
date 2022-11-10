@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
-	"strconv"
-	"strings"
 )
 
 type ExchangeContent struct {
@@ -142,7 +143,7 @@ func (c *ExchangeContent) ToUsedUserTypes(uut *StringSet) {
 		if c.Type == "mixed" {
 			for _, ut := range strings.Split(c.ScalarValue, "|") {
 				s := strings.TrimSpace(ut)
-				if bytes.Bytes(s).IsUserTypeName() {
+				if bytes.NewBytes(s).IsUserTypeName() {
 					uut.Add(s)
 				}
 			}

@@ -25,7 +25,7 @@ func stateJSchema(s *Scanner, _ byte) *jerr.JApiError {
 
 func (s *Scanner) readSchemaWithJsc() (uint, *jerr.JApiError) {
 	fc := s.file.Content()
-	file := fs.NewFile("", fc.Slice(s.curIndex, bytes.Index(fc.Len()-1)))
+	file := fs.NewFile("", fc.Sub(s.curIndex, fc.LenIndex()))
 
 	l, err := jschema.FromFile(file).Len()
 	if err != nil {

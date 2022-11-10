@@ -23,7 +23,7 @@ func TestNewCoords(t *testing.T) {
 
 func TestCoords_Read(t *testing.T) {
 	bytes := NewCoords(fs.NewFile("foo", "123456"), 1, 3).Read()
-	assert.EqualValues(t, "234", bytes)
+	assert.EqualValues(t, "234", bytes.String())
 }
 
 func TestCoords_IsSet(t *testing.T) {

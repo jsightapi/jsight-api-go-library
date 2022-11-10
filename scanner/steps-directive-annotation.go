@@ -44,7 +44,7 @@ func stateMultilineAnnotationTextStart(s *Scanner, c byte) *jerr.JApiError {
 }
 
 func stateMultilineAnnotation(s *Scanner, c byte) *jerr.JApiError {
-	if c == AnnotationDelimiterPart && s.data[s.curIndex-1] == '*' {
+	if c == AnnotationDelimiterPart && s.data.Byte(s.curIndex-1) == '*' {
 		s.foundAt(s.curIndex-2, AnnotationEnd)
 		s.step = s.stepStack.Pop()
 	} else if c == EOF {

@@ -103,7 +103,7 @@ func stateEnumBodyEnded(s *Scanner, c byte) *jerr.JApiError {
 
 func (s *Scanner) readEnumWithJsc() (uint, *jerr.JApiError) {
 	fc := s.file.Content()
-	file := fs.NewFile("", fc.Slice(s.curIndex, bytes.Index(fc.Len()-1)))
+	file := fs.NewFile("", fc.Sub(s.curIndex, fc.LenIndex()))
 
 	l, err := enum.FromFile(file).Len()
 	if err != nil {

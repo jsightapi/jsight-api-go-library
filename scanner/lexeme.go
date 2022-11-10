@@ -74,7 +74,7 @@ func NewLexeme(type_ LexemeType, begin bytes.Index, end bytes.Index, file *fs.Fi
 }
 
 func (lex Lexeme) Value() bytes.Bytes {
-	return lex.file.Content().Slice(lex.begin, lex.end)
+	return lex.file.Content().Sub(lex.begin, lex.end+1)
 }
 
 func (lex Lexeme) File() *fs.File {

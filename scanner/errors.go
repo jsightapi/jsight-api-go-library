@@ -2,7 +2,6 @@ package scanner
 
 import (
 	"fmt"
-	"unicode/utf8"
 
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 
@@ -20,7 +19,7 @@ func (s Scanner) japiErrorBasic(msg string) *jerr.JApiError {
 func (s Scanner) japiErrorUnexpectedChar(where string, expected string) *jerr.JApiError {
 	var msg string
 	if s.curIndex < s.dataSize {
-		r, _ := utf8.DecodeRune(s.data[s.curIndex:])
+		r := s.data.SubLow(s.curIndex).DecodeRune()
 		if expected == "" {
 			msg = fmt.Sprintf("invalid character %q %s", r, where)
 		} else {

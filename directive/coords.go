@@ -18,7 +18,7 @@ func NewCoords(f *fs.File, b bytes.Index, e bytes.Index) Coords {
 }
 
 func (c Coords) Read() bytes.Bytes {
-	return c.file.Content().Slice(c.begin, c.end)
+	return c.file.Content().Sub(c.begin, c.end+1)
 }
 
 func (c Coords) IsSet() bool {

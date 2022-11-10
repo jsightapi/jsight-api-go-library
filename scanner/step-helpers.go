@@ -1,5 +1,7 @@
 package scanner
 
+import "github.com/jsightapi/jsight-schema-go-library/bytes"
+
 func caseWhitespace(c byte) byte {
 	if isWhitespace(c) {
 		return c
@@ -34,9 +36,9 @@ func otherByte(b byte) byte {
 }
 
 var (
-	anyType   = []byte("any")
-	emptyType = []byte("empty")
-	regexType = []byte("regex")
+	anyType   = bytes.NewBytes("any")
+	emptyType = bytes.NewBytes("empty")
+	regexType = bytes.NewBytes("regex")
 )
 
 func (s *Scanner) isDirectiveParameterHasTypeOrAnyOrEmpty() bool {

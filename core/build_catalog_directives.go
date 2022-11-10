@@ -3,6 +3,7 @@ package core
 import (
 	"errors"
 	"fmt"
+
 	"github.com/jsightapi/jsight-api-go-library/catalog"
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
@@ -114,7 +115,7 @@ func (core JApiCore) addDescription(d *directive.Directive) *jerr.JApiError {
 		return d.KeywordError(jerr.EmptyDescription)
 	}
 
-	bb, err := description(d.BodyCoords.Read())
+	bb, err := description(d.BodyCoords.Read().Data())
 	if err != nil {
 		return d.BodyError(err.Error())
 	}
@@ -361,7 +362,8 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 
 	switch {
 	case sn == notation.SchemaNotationJSight && typ != "" && !d.BodyCoords.IsSet():
-		if s, err = catalog.NewExchangeJSightSchema("", bytes.Bytes(typ), core.userTypes, core.rules, core.catalog.UserTypes); err == nil { //nolint:lll
+		if s, err = catalog.NewExchangeJSightSchema("", typ, core.userTypes, core.rules,
+			core.catalog.UserTypes); err == nil {
 			err = core.catalog.AddRequestBody(s, bodyFormat, *d)
 		}
 
@@ -436,7 +438,7 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
 	switch {
 	case typeParam != "":
 		je = core.catalog.AddResponseBody(
-			bytes.Bytes(typeParam),
+			bytes.NewBytes(typeParam),
 			bodyFormat,
 			schemaNotation,
 			*d,
@@ -456,7 +458,7 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
 
 	case schemaNotation.IsAnyOrEmpty():
 		je = core.catalog.AddResponseBody(
-			nil,
+			bytes.Bytes{},
 			bodyFormat,
 			schemaNotation,
 			*d,

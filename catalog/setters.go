@@ -3,6 +3,7 @@ package catalog
 import (
 	"errors"
 	"fmt"
+
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
@@ -452,7 +453,7 @@ func (c *Catalog) AddType(
 		if !d.BodyCoords.IsSet() {
 			return d.KeywordError(jerr.EmptyBody)
 		}
-		userType.Schema, err = NewExchangeJSightSchema(name, d.BodyCoords.Read(), tt, rr, c.UserTypes)
+		userType.Schema, err = NewExchangeJSightSchema(name, d.BodyCoords.Read().Data(), tt, rr, c.UserTypes)
 		if err != nil {
 			return adoptErrorForAddType(d, err)
 		}

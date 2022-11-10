@@ -23,14 +23,14 @@ func Test_unescapeParameter(t *testing.T) {
 
 	for given, expected := range tests {
 		t.Run(given, func(t *testing.T) {
-			actual := unescapeParameter(bytes.Bytes(given))
-			assert.Equal(t, expected, string(actual))
+			actual := unescapeParameter(bytes.NewBytes(given))
+			assert.Equal(t, expected, actual.String())
 		})
 	}
 }
 
 func Benchmark_unescapeParameter(b *testing.B) {
-	str := bytes.Bytes(`"aa \" bb \" \" bb \" \" bb \" \" bb \" \" bb \" cc"`)
+	str := bytes.NewBytes(`"aa \" bb \" \" bb \" \" bb \" \" bb \" \" bb \" cc"`)
 
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -55,7 +55,7 @@ func TestIsArrayOfTypes(t *testing.T) {
 
 	for given, expected := range tests {
 		t.Run(given, func(t *testing.T) {
-			actual := IsArrayOfTypes(bytes.Bytes(given))
+			actual := IsArrayOfTypes(bytes.NewBytes(given))
 			assert.Equal(t, expected, actual)
 		})
 	}
@@ -196,7 +196,7 @@ func TestDirective_AppendParameter(t *testing.T) {
 
 		for n, c := range cc {
 			t.Run(n, func(t *testing.T) {
-				err := c.directive.AppendParameter(bytes.Bytes(c.given))
+				err := c.directive.AppendParameter(bytes.NewBytes(c.given))
 				require.NoError(t, err)
 
 				assert.Equal(t, c.expectedParameters, c.directive.namedParameters)
@@ -219,7 +219,7 @@ func TestDirective_AppendParameter(t *testing.T) {
 
 		for _, typ := range cc {
 			t.Run(typ.String(), func(t *testing.T) {
-				err := New(typ, Coords{}).AppendParameter(bytes.Bytes("foo"))
+				err := New(typ, Coords{}).AppendParameter(bytes.NewBytes("foo"))
 				assert.EqualError(t, err, `incorrect parameter "foo"`)
 			})
 		}
