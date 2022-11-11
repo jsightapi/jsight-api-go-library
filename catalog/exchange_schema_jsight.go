@@ -37,32 +37,40 @@ func newExchangeJSightSchema(s *jschema.Schema) *ExchangeJSightSchema {
 func NewExchangeJSightSchema[T bytes.Byter](
 	name string,
 	b T,
-	userTypes *UserSchemas, // TODO think about user type transfer
-	enumRules map[string]jschemaLib.Rule,
+	coreUserTypes *UserSchemas,
+	coreRules map[string]jschemaLib.Rule,
 	catalogUserTypes *UserTypes,
 ) (*ExchangeJSightSchema, error) {
-	s := newExchangeJSightSchema(jschema.New(name, b))
-	s.catalogUserTypes = catalogUserTypes
+	if s, ok := coreUserTypes.Get(name); ok {
+		if ss, ok := s.(*jschema.Schema); ok {
+			es := newExchangeJSightSchema(ss)
+			es.catalogUserTypes = catalogUserTypes
+			return es, nil
+		}
+	}
 
-	for n, v := range enumRules {
-		if err := s.Schema.AddRule(n, v); err != nil {
+	es := newExchangeJSightSchema(jschema.New(name, b))
+	es.catalogUserTypes = catalogUserTypes
+
+	for n, v := range coreRules {
+		if err := es.Schema.AddRule(n, v); err != nil {
 			return nil, err
 		}
 	}
 
-	err := userTypes.Each(func(k string, v jschemaLib.Schema) error {
-		return s.Schema.AddType(k, v)
+	err := coreUserTypes.Each(func(k string, v jschemaLib.Schema) error {
+		return es.Schema.AddType(k, v)
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	err = s.Build()
+	err = es.Build()
 	if err != nil {
 		return nil, err
 	}
 
-	return s, nil
+	return es, nil
 }
 
 func (e *ExchangeJSightSchema) Compile() (err error) {

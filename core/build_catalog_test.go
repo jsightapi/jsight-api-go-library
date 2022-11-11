@@ -3,13 +3,12 @@ package core
 import (
 	"testing"
 
+	"github.com/jsightapi/jsight-api-go-library/catalog"
+	"github.com/jsightapi/jsight-api-go-library/directive"
 	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 	"github.com/stretchr/testify/require"
-
-	"github.com/jsightapi/jsight-api-go-library/catalog"
-	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
 func TestJApiCore_compileUserTypes(t *testing.T) {
@@ -28,6 +27,13 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 }`,
 	}
 
+	core := JApiCore{
+		rawUserTypes:       &directive.Directives{},
+		userTypes:          &catalog.UserSchemas{},
+		processedUserTypes: map[string]struct{}{},
+		catalog:            c,
+	}
+
 	for n, p := range ut {
 		d := directive.New(directive.Jsight, directive.Coords{})
 		d.BodyCoords = directive.NewCoords(
@@ -36,13 +42,7 @@ func TestJApiCore_compileUserTypes(t *testing.T) {
 			bytes.Index(len(p)-1),
 		)
 		require.NoError(t, d.SetNamedParameter("Name", n))
-		c.AddRawUserType(d)
-	}
-
-	core := JApiCore{
-		userTypes:          &catalog.UserSchemas{},
-		processedUserTypes: map[string]struct{}{},
-		catalog:            c,
+		core.AddRawUserType(d)
 	}
 
 	err := core.compileUserTypes()

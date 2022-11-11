@@ -12,8 +12,13 @@ import (
 // JApiCore the Brain and heart of jApi. Collects lexemes from scanner, validates document logic and structure,
 // builds catalog, renders documentation
 type JApiCore struct {
+	rawUserTypes *directive.Directives
+
 	// processedUserTypes a "set" of already build user types.
 	processedUserTypes map[string]struct{}
+
+	// userTypes represent all user types.
+	userTypes *catalog.UserSchemas
 
 	// onlyOneProtocolIntoURL to verify the uniqueness of a directive Protocol within a directive URL
 	onlyOneProtocolIntoURL map[*directive.Directive]struct{}
@@ -36,9 +41,6 @@ type JApiCore struct {
 
 	// rules all defined rules.
 	rules map[string]jschemaLib.Rule
-
-	// userTypes represent all user types.
-	userTypes *catalog.UserSchemas
 
 	// representation of Api data.
 	catalog *catalog.Catalog
@@ -102,6 +104,7 @@ func WithFixedSeedForRegex() Option {
 
 func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 	core := &JApiCore{
+		rawUserTypes:           &directive.Directives{},
 		userTypes:              &catalog.UserSchemas{},
 		processedUserTypes:     make(map[string]struct{}, 30),
 		scanner:                scanner.NewJApiScanner(file),
@@ -156,6 +159,10 @@ func (core *JApiCore) BuildCatalog() *jerr.JApiError {
 
 func (core *JApiCore) Catalog() *catalog.Catalog {
 	return core.catalog
+}
+
+func (core *JApiCore) AddRawUserType(d *directive.Directive) {
+	core.rawUserTypes.Set(d.NamedParameter("Name"), d)
 }
 
 // processJApiProject the main internal method of Core. Only when done, core is

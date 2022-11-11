@@ -17,7 +17,7 @@ func (core *JApiCore) collectUserTypes() *jerr.JApiError {
 func (core *JApiCore) collectRawUserTypes() {
 	for _, d := range core.directivesWithPastes {
 		if d.Type() == directive.Type {
-			core.catalog.AddRawUserType(d)
+			core.AddRawUserType(d)
 		}
 	}
 }
@@ -39,7 +39,7 @@ func (core *JApiCore) compileUserTypes() *jerr.JApiError {
 }
 
 func (core *JApiCore) buildUserTypes() *jerr.JApiError {
-	core.Catalog().GetRawUserTypes().EachSafe(func(k string, v *directive.Directive) {
+	core.rawUserTypes.EachSafe(func(k string, v *directive.Directive) {
 		switch notation.SchemaNotation(v.NamedParameter("SchemaNotation")) {
 		case "", notation.SchemaNotationJSight:
 			if v.BodyCoords.IsSet() {
@@ -74,7 +74,7 @@ func (core *JApiCore) compileUserTypeWithAllDependencies(name string) error {
 		return nil
 	}
 
-	dd := core.catalog.GetRawUserTypes()
+	dd := core.rawUserTypes
 
 	// Add rules before we try to do something with the type.
 	for n, r := range core.rules {

@@ -46,7 +46,7 @@ func (core *JApiCore) checkUserType(name string) *jerr.JApiError {
 		return nil
 	}
 
-	d := core.catalog.GetRawUserTypes().GetValue(name)
+	d := core.rawUserTypes.GetValue(name)
 	var e kit.Error
 	if !errors.As(err, &e) {
 		return d.KeywordError(err.Error())
