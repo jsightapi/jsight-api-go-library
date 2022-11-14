@@ -7,64 +7,22 @@ parameters:
   go-version:
     type: string
     default: '1.19'
+  golangci-lint-version:
+    type: string
+    default: '1.50.1'
   jschema-branch:
     type: string
     default: dev
 
 
-commands:
-  checkout-schema:
-    parameters:
-      branch:
-        type: string
-        default: dev
-    steps:
-      - run:
-          name: Checkout jschema as dependency
-          command: |
-            mkdir ../schema
-            cd ../schema
-            git clone -b << parameters.branch >> --depth 1 \
-              https://${GITHUB_TOKEN}@github.com/jsightapi/jsight-schema-go-library.git .
-            git branch --show-current
-            git show -s
-
-
 workflows:
-  branches-qa:
-    when:
-      matches:
-        pattern: (rc/.*|dev|main)
-        value: << pipeline.git.branch >>
+  qa:
     jobs:
       - common/go-test: &common-params
           context: online-editor-development
           go-version: << pipeline.parameters.go-version >>
-          pre-steps:
-            - checkout-schema:
-                branch: << pipeline.git.branch >> # for common branches we use matching jschema branch
 
       - common/go-lint:
           <<: *common-params
-          golangci-lint-version: 1.50.1
-
-
-  feature-qa:
-    when:
-      not:
-        matches:
-          pattern: (rc/.*|dev|main)
-          value: << pipeline.git.branch >>
-    jobs:
-      - common/go-test:
-          <<: *common-params
-          pre-steps:
-            - checkout-schema:
-                branch: dev # for feature branches we use dev jschema branch
-
-      - common/go-lint:
-          <<: *common-params
-          pre-steps:
-            - checkout-schema:
-                branch: dev # for feature branches we use dev jschema branch
-          golangci-lint-version: 1.50.1
+          golangci-lint-version: << pipeline.parameters.golangci-lint-version >>
+          run-mod-vendor: true
