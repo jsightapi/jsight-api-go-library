@@ -10,9 +10,6 @@ parameters:
   golangci-lint-version:
     type: string
     default: '1.50.1'
-  jschema-branch:
-    type: string
-    default: dev
 
 
 workflows:
