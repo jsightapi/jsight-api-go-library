@@ -9,7 +9,7 @@ import (
 
 type stepFunc func(*Scanner, byte) *jerr.JApiError
 
-type Scanner struct { //nolint:govet // It's ok.
+type Scanner struct {
 	data bytes.Bytes
 	file *fs.File
 
@@ -64,7 +64,6 @@ func (s *Scanner) Next() (*Lexeme, *jerr.JApiError) {
 	for s.curIndex <= s.dataSize {
 		var c byte
 		if s.curIndex == s.dataSize { // file ended
-			// s.closeAllOpenedLexemeEvent()
 			c = EOF
 		} else {
 			c = s.data.Byte(s.curIndex)

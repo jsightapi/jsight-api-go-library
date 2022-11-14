@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-type Tag struct { //nolint:govet
+type Tag struct {
 	InteractionGroups map[Protocol]TagInteractionGroup
 	Children          *Tags
 	Name              TagName

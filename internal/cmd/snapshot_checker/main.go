@@ -101,8 +101,8 @@ func (c *snapshotChecker) waitActualJSONStart(ev testEvent) error {
 func (c *snapshotChecker) collectActualJSONFirstLine(ev testEvent) error {
 	if ev.Action == testEventActionOutput && strings.Contains(ev.Output, "{") {
 		c.actualJSON.Reset()
-		c.actualJSON.WriteRune('{')
-		c.actualJSON.WriteRune('\n')
+		c.actualJSON.WriteByte('{')
+		c.actualJSON.WriteByte('\n')
 		c.currentTest = ev.Test
 		c.state = c.collectActualJSON
 	}
@@ -154,7 +154,7 @@ func (c *snapshotChecker) collectActualJSON(ev testEvent) error {
 				break
 			}
 
-			if err := os.WriteFile(path, c.actualJSON.Bytes(), 0644); err != nil { //nolint:gosec // It's safe to have 0644 permission.
+			if err := os.WriteFile(path, c.actualJSON.Bytes(), 0644); err != nil { //nolint:gosec // It's ok.
 				return fmt.Errorf("write file %q: %w", path, err)
 			}
 		}

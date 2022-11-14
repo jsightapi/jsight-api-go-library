@@ -71,7 +71,7 @@ func renderTemplateToFile(tmpl, path string, data interface{}) error {
 	}
 
 	buf := bytes.NewBuffer(make([]byte, 0, 2048))
-	if err := t.Execute(buf, data); err != nil {
+	if err = t.Execute(buf, data); err != nil {
 		return fmt.Errorf("failed to execute template: %w", err)
 	}
 

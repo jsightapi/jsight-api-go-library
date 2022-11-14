@@ -63,8 +63,8 @@ func (e *JApiError) errorWithStackTrace() string {
 }
 
 func writeStackTraceLine(buf *strings.Builder, p string, atLine bytes.Index) {
-	buf.WriteRune('\n')
+	buf.WriteByte('\n')
 	buf.WriteString(p)
-	buf.WriteRune(':')
+	buf.WriteByte(':')
 	buf.WriteString(strconv.FormatUint(uint64(atLine), 10))
 }

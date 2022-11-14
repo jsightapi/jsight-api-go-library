@@ -1,9 +1,10 @@
 package catalog
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestSchema_MarshalJSON_Order(t *testing.T) {

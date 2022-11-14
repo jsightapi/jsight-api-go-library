@@ -1,6 +1,6 @@
 package catalog
 
-type HTTPInteraction struct { //nolint:govet
+type HTTPInteraction struct {
 	Id            string         `json:"id"`
 	Protocol      Protocol       `json:"protocol"`
 	HttpMethod    HTTPMethod     `json:"httpMethod"`

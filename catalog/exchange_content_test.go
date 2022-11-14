@@ -1,8 +1,9 @@
 package catalog
 
 import (
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 	"testing"
+
+	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -11,7 +11,7 @@ func stateRoot(s *Scanner, c byte) *jerr.JApiError {
 	return stateExpectKeyword(s, c)
 }
 
-func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError {
+func stateExpectKeyword(s *Scanner, c byte) *jerr.JApiError { //nolint:funlen
 	switch c {
 	case caseNewLine(c), caseWhitespace(c), EOF:
 		return nil

@@ -58,13 +58,13 @@ type commonGenerator struct {
 	) error
 }
 
-func (g commonGenerator) Generate(path string) error {
-	pkgName, dd, err := g.parseFile(path)
+func (g commonGenerator) Generate(p string) error {
+	pkgName, dd, err := g.parseFile(p)
 	if err != nil {
 		return fmt.Errorf("faile to parse file: %w", err)
 	}
 
-	if err := g.generate(pkgName, path, dd); err != nil {
+	if err := g.generate(pkgName, p, dd); err != nil {
 		return fmt.Errorf("failed to find target types: %w", err)
 	}
 

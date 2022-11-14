@@ -319,9 +319,9 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 				if i.Value != "" {
 					userType = i.Value
 				} else {
-					v, ok := i.Properties.Get("type")
+					vv, ok := i.Properties.Get("type")
 					if ok {
-						userType = v.Value
+						userType = vv.Value
 					} else {
 						userType = node.SchemaType
 					}

@@ -92,8 +92,8 @@ func (core *JApiCore) checkPathSchema(s *jschema.Schema) error {
 		return err
 	}
 
-	for _, an := range s.ASTNode.Children {
-		if err := core.checkPathSchemaProperty(an); err != nil {
+	for i := range s.ASTNode.Children {
+		if err := core.checkPathSchemaProperty(s.ASTNode.Children[i]); err != nil {
 			return err
 		}
 	}

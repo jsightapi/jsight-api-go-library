@@ -16,7 +16,7 @@ func (s Scanner) japiErrorBasic(msg string) *jerr.JApiError {
 	return jerr.NewJApiError(msg, s.file, s.curIndex)
 }
 
-func (s Scanner) japiErrorUnexpectedChar(where string, expected string) *jerr.JApiError {
+func (s Scanner) japiErrorUnexpectedChar(where, expected string) *jerr.JApiError {
 	var msg string
 	if s.curIndex < s.dataSize {
 		r := s.data.SubLow(s.curIndex).DecodeRune()

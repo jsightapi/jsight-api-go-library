@@ -64,7 +64,7 @@ type Lexeme struct {
 	end   bytes.Index // bytes.Index of the end character of the found lexeme in the byte slice
 }
 
-func NewLexeme(type_ LexemeType, begin bytes.Index, end bytes.Index, file *fs.File) *Lexeme {
+func NewLexeme(type_ LexemeType, begin, end bytes.Index, file *fs.File) *Lexeme {
 	return &Lexeme{
 		file:  file,
 		type_: type_,

@@ -10,7 +10,7 @@ import (
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
-type ExchangeJSightSchema struct { //nolint:govet
+type ExchangeJSightSchema struct {
 	*jschema.Schema
 
 	onceCompile            sync.Once

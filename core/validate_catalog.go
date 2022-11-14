@@ -44,7 +44,7 @@ func (core *JApiCore) validateRequestBody() *jerr.JApiError {
 		if hi, ok := v.(*catalog.HTTPInteraction); ok {
 			r := hi.Request
 			if r != nil && r.HTTPRequestBody == nil {
-				return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource "%s"`, k.String()))
+				return r.Directive.KeywordError(fmt.Sprintf(`undefined request body for resource %q`, k.String()))
 			}
 		}
 		return nil

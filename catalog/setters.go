@@ -232,7 +232,7 @@ func (c *Catalog) AddDescriptionToHTTPMethod(d directive.Directive, text string)
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, httpID.String())
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	if v.Description != nil {
 		return errors.New(jerr.NotUniqueDirective)
@@ -256,7 +256,7 @@ func (c *Catalog) AddDescriptionToJsonRpcMethod(d directive.Directive, text stri
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, rpcId.String())
 	}
 
-	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction)
 
 	if v.Description != nil {
 		return errors.New(jerr.NotUniqueDirective)
@@ -280,7 +280,7 @@ func (c *Catalog) AddQueryToCurrentMethod(d directive.Directive, q Query) error 
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, httpID.String())
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	if v.Query != nil {
 		return errors.New(jerr.NotUniqueDirective)
@@ -294,7 +294,7 @@ func (c *Catalog) AddQueryToCurrentMethod(d directive.Directive, q Query) error 
 	return nil
 }
 
-func (c *Catalog) AddResponse(code string, annotation string, d directive.Directive) error {
+func (c *Catalog) AddResponse(code, annotation string, d directive.Directive) error {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
 		return err
@@ -327,7 +327,7 @@ func (c *Catalog) AddResponseBody(
 		return d.KeywordError(fmt.Sprintf("%s %q", jerr.HTTPResourceNotFound, httpID.String()))
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	i := len(v.Responses) - 1
 	if i == -1 {
@@ -357,7 +357,7 @@ func (c *Catalog) AddResponseHeaders(s *ExchangeJSightSchema, d directive.Direct
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, httpID.String())
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	i := len(v.Responses) - 1
 	if i == -1 {
@@ -376,7 +376,7 @@ func (c *Catalog) AddResponseHeaders(s *ExchangeJSightSchema, d directive.Direct
 	return nil
 }
 
-func (c *Catalog) AddServer(name string, annotation string) error {
+func (c *Catalog) AddServer(name, annotation string) error {
 	if c.Servers.Has(name) {
 		return fmt.Errorf("%s (%q)", jerr.DuplicateNames, name)
 	}
@@ -389,7 +389,7 @@ func (c *Catalog) AddServer(name string, annotation string) error {
 	return nil
 }
 
-func (c *Catalog) AddBaseURL(serverName string, path string) error {
+func (c *Catalog) AddBaseURL(serverName, path string) error {
 	if !c.Servers.Has(serverName) {
 		return fmt.Errorf("server not found for %s", serverName)
 	}
@@ -401,29 +401,6 @@ func (c *Catalog) AddBaseURL(serverName string, path string) error {
 	}
 
 	v.BaseUrl = path
-
-	// if d.BodyCoords.IsSet() {
-	// 	// baseurl has jschema body
-	// 	s, err := UnmarshalJSightSchema("", d.BodyCoords.Read())
-	// 	if err != nil {
-	// 		if e, ok := err.(kit.Error); ok {
-	// 			return c.japiError(e.Message(), d.BodyCoords.B()+bytes.Index(e.Position()))
-	// 		}
-	// 		return c.japiError(err.Error(), d.BodyBegin())
-	// 	}
-	//
-	// 	if s.exchangeContent.TokenType != objectStr && s.exchangeContent.TokenType != shortcutStr {
-	// 		return c.japiError("the body of the BaseUrl directive can contain an object schema", d.BodyBegin())
-	// 	}
-	//
-	// 	c.Servers.Update(serverName, func(v *Server) *Server {
-	// 		v.BaseUrlVariables = &baseURLVariables{
-	// 			ExchangeSchema:    &s,
-	// 			directive: d,
-	// 		}
-	// 		return v
-	// 	})
-	// }
 
 	return nil
 }
@@ -502,7 +479,7 @@ func (c *Catalog) AddRequestBody(s ExchangeSchema, f SerializeFormat, d directiv
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, httpID.String())
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	if v.Request == nil {
 		return fmt.Errorf("%s for %q", jerr.RequestIsEmpty, httpID.String())
@@ -530,7 +507,7 @@ func (c *Catalog) AddRequestHeaders(s *ExchangeJSightSchema, d directive.Directi
 		return fmt.Errorf("%s %q", jerr.HTTPResourceNotFound, httpID.String())
 	}
 
-	v := c.Interactions.GetValue(httpID).(*HTTPInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(httpID).(*HTTPInteraction)
 
 	if v.Request == nil {
 		return fmt.Errorf("%s for %q", jerr.RequestIsEmpty, httpID.String())
@@ -583,7 +560,7 @@ func (c *Catalog) AddJsonRpcParams(s *ExchangeJSightSchema, d directive.Directiv
 		return fmt.Errorf("%s %q", jerr.JsonRpcResourceNotFound, rpcId.String())
 	}
 
-	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction)
 
 	if v.Params != nil {
 		return errors.New(jerr.NotUniqueDirective)
@@ -607,7 +584,7 @@ func (c *Catalog) AddJsonRpcResult(s *ExchangeJSightSchema, d directive.Directiv
 		return fmt.Errorf("%s %q", jerr.JsonRpcResourceNotFound, rpcId.String())
 	}
 
-	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction) //nolint:errcheck
+	v := c.Interactions.GetValue(rpcId).(*JsonRpcInteraction)
 
 	if v.Result != nil {
 		return errors.New(jerr.NotUniqueDirective)

@@ -4,7 +4,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
 )
 
-type JsonRpcInteraction struct { //nolint:govet
+type JsonRpcInteraction struct {
 	Id          string         `json:"id"`
 	Protocol    Protocol       `json:"protocol"`
 	PathVal     Path           `json:"path"`
@@ -35,7 +35,7 @@ func (j *JsonRpcInteraction) appendTagName(tn TagName) {
 	j.Tags = append(j.Tags, tn)
 }
 
-func newJsonRpcInteraction(id JsonRpcInteractionId, method string, annotation string) *JsonRpcInteraction {
+func newJsonRpcInteraction(id JsonRpcInteractionId, method, annotation string) *JsonRpcInteraction {
 	j := &JsonRpcInteraction{
 		Id:          id.String(),
 		Protocol:    JsonRpc,

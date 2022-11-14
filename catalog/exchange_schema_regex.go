@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"encoding/json"
+
 	"github.com/jsightapi/jsight-api-go-library/notation"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/notations/regex"

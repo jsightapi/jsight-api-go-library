@@ -13,8 +13,8 @@ type Coords struct {
 	end   bytes.Index
 }
 
-func NewCoords(f *fs.File, b bytes.Index, e bytes.Index) Coords {
-	return Coords{f, b, e}
+func NewCoords(f *fs.File, begin, end bytes.Index) Coords {
+	return Coords{f, begin, end}
 }
 
 func (c Coords) Read() bytes.Bytes {

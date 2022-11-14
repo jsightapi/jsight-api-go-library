@@ -48,7 +48,7 @@ func (core *JApiCore) addDirective(d *directive.Directive) *jerr.JApiError {
 	return f(d)
 }
 
-func (core JApiCore) addJSight(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addJSight(d *directive.Directive) *jerr.JApiError {
 	version := d.NamedParameter("Version")
 	if version == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Version"))
@@ -66,7 +66,7 @@ func (core JApiCore) addJSight(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addInfo(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addInfo(d *directive.Directive) *jerr.JApiError {
 	if d.HasNamedParameter() {
 		return d.KeywordError(jerr.ParametersAreForbiddenForTheDirective)
 	}
@@ -79,7 +79,7 @@ func (core JApiCore) addInfo(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addTitle(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addTitle(d *directive.Directive) *jerr.JApiError {
 	title := d.NamedParameter("Title")
 	if title == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Title"))
@@ -93,7 +93,7 @@ func (core JApiCore) addTitle(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addVersion(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addVersion(d *directive.Directive) *jerr.JApiError {
 	version := d.NamedParameter("Version")
 	if version == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Version"))
@@ -107,7 +107,7 @@ func (core JApiCore) addVersion(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addDescription(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addDescription(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -139,35 +139,35 @@ func (core JApiCore) addDescription(d *directive.Directive) *jerr.JApiError {
 	}
 }
 
-func (core JApiCore) addInfoDescription(d *directive.Directive, description string) *jerr.JApiError {
+func (core *JApiCore) addInfoDescription(d *directive.Directive, description string) *jerr.JApiError {
 	if err := core.catalog.AddDescriptionToInfo(description); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
-func (core JApiCore) addHTTPMethodDescription(d *directive.Directive, description string) *jerr.JApiError {
+func (core *JApiCore) addHTTPMethodDescription(d *directive.Directive, description string) *jerr.JApiError {
 	if err := core.catalog.AddDescriptionToHTTPMethod(*d, description); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
-func (core JApiCore) addJsonRpcMethodDescription(d *directive.Directive, description string) *jerr.JApiError {
+func (core *JApiCore) addJsonRpcMethodDescription(d *directive.Directive, description string) *jerr.JApiError {
 	if err := core.catalog.AddDescriptionToJsonRpcMethod(*d, description); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
-func (core JApiCore) addTagDescription(d *directive.Directive, name, description string) *jerr.JApiError {
+func (core *JApiCore) addTagDescription(d *directive.Directive, name, description string) *jerr.JApiError {
 	if err := core.catalog.AddDescriptionToTag(name, description); err != nil {
 		return d.KeywordError(err.Error())
 	}
 	return nil
 }
 
-func (core JApiCore) addServer(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addServer(d *directive.Directive) *jerr.JApiError {
 	name := d.NamedParameter("Name")
 	if name == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
@@ -178,7 +178,7 @@ func (core JApiCore) addServer(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addBaseUrl(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addBaseUrl(d *directive.Directive) *jerr.JApiError {
 	path := d.NamedParameter("Path")
 	if path == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Path"))
@@ -194,7 +194,7 @@ func (core JApiCore) addBaseUrl(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addType(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addType(d *directive.Directive) *jerr.JApiError {
 	if d.NamedParameter("Name") == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "Name"))
 	}
@@ -267,7 +267,7 @@ func isJsonRpcUrlChildDirective(d *directive.Directive) bool {
 	}
 }
 
-func (core JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
 	path, err := d.Path()
 	if err != nil {
 		return d.KeywordError(err.Error())
@@ -286,7 +286,7 @@ func (core JApiCore) addHTTPMethod(d *directive.Directive) *jerr.JApiError {
 	return core.catalog.AddHTTPMethod(*d)
 }
 
-func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -330,7 +330,7 @@ func (core JApiCore) addQuery(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -400,7 +400,7 @@ func (core JApiCore) addRequest(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
 	schemaNotationParam := d.NamedParameter("SchemaNotation")
 	typeParam := d.NamedParameter("Type")
 
@@ -473,7 +473,7 @@ func (core JApiCore) addResponse(d *directive.Directive) *jerr.JApiError {
 	return je
 }
 
-func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -509,7 +509,7 @@ func (core JApiCore) addHeaders(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addBody(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addBody(d *directive.Directive) *jerr.JApiError {
 	if d.Parent.HasNamedParameter() && d.Parent.Type() != directive.Macro {
 		return d.Parent.KeywordError("parameters are unacceptable, according to the Body directive")
 	}
@@ -524,7 +524,7 @@ func (core JApiCore) addBody(d *directive.Directive) *jerr.JApiError {
 	}
 }
 
-func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 	if d.Annotation != "" {
 		return d.KeywordError(jerr.AnnotationIsForbiddenForTheDirective)
 	}
@@ -545,7 +545,7 @@ func (core JApiCore) addProtocol(d *directive.Directive) *jerr.JApiError {
 	return nil
 }
 
-func (core JApiCore) addJsonRpcMethod(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addJsonRpcMethod(d *directive.Directive) *jerr.JApiError {
 	if d.NamedParameter("MethodName") == "" {
 		return d.KeywordError(fmt.Sprintf("%s (%s)", jerr.RequiredParameterNotSpecified, "MethodName"))
 	}
@@ -566,7 +566,7 @@ func isProtocolExists(d *directive.Directive) bool {
 	return false
 }
 
-func (core JApiCore) addJsonRpcSchema(
+func (core *JApiCore) addJsonRpcSchema(
 	d *directive.Directive,
 	f func(*catalog.ExchangeJSightSchema, directive.Directive) error,
 ) *jerr.JApiError {
@@ -597,10 +597,10 @@ func (core JApiCore) addJsonRpcSchema(
 	return nil
 }
 
-func (core JApiCore) addJsonRpcParams(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addJsonRpcParams(d *directive.Directive) *jerr.JApiError {
 	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcParams)
 }
 
-func (core JApiCore) addJsonRpcResult(d *directive.Directive) *jerr.JApiError {
+func (core *JApiCore) addJsonRpcResult(d *directive.Directive) *jerr.JApiError {
 	return core.addJsonRpcSchema(d, core.catalog.AddJsonRpcResult)
 }
