@@ -1,7 +1,7 @@
 package catalog
 
 import (
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 
 	"testing"
@@ -17,9 +17,9 @@ func TestRegexMarshaller_Marshal(t *testing.T) {
 
 		n, err := s.GetAST()
 		require.NoError(t, err)
-		assert.Equal(t, jschemaLib.ASTNode{
-			TokenType:  jschemaLib.TokenTypeString,
-			SchemaType: jschemaLib.TokenTypeString,
+		assert.Equal(t, schema.ASTNode{
+			TokenType:  schema.TokenTypeString,
+			SchemaType: schema.TokenTypeString,
 			Value:      "/bar-\\d/",
 		}, n)
 

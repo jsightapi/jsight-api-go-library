@@ -4,7 +4,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/notation"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"github.com/jsightapi/jsight-schema-go-library/notations/regex"
 )
@@ -32,7 +32,7 @@ func (core *JApiCore) compileUserTypes() *jerr.JApiError {
 		return err
 	}
 
-	err := core.userTypes.Each(func(k string, _ jschemaLib.Schema) error {
+	err := core.userTypes.Each(func(k string, _ schema.Schema) error {
 		return core.checkUserType(k)
 	})
 	return adoptError(err)
@@ -56,7 +56,7 @@ func (core *JApiCore) buildUserTypes() *jerr.JApiError {
 		}
 	})
 
-	err := core.userTypes.Each(func(n string, _ jschemaLib.Schema) error {
+	err := core.userTypes.Each(func(n string, _ schema.Schema) error {
 		return core.compileUserTypeWithAllDependencies(n)
 	})
 	return adoptError(err)
@@ -120,7 +120,7 @@ func (core *JApiCore) compileUserTypeWithAllDependencies(name string) error {
 	return nil
 }
 
-func (core *JApiCore) checkUserTypeDuringBuild(name string, ut jschemaLib.Schema) error {
+func (core *JApiCore) checkUserTypeDuringBuild(name string, ut schema.Schema) error {
 	// In order to prevent errors in type recursion.
 	if _, ok := core.processedUserTypes[name]; ok {
 		return nil

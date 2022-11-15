@@ -2,11 +2,11 @@ package catalog
 
 import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 )
 
 type Prop struct {
 	Parameter string
-	ASTNode   jschemaLib.ASTNode
+	ASTNode   schema.ASTNode
 	Directive directive.Directive
 }

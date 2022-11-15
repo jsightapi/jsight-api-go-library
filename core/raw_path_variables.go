@@ -6,7 +6,7 @@ import (
 )
 
 type rawPathVariable struct {
-	schema          *jschema.Schema
+	schema          *jschema.JSchema
 	parameters      []PathParameter
 	pathDirective   directive.Directive // to detect and display an error
 	parentDirective directive.Directive

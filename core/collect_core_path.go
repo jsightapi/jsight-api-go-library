@@ -3,7 +3,6 @@ package core
 import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
 func (core *JApiCore) collectPaths(dd []*directive.Directive) *jerr.JApiError {
@@ -36,7 +35,7 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 		return d.KeywordError("there is no body for the Path directive")
 	}
 
-	s, err := jschema.NewRawPathVariablesSchema(d.BodyCoords.Read(), core.UserTypesData())
+	s, err := newPathVariablesSchema(d.BodyCoords.Read(), core.UserTypesData())
 	if err != nil {
 		return d.KeywordError(err.Error())
 	}
@@ -67,7 +66,7 @@ func (core *JApiCore) collectPathVariables(d *directive.Directive) *jerr.JApiErr
 	core.rawPathVariables = append(core.rawPathVariables, rawPathVariable{
 		pathDirective:   *d,
 		parentDirective: parentDirective,
-		schema:          s,
+		schema:          s.JSchema,
 		parameters:      pp,
 	})
 

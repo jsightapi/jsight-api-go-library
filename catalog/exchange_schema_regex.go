@@ -9,7 +9,7 @@ import (
 )
 
 type ExchangeRegexSchema struct {
-	*regex.Schema
+	*regex.RSchema
 }
 
 func (e ExchangeRegexSchema) MarshalJSON() ([]byte, error) {
@@ -44,5 +44,5 @@ func PrepareRegexSchema(name string, regexStr bytes.Bytes) (*ExchangeRegexSchema
 
 	s := regex.New(name, regexStr, oo...)
 
-	return &ExchangeRegexSchema{Schema: s}, nil
+	return &ExchangeRegexSchema{RSchema: s}, nil
 }

@@ -1,10 +1,10 @@
 package catalog
 
 import (
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 )
 
 type ExchangeSchema interface {
-	jschemaLib.Schema
+	schema.Schema
 	MarshalJSON() ([]byte, error)
 }

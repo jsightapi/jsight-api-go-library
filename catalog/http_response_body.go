@@ -3,7 +3,7 @@ package catalog
 import (
 	"errors"
 
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
 
@@ -24,7 +24,7 @@ func NewHTTPResponseBody(
 	sn notation.SchemaNotation,
 	d directive.Directive,
 	tt *UserSchemas,
-	rr map[string]jschemaLib.Rule,
+	rr map[string]schema.Rule,
 	catalogUserTypes *UserTypes,
 ) (HTTPResponseBody, *jerr.JApiError) {
 	body := HTTPResponseBody{

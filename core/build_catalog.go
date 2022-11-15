@@ -1,13 +1,13 @@
 package core
 
 import (
-	"errors"
+	stdErrors "errors"
 	"fmt"
 
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
-	jerrors "github.com/jsightapi/jsight-schema-go-library/errors"
+	schema "github.com/jsightapi/jsight-schema-go-library"
+	"github.com/jsightapi/jsight-schema-go-library/errors"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
 )
 
@@ -24,17 +24,17 @@ func adoptError(err error) (e *jerr.JApiError) {
 		return nil
 	}
 
-	if errors.As(err, &e) {
+	if stdErrors.As(err, &e) {
 		return e
 	}
 
 	panic(fmt.Sprintf("Invalid error was given: %#v", err))
 }
 
-func safeAddType(curr jschemaLib.Schema, n string, ut jschemaLib.Schema) error {
+func safeAddType(curr schema.Schema, n string, ut schema.Schema) error {
 	err := curr.AddType(n, ut)
-	var e interface{ Code() jerrors.ErrorCode }
-	if errors.As(err, &e) && e.Code() == jerrors.ErrDuplicationOfNameOfTypes {
+	var e interface{ Code() errors.ErrorCode }
+	if stdErrors.As(err, &e) && e.Code() == errors.ErrDuplicationOfNameOfTypes {
 		err = nil
 	}
 	return err
@@ -48,7 +48,7 @@ func (core *JApiCore) checkUserType(name string) *jerr.JApiError {
 
 	d := core.rawUserTypes.GetValue(name)
 	var e kit.Error
-	if !errors.As(err, &e) {
+	if !stdErrors.As(err, &e) {
 		return d.KeywordError(err.Error())
 	}
 
@@ -61,7 +61,7 @@ func (core *JApiCore) checkUserType(name string) *jerr.JApiError {
 
 func jschemaToJAPIError(err error, d *directive.Directive) *jerr.JApiError {
 	var e kit.Error
-	if errors.As(err, &e) {
+	if stdErrors.As(err, &e) {
 		return d.BodyErrorIndex(e.Message(), e.Position())
 	}
 	return d.KeywordError(err.Error())

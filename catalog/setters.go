@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/kit"
 	"github.com/jsightapi/jsight-schema-go-library/rules/enum"
@@ -316,7 +316,7 @@ func (c *Catalog) AddResponseBody(
 	sn notation.SchemaNotation,
 	d directive.Directive,
 	tt *UserSchemas,
-	rr map[string]jschemaLib.Rule,
+	rr map[string]schema.Rule,
 ) *jerr.JApiError {
 	httpID, err := newHTTPInteractionID(d)
 	if err != nil {
@@ -408,7 +408,7 @@ func (c *Catalog) AddBaseURL(serverName, path string) error {
 func (c *Catalog) AddType(
 	d directive.Directive,
 	tt *UserSchemas,
-	rr map[string]jschemaLib.Rule,
+	rr map[string]schema.Rule,
 ) *jerr.JApiError {
 	name := d.NamedParameter("Name")
 

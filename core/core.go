@@ -5,7 +5,7 @@ import (
 	"github.com/jsightapi/jsight-api-go-library/directive"
 	"github.com/jsightapi/jsight-api-go-library/jerr"
 	"github.com/jsightapi/jsight-api-go-library/scanner"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/fs"
 )
 
@@ -40,7 +40,7 @@ type JApiCore struct {
 	bannedDirectives map[directive.Enumeration]struct{}
 
 	// rules all defined rules.
-	rules map[string]jschemaLib.Rule
+	rules map[string]schema.Rule
 
 	// representation of Api data.
 	catalog *catalog.Catalog
@@ -118,7 +118,7 @@ func NewJApiCore(file *fs.File, oo ...Option) *JApiCore {
 		piecesOfPathVariables:  make(map[PathParameter]PieceOfPathVariable, 20),
 		macro:                  make(map[string]*directive.Directive, 20),
 		scannersStack:          &scanner.Stack{},
-		rules:                  map[string]jschemaLib.Rule{},
+		rules:                  map[string]schema.Rule{},
 	}
 	core.directiveFunctions = map[directive.Enumeration]func(*directive.Directive) *jerr.JApiError{
 		directive.Jsight:           core.addJSight,

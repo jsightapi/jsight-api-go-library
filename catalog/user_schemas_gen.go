@@ -9,13 +9,13 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 )
 
 // Set sets a value with specified key.
-func (m *UserSchemas) Set(k string, v jschema.Schema) {
+func (m *UserSchemas) Set(k string, v schema.Schema) {
 	if m.data == nil {
-		m.data = map[string]jschema.Schema{}
+		m.data = map[string]schema.Schema{}
 	}
 	if !m.Has(k) {
 		m.order = append(m.order, k)
@@ -24,7 +24,7 @@ func (m *UserSchemas) Set(k string, v jschema.Schema) {
 }
 
 // Update updates a value with specified key.
-func (m *UserSchemas) Update(k string, fn func(v jschema.Schema) jschema.Schema) {
+func (m *UserSchemas) Update(k string, fn func(v schema.Schema) schema.Schema) {
 	if !m.Has(k) {
 		// Prevent from possible nil pointer dereference if map value type is a
 		// pointer.
@@ -35,12 +35,12 @@ func (m *UserSchemas) Update(k string, fn func(v jschema.Schema) jschema.Schema)
 }
 
 // GetValue gets a value by key.
-func (m *UserSchemas) GetValue(k string) jschema.Schema {
+func (m *UserSchemas) GetValue(k string) schema.Schema {
 	return m.data[k]
 }
 
 // Get gets a value by key.
-func (m *UserSchemas) Get(k string) (jschema.Schema, bool) {
+func (m *UserSchemas) Get(k string) (schema.Schema, bool) {
 	v, ok := m.data[k]
 	return v, ok
 }
@@ -66,7 +66,7 @@ func (m *UserSchemas) Each(fn eachUserSchemasFunc) error {
 	return nil
 }
 
-type eachUserSchemasFunc = func(k string, v jschema.Schema) error
+type eachUserSchemasFunc = func(k string, v schema.Schema) error
 
 func (m *UserSchemas) EachSafe(fn eachSafeUserSchemasFunc) {
 	for _, k := range m.order {
@@ -74,7 +74,7 @@ func (m *UserSchemas) EachSafe(fn eachSafeUserSchemasFunc) {
 	}
 }
 
-type eachSafeUserSchemasFunc = func(k string, v jschema.Schema)
+type eachSafeUserSchemasFunc = func(k string, v schema.Schema)
 
 // Map iterates and changes values in the map.
 func (m *UserSchemas) Map(fn mapUserSchemasFunc) error {
@@ -88,12 +88,12 @@ func (m *UserSchemas) Map(fn mapUserSchemasFunc) error {
 	return nil
 }
 
-type mapUserSchemasFunc = func(k string, v jschema.Schema) (jschema.Schema, error)
+type mapUserSchemasFunc = func(k string, v schema.Schema) (schema.Schema, error)
 
 // UserSchemasItem represent single data from the UserSchemas.
 type UserSchemasItem struct {
 	Key   string
-	Value jschema.Schema
+	Value schema.Schema
 }
 
 var _ json.Marshaler = &UserSchemas{}

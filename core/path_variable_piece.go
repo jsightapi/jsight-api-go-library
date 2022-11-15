@@ -1,10 +1,10 @@
 package core
 
 import (
-	innerSchema "github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/ischema"
 )
 
 type PieceOfPathVariable struct {
-	node  innerSchema.Node
-	types map[string]innerSchema.Type
+	node  ischema.Node
+	types map[string]ischema.Type
 }

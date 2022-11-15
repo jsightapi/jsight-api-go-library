@@ -3,7 +3,7 @@ package catalog
 import (
 	"testing"
 
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -28,7 +28,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 
 			"without allOf": {
 				&ExchangeContent{
-					TokenType: jschemaLib.TokenTypeObject,
+					TokenType: schema.TokenTypeObject,
 					Children:  []*ExchangeContent{},
 				},
 				&UserTypes{},
@@ -40,7 +40,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 
 			// "with allOf, single": {
 			// 	&ExchangeContent{
-			// 		TokenType: jschemaLib.TokenTypeObject,
+			// 		TokenType: schema.TokenTypeObject,
 			// 		Children:  []*ExchangeContent{},
 			// 		Rules: NewRules(
 			// 			[]Rule{
@@ -57,7 +57,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 			// 		ut.Set("@foo", &UserType{
 			// 			Schema: &ExchangeJSightSchema{
 			// 				ExchangeContent: &ExchangeContent{
-			// 					TokenType: jschemaLib.TokenTypeObject,
+			// 					TokenType: schema.TokenTypeObject,
 			// 					Children: []*ExchangeContent{
 			// 						{Key: StrPtr("foo")},
 			// 						{Key: StrPtr("bar")},
@@ -82,7 +82,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 
 			// "with allOf, array": {
 			// 	&ExchangeContent{
-			// 		TokenType: jschemaLib.TokenTypeObject,
+			// 		TokenType: schema.TokenTypeObject,
 			// 		Children:  []*ExchangeContent{},
 			// 		Rules: NewRules(
 			// 			[]Rule{
@@ -108,7 +108,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 			// 		ut.Set("@foo", &UserType{
 			// 			Schema: &ExchangeJSightSchema{
 			// 				ExchangeContent: &ExchangeContent{
-			// 					TokenType: jschemaLib.TokenTypeObject,
+			// 					TokenType: schema.TokenTypeObject,
 			// 					Children: []*ExchangeContent{
 			// 						{Key: StrPtr("foo1")},
 			// 						{Key: StrPtr("foo2")},
@@ -119,7 +119,7 @@ func TestExchangeContent_processAllOf(t *testing.T) {
 			// 		ut.Set("@bar", &UserType{
 			// 			Schema: &ExchangeJSightSchema{
 			// 				ExchangeContent: &ExchangeContent{
-			// 					TokenType: jschemaLib.TokenTypeObject,
+			// 					TokenType: schema.TokenTypeObject,
 			// 					Children: []*ExchangeContent{
 			// 						{Key: StrPtr("bar1")},
 			// 						{Key: StrPtr("bar2")},

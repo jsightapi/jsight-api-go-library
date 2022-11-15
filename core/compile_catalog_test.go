@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/ischema"
 
 	"strings"
 	"testing"
@@ -11,21 +11,21 @@ import (
 
 func TestCore_getPropertiesNames(t *testing.T) {
 	cc := map[string]struct {
-		given    map[string]schema.Node
+		given    map[string]ischema.Node
 		expected string
 	}{
 		"nil": {},
 
 		"empty": {
-			given: map[string]schema.Node{},
+			given: map[string]ischema.Node{},
 		},
 
 		"with data": {
-			given: map[string]schema.Node{
-				"foo":  &schema.LiteralNode{},
-				"bar":  &schema.LiteralNode{},
-				"fizz": &schema.LiteralNode{},
-				"buzz": &schema.LiteralNode{},
+			given: map[string]ischema.Node{
+				"foo":  &ischema.LiteralNode{},
+				"bar":  &ischema.LiteralNode{},
+				"fizz": &ischema.LiteralNode{},
+				"buzz": &ischema.LiteralNode{},
 			},
 			expected: "foo, bar, fizz, buzz",
 		},

@@ -1,23 +1,22 @@
 package catalog
 
 import (
-	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
-	innerSchema "github.com/jsightapi/jsight-schema-go-library/notations/jschema/schema"
+	"github.com/jsightapi/jsight-schema-go-library/notations/jschema/ischema"
 )
 
 type PathVariablesBuilder struct {
 	catalogUserTypes *UserTypes
-	objectBuilder    jschema.ObjectBuilder
+	objectBuilder    ObjectBuilder
 }
 
 func NewPathVariablesBuilder(catalogUserTypes *UserTypes) PathVariablesBuilder {
 	return PathVariablesBuilder{
 		catalogUserTypes: catalogUserTypes,
-		objectBuilder:    jschema.NewObjectBuilder(),
+		objectBuilder:    NewObjectBuilder(),
 	}
 }
 
-func (b PathVariablesBuilder) AddProperty(key string, node innerSchema.Node, types map[string]innerSchema.Type) {
+func (b PathVariablesBuilder) AddProperty(key string, node ischema.Node, types map[string]ischema.Type) {
 	b.objectBuilder.AddProperty(key, node, types)
 }
 
@@ -30,7 +29,7 @@ func (b PathVariablesBuilder) Build() *PathVariables {
 	for _, name := range uutNames {
 		if ut, ok := b.catalogUserTypes.Get(name); ok {
 			if es, ok := ut.Schema.(*ExchangeJSightSchema); ok {
-				b.objectBuilder.AddType(name, es.Schema)
+				b.objectBuilder.AddType(name, es.JSchema)
 			}
 		}
 	}

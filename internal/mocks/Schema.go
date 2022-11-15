@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	jschema "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -12,13 +12,13 @@ type Schema struct {
 	mock.Mock
 }
 
-// AddRule provides a mock function with given fields: name, schema
-func (_m *Schema) AddRule(name string, schema jschema.Rule) error {
-	ret := _m.Called(name, schema)
+// AddRule provides a mock function with given fields: name, _a1
+func (_m *Schema) AddRule(name string, _a1 schema.Rule) error {
+	ret := _m.Called(name, _a1)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(string, jschema.Rule) error); ok {
-		r0 = rf(name, schema)
+	if rf, ok := ret.Get(0).(func(string, schema.Rule) error); ok {
+		r0 = rf(name, _a1)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -26,13 +26,13 @@ func (_m *Schema) AddRule(name string, schema jschema.Rule) error {
 	return r0
 }
 
-// AddType provides a mock function with given fields: name, schema
-func (_m *Schema) AddType(name string, schema jschema.Schema) error {
-	ret := _m.Called(name, schema)
+// AddType provides a mock function with given fields: name, _a1
+func (_m *Schema) AddType(name string, _a1 schema.Schema) error {
+	ret := _m.Called(name, _a1)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(string, jschema.Schema) error); ok {
-		r0 = rf(name, schema)
+	if rf, ok := ret.Get(0).(func(string, schema.Schema) error); ok {
+		r0 = rf(name, _a1)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -78,14 +78,14 @@ func (_m *Schema) Example() ([]byte, error) {
 }
 
 // GetAST provides a mock function with given fields:
-func (_m *Schema) GetAST() (jschema.ASTNode, error) {
+func (_m *Schema) GetAST() (schema.ASTNode, error) {
 	ret := _m.Called()
 
-	var r0 jschema.ASTNode
-	if rf, ok := ret.Get(0).(func() jschema.ASTNode); ok {
+	var r0 schema.ASTNode
+	if rf, ok := ret.Get(0).(func() schema.ASTNode); ok {
 		r0 = rf()
 	} else {
-		r0 = ret.Get(0).(jschema.ASTNode)
+		r0 = ret.Get(0).(schema.ASTNode)
 	}
 
 	var r1 error
@@ -140,20 +140,6 @@ func (_m *Schema) UsedUserTypes() ([]string, error) {
 	}
 
 	return r0, r1
-}
-
-// Validate provides a mock function with given fields: _a0
-func (_m *Schema) Validate(_a0 jschema.Document) error {
-	ret := _m.Called(_a0)
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func(jschema.Document) error); ok {
-		r0 = rf(_a0)
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
 }
 
 type NewSchemaT interface {

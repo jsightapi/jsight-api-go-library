@@ -5,11 +5,11 @@ import (
 	"fmt"
 
 	"github.com/jsightapi/jsight-api-go-library/notation"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 )
 
 type ExchangePseudoSchema struct {
-	jschemaLib.Schema
+	schema.Schema
 	Notation notation.SchemaNotation
 }
 

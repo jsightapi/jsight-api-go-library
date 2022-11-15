@@ -5,13 +5,13 @@ import (
 	"sync"
 
 	"github.com/jsightapi/jsight-api-go-library/notation"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 )
 
 type ExchangeJSightSchema struct {
-	*jschema.Schema
+	*jschema.JSchema
 
 	onceCompile            sync.Once
 	catalogUserTypes       *UserTypes
@@ -25,9 +25,9 @@ type ExchangeJSightSchema struct {
 	exchangeUsedUserEnums *StringSet
 }
 
-func newExchangeJSightSchema(s *jschema.Schema) *ExchangeJSightSchema {
+func newExchangeJSightSchema(s *jschema.JSchema) *ExchangeJSightSchema {
 	return &ExchangeJSightSchema{
-		Schema:                s,
+		JSchema:               s,
 		exchangeContent:       nil,
 		exchangeUsedUserTypes: &StringSet{},
 		exchangeUsedUserEnums: &StringSet{},
@@ -38,11 +38,11 @@ func NewExchangeJSightSchema[T bytes.Byter](
 	name string,
 	b T,
 	coreUserTypes *UserSchemas,
-	coreRules map[string]jschemaLib.Rule,
+	coreRules map[string]schema.Rule,
 	catalogUserTypes *UserTypes,
 ) (*ExchangeJSightSchema, error) {
 	if s, ok := coreUserTypes.Get(name); ok {
-		if ss, ok := s.(*jschema.Schema); ok {
+		if ss, ok := s.(*jschema.JSchema); ok {
 			es := newExchangeJSightSchema(ss)
 			es.catalogUserTypes = catalogUserTypes
 			return es, nil
@@ -53,19 +53,19 @@ func NewExchangeJSightSchema[T bytes.Byter](
 	es.catalogUserTypes = catalogUserTypes
 
 	for n, v := range coreRules {
-		if err := es.Schema.AddRule(n, v); err != nil {
+		if err := es.JSchema.AddRule(n, v); err != nil {
 			return nil, err
 		}
 	}
 
-	err := coreUserTypes.Each(func(k string, v jschemaLib.Schema) error {
-		return es.Schema.AddType(k, v)
+	err := coreUserTypes.Each(func(k string, v schema.Schema) error {
+		return es.JSchema.AddType(k, v)
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	err = es.Build()
+	err = es.JSchema.Compile()
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (e *ExchangeJSightSchema) Compile() (err error) {
 }
 
 func (e *ExchangeJSightSchema) buildContent() error {
-	n, err := e.Schema.GetAST()
+	n, err := e.JSchema.GetAST()
 	if err != nil {
 		return err
 	}
@@ -103,7 +103,7 @@ func (e *ExchangeJSightSchema) processAllOf(uut *StringSet) error {
 
 func (e *ExchangeJSightSchema) Example() ([]byte, error) {
 	// TODO once
-	return e.Schema.Example()
+	return e.JSchema.Example()
 }
 
 func (e *ExchangeJSightSchema) MarshalJSON() ([]byte, error) {

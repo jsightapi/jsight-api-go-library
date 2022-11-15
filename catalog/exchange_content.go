@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/jsightapi/jsight-api-go-library/jerr"
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 	"github.com/jsightapi/jsight-schema-go-library/bytes"
 )
 
@@ -49,7 +49,7 @@ type ExchangeContent struct {
 var _ json.Marshaler = &ExchangeContent{}
 
 func (c *ExchangeContent) processAllOf(uut *StringSet, catalogUserTypes *UserTypes) error {
-	if c.TokenType != jschemaLib.TokenTypeObject {
+	if c.TokenType != schema.TokenTypeObject {
 		return nil
 	}
 
@@ -100,7 +100,7 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 		return err
 	}
 
-	if uts.exchangeContent.TokenType != jschemaLib.TokenTypeObject {
+	if uts.exchangeContent.TokenType != schema.TokenTypeObject {
 		return fmt.Errorf(`the user type %q is not an object`, userTypeName)
 	}
 
@@ -139,7 +139,7 @@ func (c *ExchangeContent) inheritPropertiesFromUserType(
 }
 
 func (c *ExchangeContent) ToUsedUserTypes(uut *StringSet) {
-	if c.TokenType == jschemaLib.TokenTypeShortcut {
+	if c.TokenType == schema.TokenTypeShortcut {
 		if c.Type == "mixed" {
 			for _, ut := range strings.Split(c.ScalarValue, "|") {
 				s := strings.TrimSpace(ut)
@@ -172,7 +172,7 @@ func (c *ExchangeContent) Unshift(v *ExchangeContent) {
 
 func (c *ExchangeContent) MarshalJSON() (b []byte, err error) {
 	switch c.TokenType {
-	case jschemaLib.TokenTypeObject, jschemaLib.TokenTypeArray:
+	case schema.TokenTypeObject, schema.TokenTypeArray:
 		b, err = c.marshalJSONObjectOrArray()
 
 	default:
@@ -242,7 +242,7 @@ func (c *ExchangeContent) marshalJSONLiteral() ([]byte, error) {
 }
 
 func astNodeToJsightContent(
-	node jschemaLib.ASTNode,
+	node schema.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) *ExchangeContent {
 	rules := collectJSightContentRules(node, usedUserTypes)
@@ -273,29 +273,29 @@ func astNodeToJsightContent(
 	}
 
 	switch node.TokenType {
-	case jschemaLib.TokenTypeObject:
+	case schema.TokenTypeObject:
 		c.collectJSightContentObjectProperties(node, usedUserTypes, usedUserEnums)
-	case jschemaLib.TokenTypeArray:
+	case schema.TokenTypeArray:
 		c.collectJSightContentArrayItems(node, usedUserTypes, usedUserEnums)
 	}
 
 	return c
 }
 
-func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet) *Rules {
+func collectJSightContentRules(node schema.ASTNode, usedUserTypes *StringSet) *Rules {
 	if node.Rules.Len() == 0 {
 		return &Rules{}
 	}
 
 	rr := newRulesBuilder(node.Rules.Len())
 
-	node.Rules.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
+	node.Rules.EachSafe(func(k string, v schema.RuleASTNode) {
 		switch k {
 		case "type":
 			if v.Value[0] == '@' {
 				usedUserTypes.Add(v.Value)
 			}
-			if v.Source == jschemaLib.RuleASTNodeSourceGenerated {
+			if v.Source == schema.RuleASTNodeSourceGenerated {
 				return
 			}
 
@@ -334,7 +334,7 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 				usedUserTypes.Add(userType)
 			}
 
-			if v.Source == jschemaLib.RuleASTNodeSourceGenerated {
+			if v.Source == schema.RuleASTNodeSourceGenerated {
 				return
 			}
 		}
@@ -345,7 +345,7 @@ func collectJSightContentRules(node jschemaLib.ASTNode, usedUserTypes *StringSet
 }
 
 func (c *ExchangeContent) collectJSightContentObjectProperties(
-	node jschemaLib.ASTNode,
+	node schema.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
 	if len(node.Children) > 0 {
@@ -366,7 +366,7 @@ func (c *ExchangeContent) collectJSightContentObjectProperties(
 }
 
 func (c *ExchangeContent) collectJSightContentArrayItems(
-	node jschemaLib.ASTNode,
+	node schema.ASTNode,
 	usedUserTypes, usedUserEnums *StringSet,
 ) {
 	if len(node.Children) > 0 {
@@ -381,11 +381,11 @@ func (c *ExchangeContent) collectJSightContentArrayItems(
 	}
 }
 
-func astNodeToSchemaRule(node jschemaLib.RuleASTNode) Rule {
+func astNodeToSchemaRule(node schema.RuleASTNode) Rule {
 	rr := newRulesBuilder(node.Properties.Len() + len(node.Items))
 
 	if node.Properties.Len() != 0 {
-		node.Properties.EachSafe(func(k string, v jschemaLib.RuleASTNode) {
+		node.Properties.EachSafe(func(k string, v schema.RuleASTNode) {
 			rr.Set(k, astNodeToSchemaRule(v))
 		})
 	}

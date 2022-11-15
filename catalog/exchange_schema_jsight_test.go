@@ -3,7 +3,7 @@ package catalog
 import (
 	"testing"
 
-	jschemaLib "github.com/jsightapi/jsight-schema-go-library"
+	schema "github.com/jsightapi/jsight-schema-go-library"
 
 	"github.com/jsightapi/jsight-schema-go-library/notations/jschema"
 	"github.com/stretchr/testify/assert"
@@ -598,11 +598,11 @@ func TestNewExchangeJSightSchema(t *testing.T) {
 					tt.Set(n, s)
 					cut.Set(n, &UserType{
 						Schema: &ExchangeJSightSchema{
-							Schema: s,
+							JSchema: s,
 						},
 					})
 				}
-				rr := make(map[string]jschemaLib.Rule)
+				rr := make(map[string]schema.Rule)
 
 				es, err := NewExchangeJSightSchema("", []byte(c.project), tt, rr, cut)
 				require.NoError(t, err)
